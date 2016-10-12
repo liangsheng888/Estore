@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+
+    >
+    <RelativeLayout
+        android:background="#aa000000"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_project_detail_back"
+            android:src="@drawable/left"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="#0099cc"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="物品信息"
+            android:textStyle="bold"
+            android:textSize="26sp"/>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_show_photo"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </android.support.v4.view.ViewPager>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/iv_quan1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/point_red" />
+
+            <ImageView
+                android:id="@+id/iv_quan2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+
+                android:src="@drawable/point_gray" />
+
+            <ImageView
+                android:id="@+id/iv_quan3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/point_gray" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_product_detail"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通过观察、参观、访问、阅读说明书等方式，尽可能多地了解这种物品，然后再想一想"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="not any content"/>
+
+    <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="二手价："
+                android:textSize="20sp"
+                android:textColor="#f00"/>
+            <TextView
+                android:id="@+id/tv_project_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50.0"
+                android:textSize="28sp"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="#0f0"
+                android:textSize="30sp"/>
+
+        </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_weight="2"
+            android:id="@+id/btn_touch_seller"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="联系卖家"/>
+        <CheckBox
+            android:layout_weight="1"
+            android:id="@+id/cb_guanzhu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:drawableLeft="@drawable/guanzhu_selector"
+            android:button="@null" />
+        <Button
+            android:layout_weight="2"
+            android:id="@+id/btn_addcart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="加入购物车"/>
+        <Button
+            android:id="@+id/btn_buy_now"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="立即购买"/>
+    </LinearLayout>
+
+</LinearLayout>

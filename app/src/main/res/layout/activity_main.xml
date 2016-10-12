@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.estore.activity.MainActivity">
+
+    <ListView
+        android:id="@+id/lv_slidMenu"
+        android:layout_gravity="left"
+        android:layout_width="200dp"
+        android:background="#fff"
+        android:layout_height="match_parent">
+
+    </ListView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/struct"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#ff0"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            ></View>
+
+        <FrameLayout
+            android:id="@+id/fl_main"
+            android:background="#fff"
+            android:layout_toRightOf="@id/struct"
+            android:layout_alignBottom="@id/struct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+        <RadioGroup
+            android:id="@+id/rg_bottom_driection"
+
+            android:layout_below="@id/fl_main"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="60dp">
+            >
+            <RadioButton
+                android:id="@+id/rb_home"
+                style="@style/main_rb_driection"
+                android:drawableTop="@drawable/home_rb_selector"
+
+                android:text="首页"
+                />
+            <RadioButton
+                android:id="@+id/rb_old"
+                style="@style/main_rb_driection"
+                android:drawableTop="@drawable/old_selector"
+
+                android:text="二货"/>
+            <RadioButton
+                android:id="@+id/rb_fabu"
+                style="@style/main_rb_driection"
+                android:drawableTop="@drawable/add_selector"
+                android:text="发布"/>
+            <RadioButton
+                android:id="@+id/rb_cat"
+                style="@style/main_rb_driection"
+                android:drawableTop="@drawable/cat_selector"
+
+                android:text="购物车"/>
+            <RadioButton
+                android:id="@+id/rb_mine"
+                style="@style/main_rb_driection"
+                android:drawableTop="@drawable/mine_selector"
+
+                android:text="我的"/>
+
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>

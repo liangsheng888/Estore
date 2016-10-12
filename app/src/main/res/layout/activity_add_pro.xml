@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e8f4f9"
+
+    android:orientation="vertical"
+    tools:context="com.estore.activity.AddProActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#606263"
+        android:gravity="center"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="发布商品"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/dikang_bg"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="商品名称:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/et_proName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+
+            android:layout_marginRight="5dp"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dikang_bg"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_choicephoto"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/add"
+            android:text="选择图片" />
+
+        <!--<ImageView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/iv_showPhoto"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />-->
+        <GridView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/gv_showPhoto"
+            android:numColumns="3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/dikang_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品数量:"
+            android:textSize="20dp" />
+
+
+
+        <EditText
+            android:id="@+id/et_pronum"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:ems="2"
+
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/iv_addOne"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:src="@drawable/pro_add" />
+
+        <ImageView
+            android:id="@+id/iv_subOne"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:src="@drawable/jian" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/dikang_bg"
+
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品价格:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/et_proPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+
+            android:inputType="number"
+            android:ems="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="¥"
+            android:textSize="26dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/dikang_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品描述:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/et_proDescription"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="描述下你的宝贝"
+            android:layout_marginRight="5dp"
+            android:maxLength="200" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/dikang_bg"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="商品类型:"/>
+
+        <Spinner
+            android:id="@+id/sp_category"
+            android:layout_width="match_parent"
+            android:popupBackground="#e5f7f7"
+            android:layout_height="40dp"
+            android:entries="@array/category"></Spinner>
+
+
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/dikang_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卖家地址:"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/sp_proAddress"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:popupBackground="#e5f7f7"
+
+            android:entries="@array/city"></Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/dikang_bg"
+        android:layout_marginTop="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="发布到高校:"/>
+        <RadioGroup
+            android:id="@+id/rg_isSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp">
+            <RadioButton
+                android:id="@+id/rb_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="否"
+                android:checked="true"
+                android:layout_weight="1"/>
+            <RadioButton
+                android:id="@+id/rb_yes"
+                android:layout_width="0dp"
+                android:layout_marginLeft="50dp"
+                android:layout_height="wrap_content"
+                android:text="是"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_school_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/dikang_bg"
+        >
+    <Button
+        android:id="@+id/btn_add_pro"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/corners_bg"
+        android:gravity="center"
+        android:text="发布"
+        android:textSize="26dp" />
+    </LinearLayout>
+</LinearLayout>
+
+

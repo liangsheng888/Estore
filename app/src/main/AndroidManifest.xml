@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.estore.activity">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".myappliction.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/erhuo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ListViewActivity" />
+        <activity android:name=".ViewPagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".SchoolActivity" />
+        <activity android:name=".SameCityActivity" />
+        <activity android:name=".AddProActivity" >
+
+        </activity>
+        <activity android:name=".AuctionActivity" />
+        <activity android:name=".SellActivity" />
+        <activity android:name=".ProductInfoActivity" />
+        <activity android:name=".MyPullToRefreshListView">
+
+        </activity>
+    </application>
+
+</manifest>
