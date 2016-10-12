@@ -2,33 +2,26 @@ package com.estore.activity;
 
 
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 
 
 import com.estore.fragment.FragmentCar;
 import com.estore.fragment.FragmentHome;
-import com.estore.fragment.FragmentMine;
-import com.estore.fragment.FragmentOld;
+import com.estore.fragment.MyHomePageFragment;
+import com.estore.fragment.EhFragment;
 import com.estore.pojo.Product;
 import com.google.gson.Gson;
 
@@ -135,13 +128,13 @@ public class MainActivity extends Activity {
                         break;
                     case R.id.rb_old:
                         if (fr_add == null)
-                            fr_add = new FragmentOld();
+                            fr_add = new EhFragment();
                         fr_now = fr_add;
                         changeFragment(fr_now);
                         break;
                     case R.id.rb_mine:
                         if (fr_mine == null)
-                            fr_mine = new FragmentMine();
+                            fr_mine = new MyHomePageFragment();
                         fr_now = fr_mine;
                         changeFragment(fr_now);
                         break;

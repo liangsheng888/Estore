@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.estore.fragment.EhFragment">
+
+    <TextView
+        android:id="@+id/tv_eh_tab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="二 货"
+        android:textSize="28sp"
+        android:gravity="center"
+        android:background="#faf2a2"
+        />
+
+    <RadioGroup
+        android:id="@+id/rg_eh_tab"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_samecity"
+            style="@style/eh_radiobutoon"
+            android:text="同城"/>
+        <RadioButton
+            android:id="@+id/rb_schools"
+            style="@style/eh_radiobutoon"
+            android:text="高校"/>
+    </RadioGroup>
+
+    <FrameLayout
+        android:layout_marginTop="140dp"
+        android:id="@+id/fl_eh_tab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+</FrameLayout>

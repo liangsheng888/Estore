@@ -11,14 +11,6 @@ public class Product implements Serializable {
    public int status;
     public ArrayList<Products> list;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "status=" + status +
-                ", list=" + list +
-                '}';
-    }
-
     public static class Products implements Serializable{
         public int id;
         public String name;
@@ -31,6 +23,8 @@ public class Product implements Serializable {
         public String proaddress;
         public String schoolname;
         public int prowhere;
+        public String cityaddress;
+        public String schooladdress;
 
 
         @Override
@@ -44,9 +38,19 @@ public class Product implements Serializable {
                     ", pnum=" + pnum +
                     ", imgurl='" + imgurl + '\'' +
                     ", description='" + description + '\'' +
+                    ", cityaddress='" + cityaddress + '\'' +
+                    ", schoolname='" + schooladdress + '\'' +
                     '}';
         }
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "status=" + status +
+                ", list=" + list +
+                '}';
     }
+}
     
 

@@ -30,6 +30,9 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
     private ArrayList<Product.Products> lists=new ArrayList<>();
     Product pro;
 
+    // TODO 自动生成的构造函数存根
+
+
     //private PullToRefreshListView mPullRefreshListView;
     private PullToRefreshGridView mPullRefreshListView;
     private BaseAdapter mAdapter;
@@ -81,14 +84,14 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
                 Log.e("TAG",page+"");
                 Gson gson=new Gson();
                 Product pro=gson.fromJson(result,Product.class);
-                    for(Product.Products pp:pro.list){
-                        lists.add(pp);
-                    }
+                for(Product.Products pp:pro.list){
+                    lists.add(pp);
+                }
 
                 publishProgress(lists);
 
                 Log.e("TAG",pro.toString());
-                 // mListItems.addAll(pro.list);
+                // mListItems.addAll(pro.list);
                 Log.e("TAG",pro.list.toString());
 
                 Log.e("TAG",lists+"lll");
@@ -97,7 +100,7 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
 
-              //  Toast.makeText(getApplicationContext.this,"网络超时，请重新登录",Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplicationContext.this,"网络超时，请重新登录",Toast.LENGTH_SHORT).show();
                 page=page-1;
                 Log.e("TAG",page+"");
             }
@@ -118,7 +121,7 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
             }
         });
 
-       return null;
+        return null;
     }
 
     @Override

@@ -24,6 +24,15 @@
         <item name="android:paddingLeft">28dp</item>
         <item name="android:button">@drawable/qq_btn_check</item>
     </style>
+    <style name="eh_radiobutoon" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/samecity_schools_selector</item>
+        <item name="android:textSize">28dp</item>
+    </style>
 
 
 </resources>
