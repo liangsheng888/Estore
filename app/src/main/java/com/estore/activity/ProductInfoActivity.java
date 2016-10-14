@@ -10,13 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
-
 import org.xutils.x;
 
 /***
@@ -52,7 +49,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         photourl=pp.imgurl.split("=");//
         Log.e(TAG,photourl[0]);
         tv_project_detail_price.setText(pp.estoreprice+"");
-        tv_product_detail.setText(pp.description);
+//        tv_product_detail.setText(pp.description);
         vp_show_photo.setAdapter(new PagerAdapter() {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
@@ -99,10 +96,10 @@ public class ProductInfoActivity extends AppCompatActivity {
     private void initView() {
         iv_project_detail_back=(ImageView) this.findViewById(R.id.iv_project_detail_back);
         vp_show_photo=(ViewPager) this.findViewById(R.id.vp_show_photo);
-        tv_product_detail=(TextView) this.findViewById(R.id.tv_product_detail);
+        //tv_product_detail=(TextView) this.findViewById(R.id.tv_product_detail);
         tv_project_detail_price=(TextView) this.findViewById(R.id.tv_project_detail_price);
         btn_touch_seller=(Button) this.findViewById(R.id.btn_touch_seller);
-        cb_guanzhu=(CheckBox) this.findViewById(R.id.cb_guanzhu);
+//        cb_guanzhu=(CheckBox) this.findViewById(R.id.cb_guanzhu);
         btn_addcart=(Button) this.findViewById(R.id.btn_addcart);
         btn_buy_now=(Button) this.findViewById(R.id.btn_buy_now);
     }
