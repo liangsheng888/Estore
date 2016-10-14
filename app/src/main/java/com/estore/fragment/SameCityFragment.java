@@ -158,13 +158,15 @@ public class MyAdapter extends BaseAdapter{
         tv_project_price.setText(list.estoreprice + "");
         tv_project_description.setText(list.description);
         tv_product_kind.setText(list.category);
-        x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+list.imgurl);
+        String[] imgurl=list.imgurl.split("=");
+        x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+imgurl[0]);
         return view;
     }
 }
 
     public void getSameCityList(){
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts");
+
+        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
 
         Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -180,6 +182,7 @@ public class MyAdapter extends BaseAdapter{
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i(TAG,"fail"+"==========");
 
             }
 
