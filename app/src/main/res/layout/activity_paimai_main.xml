@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+   >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#12775b"
+        app:subtitleTextColor="#fff">
+
+        <!--自定义控件-->
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clock" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/btn_auct_type"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@+id/tv_type"
+            android:entries="@array/auct_type"
+            android:textSize="20sp"/>
+
+        <CheckBox
+            android:id="@+id/btn_price_sort"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_sort_selector"
+            android:text="价格"
+            android:textSize="20sp"
+            />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_list_paimai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</LinearLayout>
+

@@ -189,7 +189,7 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                         break;
                     case R.id.rb_paimaipro:
-                        Intent intent2 =new Intent(MainActivity.this,AuctionActivity.class);
+                        Intent intent2 =new Intent(MainActivity.this,UploadAuctMainActivity.class);
                         startActivity(intent2);
                         break;
                 }

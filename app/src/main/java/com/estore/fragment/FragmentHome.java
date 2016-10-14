@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.support.v4.view.PagerAdapter;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -13,37 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.estore.activity.AuctionActivity;
 import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
+import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.ProductInfoActivity;
-
 import com.estore.activity.R;
 import com.estore.activity.SameCityActivity;
-import com.estore.activity.SchoolActivity;
 import com.estore.httputils.HttpUrlUtils;
-
 import com.estore.pojo.Product;
-import com.estore.view.GridViewWithHeaderAndFooter;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.loopj.android.image.SmartImageView;
 
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,6 +68,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         city = (Button) view.findViewById(R.id.btn_city_GridView_home);
         auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
+
         //autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
        // initViewPager();//
 
@@ -284,9 +274,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.btn_auction_GridView_home:
-                //跳转到校园
-                Toast.makeText(getActivity(), "school", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), SchoolActivity.class));
+                //跳转到拍卖
+                Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),PaimaiMainActivity.class));
                 break;
             case R.id.btn_city_GridView_home:
                 //跳转到同城
