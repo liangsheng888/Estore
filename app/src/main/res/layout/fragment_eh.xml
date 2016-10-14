@@ -9,9 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="二 货"
-        android:textSize="28sp"
+        android:textColor="#fffffb"
+        android:textSize="24sp"
         android:gravity="center"
-        android:background="#faf2a2"
+        android:background="#464547"
         />
 
     <RadioGroup
@@ -32,7 +33,8 @@
     </RadioGroup>
 
     <FrameLayout
-        android:layout_marginTop="140dp"
+
+        android:layout_marginTop="100dp"
         android:id="@+id/fl_eh_tab"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
