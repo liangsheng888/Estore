@@ -19,7 +19,6 @@
         android:layout_centerVertical="true"
         android:padding="6dp"
         android:layout_toRightOf="@id/check_item"
-        android:src="@drawable/ic_launcher"
         android:scaleType="fitXY"
         />
     <LinearLayout 

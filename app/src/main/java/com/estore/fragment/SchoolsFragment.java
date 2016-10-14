@@ -148,13 +148,14 @@ public class SchoolsFragment extends Fragment {
             tv_project_name.setText(list.name);
             tv_project_price.setText(list.estoreprice + "");
             tv_project_description.setText(list.description);
-            x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+list.imgurl);
+            String[] imgurl=list.imgurl.split("=");
+            x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+imgurl[0]);
             return view;
         }
 
     };
     public void getSchoolList(){
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts");
+        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
