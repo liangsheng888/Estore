@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+        always：总是显示在界面上
+never：不显示在界面上，只让出现在右边的三个点中
+ifRoom：如果有位置才显示，不然就出现在右边的三个点中
+     -->
+    <item
+        android:id="@+id/action_item1"
+        android:title="item1"
+        android:icon="@drawable/emoji_461"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_item2"
+        android:title="item2"
+        android:icon="@drawable/emoji_78"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_item3"
+        android:title="item3"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_item4"
+        android:title="item4"
+        app:showAsAction="never" />
+</menu>

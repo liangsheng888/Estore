@@ -35,7 +35,11 @@
         <activity android:name=".ProductInfoActivity" />
         <activity android:name=".MyPullToRefreshListView">
 
+
         </activity>
+        <activity android:name=".PaimaiMainActivity"></activity>
+      <activity android:name=".PaimaiMain_infoActivity"></activity>
+        <activity android:name=".UploadAuctMainActivity"></activity>
     </application>
 
 </manifest>
