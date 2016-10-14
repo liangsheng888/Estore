@@ -59,8 +59,8 @@ public class ProductInfoActivity extends AppCompatActivity {
     private Button    btn_buy_now;//立即购买
     private Button addbt;
     private Button subbt;
-    private  Product pro;
-    Map<Product,Integer> mapPro=new HashMap<>();//购买商品，及数量
+
+    Map<Product.Products,Integer> mapPro=new HashMap<>();//购买商品，及数量
     private User user=new User();
 
 
@@ -147,10 +147,15 @@ public class ProductInfoActivity extends AppCompatActivity {
                 title_bar_rl_cartview.startAnimation(ta);
                 //添加都服务器
                 RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"insertCartServlet");
-                Cart cart=new Cart(pro,user.getUserId(),Integer.parseInt(edt.getText().toString().trim()),new Timestamp(System.currentTimeMillis()));
-                Gson gson=new Gson();
-                String json= gson.toJson(cart);
-                rp.addBodyParameter("cartInfo",json);
+                Log.e("ProductInfoActivity",pp.toString());
+               // Cart cart=new Cart(pp,user.getUserId(),Integer.parseInt(edt.getText().toString().trim()),new Timestamp(System.currentTimeMillis()));
+               // Gson gson=new Gson();
+                //String json= gson.toJson(cart);
+                rp.addBodyParameter("product_id",pp.id+"");
+                rp.addBodyParameter("user_id",user.getUserId()+"");
+                rp.addBodyParameter("cart_num",Integer.parseInt(edt.getText().toString().trim())+"");
+                rp.addBodyParameter("create_time",new Timestamp(System.currentTimeMillis()).toString());
+                //rp.addBodyParameter("cartInfo",json);
                 x.http().post(rp, new Callback.CacheCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
@@ -187,7 +192,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.e("ProductInfoActivity","立即购买");
                 MapSerializable ms=new MapSerializable();
-                mapPro.put(pro,Integer.parseInt((edt.getText().toString())));
+                mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
                 ms.setPro(mapPro);
                 Log.i("ProductInfoActivity", ms.toString());
                 Intent intent=new  Intent(ProductInfoActivity.this,ProOrderActivity.class);
@@ -196,6 +201,14 @@ public class ProductInfoActivity extends AppCompatActivity {
                 bundle.putSerializable("ms",ms);
                 intent.putExtras(bundle);
                 startActivity(intent);
+
+            }
+        });
+        //跳转到购物车
+        title_bar_rl_cartview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
 
             }
         });

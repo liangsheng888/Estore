@@ -203,7 +203,7 @@ public class MainActivity extends Activity {
     }
 
     //切换模块
-    private void changeFragment(Fragment fg) {
+    public void changeFragment(Fragment fg) {
         FragmentManager fm = this.getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Log.e("!firstIn",!firstIn+"");

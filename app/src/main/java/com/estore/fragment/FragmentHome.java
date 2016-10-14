@@ -1,5 +1,6 @@
 package com.estore.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,6 +45,7 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
  * Created by Administrator on 2016/9/19.
  */
 public class FragmentHome extends Fragment implements View.OnClickListener {
+    private static final int HOME =2 ;
     private LinkedList<Product.Products> list;
     //private ListView lv_fr_home;
     PullToRefreshGridView prg;
@@ -106,7 +108,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 bundle.putSerializable("pp", pp);
                 intent.putExtras(bundle);
                 Log.e("FragmentHome", pp.toString());
-                startActivity(intent);
+                startActivityForResult(intent,HOME);
             }
         });
 
@@ -347,5 +349,11 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
             return convertView;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((MainActivity)getActivity()).changeFragment(new FragmentCar());//跳转到购物车
     }
 }
