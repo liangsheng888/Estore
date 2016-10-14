@@ -8,13 +8,34 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.MapSerializable;
+import com.estore.pojo.Cart;
 import com.estore.pojo.Product;
+import com.estore.pojo.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.w3c.dom.Text;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***
  * 商品详情页
@@ -25,10 +46,25 @@ public class ProductInfoActivity extends AppCompatActivity {
     private ViewPager vp_show_photo;
     private TextView  tv_product_detail;
     private TextView  tv_project_detail_price;
+    private TextView prod_info_tv_des;//商品名称
+    private TextView prod_info_tv_pnum;//商品数量
     private Button    btn_touch_seller;
+    private TextView tv_product_detail_city;
+    private TextView tv_product_detail_schools;
+    private RelativeLayout title_bar_rl_cartview;
+    private TextView edt;
+    private TextView title_bar_reddot;//购物车图标显示数量
     private CheckBox  cb_guanzhu;
-    private Button    btn_addcart;
-    private Button    btn_buy_now;
+    private Button    btn_addcart;//加入购物车
+    private Button    btn_buy_now;//立即购买
+    private Button addbt;
+    private Button subbt;
+    private  Product pro;
+    Map<Product,Integer> mapPro=new HashMap<>();//购买商品，及数量
+    private User user=new User();
+
+
+    private int carNumber;//购物车商品数量
     private String[] photourl;
     private Product.Products pp;
     private int prePosition=0;
@@ -38,18 +74,26 @@ public class ProductInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
+        MyApplication my=(MyApplication)getApplication();
+        user=my.getUser();
         initView();
         initData();
+        getDataCartNumber();
 
 
     }
 
     private void initData() {
+
         pp= getProDetailInfo();//
         photourl=pp.imgurl.split("=");//
         Log.e(TAG,photourl[0]);
-        tv_project_detail_price.setText(pp.estoreprice+"");
+        tv_project_detail_price.setText("￥"+pp.estoreprice);
+        prod_info_tv_des.setText(pp.name);
 //        tv_product_detail.setText(pp.description);
+        prod_info_tv_pnum.setText("库存:"+pp.pnum);
+        tv_product_detail_city.setText(pp.cityaddress);
+        tv_product_detail_schools.setText(pp.schooladdress);
         vp_show_photo.setAdapter(new PagerAdapter() {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
@@ -90,18 +134,95 @@ public class ProductInfoActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+        //加入购物车
+        btn_addcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("ProductInfoActivity","加入购物车");
+                carNumber+=Integer.parseInt(edt.getText().toString().trim());
+                title_bar_reddot.setVisibility(View.VISIBLE);
+                title_bar_reddot.setText(carNumber+"");
+                //动画
+                TranslateAnimation ta=(TranslateAnimation) AnimationUtils.loadAnimation(getApplicationContext(),R.anim.shake);
+                title_bar_rl_cartview.startAnimation(ta);
+                //添加都服务器
+                RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"insertCartServlet");
+                Cart cart=new Cart(pro,user.getUserId(),Integer.parseInt(edt.getText().toString().trim()),new Timestamp(System.currentTimeMillis()));
+                Gson gson=new Gson();
+                String json= gson.toJson(cart);
+                rp.addBodyParameter("cartInfo",json);
+                x.http().post(rp, new Callback.CacheCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Log.e("ProductInfoActivity","加入购物车"+result);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+
+                    @Override
+                    public boolean onCache(String result) {
+                        return false;
+                    }
+                });
+
+
+            }
+        });
+        //立即购买
+        btn_buy_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("ProductInfoActivity","立即购买");
+                MapSerializable ms=new MapSerializable();
+                mapPro.put(pro,Integer.parseInt((edt.getText().toString())));
+                ms.setPro(mapPro);
+                Log.i("ProductInfoActivity", ms.toString());
+                Intent intent=new  Intent(ProductInfoActivity.this,ProOrderActivity.class);
+                Bundle bundle=new Bundle();
+
+                bundle.putSerializable("ms",ms);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
 
     private void initView() {
+        edt=(TextView) findViewById(R.id.edt);
         iv_project_detail_back=(ImageView) this.findViewById(R.id.iv_project_detail_back);
         vp_show_photo=(ViewPager) this.findViewById(R.id.vp_show_photo);
         //tv_product_detail=(TextView) this.findViewById(R.id.tv_product_detail);
+        prod_info_tv_pnum=(TextView)findViewById(R.id.prod_info_tv_pnum);
         tv_project_detail_price=(TextView) this.findViewById(R.id.tv_project_detail_price);
         btn_touch_seller=(Button) this.findViewById(R.id.btn_touch_seller);
+        tv_product_detail_city =(TextView)findViewById(R.id.tv_product_detail_city);
+        tv_product_detail_schools=(TextView)findViewById(R.id.tv_product_detail_schools);
+        title_bar_reddot=(TextView)findViewById(R.id.title_bar_reddot);
 //        cb_guanzhu=(CheckBox) this.findViewById(R.id.cb_guanzhu);
         btn_addcart=(Button) this.findViewById(R.id.btn_addcart);
         btn_buy_now=(Button) this.findViewById(R.id.btn_buy_now);
+        prod_info_tv_des=(TextView)findViewById(R.id.prod_info_tv_des);
+        title_bar_rl_cartview=(RelativeLayout)findViewById(R.id.title_bar_rl_cartview);
+
+        addbt=(Button)findViewById(R.id.addbt);
+        subbt=(Button)findViewById(R.id.subbt);
+
     }
 
     //接收上个界面传递的商品信息
@@ -111,5 +232,55 @@ public class ProductInfoActivity extends AppCompatActivity {
         Product.Products pp=(Product.Products)bundle.getSerializable("pp");
         Log.e(TAG,pp.toString());
         return pp;
+    }
+   public  void getDataCartNumber(){
+        //获取网络数据，
+       //显示加入购物车的数量
+       //queryCartServlet
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+user.getUserId());
+       //Log.e("ProductInfoActivity","url："+HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+new MyApplication().getUser().getUserId());
+       x.http().get(rp, new Callback.CacheCallback<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                Log.e("ProductInfoActivity",result);
+                Gson gson=new Gson();
+                List<Cart> listcart=gson.fromJson(result,new TypeToken<List<Cart>>(){}.getType());
+                Log.e("ProductInfoActivity",listcart.toString());
+                if(listcart.size()>0){
+                    //获取购物车所有数量
+                    for (Cart car:listcart) {
+                        carNumber+=car.getCollectNumber();
+                    };
+                    //显示在图标上
+                    title_bar_reddot.setVisibility(View.VISIBLE);
+                    title_bar_reddot.setText(carNumber+"");
+
+                }
+                else {
+                    title_bar_reddot.setVisibility(View.GONE);
+                }}
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.e("ProductInfoActivity","访问购物车数据失败");
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 }

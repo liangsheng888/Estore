@@ -4,7 +4,15 @@
     <attr name="auto_play" forMymat="boolean" />
 
     <declare-styleable name="SlidingSwitcherView">
-        <attr name="auto_play" />
+
+    </declare-styleable>
+    <declare-styleable name="TitleBar">
+        <attr name="titleBarTitle" format="string"/>
+        <attr name="titleBarLeftImage" format="reference"/>
+        <attr name="titleBarRightImage" format="reference"/>
+        <attr name="titleBarBackground" format="reference|color"/>
+        <!-- 字体的颜色 -->
+        <attr name="titleBarColor" format="color"/>
     </declare-styleable>
 
 </resources>
