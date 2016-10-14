@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical"
+    android:fadingEdge="vertical"
+    android:background="#e0edee"
+    tools:context=".PaimaiMainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.jin.app.myapplication.paimai.PaimaiMain_infoActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#12775b"
+       >
+
+        <!--自定义控件-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clock" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_zuct_info_ad"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar"
+        android:background="#e0edee"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dikang_bg"
+       >
+        <!--<corners android:radius="5dp" />-->
+        <TextView
+
+            android:id="@+id/tv_auct_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:text="高端大气上档次的手机"
+            android:textSize="20sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/jieshutixing" />
+    </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dikang_bg"
+    android:gravity="center"
+
+    android:padding="15dp"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nowprice"
+        />
+    <TextView
+        android:id="@+id/tv_beginprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前价格:"
+        android:textColor="#aaff0000"
+        android:textSize="25sp" />
+</LinearLayout>
+    <TextView
+android:paddingTop="10dp"
+        android:id="@+id/tv_auct_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_beginprice"
+        android:layout_below="@+id/tv_beginprice"
+
+        android:text="剩余时间"
+        android:background="@drawable/dikang_bg"
+        android:textColor="#aa0000ff"
+        android:textSize="20sp"
+        android:padding="20dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dikang_bg">
+    <TextView
+        android:id="@+id/tv_auct_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:text="拍卖人"
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:drawableRight="@drawable/liaotian"
+        />
+    <!--<ImageView-->
+        <!--android:id="@+id/tv_auct_newprice"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+
+        <!--android:layout_centerHorizontal="true"-->
+        <!---->
+        <!--android:background="@drawable/liaotian"-->
+        <!---->
+        <!--android:textSize="20sp"-->
+        <!--/>-->
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_auct_name_liuyan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_auct_newprice"
+        android:paddingLeft="10dp"
+        android:text="留言"
+
+        android:textSize="20sp" />
+
+    <TextView
+        android:padding="50dp"
+        android:id="@+id/lv_auct_name_liuyan"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:divider="#000"
+        android:background="@drawable/dikang_bg"
+        android:dividerHeight="1px"
+
+        >
+
+    </TextView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <Button
+        android:id="@+id/btn_auct_jiajia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corners_bg"
+        android:text="加价"
+        android:textSize="20sp" />
+</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍品推荐"
+        android:textSize="20sp"
+        android:background="@drawable/corners_bg"/>
+</LinearLayout>
+</ScrollView>
