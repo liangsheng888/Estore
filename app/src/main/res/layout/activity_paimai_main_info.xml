@@ -43,7 +43,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dikang_bg"
+        android:background="#eee"
        >
         <!--<corners android:radius="5dp" />-->
         <TextView
@@ -68,7 +68,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dikang_bg"
-    android:gravity="center"
+
 
     android:padding="15dp"
     >
@@ -83,10 +83,43 @@
         android:layout_height="wrap_content"
         android:text="当前价格:"
         android:textColor="#aaff0000"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:background="#eee"/>
 </LinearLayout>
-    <TextView
-android:paddingTop="10dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/prod_info_tv_fapiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="3dp"
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/ic_mail_install"
+            android:textColor="@android:color/background_dark"
+            android:text="正规发票"
+            />
+        <TextView
+            android:id="@+id/prod_info_tv_baoyou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/ic_mail_install"
+            android:drawablePadding="3dp"
+            android:textSize="12sp"
+            android:textColor="@android:color/background_dark"
+            android:text="全国包邮"
+            />
+        <View  style="@style/bg_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+      <TextView
+        android:paddingTop="10dp"
         android:id="@+id/tv_auct_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,7 +136,7 @@ android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/dikang_bg">
+        android:background="#eee">
     <TextView
         android:id="@+id/tv_auct_username"
         android:layout_width="match_parent"

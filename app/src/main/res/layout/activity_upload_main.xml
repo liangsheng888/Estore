@@ -225,13 +225,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/datePicker" />
 
-        <Button
-            android:id="@+id/btn_auct_quedingshangchuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:onClick="uploadauct"
-            android:text="确定上传" />
+
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_auct_quedingshangchuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="uploadauct"
+        android:text="确定上传" />
 </LinearLayout>
 </ScrollView>
