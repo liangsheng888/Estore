@@ -8,6 +8,17 @@ public class Cart implements Serializable {
 	
 	
 	//cartId,userId,collectNumber,collectTime
+
+	@Override
+	public String toString() {
+		return "Cart{" +
+				"cartId=" + cartId +
+				", products=" + product +
+				", userId=" + userId +
+				", collectNumber=" + collectNumber +
+				", collectTime=" + collectTime +
+				'}';
+	}
 	
 	
 /*	public Cart(int cartId, int userId, int collectNumber,
@@ -22,8 +33,8 @@ public class Cart implements Serializable {
 	
 	
 	private int cartId;
-	public Cart(int cartId, Product product, int userId, int collectNumber,
-			Timestamp collectTime) {
+	public Cart(int cartId, Product.Products product, int userId, int collectNumber,
+				Timestamp collectTime) {
 		super();
 		this.cartId = cartId;
 		this.product= product;
@@ -31,7 +42,7 @@ public class Cart implements Serializable {
 		this.collectNumber = collectNumber;
 		this.collectTime = collectTime;
 	}
-	public Cart(Product product, int userId, int collectNumber,
+	public Cart(Product.Products product, int userId, int collectNumber,
 				Timestamp collectTime) {
 		super();
 
@@ -78,15 +89,15 @@ public class Cart implements Serializable {
 	public void setCollectTime(Timestamp collectTime) {
 		this.collectTime = collectTime;
 	}
-	private Product product;
+	private Product.Products product;
 	private int userId;
 	private int collectNumber;
 	private Timestamp collectTime;
-	public Product getProduct() {
+	public Product.Products getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(Product.Products product) {
 		this.product = product;
 	}
 	

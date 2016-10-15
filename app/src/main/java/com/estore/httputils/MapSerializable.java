@@ -11,13 +11,13 @@ import java.util.Map;
  * Created by Administrator on 2016/10/12.
  */
  public class MapSerializable implements Serializable {
-  Map<Product,Integer> pro ;
+  Map<Product.Products,Integer> pro ;
 
- public Map<Product, Integer> getPro() {
+ public Map<Product.Products, Integer> getPro() {
   return pro;
  }
 
- public void setPro(Map<Product, Integer> pro) {
+ public void setPro(Map<Product.Products, Integer> pro) {
   this.pro = pro;
  }
 }
