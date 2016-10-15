@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.estore.activity.PublishActivity">
+    <!-- 设置 style样式，drawableTop点击前后颜色变化-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#f7f6f6"
+        >
+        <ImageView
+            android:id="@+id/iv_mypublish_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xiaoyu"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我发布的"
+            android:textSize="24dp"
+            android:layout_centerInParent="true"
+
+            />
+
+    </RelativeLayout>
+    <!-- 分割线 -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dad9d9"
+        />
+    <RadioGroup
+        android:id="@+id/rg_grouppublish"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:background="#f7f6f6"
+        >
+        <RadioButton
+            android:id="@+id/rb_estorepublish"
+            style="@style/rg_group1"
+            android:text="二货"
+            android:textColor="#949494"
+            />
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:background="#dad9d9"
+            />
+        <RadioButton
+            android:id="@+id/rb_auctionpublish"
+            style="@style/rg_group1"
+            android:text="拍卖"
+            android:textColor="#949494"
+            />
+    </RadioGroup>
+    <View
+        android:id="@+id/struct"
+        android:background="#f00"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+
+        />
+    <!-- 碎片放各个模块的fragment主页-->
+    <FrameLayout
+        android:id="@+id/fl_publish"
+        android:layout_above="@id/struct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
