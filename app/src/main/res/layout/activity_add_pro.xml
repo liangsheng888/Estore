@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="你的宝贝名字"
+
             android:textColorHint="#cac6c6"
 
             android:background="@null"
@@ -39,7 +40,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_marginTop="1dp"
         android:id="@+id/ll_pho"
         android:layout_below="@id/ll_name"
@@ -47,7 +48,13 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-
+        <TextView
+            android:id="@+id/tv_choicephoto"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/add"
+            android:text="选择图片" />
 
         <!--<ImageView
             android:layout_marginLeft="20dp"
@@ -59,13 +66,7 @@
             android:numColumns="3"
             android:layout_width="wrap_content"
             android:layout_height="80dp" />
-        <TextView
-            android:id="@+id/tv_choicephoto"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/add"
-            android:text="选择图片" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,45 +80,62 @@
 
         <TextView
             android:id="@+id/tv_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+
             android:text="数量:"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
 
 
         <EditText
             android:id="@+id/et_pronum"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="40dp"
             android:inputType="number"
+            android:textSize="20sp"
+
+
             android:background="@null"
             style="?android:attr/textViewStyle"
             android:ems="2"
 
             android:singleLine="true" />
+        <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+            android:layout_weight="4"
+            >
+            <ImageView
+                android:id="@+id/iv_addOne"
+                android:layout_width="30dp"
+
+                android:layout_height="30dp"
+                android:src="@drawable/pro_add" />
+
+            <ImageView
+                android:id="@+id/iv_subOne"
+                android:layout_width="30dp"
+                android:layout_toRightOf="@id/iv_addOne"
+                android:layout_height="30dp"
+                android:src="@drawable/jian" />
+
+    </RelativeLayout>
+
 
         <ImageView
-            android:id="@+id/iv_addOne"
+            android:id="@+id/ic_arrow_right"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:src="@drawable/pro_add" />
-
-        <ImageView
-            android:id="@+id/iv_subOne"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:src="@drawable/jian" />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
             android:layout_marginRight="10dp"
-
-
-            android:background="@drawable/ic_arrow_right2"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_arrow_right2"
+            />
 
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,25 +148,30 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="价格:"
-            android:textSize="20dp" />
+            android:layout_weight="1"
+            android:textSize="24dp" />
 
         <EditText
             android:id="@+id/et_proPrice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:background="@null"
+            android:textSize="20sp"
+            android:layout_weight="1"
             style="?android:attr/textViewStyle"
             android:inputType="number"
             android:ems="5" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="¥"
+
             android:textSize="26dp" />
         <ImageButton
             android:id="@+id/ib"
@@ -173,16 +196,20 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:hint="描述下你的宝贝"
+
             android:textColorHint="#cac6c6"
+            android:background="@null"
+            android:textSize="24sp"
+            style="?android:attr/textViewStyle"
             android:gravity="top"
             android:lines="3"
-            android:maxLength="200" />
+            />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="1dp"
         android:id="@+id/ll_fenlei"
         android:layout_below="@id/ll_presc"
         android:background="#fff"
@@ -190,7 +217,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:text="分类:"/>
 
         <Spinner
@@ -216,13 +243,16 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/ic_gps_gray"
             android:textSize="20dp" />
 
         <Spinner
             android:id="@+id/sp_proAddress"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="26dp"
+            android:layout_weight="4"
             android:popupBackground="#e5f7f7"
             android:entries="@array/city"></Spinner>
     </LinearLayout>
@@ -236,13 +266,15 @@
         android:layout_below="@id/ll_address"
         android:layout_marginTop="5dp">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:layout_weight="4"
+            android:textSize="24dp"
             android:text="发布到高校:"/>
         <RadioGroup
             android:id="@+id/rg_isSchool"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="15dp">
@@ -256,7 +288,7 @@
             <RadioButton
                 android:id="@+id/rb_yes"
                 android:layout_width="0dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
                 android:text="是"
                 android:layout_weight="1"/>
@@ -265,12 +297,11 @@
                 android:id="@+id/tv_school_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-
                 android:layout_marginRight="10dp"
-                android:background="@drawable/ic_arrow_right2"/>>
+                android:src="@drawable/ic_arrow_right2"/>>
         </RadioGroup>
 
     </LinearLayout>

@@ -240,7 +240,7 @@ public class FragmentCar extends Fragment {
             Log.e("FragmentCar","cart"+cart.toString());
 
 
-
+            if(cart!=null)
             tv_price.setText(cart.getProduct().estoreprice + "");
             tv_num.setText(car_numbers.get(position) + "");//
             tv_name.setText(cart.getProduct().name);
