@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_centerInParent="true"
+        android:background="#ffffff"
+        >
+        <ImageView
+            android:id="@+id/iv_pubauctionpic"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/pro"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_pubauctionname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品名字"
+            android:textSize="22dp"
+            android:layout_toRightOf="@id/iv_pubauctionpic"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            />
+        <TextView
+            android:id="@+id/tv_pubauctiontime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间"
+            android:textSize="20dp"
+            android:layout_toRightOf="@id/iv_pubauctionpic"
+            android:layout_below="@+id/tv_pubauctionprice"
+            android:layout_marginLeft="155dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/tv_pubauctionprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="价格:o.oo"
+            android:background="#f5d965"
+            android:textSize="20dp"
+            android:textColor="#f10c0c"
+            android:layout_below="@id/tv_pubauctionname"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/iv_pubauctionpic"
+            />
+    </RelativeLayout>
+    <!-- 分割线 -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c6c6c6"
+        />
+</LinearLayout>

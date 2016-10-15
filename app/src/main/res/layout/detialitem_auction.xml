@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:orientation="vertical"
+
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#dedbdb"
+        >
+        <ImageView
+            android:id="@+id/iv_audetial_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/xiaoyu"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宝贝详情"
+            android:textSize="24dp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_auction_detial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/iv_audetial_propic"
+            android:layout_width="match_parent"
+            android:src="@drawable/pro"
+            android:layout_height="300dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            />
+        <!-- 分割线 -->
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/iv_audetial_propic"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+
+            android:background="#edecec"
+            />
+        <TextView
+            android:id="@+id/tv_audetial_represent"
+            android:text="商品描述:"
+
+            android:layout_below="@id/bg"
+            android:textSize="22sp"
+            android:textColor="#222222"
+
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_audetial_proname"
+            android:text="商品名字:"
+            android:layout_below="@id/tv_audetial_represent"
+            android:textSize="22sp"
+            android:textColor="#222222"
+            android:background="#e9e6e6"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_audetial_proprice"
+            android:text="0.00:"
+            android:textSize="24sp"
+            android:textColor="#fc3636"
+            android:background="#fff23d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/tv_audetial_proname"
+            />
+        <TextView
+            android:id="@+id/tv_audetial_pronumber"
+            android:text="商品个数:"
+            android:layout_below="@id/tv_audetial_proname"
+            android:textSize="22sp"
+            android:textColor="#222222"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/tv_audetial_proprice"
+            />
+        <TextView
+            android:id="@+id/tv_audetial_proendtime"
+            android:text="排出时间:"
+            android:layout_below="@id/tv_audetial_proprice"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:textColor="#222222"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="9dp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

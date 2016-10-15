@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.estore.activity.PersonalSettingActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#f7f6f6"
+        >
+        <ImageView
+            android:id="@+id/iv_perreturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xiaoyu"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/personalimag"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <!-- 分割线 -->
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dad9d9"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#ffffff"
+        />
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:background="#efeeee"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_perdatum"
+            android:layout_width="wrap_content"
+            android:text="我的资料"
+            android:layout_centerInParent="true"
+            android:textSize="22sp"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_below="@id/tv_perdatum"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#ffffff"
+        />
+    <!-- 分割线 -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#f2f2f2"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="305dp"
+        >
+        <RadioButton
+            android:id="@+id/rb_perphoto"
+            style="@style/personalsetting"
+            android:text="头像"
+            android:drawableLeft="@drawable/perphotoyellow"
+            android:drawableRight="@drawable/dayu"
+            android:layout_marginRight="20dp"
+            />
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <RadioButton
+            android:id="@+id/rb_pernickname"
+            style="@style/buttonvertical"
+            android:text="昵称"
+            android:drawableLeft="@drawable/nickname"
+            android:drawableRight="@drawable/dayu"
+            android:layout_marginRight="20dp"
+            />
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <RadioButton
+            android:id="@+id/rb_persexs"
+            style="@style/buttonvertical"
+            android:text="性别"
+            android:drawableLeft="@drawable/sex"
+            android:drawableRight="@drawable/dayu"
+            android:layout_marginRight="20dp"
+            />
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <RadioButton
+            android:id="@+id/rb_perbirthday"
+            style="@style/buttonvertical"
+            android:text="生日"
+            android:drawableLeft="@drawable/birthdayyellow"
+            android:drawableRight="@drawable/dayu"
+            android:layout_marginRight="20dp"
+            />
+
+
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <RadioButton
+            android:id="@+id/rb_peraddress"
+            style="@style/buttonvertical"
+            android:text="收货地址"
+            android:drawableLeft="@drawable/placeyellow"
+            android:drawableRight="@drawable/dayu"
+            android:layout_marginRight="20dp"
+            />
+
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+    </RadioGroup>
+
+
+</LinearLayout>

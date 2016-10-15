@@ -35,6 +35,17 @@
         <activity android:name=".PaimaiMain_infoActivity" />
         <activity android:name=".UploadAuctMainActivity" />
         <activity android:name=".ProOrderActivity"></activity>
+        <activity android:name=".SystemInformActivity"></activity>
+        <activity android:name=".AuctionDetialItemActivity"></activity>
+        <activity android:name=".MyAuctionActivity"></activity>
+        <activity android:name=".PersonalSettingActivity"></activity>
+        <activity android:name=".MyFriendsActivity"></activity>
+        <activity android:name=".MyOrderActivity"></activity>
+        <activity android:name=".MyCareActivity"></activity>
+        <activity android:name=".MyIntercalateActivity"></activity>
+        <activity android:name=".MyWalletActivity"></activity>
+        <activity android:name=".PublishActivity"></activity>
+
     </application>
 
 </manifest>
