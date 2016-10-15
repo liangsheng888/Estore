@@ -28,6 +28,7 @@
             android:background="@drawable/samecity_schools_selector"
             android:text="同城"/>
         <RadioButton
+            android:layout_marginLeft="1dp"
             android:id="@+id/rb_schools"
             style="@style/eh_radiobutoon"
             android:background="@drawable/samecity_schools_selector"

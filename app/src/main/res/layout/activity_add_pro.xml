@@ -1,72 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8f4f9"
-
-    android:orientation="vertical"
-    tools:context="com.estore.activity.AddProActivity">
-
-    <LinearLayout
+    android:background="#e3e6e6">
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#606263"
+        android:id="@+id/tv_title"
+        android:layout_height="40dp"
         android:gravity="center"
+        android:textColor="#fff"
+        android:text="发布"
+        android:background="#4e4949"
+        android:layout_alignParentTop="true"
+        android:textSize="30sp" />
 
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="发布商品"
-            android:textColor="#fff"
-            android:textSize="30sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginLeft="5dp"
         android:background="@drawable/dikang_bg"
-
+        android:id="@+id/ll_name"
+        android:layout_below="@id/tv_title"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="商品名称:"
-            android:textSize="20dp" />
-
         <EditText
             android:id="@+id/et_proName"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:hint="你的宝贝名字"
+            android:textColorHint="#cac6c6"
 
-
-            android:layout_marginRight="5dp"
+            android:background="@null"
+            style="?android:attr/textViewStyle"
+            android:textSize="22dp"
             android:singleLine="true" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dikang_bg"
+        android:layout_height="70dp"
         android:layout_marginTop="1dp"
+        android:id="@+id/ll_pho"
+        android:layout_below="@id/ll_name"
+        android:background="@drawable/dikang_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_choicephoto"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/add"
-            android:text="选择图片" />
+
 
         <!--<ImageView
             android:layout_marginLeft="20dp"
@@ -74,17 +55,24 @@
             android:layout_width="80dp"
             android:layout_height="80dp" />-->
         <GridView
-            android:layout_marginLeft="20dp"
             android:id="@+id/gv_showPhoto"
             android:numColumns="3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="80dp" />
+        <TextView
+            android:id="@+id/tv_choicephoto"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/add"
+            android:text="选择图片" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/ll_pnum"
+        android:layout_below="@id/ll_pho"
         android:gravity="center_vertical"
         android:background="@drawable/dikang_bg"
         android:orientation="horizontal">
@@ -93,7 +81,7 @@
             android:id="@+id/tv_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商品数量:"
+            android:text="数量:"
             android:textSize="20dp" />
 
 
@@ -103,6 +91,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:inputType="number"
+            android:background="@null"
+            style="?android:attr/textViewStyle"
             android:ems="2"
 
             android:singleLine="true" />
@@ -118,6 +108,13 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:src="@drawable/jian" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+
+
+            android:background="@drawable/ic_arrow_right2"/>
 
 
     </LinearLayout>
@@ -126,21 +123,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:id="@+id/ll_price"
+        android:layout_below="@id/ll_pnum"
         android:background="@drawable/dikang_bg"
-
-        android:layout_marginLeft="5dp">
+        android:gravity="center_vertical"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商品价格:"
+            android:text="价格:"
             android:textSize="20dp" />
 
         <EditText
             android:id="@+id/et_proPrice"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-
+            android:background="@null"
+            style="?android:attr/textViewStyle"
             android:inputType="number"
             android:ems="5" />
 
@@ -150,43 +150,48 @@
             android:layout_marginLeft="10dp"
             android:text="¥"
             android:textSize="26dp" />
+        <ImageButton
+            android:id="@+id/ib"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_arrow_right2"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/dikang_bg"
+        android:layout_height="100dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/ll_presc"
+        android:layout_below="@id/ll_price"
+        android:background="#fff"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品描述:"
-            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/et_proDescription"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="100dp"
             android:hint="描述下你的宝贝"
-            android:layout_marginRight="5dp"
+            android:textColorHint="#cac6c6"
+            android:gravity="top"
+            android:lines="3"
             android:maxLength="200" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/dikang_bg"
+
+        android:id="@+id/ll_fenlei"
+        android:layout_below="@id/ll_presc"
+        android:background="#fff"
         android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="商品类型:"/>
+            android:text="分类:"/>
 
         <Spinner
             android:id="@+id/sp_category"
@@ -201,16 +206,17 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/ll_address"
+        android:layout_below="@id/ll_fenlei"
         android:layout_marginTop="1dp"
         android:gravity="center"
-        android:layout_marginLeft="5dp"
         android:background="@drawable/dikang_bg"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="卖家地址:"
+            android:background="@drawable/ic_gps_gray"
             android:textSize="20dp" />
 
         <Spinner
@@ -218,7 +224,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:popupBackground="#e5f7f7"
-
             android:entries="@array/city"></Spinner>
     </LinearLayout>
     <LinearLayout
@@ -226,7 +231,10 @@
         android:layout_height="40dp"
         android:gravity="center_vertical"
         android:background="@drawable/dikang_bg"
-        android:layout_marginTop="1dp">
+        android:id="@+id/ll_fabudao"
+
+        android:layout_below="@id/ll_address"
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -257,29 +265,30 @@
                 android:id="@+id/tv_school_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_arrow_right2"/>>
         </RadioGroup>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/dikang_bg"
-        >
-    <Button
-        android:id="@+id/btn_add_pro"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/btn_add_pro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:background="#f00"
+            android:text="发布"
+            android:textSize="26dp"
+            android:layout_gravity="bottom" />
 
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/corners_bg"
-        android:gravity="center"
-        android:text="发布"
-        android:textSize="26dp" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
 
 

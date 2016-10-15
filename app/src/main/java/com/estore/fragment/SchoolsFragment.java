@@ -107,7 +107,6 @@ public class SchoolsFragment extends Fragment {
         actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int position_=position-1;
                 Product.Products pp=projectList.get(position);
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
