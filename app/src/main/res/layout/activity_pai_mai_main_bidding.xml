@@ -63,6 +63,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                   android:id="@+id/tv_bidding_addess"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:drawableRight="@drawable/ic_arrow_right2"
