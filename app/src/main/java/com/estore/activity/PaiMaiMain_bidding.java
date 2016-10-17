@@ -1,5 +1,6 @@
 package com.estore.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,8 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_bidding_addess:
+                Intent intent=new Intent(PaiMaiMain_bidding.this,AddessListActivity.class);
+                startActivity(intent);
                 break;
         }
     }
