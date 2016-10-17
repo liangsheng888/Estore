@@ -4,17 +4,33 @@
     android:layout_height="match_parent"
     android:background="#f9f7f7"
     tools:context="com.estore.fragment.EhFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#464547">
 
     <TextView
+        android:layout_centerInParent="true"
         android:id="@+id/tv_eh_tab"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:text="二 货"
+        android:text="二  货"
         android:textColor="#fffffb"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:background="#464547"
-        />
+        android:textSize="28sp"
+        android:gravity="center" />
+
+
+    <ImageView
+        android:id="@+id/iv_eh_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sort"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"/>
+</RelativeLayout>
+
 
     <RadioGroup
         android:id="@+id/rg_eh_tab"

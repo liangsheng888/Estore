@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.estore.activity.GetDataTaskListView;
+import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -52,7 +53,7 @@ public class SchoolsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        ((MainActivity)getActivity()).setProwhere(1);
         initView();
 
         adapter = new MyAdapter();
@@ -156,31 +157,33 @@ public class SchoolsFragment extends Fragment {
 
     };
     public void getSchoolList(){
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i(TAG,result+"==========");
-                Gson gson=new Gson();
-                Product project=gson.fromJson(result,Product.class);
-                projectList.addAll(project.list);
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+        ((MainActivity)getActivity()).getProductList();
+//        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
+//        x.http().get(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.i(TAG,result+"==========");
+//                Gson gson=new Gson();
+//                Product project=gson.fromJson(result,Product.class);
+//                projectList.addAll(project.list);
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
     }
 }
