@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +35,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     private TextView btn_paimai_bidding;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_paimai_main_info);
-initView();
+        initView();
         intEven();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -105,19 +108,19 @@ initView();
         tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
         tv_beginprice.setText(auct.auct_minprice + "¥");
-        tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name+"手机");
+        tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name + "手机");
         tv_auct_username.setText("拍卖人：" + auct.auct_id);
         //判断拍卖时间
         String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         Long a = Long.parseLong(j);
         System.out.println(j + "--------------时间--------------------" + a);
-        String yy = auct.auct_begin.substring(0,4);
-        String month =auct.auct_begin.substring(5,7);
-        String day = auct.auct_begin.substring(8,10);
-        String hh = auct.auct_begin.substring(11,13);
-        String ss = auct.auct_begin.substring(14,16);
-        String mm = auct.auct_begin.substring(17,19);
-       String b=yy+month+day+hh+ss+mm;
+        String yy = auct.auct_begin.substring(0, 4);
+        String month = auct.auct_begin.substring(5, 7);
+        String day = auct.auct_begin.substring(8, 10);
+        String hh = auct.auct_begin.substring(11, 13);
+        String ss = auct.auct_begin.substring(14, 16);
+        String mm = auct.auct_begin.substring(17, 19);
+        String b = yy + month + day + hh + ss + mm;
         Long bb = Long.parseLong(b);
 //        System.out.println(b);
 //        Date date1 = null;
@@ -137,7 +140,7 @@ initView();
 
 
 //      ystem.out.println("auct.auct_begin====================================" + auct.auct_begin);
-        if (bb- a < 0) {
+        if (bb - a < 0) {
             tv_auct_time.setText("未开始敬请期待");
         } else {
 //            tv_auct_time.setText(dd + ":" + hh + ":" + ":" + ss);
@@ -148,17 +151,19 @@ initView();
 
     private void intEven() {
         btn_paimai_bidding.setOnClickListener(this);
+
     }
 
     private void initView() {
         btn_paimai_bidding = ((TextView) findViewById(R.id.btn_paimai_bidding));
+
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_paimai_bidding:
-                Intent intent=new Intent(PaimaiMain_infoActivity.this,PaiMaiMain_bidding.class);
+                Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
                 startActivity(intent);
         }
     }
