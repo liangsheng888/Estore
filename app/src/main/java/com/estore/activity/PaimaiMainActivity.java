@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
-public class PaimaiMainActivity extends AppCompatActivity {
+public class PaimaiMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView lv_list_paimai;
     private ArrayList items;
@@ -33,6 +34,7 @@ public class PaimaiMainActivity extends AppCompatActivity {
 
     // 一个listview对应的list是不可以变化的（引用）
     final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
+    private Button btn_paimai_bidding;
 
 
     @Override
@@ -40,7 +42,8 @@ public class PaimaiMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_paimai_main);
-
+        initView();
+        initEven();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
@@ -112,7 +115,7 @@ public class PaimaiMainActivity extends AppCompatActivity {
 //                viewHodle.tv_username.setText(auct.user_id);
                 viewHodle.tv_auct_minprice.setText("￥" + auct.auct_minprice + "");
                 x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
-                System.out.println("http://10.40.5.6:8080/EStore/"+auct.auct_imgurl);
+                System.out.println("http://10.40.5.6:8080/EStore/" + auct.auct_imgurl);
 //                iv_auct_imgurl.setImageResource();
 //                tv_endbidprice.setText(auct.endBidPrice+"");
 //                auct_begin.setText(auct.auct_begin+"");
@@ -129,9 +132,20 @@ public class PaimaiMainActivity extends AppCompatActivity {
 
     }
 
+    private void initEven() {
 
+    }
 
+    private void initView() {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+        }
+    }
 
 
     private static class ViewHodle {
@@ -145,29 +159,29 @@ public class PaimaiMainActivity extends AppCompatActivity {
 
     private void getAuctList() {
         final RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiProducts?page=1");
-        System.out.println("进入getAuctList"+params);
+        System.out.println("进入getAuctList" + params);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                System.out.println("========result========"+result + "-------------------------------------");
+                System.out.println("========result========" + result + "-------------------------------------");
                 Gson gson = new Gson();
                 AuctListActivityBean bean = gson.fromJson(result, AuctListActivityBean.class);
                 auctList.addAll(bean.list);
-                System.out.println("----=-=-==-acutlist==-=-=="+auctList + "----=-=-==-acutlist==-=-==");
+                System.out.println("----=-=-==-acutlist==-=-==" + auctList + "----=-=-==-acutlist==-=-==");
 //获得listview的点击事件
 
                 lv_list_paimai.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       //                        items = new ArrayList<>();
+                        //                        items = new ArrayList<>();
 //                        adapter = (BaseAdapter) parent.getAdapter();
 //                        for (int i = 0; i < adapter.getCount(); i++) {
 //
 //                            String data = (adapter.getItem(i))
 //                            items.add(data);
 //                        }
-                        AuctListActivityBean.Auct auct=auctList.get( position);
-                        System.out.println(auct+"---------------auct----------------------------");
+                        AuctListActivityBean.Auct auct = auctList.get(position);
+                        System.out.println(auct + "---------------auct----------------------------");
 
                         Intent intent = new Intent();
 

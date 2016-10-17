@@ -1,6 +1,8 @@
 package com.estore.fragment;
 
-
+/*
+我的订单---待付款页面
+ */
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;

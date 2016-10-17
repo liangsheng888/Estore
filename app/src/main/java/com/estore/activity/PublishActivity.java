@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+我的发布页面
+ */
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -46,8 +48,9 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         iv_mypublishreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PublishActivity.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(PublishActivity.this, MainActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
     }

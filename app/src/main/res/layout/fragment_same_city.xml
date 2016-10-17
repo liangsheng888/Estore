@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#f9f7f7"
     tools:context="com.estore.fragment.SameCityFragment">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView

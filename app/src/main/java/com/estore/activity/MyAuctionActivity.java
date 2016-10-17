@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+我的拍卖--我拍到商品
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,8 +42,9 @@ public class MyAuctionActivity extends AppCompatActivity {
         iv_auctionreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyAuctionActivity.this,MainActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(MyAuctionActivity.this,MainActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
         //跳到listview详细页面
@@ -110,7 +113,7 @@ public class MyAuctionActivity extends AppCompatActivity {
         //xutils获取网络数据
        // RequestParams params=new RequestParams("http://10.40.5.18:8080/EStore/myPaiMaiServlet?email=2238265450@qq.com");
         //xutils获取网络数据
-        String url = HttpUrlUtils.HTTP_URL + "myPaiMaiServlet?email=2238265450@qq.com";//访问网络的url
+        String url = HttpUrlUtils.HTTP_URL + "myPaiMaiServlet?email=978188219@qq.com";//访问网络的url
         RequestParams requestParams = new RequestParams(url);//请求参数url
         x.http().get(requestParams,new Callback.CommonCallback<String>(){
 

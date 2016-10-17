@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PaimaiMain_infoActivity extends AppCompatActivity {
+public class PaimaiMain_infoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewPager vp_zuct_info_ad;
     private ListView lv_auct_name_liuyan;
@@ -30,18 +30,16 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
     private TextView tv_auct_name;
     private TextView tv_auct_username;
     private TextView tv_auct_time;
+    private TextView btn_paimai_bidding;
 
-//      private BaseAdapter adapter;
 
-    // 一个listview对应的list是不可以变化的（引用）
-//    final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
-//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_paimai_main_info);
-
+initView();
+        intEven();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
@@ -148,6 +146,23 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
 
     }
 
+    private void intEven() {
+        btn_paimai_bidding.setOnClickListener(this);
+    }
+
+    private void initView() {
+        btn_paimai_bidding = ((TextView) findViewById(R.id.btn_paimai_bidding));
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_paimai_bidding:
+                Intent intent=new Intent(PaimaiMain_infoActivity.this,PaiMaiMain_bidding.class);
+                startActivity(intent);
+        }
+    }
+
 
     private class MyPageAdapter extends PagerAdapter {
 
@@ -186,38 +201,6 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
         }
     }
 
-//    private void getAuctList() {
-//        RequestParams params=new RequestParams("http://10.40.5.6:8080/EStore/getPaiMaiProducts?page=1");
-//
-//        x.http().get(params, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                System.out.println(result+"-------------------------------------");
-//                Gson gson = new Gson();
-//                AuctListActivityBean bean = gson.fromJson(result, AuctListActivityBean.class);
-//                auctList.addAll(bean.list);
-//
-//                System.out.println(auctList+"----=-=-==-acutlist==-=-==");
-//
-//                //通知listview更新界面
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                System.out.println(ex.getMessage()+"--------------er-----------------------");
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
-//    }
+
 }
 

@@ -6,7 +6,12 @@
         <item>手表</item>
         <item>自行车</item>
     </string-array>
-
+    <string-array name="auct_zauct_tome">
+        <item>上午8点场</item>
+        <item>上午12点场 </item>
+        <item>上午16点场</item>
+        <item>上午20点场</item>
+    </string-array>
     <string-array name="city1">
         <item>北京</item>
         <item>天津市</item>

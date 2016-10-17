@@ -108,7 +108,9 @@ public class SchoolsFragment extends Fragment {
         actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Product.Products pp=projectList.get(position);
+                Log.e("SchoolsFragment","position="+position+"");
+                int curposition=position-1;
+                Product.Products pp=projectList.get(curposition);
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("pp",pp);
