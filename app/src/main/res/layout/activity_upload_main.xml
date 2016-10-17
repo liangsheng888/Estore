@@ -6,12 +6,12 @@
     android:layout_height="fill_parent"
     android:scrollbars="vertical"
     android:fadingEdge="vertical"
-    android:background="#e0edee">
+  >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#aa000000"
+
     android:orientation="vertical"
     android:theme="@android:style/Theme.Holo.NoActionBar"
     tools:context=".paimai.UploadAuctMainActivity">
@@ -20,17 +20,17 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        >
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#56abe4"
+            android:layout_height="40dp"
+            android:background="#4e4949"
             android:gravity="center"
             android:text="上传拍卖信息"
-            android:textColor="#000"
-            android:textSize="30sp" />
+            android:textColor="#fff"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -45,7 +45,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="标题哦"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textColor="#000"/>
 
         <EditText
             android:id="@+id/et_upload_aucttitle"
@@ -66,7 +67,9 @@
             android:drawableRight="@drawable/auct_upload_phtoe"
             android:onClick="simpleDialog"
             android:text="上传图片"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:background="@null"
+            />
 
         <!--<ImageView-->
             <!--android:id="@+id/iv_auct_modle_phote1"-->
@@ -95,6 +98,7 @@
             android:layout_height="wrap_content"
             android:text="商品描述"
 
+            android:textColor="#000"
             android:textSize="20sp" />
 
 
@@ -106,7 +110,8 @@
             android:layout_toRightOf="@+id/tv_auct_miaoshu"
             android:background="@android:drawable/edit_text"
             android:ellipsize="end"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:gravity="top"/>
     </LinearLayout>
 
     <LinearLayout
@@ -121,6 +126,7 @@
             android:layout_below="@+id/et_auct_miaoshu"
             android:layout_marginTop="20dp"
             android:text="地址"
+            android:textColor="#000"
             android:textSize="20sp" />
 
         <Spinner
@@ -146,6 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/sp_city"
             android:text="底价"
+            android:textColor="#000"
             android:textSize="20sp" />
 
         <EditText
@@ -169,7 +176,8 @@
             android:layout_below="@+id/et_auct_price"
             android:layout_marginTop="15dp"
             android:text="每次加价"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000"/>
 
         <NumberPicker
             android:id="@+id/np_auct_bidprice"
@@ -194,6 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:textColor="#000"
             android:layout_below="@+id/tv_auct_meicijiajia"
             android:text="类型"
             android:textSize="20sp" />
@@ -216,23 +225,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+
         android:padding="10dp">
 
 
         <DatePicker
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/datePicker" />
+            android:layout_height="100dp"
+            android:id="@+id/datePicker"
+            android:calendarViewShown="false"
+            android:calendarTextColor="#000"
+            android:background="#a8d1d2"/>
+        <Spinner
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/tv_auct_type"
+        android:layout_toRightOf="@+id/tv_auct_type"
+        android:entries="@array/auct_zauct_tome"
+        android:textSize="20sp"
+
+            android:popupBackground="#a8d1d2"/>
 
 
     </LinearLayout>
     <Button
         android:id="@+id/btn_auct_quedingshangchuan"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="uploadauct"
-        android:text="确定上传" />
+        android:text="确定上传"
+        android:background="#234256"/>
 </LinearLayout>
 </ScrollView>
