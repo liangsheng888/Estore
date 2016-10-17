@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+我的订单页面
+ */
 import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -43,8 +45,9 @@ public class MyOrderActivity extends AppCompatActivity {
         iv_orderreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyOrderActivity.this,MainActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(MyOrderActivity.this,MainActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
     }

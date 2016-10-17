@@ -26,26 +26,28 @@
         </activity>
         <activity android:name=".SchoolActivity" />
         <activity android:name=".SameCityActivity" />
-        <activity android:name=".AddProActivity" />
+        <activity android:name=".AddProActivity"></activity>
         <activity android:name=".AuctionActivity" />
         <activity android:name=".SellActivity" />
         <activity android:name=".ProductInfoActivity" />
-        <activity android:name=".MyPullToRefreshListView" />
+        <activity android:name=".MyPullToRefreshListView"></activity>
         <activity android:name=".PaimaiMainActivity" />
         <activity android:name=".PaimaiMain_infoActivity" />
         <activity android:name=".UploadAuctMainActivity" />
-        <activity android:name=".ProOrderActivity" />
-        <activity android:name=".SystemInformActivity" />
-        <activity android:name=".AuctionDetialItemActivity" />
-        <activity android:name=".MyAuctionActivity" />
-        <activity android:name=".PersonalSettingActivity" />
-        <activity android:name=".MyFriendsActivity" />
-        <activity android:name=".MyOrderActivity" />
-        <activity android:name=".MyCareActivity" />
-        <activity android:name=".MyIntercalateActivity" />
-        <activity android:name=".MyWalletActivity" />
-        <activity android:name=".PublishActivity" />
-        <activity android:name=".PaiMaiMain_bidding"></activity>
+
+        <activity android:name=".ProOrderActivity"></activity>
+        <activity android:name=".SystemInformActivity"></activity>
+        <activity android:name=".AuctionDetialItemActivity"></activity>
+        <activity android:name=".MyAuctionActivity"></activity>
+        <activity android:name=".PersonalSettingActivity"></activity>
+        <activity android:name=".MyFriendsActivity"></activity>
+        <activity android:name=".MyOrderActivity"></activity>
+        <activity android:name=".MyCareActivity"></activity>
+        <activity android:name=".MyIntercalateActivity"></activity>
+        <activity android:name=".MyWalletActivity"></activity>
+        <activity android:name=".PublishActivity"></activity>
+        <activity android:name=".PublishEstoreDetialItemActivity"/>
+        <activity android:name=".PublishAuctionDetialItemActivity"/>
     </application>
 
 </manifest>

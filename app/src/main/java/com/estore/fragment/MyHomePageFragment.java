@@ -22,7 +22,7 @@ import com.estore.activity.SystemInformActivity;
 import com.estore.activity.TakePhotosAndSelectActivity;
 
 /**
- * Created by Administrator on 2016/10/1 0001.
+ * 我的部分主页面
  */
 public class MyHomePageFragment extends Fragment {
     //private RadioButton rb_but5;

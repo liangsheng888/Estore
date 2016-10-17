@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
+/*
+我的设置页面
+ */
 
 
 public class MyIntercalateActivity extends AppCompatActivity {
@@ -23,8 +25,9 @@ public class MyIntercalateActivity extends AppCompatActivity {
         iv_intercalatereturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyIntercalateActivity.this,MainActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(MyIntercalateActivity.this,MainActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
         //跳到个人资料
