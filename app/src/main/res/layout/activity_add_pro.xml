@@ -31,7 +31,7 @@
 
             android:textColorHint="#cac6c6"
 
-            android:background="@null"
+            android:background="#fff"
             style="?android:attr/textViewStyle"
             android:textSize="22dp"
             android:singleLine="true" />
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            android:text="数量:"
+            android:text="数量"
             android:textSize="24dp" />
 
 
@@ -94,14 +94,13 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
+
             android:inputType="number"
             android:textSize="20sp"
 
 
-            android:background="@null"
+            android:background="#fff"
             style="?android:attr/textViewStyle"
-            android:ems="2"
-
             android:singleLine="true" />
         <RelativeLayout
         android:layout_width="0dp"
@@ -124,14 +123,14 @@
 
     </RelativeLayout>
 
-
+<!--
         <ImageView
             android:id="@+id/ic_arrow_right"
             android:layout_width="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_arrow_right2"
-            />
+            />-->
 
 
     </LinearLayout>
@@ -150,7 +149,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="价格:"
+            android:text="价格"
             android:layout_weight="1"
             android:textSize="24dp" />
 
@@ -158,27 +157,26 @@
             android:id="@+id/et_proPrice"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:background="@null"
+            android:background="#fff"
             android:textSize="20sp"
             android:layout_weight="1"
             style="?android:attr/textViewStyle"
             android:inputType="number"
-            android:ems="5" />
+             />
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="¥"
 
             android:textSize="26dp" />
-        <ImageButton
+       <!-- <ImageButton
             android:id="@+id/ib"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/ic_arrow_right2"/>
+            android:background="@drawable/ic_arrow_right2"/>-->
     </LinearLayout>
 
     <LinearLayout
@@ -212,13 +210,13 @@
         android:layout_marginTop="1dp"
         android:id="@+id/ll_fenlei"
         android:layout_below="@id/ll_presc"
-        android:background="#fff"
+        android:background="@drawable/dikang_bg"
         android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:text="分类:"/>
+            android:text="分类"/>
 
         <Spinner
             android:id="@+id/sp_category"
@@ -256,53 +254,95 @@
             android:popupBackground="#e5f7f7"
             android:entries="@array/city"></Spinner>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
         android:background="@drawable/dikang_bg"
         android:id="@+id/ll_fabudao"
-
         android:layout_below="@id/ll_address"
         android:layout_marginTop="5dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:textSize="24dp"
-            android:text="发布到高校:"/>
+            android:text="高校"/>
         <RadioGroup
             android:id="@+id/rg_isSchool"
             android:layout_width="0dp"
             android:layout_weight="6"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="15dp">
-            <RadioButton
-                android:id="@+id/rb_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="否"
-                android:checked="true"
-                android:layout_weight="1"/>
+            >
             <RadioButton
                 android:id="@+id/rb_yes"
-                android:layout_width="0dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="是"
-                android:layout_weight="1"/>
+                />
+            <RadioButton
+                android:id="@+id/rb_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="否"
+                android:checked="true"></RadioButton>
+
             <TextView
                 android:layout_marginLeft="10dp"
                 android:id="@+id/tv_school_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
+            <!--<ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_arrow_right2"/>>
+                android:src="@drawable/ic_arrow_right2"/>>-->
         </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/ll_baoyou"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical"
+
+        android:layout_below="@+id/ll_fabudao"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="包邮"
+            android:textSize="24sp"/>
+        <RadioGroup
+            android:id="@+id/rg_baoyou"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_baoyou_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="是"/>
+            <RadioButton
+                android:id="@+id/rb_baoyou_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="否"/>
+        </RadioGroup>
+        <TextView
+            android:id="@+id/tv_youfei"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#f00"
+            android:visibility="gone"
+            android:text="邮费  ￥20.00"/>
 
     </LinearLayout>
         <Button
