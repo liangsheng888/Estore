@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+我的关注页面
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,8 +18,9 @@ public class MyCareActivity extends AppCompatActivity {
         iv_carereturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyCareActivity.this,MainActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(MyCareActivity.this,MainActivity.class);
+                //startActivity(intent);
+              finish();
             }
         });
     }

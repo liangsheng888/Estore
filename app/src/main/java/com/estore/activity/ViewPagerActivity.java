@@ -54,7 +54,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         //跳转到login界面
         String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
 
-
+        Log.e("ViewPagerActivity",HttpUrlUtils.HTTP_URL+"getAllProducts?page=1");
          final  RequestParams  params = new RequestParams(url);
         btn_tiaozhuan.setOnClickListener(new View.OnClickListener() {
             @Override

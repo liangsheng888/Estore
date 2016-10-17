@@ -34,6 +34,7 @@
         <activity android:name=".PaimaiMainActivity" />
         <activity android:name=".PaimaiMain_infoActivity" />
         <activity android:name=".UploadAuctMainActivity" />
+
         <activity android:name=".ProOrderActivity"></activity>
         <activity android:name=".SystemInformActivity"></activity>
         <activity android:name=".AuctionDetialItemActivity"></activity>
@@ -45,7 +46,8 @@
         <activity android:name=".MyIntercalateActivity"></activity>
         <activity android:name=".MyWalletActivity"></activity>
         <activity android:name=".PublishActivity"></activity>
-
+        <activity android:name=".PublishEstoreDetialItemActivity"/>
+        <activity android:name=".PublishAuctionDetialItemActivity"/>
     </application>
 
 </manifest>
