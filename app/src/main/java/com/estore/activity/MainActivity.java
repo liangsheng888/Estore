@@ -149,6 +149,7 @@ public class MainActivity extends Activity {
                         if (fr_add == null)
                             fr_add = new EhFragment();
                         fr_now = fr_add;
+                        prowhere=0;
                         changeFragment(fr_now);
                         break;
                     case R.id.rb_mine:

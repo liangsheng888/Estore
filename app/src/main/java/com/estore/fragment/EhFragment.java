@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,11 +80,12 @@ public class EhFragment extends Fragment {
                         if (fragment1==null)
                             fragment1=new SameCityFragment();
                         newFragment=fragment1;
-
+                        ((MainActivity)getActivity()).setProwhere(0);
                         break;
                     case R.id.rb_schools:
                         if (fragment2==null)
                             fragment2=new SchoolsFragment();
+                        ((MainActivity)getActivity()).setProwhere(1);
                         newFragment=fragment2;
                 }
                 switchFragment(newFragment);
@@ -139,6 +141,7 @@ public class EhFragment extends Fragment {
                 RequestParams requestParams=new RequestParams(url);
                 requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
                 requestParams.addQueryStringParameter("prowhere",((MainActivity)getActivity()).getProwhere()+"");
+                Log.i("SameCityFrangment",((MainActivity)getActivity()).getProwhere()+"");
                 x.http().get(requestParams, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
@@ -148,6 +151,7 @@ public class EhFragment extends Fragment {
                         newList=gson.fromJson(result,type);
                         products.clear();
                         products.addAll(newList);
+                        Log.i("SameCityFrangment",products+"");
                         ((MainActivity)getActivity()).setProductList(products);
                     }
 

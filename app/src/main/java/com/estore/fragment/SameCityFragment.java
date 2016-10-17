@@ -63,8 +63,10 @@ public class SameCityFragment extends Fragment {
         adapter =new MyAdapter();
         lv_same_city.setAdapter(adapter);
         new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
-        ((MainActivity)getActivity()).setProwhere(0);
+
     }
+
+
 
     private void initView() {
         initPTRListView();
