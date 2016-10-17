@@ -48,6 +48,7 @@
         <activity android:name=".PublishActivity"></activity>
         <activity android:name=".PublishEstoreDetialItemActivity"/>
         <activity android:name=".PublishAuctionDetialItemActivity"/>
+        <activity android:name=".PaiMaiMain_bidding"/>
     </application>
 
 </manifest>
