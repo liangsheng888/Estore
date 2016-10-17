@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.estore.activity.PaiMaiMain_bidding">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/baozhengjin">
+
+                <TextView
+                    android:id="@+id/tv_auct_bidmon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="保证金： ￥1000"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:text="首次出价需要在您的账户锁定保证金
+拍卖不成功将返回"
+                    android:textColor="#597171"
+                    android:textSize="18dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#a9b7b7"
+                    android:gravity="center"
+                    android:text="      为保证竞拍成功后拍品顺利到达，请填写你的详细地址"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawableRight="@drawable/ic_arrow_right2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="选择收货地址"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_auct_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp">
+
+                    <TextView
+                        android:id="@+id/tv_auct_shouhuo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="  收 货 人:"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_auct_shouhuo"
+                        android:paddingLeft="100dp"
+                        android:text="联系方式"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_auct_adress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收货地址:"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:lineSpacingMultiplier="1.5"
+                        android:layout_toRightOf="@+id/tv_auct_adress"
+                        android:text="江苏省苏州市姑苏区苏州工业园区独墅湖高教区仁爱路1号" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/checkbox_on_background"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="竞拍需要同意竞拍协议"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:padding="20dp"
+               android:lineSpacingMultiplier="2.0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拍品多为孤品性质类商品，
+    退货服务为卖家可选服务保证，不强制拍送机构提供，
+    竞拍前请充分考虑"
+                android:textColor="#aaff0000" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f00"
+            android:text="提交保证金" />
+
+    </FrameLayout>
+</RelativeLayout>

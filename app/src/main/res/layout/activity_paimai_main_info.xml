@@ -215,14 +215,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <Button
+                <TextView
                     android:id="@+id/btn_auct_jiajia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
                     android:layout_gravity="center"
                     android:text="提醒"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+
+                    android:gravity="center"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -230,19 +232,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <Button
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="收藏" />
+                    android:text="收藏"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <Button
+                <TextView
+                    android:id="@+id/btn_paimai_bidding"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="加价"/>
+                    android:text="加价"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
 
             </RelativeLayout>
         </LinearLayout>
