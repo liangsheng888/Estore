@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.estore.activity.GetDataTaskListView;
+import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -31,6 +32,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SameCityFragment extends Fragment {
 
@@ -38,7 +40,7 @@ public class SameCityFragment extends Fragment {
     private PullToRefreshListView lv_same_city;
     private BaseAdapter adapter;
     private ImageView iv_project_photo;
-    final ArrayList<Product.Products> projectList=new ArrayList<Product.Products>();
+     List<Product.Products> productList=new ArrayList<Product.Products>();
     private ListView actualListView;
     private LinkedList<Product.Products> mListItems;
 
@@ -61,7 +63,7 @@ public class SameCityFragment extends Fragment {
         adapter =new MyAdapter();
         lv_same_city.setAdapter(adapter);
         new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
-
+        ((MainActivity)getActivity()).setProwhere(0);
     }
 
     private void initView() {
@@ -109,13 +111,13 @@ public class SameCityFragment extends Fragment {
         actualListView = lv_same_city.getRefreshableView();
         mListItems = new LinkedList<Product.Products>();
         //把string数组中的string添加到链表中
-        mListItems.addAll(projectList);
+        mListItems.addAll(productList);
         actualListView.setAdapter(adapter);
         actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int position_=position-1;
-                Product.Products pp=projectList.get(position_);
+                Product.Products pp=productList.get(position_);
                 Log.i(TAG,position_+"");
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
@@ -132,7 +134,7 @@ public class MyAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return projectList.size();
+        return productList.size();
     }
 
     @Override
@@ -153,7 +155,7 @@ public class MyAdapter extends BaseAdapter{
         TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
         tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
         tv_product_kind = ((TextView) view.findViewById(R.id.tv_product_kind));
-        Product.Products list = projectList.get(position);
+        Product.Products list = productList.get(position);
         tv_project_name.setText(list.name);
         tv_project_price.setText(list.estoreprice + "");
         tv_project_description.setText(list.description);
@@ -166,36 +168,43 @@ public class MyAdapter extends BaseAdapter{
 
     public void getSameCityList(){
 
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
+        productList=((MainActivity)getActivity()).getProductList();
+        Log.i("SameCityFrangment",productList+"");
+        adapter.notifyDataSetChanged();
 
-        Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i(TAG,result+"==========");
-                Gson gson=new Gson();
-                Product project=gson.fromJson(result,Product.class);
-                projectList.addAll(project.list);
-
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i(TAG,"fail"+"==========");
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+//        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
+//
+//        Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
+//        x.http().get(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.i(TAG,result+"==========");
+//                Gson gson=new Gson();
+//                Product project=gson.fromJson(result,Product.class);
+////        List<Product> productList=((MainActivity)getActivity()).getProductList();
+//
+//
+////                projectList.addAll(project.list);
+//
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                Log.i(TAG,"fail"+"==========");
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
     }
 
 }

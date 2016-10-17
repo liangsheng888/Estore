@@ -61,6 +61,25 @@ public class MainActivity extends Activity {
     private int[] imgs = {R.drawable.add_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red};
     private List<Map<String, Object>> mapList;//策划菜单数据
 
+    private List<Product.Products> productList;
+
+    public List<Product.Products> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product.Products> productList) {
+        this.productList = productList;
+    }
+
+    private int prowhere;
+
+    public int getProwhere() {
+        return prowhere;
+    }
+
+    public void setProwhere(int prowhere) {
+        this.prowhere = prowhere;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
