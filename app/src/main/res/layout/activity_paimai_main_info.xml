@@ -191,9 +191,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="52dp"
                 android:background="@drawable/corners_bg"
                 android:text="拍品推荐"
-                android:layout_marginBottom="52dp"
                 android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
@@ -201,8 +201,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
-        >
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -216,15 +215,16 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/btn_auct_jiajia"
+                    android:id="@+id/btn_paimai_tixing"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:layout_gravity="center"
+                    android:drawableTop="@drawable/bidding_tixing"
+                    android:gravity="center"
+                    android:background="#97c09c"
                     android:text="提醒"
-                    android:textSize="20sp"
 
-                    android:gravity="center"/>
+                    android:textSize="20sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -233,23 +233,32 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/btn_paimai_shoucang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="收藏"
+                    android:background="#97c09c"
+                    android:drawableTop="@drawable/bidding_shoucang"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                   />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <TextView
+                    android:background="#eb4f38"
                     android:id="@+id/btn_paimai_bidding"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="加价"
+                    android:drawableTop="@drawable/bidding_jiajia"
                     android:textSize="20sp"
-                    android:gravity="center"/>
+                   />
 
             </RelativeLayout>
         </LinearLayout>
