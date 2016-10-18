@@ -160,7 +160,8 @@ public class SchoolsFragment extends Fragment {
     };
     public void getSchoolList(){
 
-        productList=((MainActivity)getActivity()).getProductList();
+        productList=((MainActivity)getActivity()).getProducts();
+        adapter.notifyDataSetChanged();
 //        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
 //        x.http().get(params, new Callback.CommonCallback<String>() {
 //            @Override
