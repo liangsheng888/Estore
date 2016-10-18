@@ -48,7 +48,8 @@
         <activity android:name=".PublishEstoreDetialItemActivity" />
         <activity android:name=".PublishAuctionDetialItemActivity" />
         <activity android:name=".PaiMaiMain_bidding" />
-        <activity android:name=".AddessListActivity"></activity>
+        <activity android:name=".AddessListActivity" />
+        <activity android:name=".AddressSelector"></activity>
     </application>
 
 </manifest>

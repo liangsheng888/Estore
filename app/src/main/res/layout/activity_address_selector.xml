@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  android:orientation="vertical"
+    tools:context="com.estore.activity.AddressSelector">
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:hint="请输入用户名"
+       android:background="@drawable/dikang_bg"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="请输入手机号码"
+
+        android:background="@drawable/dikang_bg"/>
+    <Spinner
+
+        android:id="@+id/spin_province"
+        android:layout_width="match_parent"
+
+        android:popupBackground="#000"
+        android:foreground="#d00"
+
+        android:layout_height="60dp"
+      />
+
+    <Spinner
+        android:id="@+id/spin_city"
+        android:layout_width="match_parent"
+
+        android:foreground="#d00"
+        android:popupBackground="#000"
+        android:layout_height="60dp"
+      />
+
+    <Spinner
+        android:id="@+id/spin_county"
+        android:layout_width="match_parent"
+
+        android:foreground="#d00"
+        android:popupBackground="#000"
+        android:layout_height="60dp"
+
+      />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:hint="请输入详细地址"
+        android:layout_gravity="top"
+        android:background="@drawable/slidetab_bg_press"/>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#f00"
+    android:text="确定"/>
+
+</LinearLayout>

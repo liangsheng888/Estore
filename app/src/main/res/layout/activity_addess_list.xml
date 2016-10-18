@@ -9,6 +9,20 @@
     android:id="@+id/lv_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 </ListView>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    >
+
+    <Button
+        android:id="@+id/btn_new_address"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="添加新地址"
+        android:background="#f00"
+
+        />
+</FrameLayout>
 </RelativeLayout>
