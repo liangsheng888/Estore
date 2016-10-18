@@ -21,10 +21,7 @@ public class Product implements Serializable {
         public String imgurl;
         public String description;
         public String proaddress;
-        public String schoolname;
         public int prowhere;
-        public String cityaddress;
-        public String schooladdress;
 
 
         @Override
@@ -38,8 +35,8 @@ public class Product implements Serializable {
                     ", pnum=" + pnum +
                     ", imgurl='" + imgurl + '\'' +
                     ", description='" + description + '\'' +
-                    ", cityaddress='" + cityaddress + '\'' +
-                    ", schoolname='" + schooladdress + '\'' +
+                    ", proaddress='" + proaddress + '\'' +
+                    ", prowhere='" + prowhere + '\'' +
                     '}';
         }
     }

@@ -92,8 +92,8 @@ public class ProductInfoActivity extends AppCompatActivity {
         prod_info_tv_des.setText(pp.name);
 //        tv_product_detail.setText(pp.description);
         prod_info_tv_pnum.setText("库存:"+pp.pnum);
-        tv_product_detail_city.setText(pp.cityaddress);
-        tv_product_detail_schools.setText(pp.schooladdress);
+        tv_product_detail_city.setText(pp.proaddress);
+        tv_product_detail_schools.setText(pp.proaddress);
         vp_show_photo.setAdapter(new PagerAdapter() {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {

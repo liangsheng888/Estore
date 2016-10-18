@@ -22,14 +22,9 @@ import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
-import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,8 +50,11 @@ public class SchoolsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initView();
-
-        adapter = new MyAdapter();
+        if(adapter==null) {
+            adapter = new MyAdapter();
+        }else if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
         lv_schools.setAdapter(adapter);
 
     }
@@ -161,7 +159,7 @@ public class SchoolsFragment extends Fragment {
     public void getSchoolList(){
 
         productList=((MainActivity)getActivity()).getProducts();
-        adapter.notifyDataSetChanged();
+
 //        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
 //        x.http().get(params, new Callback.CommonCallback<String>() {
 //            @Override
