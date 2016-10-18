@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+系统通知页面
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +19,9 @@ public class SystemInformActivity extends AppCompatActivity {
         iv_informreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SystemInformActivity.this,MainActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(SystemInformActivity.this,MainActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
     }

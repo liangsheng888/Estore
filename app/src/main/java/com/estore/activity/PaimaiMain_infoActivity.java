@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PaimaiMain_infoActivity extends AppCompatActivity {
+public class PaimaiMain_infoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewPager vp_zuct_info_ad;
     private ListView lv_auct_name_liuyan;
@@ -30,18 +32,17 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
     private TextView tv_auct_name;
     private TextView tv_auct_username;
     private TextView tv_auct_time;
+    private TextView btn_paimai_bidding;
 
-//      private BaseAdapter adapter;
 
-    // 一个listview对应的list是不可以变化的（引用）
-//    final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
-//
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_paimai_main_info);
-
+        initView();
+        intEven();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
@@ -107,19 +108,19 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
         tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
         tv_beginprice.setText(auct.auct_minprice + "¥");
-        tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name+"手机");
+        tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name + "手机");
         tv_auct_username.setText("拍卖人：" + auct.auct_id);
         //判断拍卖时间
         String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         Long a = Long.parseLong(j);
         System.out.println(j + "--------------时间--------------------" + a);
-        String yy = auct.auct_begin.substring(0,4);
-        String month =auct.auct_begin.substring(5,7);
-        String day = auct.auct_begin.substring(8,10);
-        String hh = auct.auct_begin.substring(11,13);
-        String ss = auct.auct_begin.substring(14,16);
-        String mm = auct.auct_begin.substring(17,19);
-       String b=yy+month+day+hh+ss+mm;
+        String yy = auct.auct_begin.substring(0, 4);
+        String month = auct.auct_begin.substring(5, 7);
+        String day = auct.auct_begin.substring(8, 10);
+        String hh = auct.auct_begin.substring(11, 13);
+        String ss = auct.auct_begin.substring(14, 16);
+        String mm = auct.auct_begin.substring(17, 19);
+        String b = yy + month + day + hh + ss + mm;
         Long bb = Long.parseLong(b);
 //        System.out.println(b);
 //        Date date1 = null;
@@ -139,13 +140,32 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
 
 
 //      ystem.out.println("auct.auct_begin====================================" + auct.auct_begin);
-        if (bb- a < 0) {
+        if (bb - a < 0) {
             tv_auct_time.setText("未开始敬请期待");
         } else {
 //            tv_auct_time.setText(dd + ":" + hh + ":" + ":" + ss);
             tv_auct_time.setText("正在进行中");
         }
 
+    }
+
+    private void intEven() {
+        btn_paimai_bidding.setOnClickListener(this);
+
+    }
+
+    private void initView() {
+        btn_paimai_bidding = ((TextView) findViewById(R.id.btn_paimai_bidding));
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_paimai_bidding:
+                Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
+                startActivity(intent);
+        }
     }
 
 
@@ -186,38 +206,6 @@ public class PaimaiMain_infoActivity extends AppCompatActivity {
         }
     }
 
-//    private void getAuctList() {
-//        RequestParams params=new RequestParams("http://10.40.5.6:8080/EStore/getPaiMaiProducts?page=1");
-//
-//        x.http().get(params, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                System.out.println(result+"-------------------------------------");
-//                Gson gson = new Gson();
-//                AuctListActivityBean bean = gson.fromJson(result, AuctListActivityBean.class);
-//                auctList.addAll(bean.list);
-//
-//                System.out.println(auctList+"----=-=-==-acutlist==-=-==");
-//
-//                //通知listview更新界面
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                System.out.println(ex.getMessage()+"--------------er-----------------------");
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
-//    }
+
 }
 

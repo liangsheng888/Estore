@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
 
 import org.xutils.x;
@@ -30,8 +31,9 @@ public class AuctionDetialItemActivity extends AppCompatActivity {
         iv_audetial_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(AuctionDetialItemActivity.this, MyAuctionActivity.class);
-                startActivity(intent);
+                //Intent intent =new Intent(AuctionDetialItemActivity.this, MyAuctionActivity.class);
+                //startActivity(intent);
+                finish();
 
             }
         });
@@ -44,7 +46,7 @@ public class AuctionDetialItemActivity extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         ListMyAuctionActivityBean.ProImag  bundlepro=(ListMyAuctionActivityBean.ProImag)bundle.getSerializable("auctiondetial");
-        x.image().bind(iv_audetial_propic, "http://10.0.2.2:8080/EStore/" +bundlepro.auct_imgurl);
+        x.image().bind(iv_audetial_propic, HttpUrlUtils.HTTP_URL+bundlepro.auct_imgurl);
         Log.e("SellActivity",bundlepro.toString());
         tv_audetial_represent.setText(bundlepro.auct_description);
         tv_audetial_proname.setText(bundlepro.auct_name);

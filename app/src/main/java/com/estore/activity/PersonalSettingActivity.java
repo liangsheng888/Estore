@@ -1,5 +1,7 @@
 package com.estore.activity;
-
+/*
+个人资料设置页面
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +22,9 @@ public class PersonalSettingActivity extends AppCompatActivity {
         iv_perreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PersonalSettingActivity.this, MyIntercalateActivity.class);
-                startActivity(intent);
+                //Intent intent=new Intent(PersonalSettingActivity.this, MyIntercalateActivity.class);
+                //startActivity(intent);
+                finish();
             }
         });
 

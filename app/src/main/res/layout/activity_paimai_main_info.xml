@@ -1,210 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:scrollbars="vertical"
-    android:fadingEdge="vertical"
-    android:background="#e0edee"
     tools:context=".PaimaiMainActivity">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
 
-    tools:context="com.jin.app.myapplication.paimai.PaimaiMain_infoActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#12775b"
-       >
-
-        <!--自定义控件-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clock" />
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_zuct_info_ad"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/toolbar"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:background="#e0edee"
-        >
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical"
+        tools:context=".PaimaiMainActivity">
 
-    </android.support.v4.view.ViewPager>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
 
-    <RelativeLayout
-        android:padding="10dp"
+            tools:context="com.jin.app.myapplication.paimai.PaimaiMain_infoActivity">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#12775b">
+
+                <!--自定义控件-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clock" />
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_zuct_info_ad"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/toolbar"
+                android:background="#e0edee">
+
+            </android.support.v4.view.ViewPager>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eee"
+                android:padding="10dp">
+                <!--<corners android:radius="5dp" />-->
+                <TextView
+
+                    android:id="@+id/tv_auct_name"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="高端大气上档次的手机"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/jieshutixing" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dikang_bg"
+
+
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/nowprice" />
+
+                <TextView
+                    android:id="@+id/tv_beginprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#eee"
+                    android:text="当前价格:"
+                    android:textColor="#aaff0000"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/prod_info_tv_fapiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/ic_mail_install"
+                    android:drawablePadding="3dp"
+                    android:padding="10dp"
+                    android:text="正规发票"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/prod_info_tv_baoyou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/ic_mail_install"
+                    android:drawablePadding="3dp"
+                    android:padding="10dp"
+                    android:text="全国包邮"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="12sp" />
+
+                <View
+                    style="@style/bg_line"
+                    android:layout_alignParentBottom="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_auct_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_beginprice"
+                android:layout_below="@+id/tv_beginprice"
+                android:background="@drawable/dikang_bg"
+
+                android:padding="20dp"
+                android:paddingTop="10dp"
+                android:text="剩余时间"
+                android:textColor="#aa0000ff"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eee"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_auct_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:drawableRight="@drawable/liaotian"
+                    android:padding="8dp"
+                    android:text="拍卖人"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_auct_name_liuyan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_auct_newprice"
+                android:paddingLeft="10dp"
+                android:text="留言"
+
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/lv_auct_name_liuyan"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/dikang_bg"
+                android:divider="#000"
+                android:dividerHeight="1px"
+                android:padding="50dp"
+
+                >
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="52dp"
+                android:background="@drawable/corners_bg"
+                android:text="拍品推荐"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#eee"
-       >
-        <!--<corners android:radius="5dp" />-->
-        <TextView
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true">
 
-            android:id="@+id/tv_auct_name"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:text="高端大气上档次的手机"
-            android:textSize="20sp"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/jieshutixing" />
-    </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/dikang_bg"
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
+                <TextView
+                    android:id="@+id/btn_paimai_tixing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/bidding_tixing"
+                    android:gravity="center"
+                    android:background="#97c09c"
+                    android:text="提醒"
 
-    android:padding="15dp"
-    >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/nowprice"
-        />
-    <TextView
-        android:id="@+id/tv_beginprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="当前价格:"
-        android:textColor="#aaff0000"
-        android:textSize="25sp"
-        android:background="#eee"/>
-</LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/prod_info_tv_fapiao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:drawablePadding="3dp"
-            android:textSize="12sp"
-            android:drawableLeft="@drawable/ic_mail_install"
-            android:textColor="@android:color/background_dark"
-            android:text="正规发票"
-            />
-        <TextView
-            android:id="@+id/prod_info_tv_baoyou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ic_mail_install"
-            android:drawablePadding="3dp"
-            android:textSize="12sp"
-            android:textColor="@android:color/background_dark"
-            android:text="全国包邮"
-            />
-        <View  style="@style/bg_line"
-            android:layout_alignParentBottom="true"/>
+                    android:textSize="20sp" />
+            </RelativeLayout>
 
-    </RelativeLayout>
-      <TextView
-        android:paddingTop="10dp"
-        android:id="@+id/tv_auct_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_beginprice"
-        android:layout_below="@+id/tv_beginprice"
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-        android:text="剩余时间"
-        android:background="@drawable/dikang_bg"
-        android:textColor="#aa0000ff"
-        android:textSize="20sp"
-        android:padding="20dp"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#eee">
-    <TextView
-        android:id="@+id/tv_auct_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/btn_paimai_shoucang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="收藏"
+                    android:background="#97c09c"
+                    android:drawableTop="@drawable/bidding_shoucang"
+                    android:textSize="20sp"
+                   />
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-        android:text="拍卖人"
-        android:textSize="20sp"
-        android:padding="8dp"
-        android:drawableRight="@drawable/liaotian"
-        />
-    <!--<ImageView-->
-        <!--android:id="@+id/tv_auct_newprice"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentRight="true"-->
+                <TextView
+                    android:background="#eb4f38"
+                    android:id="@+id/btn_paimai_bidding"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="加价"
+                    android:drawableTop="@drawable/bidding_jiajia"
+                    android:textSize="20sp"
+                   />
 
-        <!--android:layout_centerHorizontal="true"-->
-        <!---->
-        <!--android:background="@drawable/liaotian"-->
-        <!---->
-        <!--android:textSize="20sp"-->
-        <!--/>-->
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tv_auct_name_liuyan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_auct_newprice"
-        android:paddingLeft="10dp"
-        android:text="留言"
-
-        android:textSize="20sp" />
-
-    <TextView
-        android:padding="50dp"
-        android:id="@+id/lv_auct_name_liuyan"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:divider="#000"
-        android:background="@drawable/dikang_bg"
-        android:dividerHeight="1px"
-
-        >
-
-    </TextView>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center">
-    <Button
-        android:id="@+id/btn_auct_jiajia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corners_bg"
-        android:text="加价"
-        android:textSize="20sp" />
-</LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="拍品推荐"
-        android:textSize="20sp"
-        android:background="@drawable/corners_bg"/>
-</LinearLayout>
-</ScrollView>
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

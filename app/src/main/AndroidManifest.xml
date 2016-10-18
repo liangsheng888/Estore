@@ -45,6 +45,10 @@
         <activity android:name=".MyIntercalateActivity" />
         <activity android:name=".MyWalletActivity" />
         <activity android:name=".PublishActivity" />
+        <activity android:name=".PublishEstoreDetialItemActivity" />
+        <activity android:name=".PublishAuctionDetialItemActivity" />
+        <activity android:name=".PaiMaiMain_bidding" />
+        <activity android:name=".AddessListActivity"></activity>
     </application>
 
 </manifest>

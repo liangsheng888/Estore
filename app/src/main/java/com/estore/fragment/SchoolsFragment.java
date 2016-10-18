@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.estore.activity.GetDataTaskListView;
+import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -31,16 +32,16 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SchoolsFragment extends Fragment {
 
     private static final String TAG = "SchoolsFragment";
     private PullToRefreshListView lv_schools;
     private BaseAdapter adapter;
-    final ArrayList<Product.Products> projectList=new ArrayList<Product.Products>();
     private ListView actualListView;
     private LinkedList<Product.Products> mListItems;
-
+    List<Product.Products> productList=new ArrayList<Product.Products>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class SchoolsFragment extends Fragment {
         lv_schools.setAdapter(adapter);
 
     }
+
+
 
     private void initView() {
         initPTRListView();
@@ -102,14 +105,14 @@ public class SchoolsFragment extends Fragment {
     private void initPTRListView() {
         actualListView=lv_schools.getRefreshableView();
         mListItems=new LinkedList<Product.Products>();
-        mListItems.addAll(projectList);
+        mListItems.addAll(productList);
         actualListView.setAdapter(adapter);
         actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("SchoolsFragment","position="+position+"");
                 int curposition=position-1;
-                Product.Products pp=projectList.get(curposition);
+                Product.Products pp=productList.get(curposition);
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("pp",pp);
@@ -125,7 +128,7 @@ public class SchoolsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return projectList.size();
+            return productList.size();
         }
 
         @Override
@@ -145,7 +148,7 @@ public class SchoolsFragment extends Fragment {
             TextView tv_project_name = ((TextView) view.findViewById(R.id.tv_project_name));
             TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
             tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
-            Product.Products list = projectList.get(position);
+            Product.Products list = productList.get(position);
             tv_project_name.setText(list.name);
             tv_project_price.setText(list.estoreprice + "");
             tv_project_description.setText(list.description);
@@ -156,31 +159,33 @@ public class SchoolsFragment extends Fragment {
 
     };
     public void getSchoolList(){
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i(TAG,result+"==========");
-                Gson gson=new Gson();
-                Product project=gson.fromJson(result,Product.class);
-                projectList.addAll(project.list);
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+        productList=((MainActivity)getActivity()).getProductList();
+//        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts?page=1");
+//        x.http().get(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.i(TAG,result+"==========");
+//                Gson gson=new Gson();
+//                Product project=gson.fromJson(result,Product.class);
+//                projectList.addAll(project.list);
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
     }
 }
