@@ -293,7 +293,7 @@ public class MainActivity extends Activity {
                 product=gson.fromJson(result,Product.class);
                 Log.i("SameCityFrangment","product:============"+product.toString()+"");
 //                Log.i("SameCityFrangment","newList:============"+newList+"");
-//                products.clear();
+                products.clear();
                 products.addAll(product.list);
                 Log.i("SameCityFrangment","products:============"+products+"");
 

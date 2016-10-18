@@ -47,6 +47,7 @@ public class SameCityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getSameCityList();
         View view=inflater.inflate(R.layout.fragment_same_city,null);
+
         lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
         return view;
 
@@ -55,8 +56,8 @@ public class SameCityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initView();
+
         if(adapter==null) {
             adapter = new MyAdapter();
         }else if(adapter!=null){
@@ -170,7 +171,7 @@ public class MyAdapter extends BaseAdapter{
 }
 
     public void getSameCityList(){
-        productList.clear();
+//        productList.clear();
         productList=((MainActivity)getActivity()).getProducts();
         Log.i("SameCityFrangment","productList"+productList+"");
 

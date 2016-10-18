@@ -89,7 +89,7 @@ public class EhFragment extends Fragment {
                             fragment2=new SchoolsFragment();
                         newFragment=fragment2;
                 }
-//                ((MainActivity)getActivity()).getData();
+                ((MainActivity)getActivity()).getData();
                 switchFragment(newFragment);
 
             }
