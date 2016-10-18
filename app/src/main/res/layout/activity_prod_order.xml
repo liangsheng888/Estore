@@ -191,7 +191,7 @@
                     android:src="@drawable/ic_arrow_right2"/>
             </RelativeLayout>
             <TextView
-                android:id="@+id/order_prod_liepiao"
+                android:id="@+id/order_prod_liebiao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"

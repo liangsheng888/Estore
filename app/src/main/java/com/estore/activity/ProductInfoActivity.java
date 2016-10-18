@@ -198,7 +198,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Intent intent=new  Intent(ProductInfoActivity.this,ProOrderActivity.class);
                 Bundle bundle=new Bundle();
 
-                bundle.putSerializable("ms",ms);
+                bundle.putSerializable("OrderInfo",ms);
                 intent.putExtras(bundle);
                 startActivity(intent);
 

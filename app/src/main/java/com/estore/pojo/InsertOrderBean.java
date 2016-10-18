@@ -9,7 +9,7 @@ public class InsertOrderBean {
 	Integer userId;//�û�id
 	Integer addressId;//��ַid
 	double totalPrice;//�ܼ۸�
-	Map<Product, Integer> details;//��Ʒ����
+	Map<Product.Products, Integer> details;//��Ʒ����
 	public Integer getUserId() {
 		return userId;
 	}
@@ -18,7 +18,7 @@ public class InsertOrderBean {
 
 	}
 
-	public InsertOrderBean(Integer userId, Integer addressId, double totalPrice, Map<Product, Integer> details) {
+	public InsertOrderBean(Integer userId, Integer addressId, double totalPrice, Map<Product.Products, Integer> details) {
 		super();
 		this.userId = userId;
 		this.addressId = addressId;
@@ -40,10 +40,10 @@ public class InsertOrderBean {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public Map<Product, Integer> getDetails() {
+	public Map<Product.Products, Integer> getDetails() {
 		return details;
 	}
-	public void setDetails(Map<Product, Integer> details) {
+	public void setDetails(Map<Product.Products, Integer> details) {
 		this.details = details;
 	}
 	

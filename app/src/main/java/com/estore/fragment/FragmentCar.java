@@ -129,10 +129,10 @@ public class FragmentCar extends Fragment {
 
                 }
                 Intent intent=new Intent(getActivity(), ProOrderActivity.class);
-                MapSerializable ms=new MapSerializable();
-                ms.setPro(proInfo);
+                MapSerializable OrderInfo=new MapSerializable();
+                OrderInfo.setPro(proInfo);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("ms",ms);
+                bundle.putSerializable("OrderInfo",OrderInfo);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

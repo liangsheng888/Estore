@@ -26,6 +26,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.estore.fragment.FragmentHome;
 import com.estore.httputils.HttpUrlUtils;
 
+import org.w3c.dom.Text;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -57,6 +59,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
     private TextView tv_choice_photo;
     private TextView tv_school;
+    private TextView tv_youfei;//邮费
     private Button btn_add_pro;
     private ImageView iv_showPhoto;
     private EditText et_proName;
@@ -65,6 +68,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private EditText et_proDescription;
     private GridView gv_showphoto;
     private RadioGroup rgIsSchool;
+    private RadioGroup rgIsBaoYou;
+
     private Spinner sp_proAddress;
     private Spinner sp_proCategory;
     private ImageView iv_addOne;
@@ -78,6 +83,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private int flag=0;//0代表同城，1代表城市
     private List<Bitmap> imageLists=new ArrayList<Bitmap>();
     private List<File> imageFileLists=new ArrayList<File>();
+    private int youfei=0;
     private MyAdapterShowPhoto adapter;
     //头像的存储完整路径
     private  File file =null;
@@ -99,8 +105,49 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         et_proNum.setText("0");
         btn_add_pro.setOnClickListener(this);
         tv_choice_photo.setOnClickListener(this);
+
         iv_addOne.setOnClickListener(this);
         iv_subOne.setOnClickListener(this);
+        rgIsBaoYou.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rb_baoyou_yes:
+
+                        tv_youfei.setText("");
+                        tv_youfei.setVisibility(View.GONE);
+
+                        break;
+                    case R.id.rb_baoyou_no:
+                        AlertDialog.Builder builder=new AlertDialog.Builder(AddProActivity.this);
+                        builder.setTitle("请输入邮费");
+                       final EditText et_youfei=new EditText(AddProActivity.this);
+                        builder.setView(et_youfei);
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                tv_youfei.setText("邮费  ￥"+et_youfei.getText().toString().trim());
+                                youfei=Integer.parseInt(et_youfei.getText().toString().trim());
+                                tv_youfei.setVisibility(View.VISIBLE);
+
+                                dialog.dismiss();
+
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                RadioButton radioButton=(RadioButton)findViewById(R.id.rb_baoyou_yes);
+                                radioButton.setChecked(true);
+
+                            }
+                        });
+                        builder.show();
+                        break;
+
+                }
+            }
+        });
         rgIsSchool.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -168,8 +215,11 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         sp_proAddress = (Spinner) findViewById(R.id.sp_proAddress);
         sp_proCategory=(Spinner)findViewById(R.id.sp_category);
         rgIsSchool=(RadioGroup)findViewById(R.id.rg_isSchool);
+        rgIsBaoYou=(RadioGroup)findViewById(R.id.rg_baoyou);
         tv_school=(TextView)findViewById(R.id.tv_school_name);
         gv_showphoto=(GridView) this.findViewById(R.id.gv_showPhoto);
+        tv_youfei=(TextView)findViewById(R.id.tv_youfei);
+
     }
 
     @Override
@@ -239,6 +289,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private void addProducts() {
 
         //数据上传服务器
+
         String proName = et_proName.getText().toString();
         Log.e("AddProActivity",proName);
         String proNum = et_proNum.getText().toString().trim();
@@ -266,6 +317,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
         params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
         params.addBodyParameter("proNum",proNum);
+            params.addBodyParameter("youfei",youfei+"");
         params.addBodyParameter("proPrice",proPrice);
         params.addBodyParameter("category",URLEncoder.encode(proCategory,"utf-8"));
         params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
@@ -395,8 +447,6 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
                         //iv_showPhoto.setImageBitmap(photo);
                     }
-
-
                 }
                 break;
 

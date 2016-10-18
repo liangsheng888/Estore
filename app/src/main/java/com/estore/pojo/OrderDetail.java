@@ -3,8 +3,24 @@ package com.estore.pojo;
 import java.io.Serializable;
 
 public class OrderDetail implements Serializable {
-	private Integer orderDetailId;//���������
-	public OrderDetail(Integer orderDetailId, Integer goodsOrderId, Product product, int goodsNum, double goodsPrice) {
+	private Integer orderDetailId;//
+	private Integer goodsOrderId;//������id��
+	private Product.Products product;//��Ʒ��Ϣ
+	private int goodsNum;//��Ʒ����
+	private double goodsPrice;// ���������
+
+	@Override
+	public String toString() {
+		return "OrderDetail{" +
+				"orderDetailId=" + orderDetailId +
+				", goodsOrderId=" + goodsOrderId +
+				", product=" + product +
+				", goodsNum=" + goodsNum +
+				", goodsPrice=" + goodsPrice +
+				'}';
+	}
+
+	public OrderDetail(Integer orderDetailId, Integer goodsOrderId, Product.Products product, int goodsNum, double goodsPrice) {
 		super();
 		this.orderDetailId = orderDetailId;
 		this.goodsOrderId = goodsOrderId;
@@ -18,12 +34,9 @@ public class OrderDetail implements Serializable {
 	public void setOrderDetailId(Integer orderDetailId) {
 		this.orderDetailId = orderDetailId;
 	}
-	private Integer goodsOrderId;//������id��
-	private Product product;//��Ʒ��Ϣ
-	private int goodsNum;//��Ʒ����
-	private double goodsPrice;
 
-	public OrderDetail(Integer goodsOrderId, Product product, int goodsNum, double goodsPrice) {
+
+	public OrderDetail(Integer goodsOrderId, Product.Products product, int goodsNum, double goodsPrice) {
 		super();
 		this.goodsOrderId = goodsOrderId;
 		this.product = product;
@@ -36,10 +49,10 @@ public class OrderDetail implements Serializable {
 	public void setGoodsOrderId(Integer goodsOrderId) {
 		this.goodsOrderId = goodsOrderId;
 	}
-	public Product getProduct() {
+	public Product.Products getProduct() {
 		return product;
 	}
-	public void setProduct(Product product) {
+	public void setProduct(Product.Products product) {
 		this.product = product;
 	}
 	public int getGoodsNum() {

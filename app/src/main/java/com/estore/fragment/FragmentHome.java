@@ -28,9 +28,12 @@ import com.estore.activity.R;
 import com.estore.activity.SameCityActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
@@ -77,6 +80,55 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         //gv_fr_home = (GridView) view.findViewById(R.id.lv_fr_home);
 
         return view;
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        //刷新
+        if(!hidden){
+            getData();
+
+
+    }}
+
+    private void getData() {
+        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
+
+
+        final RequestParams params = new RequestParams(url);
+        x.http().get(params, new Callback.CacheCallback<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                Product pro = gson.fromJson(result, Product.class);
+                Log.e("MainActivity", pro.toString());
+                list.clear();
+                list.addAll(pro.list);
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
     }
 
 
@@ -236,11 +288,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        Log.e("home", hidden + "");
-        super.onHiddenChanged(hidden);
-    }
 
     @Override
     public void onDestroyView() {
@@ -356,4 +403,5 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         ((MainActivity)getActivity()).changeFragment(new FragmentCar());//跳转到购物车
     }
+
 }
