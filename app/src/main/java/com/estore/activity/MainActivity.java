@@ -281,11 +281,15 @@ public class MainActivity extends Activity {
                 Log.i("SameCityFrangment","result:"+result+"");
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<Product.Products>>(){}.getType();
-                List<Product.Products> newList=new ArrayList<Product.Products>();
+                List<PageBean> newList=new ArrayList<PageBean>();
                 newList=gson.fromJson(result,type);
                 products.clear();
-                products.addAll(newList);
-                Log.i("SameCityFrangment","products:"+products+"");
+                for (PageBean pageBean : newList) {
+                    products=pageBean.getPageProduct();
+                }
+
+//                products.addAll(newList);
+                Log.i("SameCityFrangment","products:============"+products+"");
 
             }
 
