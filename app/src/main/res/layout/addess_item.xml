@@ -3,34 +3,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">
+
         <RadioButton
+            android:id="@+id/rg_addess_selector"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-        />
+            />
     </RelativeLayout>
-    <RelativeLayout
+
+    <LinearLayout
+        android:id="@+id/rl_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-       android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_auct_adress"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp">
+
+            <TextView
+                android:id="@+id/tv_auct_shouhuoren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="  收 货 人:"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_auct_shouhuoren"
+                android:text="联系方式"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收货地址:"
-            android:textSize="20sp" />
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:lineSpacingMultiplier="1.5"
-            android:layout_toRightOf="@+id/tv_auct_adress"
-            android:text="江苏省苏州市姑苏区苏州工业园区独墅湖高教区仁爱路1号" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_auct_adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收货地址:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_bidding_addess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_auct_adress"
+                android:lineSpacingMultiplier="1.5"
+                android:text="江苏省苏州市姑苏区苏州工业园区独墅湖高教区仁爱路1号" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
