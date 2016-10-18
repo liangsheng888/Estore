@@ -56,6 +56,7 @@ public class EhFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+//        getData();
         switchFragment(new SameCityFragment());
         //orderFlag=0默认显示按照最新发布时间排序的全部商品
         popContents.add("手机");//orderFlag=1
@@ -77,15 +78,16 @@ public class EhFragment extends Fragment {
                 Fragment fragment=null;
                 switch (checkedId){
                     case R.id.rb_samecity:
+                        ((MainActivity)getActivity()).setProwhere(0);
                         if (fragment1==null)
                             fragment1=new SameCityFragment();
                         newFragment=fragment1;
-                        ((MainActivity)getActivity()).setProwhere(0);
                         break;
                     case R.id.rb_schools:
+                        ((MainActivity)getActivity()).setProwhere(1);
                         if (fragment2==null)
                             fragment2=new SchoolsFragment();
-                        ((MainActivity)getActivity()).setProwhere(1);
+
                         newFragment=fragment2;
                 }
                 switchFragment(newFragment);
@@ -137,42 +139,48 @@ public class EhFragment extends Fragment {
                 }
                 //重新获取数据源，按价格排序
 
-                String url= HttpUrlUtils.HTTP_URL+"queryProductBean";
-                RequestParams requestParams=new RequestParams(url);
-                requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-                requestParams.addQueryStringParameter("prowhere",((MainActivity)getActivity()).getProwhere()+"");
-                Log.i("SameCityFrangment",((MainActivity)getActivity()).getProwhere()+"");
-                x.http().get(requestParams, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Gson gson=new Gson();
-                        Type type=new TypeToken<List<Product>>(){}.getType();
-                        List<Product.Products> newList=new ArrayList<Product.Products>();
-                        newList=gson.fromJson(result,type);
-                        products.clear();
-                        products.addAll(newList);
-                        Log.i("SameCityFrangment",products+"");
-                        ((MainActivity)getActivity()).setProductList(products);
-                    }
+//                getData();
+                ((MainActivity)getActivity()).getData();
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
             }
         });
     }
+
+//    private void getData() {
+//        String url= HttpUrlUtils.HTTP_URL+"queryProductBean";
+//        RequestParams requestParams=new RequestParams(url);
+//        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
+//        requestParams.addQueryStringParameter("prowhere","prowhere"+((MainActivity)getActivity()).getProwhere()+"");
+//        Log.i("SameCityFrangment",((MainActivity)getActivity()).getProwhere()+"");
+//        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Gson gson=new Gson();
+//                Type type=new TypeToken<List<Product>>(){}.getType();
+//                List<Product.Products> newList=new ArrayList<Product.Products>();
+//                newList=gson.fromJson(result,type);
+//                products.clear();
+//                products.addAll(newList);
+//                Log.i("SameCityFrangment","products:"+products+"");
+//                ((MainActivity)getActivity()).setProductList(products);
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
+//    }
 
     private void switchFragment(Fragment fragment) {
         if (fragment==null) {

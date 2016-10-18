@@ -3,15 +3,15 @@ package com.estore.pojo;
 import java.io.Serializable;
 
 public class Address implements Serializable {
-	private int addressId;
-	private int userId;
-	private String cantactName;
-	
-	private String cantactPhone;
-	
-	private String contactAddress;
-	private boolean isDefault;
-	
+	public int addressId;
+	public int userId;
+	public String cantactName;
+
+	public String cantactPhone;
+
+	public String contactAddress;
+	public boolean isDefault;
+
 	public String getCantactName() {
 		return cantactName;
 	}
@@ -67,6 +67,6 @@ public class Address implements Serializable {
 	public void setDefault(boolean isDefault) {
 		this.isDefault = isDefault;
 	}
-	
+
 
 }

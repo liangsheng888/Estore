@@ -22,9 +22,17 @@ import com.estore.fragment.FragmentCar;
 import com.estore.fragment.FragmentHome;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.fragment.EhFragment;
+import com.estore.httputils.HttpUrlUtils;
+import bean.PageBean;
 import com.estore.pojo.Product;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,6 +62,9 @@ public class MainActivity extends Activity {
     private Fragment fr_used;
     private Fragment fr_now;
     private boolean firstIn = true;//
+    int orderFlag=0;
+    int page=1;
+    //List<Product.Products> products=new ArrayList<Product.Products>();
 
     String[] keys = {"img", "name"};
     private String menuData[] = {"新闻", "订阅", "图片", "视频", "跟帖", "投票"};
@@ -61,17 +72,17 @@ public class MainActivity extends Activity {
     private int[] imgs = {R.drawable.add_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red};
     private List<Map<String, Object>> mapList;//策划菜单数据
 
-    private List<Product.Products> productList;
+    private List<Product.Products> products;
 
-    public List<Product.Products> getProductList() {
-        return productList;
+    public List<Product.Products> getProducts() {
+        return products;
     }
 
-    public void setProductList(List<Product.Products> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product.Products> products) {
+        this.products = products;
     }
 
-    private int prowhere;
+    private int prowhere=0;
 
     public int getProwhere() {
         return prowhere;
@@ -95,6 +106,7 @@ public class MainActivity extends Activity {
         }
         initView();
         initData();
+        getData();
 
 
         //拿到服务器的数据
@@ -149,8 +161,9 @@ public class MainActivity extends Activity {
                         if (fr_add == null)
                             fr_add = new EhFragment();
                         fr_now = fr_add;
-                        prowhere=0;
+//                        prowhere=0;
                         changeFragment(fr_now);
+//                        getData();
                         break;
                     case R.id.rb_mine:
                         if (fr_mine == null)
@@ -165,7 +178,8 @@ public class MainActivity extends Activity {
 
 
             }
-        });                firstIn = false;
+        });
+        firstIn = false;
 
 
         //为侧滑菜单添加适配器
@@ -249,6 +263,54 @@ public class MainActivity extends Activity {
 
         //ft.replace(R.id.fl_main, fg);
         ft.commit();
+    }
+
+    public void getData(){
+        String url= HttpUrlUtils.HTTP_URL+"queryProductServlet";
+        Log.i("SameCityFrangment","url"+url);
+        RequestParams requestParams=new RequestParams(url);
+        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
+        requestParams.addQueryStringParameter("prowhere",prowhere+"");
+        requestParams.addQueryStringParameter("page",page+"");
+        Log.i("SameCityFrangment","prowhere"+prowhere+"");
+        Log.i("SameCityFrangment","orderFlag"+orderFlag+"");
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("result:"+result+"");
+                Log.i("SameCityFrangment","result:"+result+"");
+                Gson gson=new Gson();
+                Type type=new TypeToken<List<Product.Products>>(){}.getType();
+                List<PageBean> newList=new ArrayList<PageBean>();
+                newList=gson.fromJson(result,type);
+                products.clear();
+                for (PageBean pageBean : newList) {
+                    products=pageBean.getPageProduct();
+                }
+
+//                products.addAll(newList);
+                Log.i("SameCityFrangment","products:============"+products+"");
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("SameCityFrangment","onError:"+ex);
+
+                System.out.println("onError:"+ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                System.out.println("onCancelled:"+cex);
+            }
+
+            @Override
+            public void onFinished() {
+
+                System.out.println("onFinished:");
+            }
+        });
     }
 
 

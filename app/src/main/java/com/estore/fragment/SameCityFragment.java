@@ -22,13 +22,11 @@ import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
+import bean.PageBean;
 import com.estore.pojo.Product;
-import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.x;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -170,8 +168,8 @@ public class MyAdapter extends BaseAdapter{
 
     public void getSameCityList(){
 
-        productList=((MainActivity)getActivity()).getProductList();
-        Log.i("SameCityFrangment",productList+"");
+        ((MainActivity)getActivity()).getProducts();
+        Log.i("SameCityFrangment","productList"+productList+"");
         adapter.notifyDataSetChanged();
 
 //        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
