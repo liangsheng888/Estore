@@ -50,7 +50,8 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="手表"/>
+            android:textSize="13sp"
+            android:text="笔记本"/>
         <Button
             android:id="@+id/btn_sort_others"
             android:layout_weight="1"
