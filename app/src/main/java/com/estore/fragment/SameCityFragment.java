@@ -22,7 +22,6 @@ import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
-import bean.PageBean;
 import com.estore.pojo.Product;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -48,6 +47,7 @@ public class SameCityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getSameCityList();
         View view=inflater.inflate(R.layout.fragment_same_city,null);
+
         lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
         return view;
 
@@ -56,9 +56,13 @@ public class SameCityFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initView();
-        adapter =new MyAdapter();
+
+        if(adapter==null) {
+            adapter = new MyAdapter();
+        }else if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
         lv_same_city.setAdapter(adapter);
         new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
 
@@ -167,10 +171,10 @@ public class MyAdapter extends BaseAdapter{
 }
 
     public void getSameCityList(){
-
-        ((MainActivity)getActivity()).getProducts();
+//        productList.clear();
+        productList=((MainActivity)getActivity()).getProducts();
         Log.i("SameCityFrangment","productList"+productList+"");
-        adapter.notifyDataSetChanged();
+
 
 //        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
 //

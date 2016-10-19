@@ -23,7 +23,6 @@ import com.estore.fragment.FragmentHome;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.fragment.EhFragment;
 import com.estore.httputils.HttpUrlUtils;
-import bean.PageBean;
 import com.estore.pojo.Product;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -64,6 +63,14 @@ public class MainActivity extends Activity {
     private boolean firstIn = true;//
     int orderFlag=0;
     int page=1;
+
+    public int getOrderFlag() {
+        return orderFlag;
+    }
+
+    public void setOrderFlag(int orderFlag) {
+        this.orderFlag = orderFlag;
+    }
     //List<Product.Products> products=new ArrayList<Product.Products>();
 
     String[] keys = {"img", "name"};
@@ -72,7 +79,7 @@ public class MainActivity extends Activity {
     private int[] imgs = {R.drawable.add_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red};
     private List<Map<String, Object>> mapList;//策划菜单数据
 
-    private List<Product.Products> products;
+    private List<Product.Products> products=new ArrayList<Product.Products>();
 
     public List<Product.Products> getProducts() {
         return products;
@@ -280,15 +287,14 @@ public class MainActivity extends Activity {
                 System.out.println("result:"+result+"");
                 Log.i("SameCityFrangment","result:"+result+"");
                 Gson gson=new Gson();
-                Type type=new TypeToken<List<Product.Products>>(){}.getType();
-                List<PageBean> newList=new ArrayList<PageBean>();
-                newList=gson.fromJson(result,type);
-                products.clear();
-                for (PageBean pageBean : newList) {
-                    products=pageBean.getPageProduct();
-                }
 
-//                products.addAll(newList);
+//                List<Product.Products> newList=new ArrayList<Product.Products>();
+                Product product=new Product();
+                product=gson.fromJson(result,Product.class);
+                Log.i("SameCityFrangment","product:============"+product.toString()+"");
+//                Log.i("SameCityFrangment","newList:============"+newList+"");
+                products.clear();
+                products.addAll(product.list);
                 Log.i("SameCityFrangment","products:============"+products+"");
 
             }
@@ -297,7 +303,7 @@ public class MainActivity extends Activity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 Log.i("SameCityFrangment","onError:"+ex);
 
-                System.out.println("onError:"+ex);
+//                System.out.println("onError:"+ex);
             }
 
             @Override

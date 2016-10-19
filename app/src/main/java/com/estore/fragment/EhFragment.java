@@ -87,9 +87,9 @@ public class EhFragment extends Fragment {
                         ((MainActivity)getActivity()).setProwhere(1);
                         if (fragment2==null)
                             fragment2=new SchoolsFragment();
-
                         newFragment=fragment2;
                 }
+                ((MainActivity)getActivity()).getData();
                 switchFragment(newFragment);
 
             }
@@ -137,9 +137,9 @@ public class EhFragment extends Fragment {
                 }else if(position==5) {
                     orderFlag = 6;
                 }
-                //重新获取数据源，按价格排序
 
-//                getData();
+                //重新获取数据源，按价格排序
+                ((MainActivity)getActivity()).setOrderFlag(orderFlag);
                 ((MainActivity)getActivity()).getData();
 
             }
