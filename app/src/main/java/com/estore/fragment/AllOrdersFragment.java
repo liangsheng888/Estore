@@ -209,10 +209,10 @@ public class AllOrdersFragment extends Fragment {
                                     break;
 
                                 default:
-                                    btnLeft.setVisibility(View.VISIBLE);
+                                    btnLeft.setVisibility(View.GONE);
                                     btnRight.setVisibility(View.VISIBLE);
-                                    btnLeft.setText("BUTTON LEFT");
-                                    btnRight.setText("BUTTON RIGHT");
+                                    btnLeft.setText("");
+                                    btnRight.setText("删除订单");
                                     break;
                             }
 
@@ -267,7 +267,7 @@ public class AllOrdersFragment extends Fragment {
                         //更新订单状态，更新界面
                         public void changeState(int orderId, final int newStateId, final String newStateName,final int position){
 
-                            RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"OrderUpdateServlet");
+                            RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderUpdateServlet");
                             requestParams.addBodyParameter("orderId",orderId+"");
                             requestParams.addBodyParameter("newStateId",newStateId+"");
 

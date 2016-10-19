@@ -122,6 +122,7 @@ public class FragmentCar extends Fragment {
                     if(stus){
                         //获取选中商品的信息
                         Product.Products pro= cartlist.get(position).getProduct();
+                        Log.e("FragmentCar","product"+pro.toString());
                         //选中购物车商品数量
                         int number= cartAdapter.getCar_numbers().get(position);
                         proInfo.put(pro,number);
@@ -129,6 +130,7 @@ public class FragmentCar extends Fragment {
 
                 }
                 Intent intent=new Intent(getActivity(), ProOrderActivity.class);
+
                 MapSerializable OrderInfo=new MapSerializable();
                 OrderInfo.setPro(proInfo);
                 Bundle bundle=new Bundle();
@@ -159,7 +161,7 @@ public class FragmentCar extends Fragment {
                 }.getType());
                 cartlist.clear();
                 cartlist.addAll(list);
-                Log.e("FragmentCar","list"+list.toString());
+                Log.e("FragmentCar","list------"+list.toString());
                 if (cartAdapter == null) {
                     cartAdapter = new CartAapater(getActivity(), cartlist, R.layout.cart_item);
                 } else {

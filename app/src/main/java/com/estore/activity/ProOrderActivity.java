@@ -83,7 +83,6 @@ public class ProOrderActivity extends AppCompatActivity {
                 insertOrderBean.setAddressId(1);//默认地址
                 insertOrderBean.setDetails(mapOrderInfo);//所有的商品：添加的是key-value的
                 insertOrderBean.setTotalPrice(totalprice);
-
                 //对象转换成json数据
                 Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
                         .create();

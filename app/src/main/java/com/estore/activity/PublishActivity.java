@@ -15,8 +15,10 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.estore.activity.myappliction.MyApplication;
 import com.estore.fragment.PublishAuctionFragment;
 import com.estore.fragment.PublishEStoreFragment;
+import com.estore.pojo.User;
 
 public class PublishActivity extends AppCompatActivity implements View.OnClickListener {
     private RadioGroup rg_grouppublish;
@@ -31,11 +33,13 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
     private ListView lv_publishlv;
 
 
+
     //activity生命周期
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
+
         rb_estorepublish = ((RadioButton) findViewById(R.id.rb_estorepublish));
         rb_auctionpublish = ((RadioButton) findViewById(R.id.rb_auctionpublish));
 //        lv_publishlv = ((ListView) findViewById(R.id.lv_publishlv));

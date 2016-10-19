@@ -5,21 +5,11 @@
     tools:context="com.estore.fragment.WaitingReceiveGoodsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/iv_proeval"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:src="@drawable/opinion"
-        android:layout_marginTop="-80dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="亲，你还没有购买！"
-        android:textSize="26sp"
-        android:layout_marginTop="40dp"
-        />
+    <ListView
+        android:id="@+id/lv_unReceive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 
 </FrameLayout>

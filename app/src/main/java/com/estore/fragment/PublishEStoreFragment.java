@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.estore.activity.PublishEstoreDetialItemActivity;
 import com.estore.activity.R;
+import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.MyPublishActivityBean;
+import com.estore.pojo.User;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -40,6 +42,7 @@ public class PublishEStoreFragment extends Fragment {
     private ListView lv_publishest;
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
     private BaseAdapter  adapter;
+    User user=new User();
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -48,6 +51,9 @@ public class PublishEStoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication my = (MyApplication)getActivity().getApplication();
+
+        user = my.getUser();
     }
 
     @Override
@@ -172,12 +178,12 @@ public class PublishEStoreFragment extends Fragment {
     //请求数据
     private void getProduct() {
         //RequestParams requestParams=new RequestParams("http://10.40.5.18:8080/EStore/getmypublishservlet?email=491830643@qq.com");
-        String url = HttpUrlUtils.HTTP_URL + "getmypublishservlet?email=978188219@qq.com";//访问网络的url
+        String url = HttpUrlUtils.HTTP_URL + "myAddProductsServlet?user_id="+user.getUserId();//访问网络的url
         RequestParams requestParams = new RequestParams(url);//请求参数url
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("PublishEStoreFragment",result);
+                Log.e("PublishEStoreFragment","result"+result);
                 Gson gson=new Gson();
                 MyPublishActivityBean  probean=gson.fromJson(result,MyPublishActivityBean.class);
                 prolist.addAll(probean.list);
