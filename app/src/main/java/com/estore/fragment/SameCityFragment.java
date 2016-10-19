@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,106 +24,70 @@ import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SameCityFragment extends Fragment {
+public class SameCityFragment extends Fragment implements View.OnClickListener{
+    private ListView lvSameCity;
+    Integer orderFlag=0;
+    Integer page=1;
+    private Button sortPhone;
+    private View sortComputer;
+    private View sortMatch;
+    private View sortOthers;
+    private View sortPriceUp;
+    private View sortPriceDown;
 
     private static final String TAG = "SameCityFragment";
-    private PullToRefreshListView lv_same_city;
+//    private PullToRefreshListView lv_same_city;
     private BaseAdapter adapter;
     private ImageView iv_project_photo;
      List<Product.Products> productList=new ArrayList<Product.Products>();
-    private ListView actualListView;
-    private LinkedList<Product.Products> mListItems;
+//    private ListView actualListView;
+//    private LinkedList<Product.Products> mListItems;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getSameCityList();
         View view=inflater.inflate(R.layout.fragment_same_city,null);
-
-        lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
+//        lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
+        sortPhone = ((Button) view.findViewById(R.id.btn_sort_phone));
+        sortComputer = view.findViewById(R.id.btn_sort_computer);
+        sortMatch = view.findViewById(R.id.btn_sort_match);
+        sortOthers = view.findViewById(R.id.btn_sort_others);
+        sortPriceUp = view.findViewById(R.id.btn_sort_price_up);
+        sortPriceDown = view.findViewById(R.id.btn_sort_price_down);
+        lvSameCity = ((ListView) view.findViewById(R.id.lv_same_city));
+        getSameCityList();
         return view;
+
 
 
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-
-        if(adapter==null) {
-            adapter = new MyAdapter();
-        }else if(adapter!=null){
-            adapter.notifyDataSetChanged();
-        }
-        lv_same_city.setAdapter(adapter);
-        new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
-
-    }
-
-
-
-    private void initView() {
-        initPTRListView();
-        initListView();
-    }
-
-
-    private void initPTRListView() {
-        lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-
+        sortPhone.setOnClickListener(this);
+        sortComputer.setOnClickListener(this);
+        sortMatch.setOnClickListener(this);
+        sortOthers.setOnClickListener(this);
+        sortPriceUp.setOnClickListener(this);
+        sortPriceDown.setOnClickListener(this);
+//        initView();
+        lvSameCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                //设置下拉时显示的日期和时间
-                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                // 更新显示的label
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                // 开始执行异步任务，传入适配器来进行数据改变
-                new GetDataTaskListView(lv_same_city, adapter,mListItems).execute();
-            }
-        });
-
-        // 添加滑动到底部的监听器
-        lv_same_city.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-
-            @Override
-            public void onLastItemVisible() {
-                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //mPullRefreshListView.isScrollingWhileRefreshingEnabled();//看刷新时是否允许滑动
-        //在刷新时允许继续滑动
-        lv_same_city.setScrollingWhileRefreshingEnabled(true);
-        //mPullRefreshListView.getMode();//得到模式
-        //上下都可以刷新的模式。这里有两个选择：Mode.PULL_FROM_START，Mode.BOTH，PULL_FROM_END
-        lv_same_city.setMode(PullToRefreshBase.Mode.BOTH);
-
-    }
-
-    private void initListView() {
-//通过getRefreshableView()来得到一个listview对象
-        actualListView = lv_same_city.getRefreshableView();
-        mListItems = new LinkedList<Product.Products>();
-        //把string数组中的string添加到链表中
-        mListItems.addAll(productList);
-        actualListView.setAdapter(adapter);
-        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int position_=position-1;
-                Product.Products pp=productList.get(position_);
-                Log.i(TAG,position_+"");
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Product.Products pp=productList.get(i);
+                Log.i(TAG,i+"");
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("pp",pp);
@@ -130,7 +95,102 @@ public class SameCityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+//        lv_same_city.setAdapter(adapter);
+//        new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
+
     }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.btn_sort_phone:
+                orderFlag=1;
+                break;
+            case R.id.btn_sort_computer:
+                orderFlag=2;
+                break;
+            case R.id.btn_sort_match:
+                orderFlag=3;
+                break;
+            case R.id.btn_sort_others:
+                orderFlag=4;
+                break;
+            case R.id.btn_sort_price_up:
+                orderFlag=5;
+                break;
+            case R.id.btn_sort_price_down:
+                orderFlag=6;
+                break;
+        }
+        getSameCityList();
+
+
+    }
+
+
+//    private void initView() {
+//        initPTRListView();
+//        initListView();
+//    }
+//
+//
+//    private void initPTRListView() {
+//        lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//
+//            @Override
+//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//                //设置下拉时显示的日期和时间
+//                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                // 更新显示的label
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//                // 开始执行异步任务，传入适配器来进行数据改变
+//                new GetDataTaskListView(lv_same_city, adapter,mListItems).execute();
+//            }
+//        });
+//
+//        // 添加滑动到底部的监听器
+//        lv_same_city.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+//
+//            @Override
+//            public void onLastItemVisible() {
+//                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        //mPullRefreshListView.isScrollingWhileRefreshingEnabled();//看刷新时是否允许滑动
+//        //在刷新时允许继续滑动
+//        lv_same_city.setScrollingWhileRefreshingEnabled(true);
+//        //mPullRefreshListView.getMode();//得到模式
+//        //上下都可以刷新的模式。这里有两个选择：Mode.PULL_FROM_START，Mode.BOTH，PULL_FROM_END
+//        lv_same_city.setMode(PullToRefreshBase.Mode.BOTH);
+//
+//    }
+//
+//    private void initListView() {
+////通过getRefreshableView()来得到一个listview对象
+//        actualListView = lv_same_city.getRefreshableView();
+//        mListItems = new LinkedList<Product.Products>();
+//        //把string数组中的string添加到链表中
+//        mListItems.addAll(productList);
+//        actualListView.setAdapter(adapter);
+//        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                int position_=position-1;
+//                Product.Products pp=productList.get(position_);
+//                Log.i(TAG,position_+"");
+//                Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
+//                Bundle bundle=new Bundle();
+//                bundle.putSerializable("pp",pp);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 public class MyAdapter extends BaseAdapter{
 
     private TextView tv_product_kind;
@@ -169,46 +229,59 @@ public class MyAdapter extends BaseAdapter{
         return view;
     }
 }
-
+//
     public void getSameCityList(){
-//        productList.clear();
-        productList=((MainActivity)getActivity()).getProducts();
-        Log.i("SameCityFrangment","productList"+productList+"");
-
-
-//        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSameCityProducts?page=1");
+////        productList.clear();
+//        if(productList==null){
+//            productList=new ArrayList<>();
+//        }
+//        else {
+//            productList.clear();
+//            productList=((MainActivity)getActivity()).getProducts();
+//        }
 //
+//        Log.i("SameCityFrangment","SameCityFrangment=============productList"+productList+"");
+
+
+        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"getSameCityProducts");
+        Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
+        params.addQueryStringParameter("orderFlag",orderFlag+"");
+        params.addQueryStringParameter("page",page+"");
 //        Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
-//        x.http().get(params, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Log.i(TAG,result+"==========");
-//                Gson gson=new Gson();
-//                Product project=gson.fromJson(result,Product.class);
-////        List<Product> productList=((MainActivity)getActivity()).getProductList();
-//
-//
-////                projectList.addAll(project.list);
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                Log.i(TAG,"fail"+"==========");
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i(TAG,result+"==========");
+                Gson gson=new Gson();
+                Product project=gson.fromJson(result,Product.class);
+//        List<Product> productList=((MainActivity)getActivity()).getProductList();
+
+                productList.clear();
+                productList.addAll(project.list);
+                if(adapter==null) {
+                    adapter = new MyAdapter();
+                }else if(adapter!=null){
+                    adapter.notifyDataSetChanged();
+                }
+                lvSameCity.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i(TAG,"fail"+"==========");
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
 }

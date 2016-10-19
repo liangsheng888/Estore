@@ -5,7 +5,7 @@
     android:background="#f9f7f7"
     tools:context="com.estore.fragment.SameCityFragment">
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/lv_same_city"
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -23,8 +23,60 @@
         ptr:ptrHeaderSubTextColor="#00ffff"
         ptr:ptrHeaderBackground="@null"
         ptr:ptrDrawable="@mipmap/ic_launcher">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>-->
+    <RelativeLayout
+        android:id="@+id/rl_samecity_sort"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+    <Button
+        android:id="@+id/btn_sort_phone"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="手机"/>
+        <Button
+            android:id="@+id/btn_sort_computer"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="电脑"/>
+        <Button
+            android:id="@+id/btn_sort_match"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="手表"/>
+        <Button
+            android:id="@+id/btn_sort_others"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="其他"/>
+        <Button
+            android:id="@+id/btn_sort_price_up"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="价格↑"/>
+        <Button
+            android:id="@+id/btn_sort_price_down"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="价格↓"/>
+    </LinearLayout>
+        <ListView
+            android:id="@+id/lv_same_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true">
 
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
-
-
+        </ListView>
+    </RelativeLayout>
 </FrameLayout>

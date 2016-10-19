@@ -10,10 +10,14 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 
@@ -46,7 +50,7 @@ public class MainActivity extends Activity {
     public LinkedList<Product.Products> getList() {
         return list;
     }
-
+//
     private final LinkedList<Product.Products> list =new LinkedList<Product.Products>();
     //private final List<Product.Products> list =new ArrayList<Product.Products>();
     private RadioGroup rg;
@@ -61,43 +65,43 @@ public class MainActivity extends Activity {
     private Fragment fr_used;
     private Fragment fr_now;
     private boolean firstIn = true;//
-    int orderFlag=0;
-    int page=1;
-
-    public int getOrderFlag() {
-        return orderFlag;
-    }
-
-    public void setOrderFlag(int orderFlag) {
-        this.orderFlag = orderFlag;
-    }
-    //List<Product.Products> products=new ArrayList<Product.Products>();
-
+//    int orderFlag=0;
+//    private static Integer page=1;
+//
+//    public int getOrderFlag() {
+//        return orderFlag;
+//    }
+//
+//    public void setOrderFlag(int orderFlag) {
+//        this.orderFlag = orderFlag;
+//    }
+//    //List<Product.Products> products=new ArrayList<Product.Products>();
+//
     String[] keys = {"img", "name"};
     private String menuData[] = {"新闻", "订阅", "图片", "视频", "跟帖", "投票"};
     private int[] id = {R.id.iv_name, R.id.tv_name};
     private int[] imgs = {R.drawable.add_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red};
     private List<Map<String, Object>> mapList;//策划菜单数据
-
-    private List<Product.Products> products=new ArrayList<Product.Products>();
-
-    public List<Product.Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product.Products> products) {
-        this.products = products;
-    }
-
-    private int prowhere=0;
-
-    public int getProwhere() {
-        return prowhere;
-    }
-
-    public void setProwhere(int prowhere) {
-        this.prowhere = prowhere;
-    }
+//
+//    private List<Product.Products> products=new ArrayList<Product.Products>();
+//
+//    public List<Product.Products> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product.Products> products) {
+//        this.products = products;
+//    }
+//
+//    private int prowhere=0;
+//
+//    public int getProwhere() {
+//        return prowhere;
+//    }
+//
+//    public void setProwhere(int prowhere) {
+//        this.prowhere = prowhere;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +117,11 @@ public class MainActivity extends Activity {
         }
         initView();
         initData();
-        getData();
-
-
+//        //进入主界面就开始连接网络获取值
+//        getData();
+//
+//
+//
         //拿到服务器的数据
         Intent intent = this.getIntent();
         String json = intent.getStringExtra("json");
@@ -126,15 +132,15 @@ public class MainActivity extends Activity {
         Product pro = gson.fromJson(json, Product.class);
         Log.e("MainActivity", pro.toString());
         list.addAll(pro.list);
-
-        Log.e("MainActivity", list.toString());
+//
+//        Log.e("MainActivity", list.toString());
     }
-
+//
     private void initView() {
         rg = ((RadioGroup) this.findViewById(R.id.rg_bottom_driection));
         lv_sild = (ListView) this.findViewById(R.id.lv_slidMenu);
     }
-
+//
     private void initData() {
         //默认是首页
         changeFragment(null);
@@ -187,10 +193,10 @@ public class MainActivity extends Activity {
             }
         });
         firstIn = false;
-
-
+//
+//
         //为侧滑菜单添加适配器
-        //lv_sild.setAdapter(new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,menuData));
+        lv_sild.setAdapter(new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,menuData));
         //设置点击事件
         lv_sild.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -198,15 +204,15 @@ public class MainActivity extends Activity {
 
             }
         });
-
+//
         lv_sild.setAdapter(new SimpleAdapter(MainActivity.this, mapList, R.layout.layout, keys, id));
     }
    //fabu
-
+//
     private void showAdd() {
 
 
-//        PopupWindow pop=new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+//        PopupWindow pop=new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,true);
 //        pop.setTouchable(true);//设置可点击
 //        pop.setTouchInterceptor(new View.OnTouchListener() {
 //            @Override
@@ -215,7 +221,7 @@ public class MainActivity extends Activity {
 //            }
 //        });
 //        //背景必须设置
-//
+//////
 //        pop.setBackgroundDrawable(getResources().getDrawable(R.drawable.ground));
 //        pop.showAsDropDown(view,-400,400);
         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
@@ -238,11 +244,11 @@ public class MainActivity extends Activity {
         });
         builder.setView(view);
         builder.show();
-
-
-
+//
+//
+//
     }
-
+//
     //切换模块
     public void changeFragment(Fragment fg) {
         FragmentManager fm = this.getFragmentManager();
@@ -271,55 +277,62 @@ public class MainActivity extends Activity {
         //ft.replace(R.id.fl_main, fg);
         ft.commit();
     }
-
-    public void getData(){
-        String url= HttpUrlUtils.HTTP_URL+"queryProductServlet";
-        Log.i("SameCityFrangment","url"+url);
-        RequestParams requestParams=new RequestParams(url);
-        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("prowhere",prowhere+"");
-        requestParams.addQueryStringParameter("page",page+"");
-        Log.i("SameCityFrangment","prowhere"+prowhere+"");
-        Log.i("SameCityFrangment","orderFlag"+orderFlag+"");
-        x.http().get(requestParams, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("result:"+result+"");
-                Log.i("SameCityFrangment","result:"+result+"");
-                Gson gson=new Gson();
-
-//                List<Product.Products> newList=new ArrayList<Product.Products>();
-                Product product=new Product();
-                product=gson.fromJson(result,Product.class);
-                Log.i("SameCityFrangment","product:============"+product.toString()+"");
-//                Log.i("SameCityFrangment","newList:============"+newList+"");
-                products.clear();
-                products.addAll(product.list);
-                Log.i("SameCityFrangment","products:============"+products+"");
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("SameCityFrangment","onError:"+ex);
-
-//                System.out.println("onError:"+ex);
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-                System.out.println("onCancelled:"+cex);
-            }
-
-            @Override
-            public void onFinished() {
-
-                System.out.println("onFinished:");
-            }
-        });
+//
+//    /**
+//     * 向后台传值：orderFlag(分类查询标签（0：全部（默认）、1：(手机)、2（电脑）、3（手表）、4（其他）、5（价格升排序）、6（价格降排序））)
+//     *           prowhere(同城（0）（默认）、高校（1）标签)   当点击按钮时在EhFragment中对其进行赋值
+//     *           page(分页)
+//     * 获取后台查询的数据：products   通过碎片之间的传值，将获取的值传给SameCityFragment或者SchoolFragment
+//     */
+//    public void getData(){
+//        String url= HttpUrlUtils.HTTP_URL+"queryProductServlet";
+//        Log.i("SameCityFrangment","url"+url);
+//        RequestParams requestParams=new RequestParams(url);
+//        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
+//        requestParams.addQueryStringParameter("prowhere",prowhere+"");
+//        requestParams.addQueryStringParameter("page",page+"");
+//        Log.i("SameCityFrangment","prowhere"+prowhere+"");
+//        Log.i("SameCityFrangment","orderFlag"+orderFlag+"");
+//        Log.i("SameCityFrangment","page"+page+"");
+//        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                System.out.println("result:"+result+"");
+//                Log.i("SameCityFrangment","result:"+result+"");
+//                Gson gson=new Gson();
+//
+////                List<Product.Products> newList=new ArrayList<Product.Products>();
+//                Product product=new Product();
+//                product=gson.fromJson(result,Product.class);
+//                Log.i("SameCityFrangment","product:============"+product.toString()+"");
+////                Log.i("SameCityFrangment","newList:============"+newList+"");
+//                products.clear();
+//                products.addAll(product.list);
+//                Log.i("SameCityFrangment","products:============"+products+"");
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                Log.i("SameCityFrangment","onError:"+ex);
+//
+////                System.out.println("onError:"+ex);
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//                System.out.println("onCancelled:"+cex);
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//                System.out.println("onFinished:");
+//            }
+//        });
     }
 
 
-}
+//}
 
 
