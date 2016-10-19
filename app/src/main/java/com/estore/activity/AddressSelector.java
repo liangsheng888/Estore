@@ -1,14 +1,28 @@
 package com.estore.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AddressSelector extends AppCompatActivity {
+import com.estore.httputils.HttpUrlUtils;
+import com.estore.pojo.Address;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AddressSelector extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner provinceSpinner = null;  //省级（省、直辖市）
     private Spinner citySpinner = null;     //地级市
@@ -17,7 +31,13 @@ public class AddressSelector extends AppCompatActivity {
     ArrayAdapter<String> cityAdapter = null;    //地级适配器
     ArrayAdapter<String> countyAdapter = null;    //县级适配器
     static int provincePosition = 3;
-
+    List<Address> addressList = new ArrayList<Address>();
+    String provincestr;
+    String citystr;
+    String countystr;
+    String userName;
+    String userTel;
+    String addressInfo;
 
     //省级选项值
     private String[] province = new String[]{"北京", "上海", "天津", "广东"};//,"重庆","黑龙江","江苏","山东","浙江","香港","澳门"};
@@ -54,17 +74,42 @@ public class AddressSelector extends AppCompatActivity {
                             {"武江区", "浈江区", "曲江区", "乐昌市", "南雄市", "始兴县", "仁化县", "翁源县", "新丰县", "乳源县"}  //韶关
                     }
             };
+    private Button btn_address_ok;
+    private EditText et_address_tel;
+    private EditText et_address_name;
+    private EditText et_address_info;
+    private RadioButton rb_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_selector);
         setSpinner();
+        initView();
         initEven();
+        getdata();
+    }
+
+    private void getdata() {
+        provincestr = provinceSpinner.getSelectedItem().toString();
+        citystr = citySpinner.getSelectedItem().toString();
+        countystr = countySpinner.getSelectedItem().toString();
+        userName = et_address_name.getText().toString();
+        userTel = et_address_tel.getText().toString();
+        addressInfo = et_address_info.getText().toString();
+//       addressList.add()
+    }
+
+    private void initView() {
+        btn_address_ok = ((Button) findViewById(R.id.btn_address_ok));
+        et_address_name = ((EditText) findViewById(R.id.et_address_name));
+        et_address_tel = ((EditText) findViewById(R.id.et_address_tel));
+        et_address_info = ((EditText) findViewById(R.id.et_address_info));
+        rb_address = ((RadioButton) findViewById(R.id.rb_address));
     }
 
     private void initEven() {
-
+        btn_address_ok.setOnClickListener(this);
     }
 
     /*
@@ -100,13 +145,12 @@ public class AddressSelector extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long arg3) {
 
-                TextView tv = (TextView)view;
+                TextView tv = (TextView) view;
                 tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
 
                 tv.setTextSize(18.0f);    //设置大小
 
 //                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
-
 
                 //position为当前省级选中的值的序号
 
@@ -136,7 +180,7 @@ public class AddressSelector extends AppCompatActivity {
                         android.R.layout.simple_spinner_item, county[provincePosition][position]);
                 countySpinner.setAdapter(countyAdapter);
 
-                TextView tv = (TextView)view;
+                TextView tv = (TextView) view;
                 tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
 
                 tv.setTextSize(18.0f);    //设置大小
@@ -153,7 +197,7 @@ public class AddressSelector extends AppCompatActivity {
         countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv = (TextView)view;
+                TextView tv = (TextView) view;
                 tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
 
                 tv.setTextSize(18.0f);    //设置大小
@@ -167,4 +211,70 @@ public class AddressSelector extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_address_ok:
+                sendmessg();
+
+
+        }
+    }
+
+    private void sendmessg() {
+        Integer moren = 0;
+        String province = provinceSpinner.getSelectedItem().toString();
+        String city = citySpinner.getSelectedItem().toString();
+        String county = countySpinner.getSelectedItem().toString();
+
+        String userId = et_address_name.getText().toString().trim();
+        String userTel = et_address_tel.getText().toString().trim();
+        String detailedaddress = et_address_info.getText().toString().trim();
+        Boolean ismoren = rb_address.isChecked();
+        if (ismoren) {
+            moren = 1;
+        }
+
+        final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "insertaddressservlet");
+        requestParams.addBodyParameter("userId", userId);
+        requestParams.addBodyParameter("cantactPhone", userTel);
+        requestParams.addBodyParameter("contactAddress", province + city + county);
+        requestParams.addBodyParameter("isDefault", String.valueOf(moren));
+        requestParams.addBodyParameter("detailed_address", detailedaddress);
+
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                System.out.println("addressSelectorresult"+result);
+
+                Intent intent = new Intent();
+                //把返回数据存入Intent
+                intent.putExtra("result","插入成功" );
+                //设置返回数据
+                AddressSelector.this.setResult(RESULT_OK, intent);
+                //关闭Activity
+                AddressSelector.this.finish();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("ex"+ex.getMessage()+"");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
+
+
 }

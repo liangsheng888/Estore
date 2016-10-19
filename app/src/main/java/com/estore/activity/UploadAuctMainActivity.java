@@ -280,33 +280,10 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         np_auct_bidprice = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
         sp_auct_type = ((Spinner) findViewById(R.id.sp_auct_type));
         //获得spinner中的item
-
         address = sp_city.getSelectedItem().toString();
         auct_type=sp_auct_type.getSelectedItem().toString();
         bidprice=np_auct_bidprice.getValue();
-//        np_auct_bidprice.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-//            @Override
-//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-//              bidprice=np_auct_bidprice.getValue();
-//            }
-//        });
-//        np_auct_bidprice.setOnScrollListener(new NumberPicker.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChange(NumberPicker view, int scrollState) {
-//
-//            }
-//        });
-//        sp_auct_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                auct_type=(String) sp_auct_type.getSelectedItem();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                auct_type=parent.getSelectedItem().toString();
-//            }
-//        });
+
 
 
          String proName=et_upload_aucttitle.getText().toString().trim();

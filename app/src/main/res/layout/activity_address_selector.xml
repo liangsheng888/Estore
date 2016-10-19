@@ -6,11 +6,13 @@
   android:orientation="vertical"
     tools:context="com.estore.activity.AddressSelector">
    <EditText
+       android:id="@+id/et_address_name"
        android:layout_width="match_parent"
        android:layout_height="60dp"
        android:hint="请输入用户名"
        android:background="@drawable/dikang_bg"/>
     <EditText
+        android:id="@+id/et_address_tel"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="请输入手机号码"
@@ -46,12 +48,19 @@
 
       />
     <EditText
+        android:id="@+id/et_address_info"
         android:layout_width="match_parent"
         android:layout_height="100sp"
         android:hint="请输入详细地址"
         android:layout_gravity="top"
         android:background="@drawable/slidetab_bg_press"/>
+ <RadioButton
+     android:id="@+id/rb_address"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:text="是否设置为默认地址"/>
 <Button
+    android:id="@+id/btn_address_ok"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="#f00"
