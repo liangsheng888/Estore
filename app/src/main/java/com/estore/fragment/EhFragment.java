@@ -39,10 +39,10 @@ public class EhFragment extends Fragment {
     private Fragment fragment2;
     private Fragment oldFragment;
     private Fragment newFragment;
-    private ImageView ehSort;
-
+//    private ImageView ehSort;
+//
     List<String> popContents=new ArrayList<String>();
-    int orderFlag=0;
+//    int orderFlag=0;
     List<Product.Products> products=new ArrayList<Product.Products>();
 
     @Nullable
@@ -50,27 +50,27 @@ public class EhFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_eh,null);
         rg_eh_tab = ((RadioGroup) view.findViewById(R.id.rg_eh_tab));
-        ehSort = ((ImageView) view.findViewById(R.id.iv_eh_sort));
+//        ehSort = ((ImageView) view.findViewById(R.id.iv_eh_sort));
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-//        getData();
+////        getData();
         switchFragment(new SameCityFragment());
-        //orderFlag=0默认显示按照最新发布时间排序的全部商品
-        popContents.add("手机");//orderFlag=1
-        popContents.add("电脑");//orderFlag=2
-        popContents.add("手表");//orderFlag=3
-        popContents.add("其他");//orderFlag=4
-        popContents.add("价格 ↑");//orderFlag=5
-        popContents.add("价格 ↓");//orderFlag=6
-        ehSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initPopupWindow(view);
-            }
-        });
+//        //orderFlag=0默认显示按照最新发布时间排序的全部商品
+//        popContents.add("手机");//orderFlag=1
+//        popContents.add("电脑");//orderFlag=2
+//        popContents.add("手表");//orderFlag=3
+//        popContents.add("其他");//orderFlag=4
+//        popContents.add("价格 ↑");//orderFlag=5
+//        popContents.add("价格 ↓");//orderFlag=6
+//        ehSort.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                initPopupWindow(view);
+//            }
+//        });
 
         rg_eh_tab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -78,18 +78,22 @@ public class EhFragment extends Fragment {
                 Fragment fragment=null;
                 switch (checkedId){
                     case R.id.rb_samecity:
-                        ((MainActivity)getActivity()).setProwhere(0);
+                        //prowhere=0代表同城
+//                        ((MainActivity)getActivity()).setProwhere(0);
                         if (fragment1==null)
                             fragment1=new SameCityFragment();
                         newFragment=fragment1;
                         break;
                     case R.id.rb_schools:
-                        ((MainActivity)getActivity()).setProwhere(1);
+                        //prowhere=1代表高校
+//                        ((MainActivity)getActivity()).setProwhere(1);
                         if (fragment2==null)
                             fragment2=new SchoolsFragment();
                         newFragment=fragment2;
                 }
-                ((MainActivity)getActivity()).getData();
+                //点击事件完成给prowhere赋值后调用MainActivity中getData()方法
+//                ((MainActivity)getActivity()).getData();
+
                 switchFragment(newFragment);
 
             }
@@ -97,54 +101,54 @@ public class EhFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void initPopupWindow(View v){
-        //content
-        View view=LayoutInflater.from(getActivity()).inflate(R.layout.lv_zonghe_paixu,null);
-        final PopupWindow popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,200);
-
-        //listview设置数据源
-        ListView lv= (ListView) view.findViewById(R.id.lv_zonghe_paixu);
-
-        ArrayAdapter arrayAdapter=new ArrayAdapter(getActivity(),R.layout.lv_item_zonghe_paixu,popContents);
-        lv.setAdapter(arrayAdapter);
-
-        //popupwiondow外面点击，popupwindow消失
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-
-        //显示在v的下面
-        popupWindow.showAsDropDown(v);
-
-        //listview的item点击事件
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //关闭popupwidow
-                popupWindow.dismiss();
-                //排序
-                if(position==0){
-                    orderFlag=1;
-                }else if(position==1){
-                    orderFlag=2;
-                }else if(position==2){
-                    orderFlag=3;
-                }else if(position==3) {
-                    orderFlag = 4;
-                }else if(position==2) {
-                    orderFlag = 4;
-                }else if(position==2) {
-                    orderFlag = 5;
-                }else if(position==5) {
-                    orderFlag = 6;
-                }
-
-                //重新获取数据源，按价格排序
-                ((MainActivity)getActivity()).setOrderFlag(orderFlag);
-                ((MainActivity)getActivity()).getData();
-
-            }
-        });
-    }
+//    public void initPopupWindow(View v){
+//        //content
+//        View view=LayoutInflater.from(getActivity()).inflate(R.layout.lv_zonghe_paixu,null);
+//        final PopupWindow popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,200);
+//
+//        //listview设置数据源
+//        ListView lv= (ListView) view.findViewById(R.id.lv_zonghe_paixu);
+//
+//        ArrayAdapter arrayAdapter=new ArrayAdapter(getActivity(),R.layout.lv_item_zonghe_paixu,popContents);
+//        lv.setAdapter(arrayAdapter);
+//
+//        //popupwiondow外面点击，popupwindow消失
+//        popupWindow.setOutsideTouchable(true);
+//        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+//
+//        //显示在v的下面
+//        popupWindow.showAsDropDown(v);
+//
+//        //listview的item点击事件
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //关闭popupwidow
+//                popupWindow.dismiss();
+//                //排序
+//                if(position==0){
+//                    orderFlag=1;
+//                }else if(position==1){
+//                    orderFlag=2;
+//                }else if(position==2){
+//                    orderFlag=3;
+//                }else if(position==3) {
+//                    orderFlag = 4;
+//                }else if(position==2) {
+//                    orderFlag = 4;
+//                }else if(position==2) {
+//                    orderFlag = 5;
+//                }else if(position==5) {
+//                    orderFlag = 6;
+//                }
+//
+//                //重新获取数据源，按价格排序
+//                ((MainActivity)getActivity()).setOrderFlag(orderFlag);
+//                ((MainActivity)getActivity()).getData();
+//
+//            }
+//        });
+//    }
 
 //    private void getData() {
 //        String url= HttpUrlUtils.HTTP_URL+"queryProductBean";
