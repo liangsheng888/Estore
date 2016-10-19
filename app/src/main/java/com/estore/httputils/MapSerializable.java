@@ -13,6 +13,13 @@ import java.util.Map;
  public class MapSerializable implements Serializable {
   Map<Product.Products,Integer> pro ;
 
+ @Override
+ public String toString() {
+  return "MapSerializable{" +
+          "pro=" + pro +
+          '}';
+ }
+
  public Map<Product.Products, Integer> getPro() {
   return pro;
  }
