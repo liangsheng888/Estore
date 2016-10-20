@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +71,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
                 View view1 = View.inflate(getApplication(), R.layout.addess_item, null);
-                RadioButton rg_address_selector = ((RadioButton) view1.findViewById(R.id.rg_addess_selector));
+//                RadioButton rg_address_selector = ((RadioButton) view1.findViewById(R.id.rg_addess_selector));
                 TextView tv_auct_shouhuoren = ((TextView) view1.findViewById(R.id.tv_auct_shouhuoren));
                 TextView tv_tel = ((TextView) view1.findViewById(R.id.tv_tel));
                 TextView tv_bidding_addess = ((TextView) view1.findViewById(R.id.tv_bidding_addess));
