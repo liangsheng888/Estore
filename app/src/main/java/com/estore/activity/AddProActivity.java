@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -274,6 +275,36 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void addProducts() {
+        SharedPreferences sp=getSharedPreferences("User",Context.MODE_APPEND);
+        String username=sp.getString("username",null)  ;
+        if(TextUtils.isEmpty(username)){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            final Dialog dialog=builder.create();
+            builder.setTitle("亲！你没有登录账号，请登录？");
+            View view=View.inflate(this,R.layout.login_user,null);
+            ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //登录
+                    Intent intent=new Intent(AddProActivity.this,LoginOther.class);
+                    startActivity(intent);
+                    dialog.dismiss();
+
+
+                }
+            });
+            ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //注册
+
+                }
+            });
+            builder.setView(view);
+            builder.show();
+            return;
+        }
+
 
         //数据上传服务器
 
@@ -305,9 +336,9 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
         params.addBodyParameter("proNum",proNum);
             params.addBodyParameter("youfei",youfei+"");
-        params.addBodyParameter("proPrice",proPrice);
-        params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));
-        params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
+           params.addBodyParameter("proPrice",proPrice);
+           params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));
+           params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
             params.addBodyParameter("address",URLEncoder.encode(address,"utf-8"));
             params.addBodyParameter("prowhere",flag+"");
             params.addBodyParameter("schoolname",URLEncoder.encode(schoolname,"utf-8"));

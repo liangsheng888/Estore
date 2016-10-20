@@ -1,6 +1,10 @@
 package com.estore.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -69,11 +73,13 @@ public class ProductInfoActivity extends AppCompatActivity {
     private Product.Products pp;
     private int prePosition=0;
     private int[] id={R.id.iv_quan1,R.id.iv_quan2,R.id.iv_quan3};
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
+        sp=getSharedPreferences("User", Context.MODE_APPEND);
         MyApplication my=(MyApplication)getApplication();
         user=my.getUser();
         initView();
@@ -139,12 +145,42 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("ProductInfoActivity","加入购物车");
+                String username=sp.getString("username",null);
+                if(username==null){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ProductInfoActivity.this);
+                    final Dialog dialog=builder.create();
+                    builder.setTitle("亲！你没有登录账号，请登录？");
+                    View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
+                    ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //登录
+                            Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
+                            startActivity(intent);
+                            dialog.dismiss();
+
+
+                        }
+                    });
+                    ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //注册
+
+                        }
+                    });
+                    builder.setView(view);
+                    builder.show();
+                    return ;
+                }
                 carNumber+=Integer.parseInt(edt.getText().toString().trim());
                 title_bar_reddot.setVisibility(View.VISIBLE);
                 title_bar_reddot.setText(carNumber+"");
                 //动画
                 TranslateAnimation ta=(TranslateAnimation) AnimationUtils.loadAnimation(getApplicationContext(),R.anim.shake);
                 title_bar_rl_cartview.startAnimation(ta);
+
+
                 //添加都服务器
                 RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"insertCartServlet");
                 Log.e("ProductInfoActivity",pp.toString());
@@ -191,6 +227,34 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.e("ProductInfoActivity","立即购买");
+                String username=sp.getString("username",null);
+                if(username==null){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ProductInfoActivity.this);
+                    final Dialog dialog=builder.create();
+                    builder.setTitle("亲！你没有登录账号，请登录？");
+                    View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
+                    ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //登录
+                            Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
+                            startActivity(intent);
+                            dialog.dismiss();
+
+
+                        }
+                    });
+                    ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //注册
+
+                        }
+                    });
+                    builder.setView(view);
+                    builder.show();
+                    return ;
+                }
                 MapSerializable ms=new MapSerializable();
                 mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
                 ms.setPro(mapPro);
@@ -208,7 +272,10 @@ public class ProductInfoActivity extends AppCompatActivity {
         title_bar_rl_cartview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+          Intent intent=new Intent(ProductInfoActivity.this,MainActivity.class);
+                intent.putExtra("direct",2);
+                startActivity(intent);
+                //finish();
 
             }
         });

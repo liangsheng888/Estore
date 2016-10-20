@@ -1,0 +1,654 @@
+Index: app/src/main/java/com/estore/activity/ProOrderActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/estore/activity/ProOrderActivity.java	(date 1476712743000)
++++ app/src/main/java/com/estore/activity/ProOrderActivity.java	(revision )
+@@ -1,15 +1,27 @@
+ package com.estore.activity;
+ 
++import android.app.AlertDialog;
+ import android.content.Intent;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
++import android.util.Log;
++import android.view.View;
+ import android.widget.Button;
+ import android.widget.ListView;
+ import android.widget.TextView;
+ 
++import com.estore.activity.myappliction.MyApplication;
++import com.estore.httputils.HttpUrlUtils;
+ import com.estore.httputils.MapSerializable;
++import com.estore.pojo.InsertOrderBean;
+ import com.estore.pojo.Product;
++import com.google.gson.Gson;
++import com.google.gson.GsonBuilder;
+ 
++import org.xutils.common.Callback;
++import org.xutils.http.RequestParams;
++import org.xutils.x;
++
+ import java.util.Map;
+ import java.util.Set;
+ 
+@@ -60,9 +72,61 @@
+         order_count_total_money.setText(totalprice+"");
+         order_pnum.setText("共"+number+"件商品    合计:");
+         order_total_money.setText("￥"+totalprice);
++        //立即购买
++        order_goumai.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderInsertServlet");
++                InsertOrderBean insertOrderBean=new InsertOrderBean();
++                insertOrderBean.setUserId(((MyApplication)getApplication()).getUser().getUserId());
++                insertOrderBean.setAddressId(1);//默认地址
++                insertOrderBean.setDetails(mapOrderInfo);//所有的商品：添加的是key-value的
++                insertOrderBean.setTotalPrice(totalprice);
+ 
++                //对象转换成json数据
++                Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
++                        .create();
++                String orderInfo=gson.toJson(insertOrderBean);
++                //get方法传参数
++                requestParams.addQueryStringParameter("orderInfo",orderInfo );
++                x.http().get(requestParams, new Callback.CommonCallback<String>() {
++                    @Override
++                    public void onSuccess(String result) {
++                        Log.i("ProdOrderActivity", "onSuccess: ");
++                       /* AlertDialog.Builder builder=new AlertDialog.Builder(ProOrderActivity.this);
++                        builder.setTitle("")*/
++                        Intent intent=new Intent(ProOrderActivity.this,MyOrderActivity.class);
++                        startActivity(intent);//跳转到我的订单
+ 
+-    }
++                    }
++
++                    @Override
++                    public void onError(Throwable ex, boolean isOnCallback) {
++
++                    }
++
++                    @Override
++                    public void onCancelled(Callback.CancelledException cex) {
++
++                    }
++
++                    @Override
++                    public void onFinished() {
++
++                    }
++                });
++
++
++
++            }
++        });
++
++
++            }
++
++
++
++
+     private void initView() {
+         order_count_total_money=(TextView) findViewById(R.id.order_count_total_money);
+         order_pnum=(TextView)findViewById(R.id.order_count_heji);
+Index: app/src/main/java/com/estore/fragment/AllOrdersFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/estore/fragment/AllOrdersFragment.java	(date 1476712743000)
++++ app/src/main/java/com/estore/fragment/AllOrdersFragment.java	(revision )
+@@ -2,25 +2,339 @@
+ 
+ 
+ import android.os.Bundle;
+-import android.app.Fragment;
++import android.support.annotation.Nullable;
++import android.support.v4.app.Fragment;
++import android.util.Log;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.Button;
++import android.widget.ImageView;
++import android.widget.ListView;
++import android.widget.TextView;
+ 
+ import com.estore.activity.R;
++import com.estore.activity.myappliction.MyApplication;
++import com.estore.httputils.CommonAdapter;
++import com.estore.httputils.HttpUrlUtils;
++import com.estore.httputils.ViewHolder;
++import com.estore.pojo.GoodsOrderState;
++import com.estore.pojo.Order;
++import com.estore.pojo.OrderDetail;
++import com.estore.view.NoScrollListview;
++import com.google.gson.Gson;
++import com.google.gson.reflect.TypeToken;
+ 
++import org.xutils.common.Callback;
++import org.xutils.http.RequestParams;
++import org.xutils.x;
++
++import java.lang.reflect.Type;
++import java.util.ArrayList;
++import java.util.List;
+ /**
+- * A simple {@link Fragment} subclass.
++ * 全部订单
+  */
++
++/**
++ * Created by Administrator on 2016/10/13.
++ */
+ public class AllOrdersFragment extends Fragment {
++    private ListView frag_allorders_listview;
++    List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
+ 
++    CommonAdapter<Order> orderApater;//适配器
++ /*	 1 待付款
++                                2	已付款
++                                3	待发货
++                                4	待收货
++                                5	待评价
++                                6	已评价
++                                7	交易关闭*/
+ 
++
++    public static final int UNPAY=1;//没有付款
++    public static final int UNRECEIVE=4;//待收货
++    public static final int UNSEND=3;  //代发货
++    public static final int REMARK=6;    //已评价
++    public static final int UNREMARK=5;//待评价
++    public static final int CANCEL=7;//取消订单
++
++    @Nullable
+     @Override
+-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+-                             Bundle savedInstanceState) {
++    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+-        View view=inflater.inflate(R.layout.fragment_all_orders,null);
++        View view= inflater.inflate(R.layout.fragment_all_orders,null);
++        frag_allorders_listview=(ListView) view.findViewById(R.id.frag_allorders_listview);
+         return view;
+ 
+     }
+ 
++    @Override
++    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
++        getData();
++
++        super.onActivityCreated(savedInstanceState);
++    }
++    public void getData(){
++        Log.i("AllOrdersFragment", "getOrderData: ");
++        String userId=((MyApplication)getActivity().getApplication()).getUser().getUserId()+"";
++        //
++        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+userId+"&orderStatusId=0");
++        //传参数：user_id,order_id
++     /*   requestParams.addQueryStringParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
++        Log.i("OrderAllFragment", "userId: "+((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
++
++        requestParams.addQueryStringParameter("orderStatusId",0+"");*/
++
++        x.http().get(requestParams, new Callback.CommonCallback<String>() {
++            @Override
++            public void onSuccess(String result) {
++                Log.i("AllOrdersFragment", "onSuccess: "+result);
++                Gson gson=new Gson();
++                Type type=new TypeToken<List<Order>>(){}.getType();
++                List<Order> newOrders=gson.fromJson(result,type);
++                orders.clear();
++                orders.addAll(newOrders);
++                //设置listview的adapter
++                Log.i("OrderAllFragment", "orders++++"+orders.size());
++                if(orderApater==null){
++                    orderApater=new CommonAdapter<Order>(getActivity(),orders,R.layout.frag_allorders_item) {
++                        @Override
++                        public void convert(ViewHolder viewHolder, Order order, int position) {
++                            order=orders.get(position);
++                            Log.i("OrderAllFragment", "order++++"+order.toString());
++
++
++                            //设置item中控件的取值
++                            //initItemView(viewHolder,order,position);
++                            TextView frag_allorders_item_time=  viewHolder.getViewById(R.id.frag_allorders_item_time);//订单时间
++                            TextView frag_allorders_item_trade=  viewHolder.getViewById(R.id.frag_allorders_item_trade);//交易关闭
++
++                            TextView frag_allorders_item_buynum=  viewHolder.getViewById(R.id.frag_allorders_item_buynum);//商品数量
++                            TextView frag_allorders_item_money=  viewHolder.getViewById(R.id.frag_allorders_item_money);//总价格
++                            Button btnLeft=viewHolder.getViewById(R.id.btn_item_left);
++                            Button btnRight=viewHolder.getViewById(R.id.btn_item_right);
++                            NoScrollListview noScrollListview=viewHolder.getViewById(R.id.frag_allorders_item_listView);
++
++                            CommonAdapter<OrderDetail> productAdapter=null;//显示商品详情的adapter
++                            //设置商品详情显示数据
++                            if(productAdapter==null) {
++                                Log.i("AllOrdersFragment", "initItemView:productAdapter==null ");
++                                Log.i("AllOrdersFragment", "initItemView:productAdapter==null "+order.getOrderDetails());
++
++                                productAdapter=new CommonAdapter<OrderDetail>(getActivity(),order.getOrderDetails(),R.layout.order_product_item) {
++                                    @Override
++                                    public void convert(ViewHolder viewHolder,OrderDetail orderDetail, int position) {
++
++                                        Log.i("AllOrdersFragment", "convert: "+orderDetail.getProduct());
++                                        TextView tvName= viewHolder.getViewById(R.id.order_item_info_des);//商品名称
++                                        ImageView imageView= viewHolder.getViewById(R.id.order_item_iv_left);//图片
++                                        TextView order_item_info_price= viewHolder.getViewById(R.id.order_item_info_price);//商品价格
++
++                                        TextView order_item_info_buynum= viewHolder.getViewById(R.id.order_item_info_buynum);//商品数量
++                                        order_item_info_buynum.setText(orderDetail.getGoodsNum()+"");
++                                        order_item_info_price.setText(orderDetail.getGoodsPrice()+"");
++
++                                        tvName.setText(orderDetail.getProduct().name);
++                                    }
++                                };
++                                noScrollListview.setAdapter(productAdapter);
++
++                            }else{
++                                Log.i("AllOrdersFragment", "initItemView:productAdapte!=null ");
++                                productAdapter.notifyDataSetChanged();
++                            }
++
++
++                            //控件赋值
++                            frag_allorders_item_time.setText("订单时间："+order.getGoodsCreateTime());
++                            frag_allorders_item_trade.setText(order.getGoodsOrderState().getGoodsOrderStates());//订单状态
++                            //详情的listview显示商品详情
++
++                            //订单购买数量
++                            List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
++                            orderDetails =order.getOrderDetails();
++
++                            int totalNum=0;//订单中商品的总数量
++                            Log.i("AllOrdersFragment", "orderDetails"+orderDetails.toString());
++                            for(OrderDetail orderDetail:orderDetails){
++                                totalNum+= orderDetail.getGoodsNum();//便利每个详情中商品的数量
++                            }
++
++
++                            frag_allorders_item_buynum.setText("共"+totalNum+"件");//设置总数量
++                            frag_allorders_item_money.setText("实付￥"+order.getGoodsTotalPrice());
++
++                            //设置按钮的初始显示内容
++                            btnShow(order.getGoodsOrderState().getGoodsOrderStateId(),btnLeft,btnRight);
++
++                            //按钮点击事件
++                            btnClick(order,position,btnLeft,btnRight);
++
++                        }
++
++
++                        //根据订单状态，判断按钮是否显示，按钮的文本，按钮的点击事件
++                        public void btnShow(int orderStateId,Button btnLeft,Button btnRight){
++                            switch (orderStateId){
++                                /*	 1 待付款
++                                2	已付款
++                                3	待发货
++                                4	待收货
++                                5	待评价
++                                6	已评价
++                                7	交易关闭*/
++
++                                case UNPAY:
++                                    //待付款:（取消订单、付款）
++
++                                    btnLeft.setVisibility(View.VISIBLE);
++                                    btnRight.setVisibility(View.VISIBLE);
++                                    btnLeft.setText("取消订单");
++                                    btnRight.setText("付款");
++                                    break;
++                                case UNRECEIVE:
++                                    //待收货:(确认收货)
++                                    btnLeft.setVisibility(View.GONE);//左边按钮消失
++                                    btnRight.setVisibility(View.VISIBLE);
++                                    btnRight.setText("确认收货");
++
++                                    break;
++                                case UNSEND:
++                                    //待发货:
++                                    btnLeft.setVisibility(View.GONE);//左边按钮消失
++                                    btnRight.setVisibility(View.VISIBLE);
++                                    btnRight.setText("发货");
++
++                                    break;
++
++                                default:
++                                    btnLeft.setVisibility(View.VISIBLE);
++                                    btnRight.setVisibility(View.VISIBLE);
++                                    btnLeft.setText("BUTTON LEFT");
++                                    btnRight.setText("BUTTON RIGHT");
++                                    break;
++                            }
++
++                        }
++
++                        //按钮点击事件
++                        public void btnClick(final Order order, final int position,Button btnLeft, Button btnRight){
++                            btnLeft.setOnClickListener(new View.OnClickListener() {
++                                @Override
++                                public void onClick(View v) {
++                                    //判断订单状态
++                                    switch (order.getGoodsOrderState().getGoodsOrderStateId()){
++                                        case UNPAY:
++                                            Log.i("AllOrdersFragment", "取消订单");
++                                            //取消订单(更新订单状态，更新界面)
++                                            changeState(order.getGoodsOrderId(),CANCEL,"取消订单",position);
++                                            break;
++                                    }
++
++                                }
++                            });
++
++                            btnRight.setOnClickListener(new View.OnClickListener() {
++                                @Override
++                                public void onClick(View v) {
++                                    switch (order.getGoodsOrderState().getGoodsOrderStateId()){
++                                        case UNPAY:
++                                            Log.i("OrderAllFragment", "付款");
++                                            //付款
++                                            Log.i("OrderAllFragment", "onClick: ");
++                                            break;
++                                        case UNRECEIVE:
++                                            //确认收货，
++                                            Log.i("OrderAllFragment", "确认收货");
++                                            changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
++                                            break;
++                                        case UNSEND:
++                                            //发货，
++                                            Log.i("OrderAllFragment", "卖家发货");
++                                            changeState(order.getGoodsOrderId(),UNRECEIVE,"已发货",position);
++                                            break;
++
++
++                                    }
++                                }
++                            });
++
++                        }
++
++
++
++                        //更新订单状态，更新界面
++                        public void changeState(int orderId, final int newStateId, final String newStateName,final int position){
++
++                            RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"OrderUpdateServlet");
++                            requestParams.addBodyParameter("orderId",orderId+"");
++                            requestParams.addBodyParameter("newStateId",newStateId+"");
++
++
++
++                            //更新订单，更新界面
++                            x.http().post(requestParams, new Callback.CommonCallback<String>() {
++
++                                @Override
++                                public void onSuccess(String result) {
++                                    Log.i("AllOrdersFragment", "更新界面onSuccess: "+result);
++                                    //更新界面
++                                    orders.get(position).setGoodsOrderState(new GoodsOrderState(newStateId,newStateName));
++                                    orderApater.notifyDataSetChanged();//更新界面
++
++                                }
++
++                                @Override
++                                public void onError(Throwable ex, boolean isOnCallback) {
++                                    Log.i("AllOrdersFragment", "更新界面fail: ");
++
++                                }
++
++                                @Override
++                                public void onCancelled(CancelledException cex) {
++
++                                }
++
++                                @Override
++                                public void onFinished() {
++
++                                }
++                            });
++
++
++
++                        }
++
++
++
++
++
++
++
++                    };
++                    frag_allorders_listview.setAdapter(orderApater);
++                }else{
++                    orderApater.notifyDataSetChanged();
++                }
++
++            }
++
++            @Override
++            public void onError(Throwable ex, boolean isOnCallback) {
++
++                Log.i("AllOrdersFragment", "onError: "+ex.getMessage());
++            }
++
++            @Override
++            public void onCancelled(CancelledException cex) {
++
++            }
++
++            @Override
++            public void onFinished() {
++
++            }
++        });
++    }
+ }
+Index: app/src/main/java/com/estore/activity/MyOrderActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/estore/activity/MyOrderActivity.java	(date 1476712743000)
++++ app/src/main/java/com/estore/activity/MyOrderActivity.java	(revision )
+@@ -1,7 +1,10 @@
+ package com.estore.activity;
++/*
++我的订单页面
++ */
+ 
+-import android.app.Fragment;
+ import android.content.Intent;
++import android.support.v4.app.Fragment;
+ import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
+ import android.view.View;
+@@ -43,8 +46,9 @@
+         iv_orderreturn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+-                Intent intent=new Intent(MyOrderActivity.this,MainActivity.class);
+-                startActivity(intent);
++                //Intent intent=new Intent(MyOrderActivity.this,MainActivity.class);
++                //startActivity(intent);
++                finish();
+             }
+         });
+     }
+@@ -78,7 +82,7 @@
+     }
+ 
+     private void switchFragment(Fragment fragment) {
+-        this.getFragmentManager().beginTransaction().replace(R.id.fl_orders, fragment).commit();
++        this.getSupportFragmentManager().beginTransaction().replace(R.id.fl_orders, fragment).commit();
+     }
+     //end
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/estore/pojo/InsertOrderBean.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/estore/pojo/InsertOrderBean.java	(date 1476712743000)
++++ app/src/main/java/com/estore/pojo/InsertOrderBean.java	(revision )
+@@ -9,7 +9,7 @@
+ 	Integer userId;//�û�id
+ 	Integer addressId;//��ַid
+ 	double totalPrice;//�ܼ۸�
+-	Map<Product, Integer> details;//��Ʒ����
++	Map<Product.Products, Integer> details;//��Ʒ����
+ 	public Integer getUserId() {
+ 		return userId;
+ 	}
+@@ -18,7 +18,7 @@
+ 
+ 	}
+ 
+-	public InsertOrderBean(Integer userId, Integer addressId, double totalPrice, Map<Product, Integer> details) {
++	public InsertOrderBean(Integer userId, Integer addressId, double totalPrice, Map<Product.Products, Integer> details) {
+ 		super();
+ 		this.userId = userId;
+ 		this.addressId = addressId;
+@@ -40,10 +40,10 @@
+ 	public void setTotalPrice(double totalPrice) {
+ 		this.totalPrice = totalPrice;
+ 	}
+-	public Map<Product, Integer> getDetails() {
++	public Map<Product.Products, Integer> getDetails() {
+ 		return details;
+ 	}
+-	public void setDetails(Map<Product, Integer> details) {
++	public void setDetails(Map<Product.Products, Integer> details) {
+ 		this.details = details;
+ 	}
+ 	
+Index: app/src/main/java/com/estore/pojo/OrderDetail.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/estore/pojo/OrderDetail.java	(date 1476712743000)
++++ app/src/main/java/com/estore/pojo/OrderDetail.java	(revision )
+@@ -4,7 +4,19 @@
+ 
+ public class OrderDetail implements Serializable {
+ 	private Integer orderDetailId;//���������
+-	public OrderDetail(Integer orderDetailId, Integer goodsOrderId, Product product, int goodsNum, double goodsPrice) {
++
++	@Override
++	public String toString() {
++		return "OrderDetail{" +
++				"orderDetailId=" + orderDetailId +
++				", goodsOrderId=" + goodsOrderId +
++				", product=" + product +
++				", goodsNum=" + goodsNum +
++				", goodsPrice=" + goodsPrice +
++				'}';
++	}
++
++	public OrderDetail(Integer orderDetailId, Integer goodsOrderId, Product.Products product, int goodsNum, double goodsPrice) {
+ 		super();
+ 		this.orderDetailId = orderDetailId;
+ 		this.goodsOrderId = goodsOrderId;
+@@ -19,11 +31,11 @@
+ 		this.orderDetailId = orderDetailId;
+ 	}
+ 	private Integer goodsOrderId;//������id��
+-	private Product product;//��Ʒ��Ϣ
++	private Product.Products product;//��Ʒ��Ϣ
+ 	private int goodsNum;//��Ʒ����
+ 	private double goodsPrice;
+ 
+-	public OrderDetail(Integer goodsOrderId, Product product, int goodsNum, double goodsPrice) {
++	public OrderDetail(Integer goodsOrderId, Product.Products product, int goodsNum, double goodsPrice) {
+ 		super();
+ 		this.goodsOrderId = goodsOrderId;
+ 		this.product = product;
+@@ -36,10 +48,10 @@
+ 	public void setGoodsOrderId(Integer goodsOrderId) {
+ 		this.goodsOrderId = goodsOrderId;
+ 	}
+-	public Product getProduct() {
++	public Product.Products getProduct() {
+ 		return product;
+ 	}
+-	public void setProduct(Product product) {
++	public void setProduct(Product.Products product) {
+ 		this.product = product;
+ 	}
+ 	public int getGoodsNum() {
+Index: app/src/main/res/layout/fragment_all_orders.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_all_orders.xml	(date 1476712743000)
++++ app/src/main/res/layout/fragment_all_orders.xml	(revision )
+@@ -1,24 +1,43 @@
++<?xml version="1.0" encoding="utf-8"?>
+ <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context="com.estore.fragment.AllOrdersFragment">
++    android:background="#EEEEEE" >
+ 
+-    <ImageView
+-        android:id="@+id/iv_proeval"
+-        android:layout_width="300dp"
+-        android:layout_height="300dp"
+-        android:layout_gravity="center"
+-        android:src="@drawable/opinion"
+-        android:layout_marginTop="-80dp"
++    <ListView
++        android:id="@+id/frag_allorders_listview"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:cacheColorHint="#ffffffff"
++        android:divider="@null"
++        android:clickable="true"
+         />
+-    <TextView
++
++    <!--  <RelativeLayout
++          android:id="@+id/frag_allorders_rl"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center"
++          android:layout_width="wrap_content"
++          android:layout_height="wrap_content"
++          android:layout_gravity="center"
+-        android:text="亲，这里是空的！"
+-        android:textSize="26sp"
+-        android:layout_marginTop="40dp"
++
++          >
++          <ImageView
++              android:id="@+id/frag_allorders_iv"
++              android:layout_width="wrap_content"
++              android:layout_height="wrap_content"
++              android:src="@drawable/bg_no_order"
+-        />
++              />
++          <TextView
++              android:layout_width="wrap_content"
++              android:layout_height="wrap_content"
++              android:padding="8dp"
++              android:layout_below="@id/frag_allorders_iv"
++              android:text="您还没有订单哟！"
++              android:textSize="14sp"
++              android:textColor="@android:color/black"/>
++
++      </RelativeLayout>
++
++
++  -->
+ 
+-    </FrameLayout>
+\ No newline at end of file
++</FrameLayout>

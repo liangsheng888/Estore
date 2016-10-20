@@ -61,7 +61,7 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
             }
 
         }
-
+       if(mAdapter!=null)
         // 通知数据改变了
         mAdapter.notifyDataSetChanged();
         // 加载完成后停止刷新
@@ -84,6 +84,7 @@ public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Vo
                 Log.e("TAG",page+"");
                 Gson gson=new Gson();
                 Product pro=gson.fromJson(result,Product.class);
+                if(pro.list.size()>0)
                 for(Product.Products pp:pro.list){
                     lists.add(pp);
                 }
