@@ -3,6 +3,7 @@ package com.estore.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
@@ -42,12 +43,12 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
     private ListView actualListView;
     private LinkedList<Product.Products> mListItems;
     List<Product.Products> productList=new ArrayList<Product.Products>();
-    private Button schoolSortPhone;
-    private Button schoolSortComputer;
-    private Button schoolSortMatch;
-    private Button schoolSortOthers;
-    private Button schoolSortPriceUp;
-    private Button schoolSortPriceDown;
+    private TextView schoolSortPhone;
+    private TextView schoolSortComputer;
+    private TextView schoolSortMatch;
+    private TextView schoolSortOthers;
+    private TextView schoolSortPriceUp;
+    private TextView schoolSortPriceDown;
     private Integer orderFlag=0;
     private Integer page=1;
     private String url;
@@ -59,12 +60,12 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
         View view=inflater.inflate(R.layout.fragment_schools,null);
 
         lv_schools = ((PullToRefreshListView) view.findViewById(R.id.lv_schools));
-        schoolSortPhone = ((Button) view.findViewById(R.id.btn_schoolsort_phone));
-        schoolSortComputer = ((Button) view.findViewById(R.id.btn_schoolsort_computer));
-        schoolSortMatch = ((Button) view.findViewById(R.id.btn_schoolsort_match));
-        schoolSortOthers = ((Button) view.findViewById(R.id.btn_schoolsort_others));
-        schoolSortPriceUp = ((Button) view.findViewById(R.id.btn_schoolsort_price_up));
-        schoolSortPriceDown = ((Button) view.findViewById(R.id.btn_sort_schoolprice_down));
+        schoolSortPhone = ((TextView) view.findViewById(R.id.btn_schoolsort_phone));
+        schoolSortComputer = ((TextView) view.findViewById(R.id.btn_schoolsort_computer));
+        schoolSortMatch = ((TextView) view.findViewById(R.id.btn_schoolsort_match));
+        schoolSortOthers = ((TextView) view.findViewById(R.id.btn_schoolsort_others));
+        schoolSortPriceUp = ((TextView) view.findViewById(R.id.btn_schoolsort_price_up));
+        schoolSortPriceDown = ((TextView) view.findViewById(R.id.btn_sort_schoolprice_down));
 
         getSchoolList();
         return view;
@@ -116,7 +117,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                                 | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
-              //  new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+                //  new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
             }
 
             @Override
@@ -145,21 +146,57 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()){
             case R.id.btn_schoolsort_phone:
                 orderFlag=1;
+                schoolSortPhone.setBackgroundColor(Color.RED);
+                schoolSortComputer.setBackgroundColor(Color.WHITE);
+                schoolSortMatch.setBackgroundColor(Color.WHITE);
+                schoolSortOthers.setBackgroundColor(Color.WHITE);
+                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_computer:
                 orderFlag=2;
+                schoolSortPhone.setBackgroundColor(Color.WHITE);
+                schoolSortComputer.setBackgroundColor(Color.RED);
+                schoolSortMatch.setBackgroundColor(Color.WHITE);
+                schoolSortOthers.setBackgroundColor(Color.WHITE);
+                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_match:
                 orderFlag=3;
+                schoolSortPhone.setBackgroundColor(Color.WHITE);
+                schoolSortComputer.setBackgroundColor(Color.WHITE);
+                schoolSortMatch.setBackgroundColor(Color.RED);
+                schoolSortOthers.setBackgroundColor(Color.WHITE);
+                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_others:
                 orderFlag=4;
+                schoolSortPhone.setBackgroundColor(Color.WHITE);
+                schoolSortComputer.setBackgroundColor(Color.WHITE);
+                schoolSortMatch.setBackgroundColor(Color.WHITE);
+                schoolSortOthers.setBackgroundColor(Color.RED);
+                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_price_up:
                 orderFlag=5;
+                schoolSortPhone.setBackgroundColor(Color.WHITE);
+                schoolSortComputer.setBackgroundColor(Color.WHITE);
+                schoolSortMatch.setBackgroundColor(Color.WHITE);
+                schoolSortOthers.setBackgroundColor(Color.WHITE);
+                schoolSortPriceUp.setBackgroundColor(Color.RED);
+                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_schoolprice_down:
                 orderFlag=6;
+                schoolSortPhone.setBackgroundColor(Color.WHITE);
+                schoolSortComputer.setBackgroundColor(Color.WHITE);
+                schoolSortMatch.setBackgroundColor(Color.WHITE);
+                schoolSortOthers.setBackgroundColor(Color.WHITE);
+                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+                schoolSortPriceDown.setBackgroundColor(Color.RED);
                 break;
         }
         getSchoolList();
@@ -167,7 +204,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
     }
 
 
-//    private void initView() {
+    //    private void initView() {
 //        initPTRListView();
 //        initListView();
 //    }
@@ -229,9 +266,9 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
 //
     public class MyAdapter extends BaseAdapter{
         private TextView tv_project_description;
-    private TextView tvProductKind;
+        private TextView tvProductKind;
 
-    @Override
+        @Override
         public int getCount() {
             return productList.size();
         }

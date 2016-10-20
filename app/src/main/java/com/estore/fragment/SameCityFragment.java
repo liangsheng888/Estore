@@ -4,6 +4,7 @@ package com.estore.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
@@ -39,18 +40,18 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     private ListView lvSameCity;
     private static Integer orderFlag=0;
     Integer page=1;
-    private Button sortPhone;
-    private View sortComputer;
-    private View sortMatch;
-    private View sortOthers;
-    private View sortPriceUp;
-    private View sortPriceDown;
+    private TextView sortPhone;
+    private TextView sortComputer;
+    private TextView sortMatch;
+    private TextView sortOthers;
+    private TextView sortPriceUp;
+    private TextView sortPriceDown;
 
     private static final String TAG = "SameCityFragment";
     private PullToRefreshListView lv_same_city;
     private BaseAdapter adapter;
     private ImageView iv_project_photo;
-     List<Product.Products> productList=new ArrayList<Product.Products>();
+    List<Product.Products> productList=new ArrayList<Product.Products>();
     private ListView actualListView;
     private LinkedList<Product.Products> mListItems;
     private String url;
@@ -60,12 +61,12 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_same_city,null);
         lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
-        sortPhone = ((Button) view.findViewById(R.id.btn_sort_phone));
-        sortComputer = view.findViewById(R.id.btn_sort_computer);
-        sortMatch = view.findViewById(R.id.btn_sort_match);
-        sortOthers = view.findViewById(R.id.btn_sort_others);
-        sortPriceUp = view.findViewById(R.id.btn_sort_price_up);
-        sortPriceDown = view.findViewById(R.id.btn_sort_price_down);
+        sortPhone = ((TextView) view.findViewById(R.id.btn_sort_phone));
+        sortComputer = ((TextView) view.findViewById(R.id.btn_sort_computer));
+        sortMatch = ((TextView) view.findViewById(R.id.btn_sort_match));
+        sortOthers = ((TextView) view.findViewById(R.id.btn_sort_others));
+        sortPriceUp = ((TextView) view.findViewById(R.id.btn_sort_price_up));
+        sortPriceDown = ((TextView) view.findViewById(R.id.btn_sort_price_down));
         getSameCityList();
         return view;
 
@@ -156,21 +157,57 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_sort_phone:
                 orderFlag=1;
+                sortPhone.setBackgroundColor(Color.RED);
+                sortComputer.setBackgroundColor(Color.WHITE);
+                sortMatch.setBackgroundColor(Color.WHITE);
+                sortOthers.setBackgroundColor(Color.WHITE);
+                sortPriceUp.setBackgroundColor(Color.WHITE);
+                sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_computer:
                 orderFlag=2;
+                sortPhone.setBackgroundColor(Color.WHITE);
+                sortComputer.setBackgroundColor(Color.RED);
+                sortMatch.setBackgroundColor(Color.WHITE);
+                sortOthers.setBackgroundColor(Color.WHITE);
+                sortPriceUp.setBackgroundColor(Color.WHITE);
+                sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_match:
                 orderFlag=3;
+                sortPhone.setBackgroundColor(Color.WHITE);
+                sortComputer.setBackgroundColor(Color.WHITE);
+                sortMatch.setBackgroundColor(Color.RED);
+                sortOthers.setBackgroundColor(Color.WHITE);
+                sortPriceUp.setBackgroundColor(Color.WHITE);
+                sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_others:
                 orderFlag=4;
+                sortPhone.setBackgroundColor(Color.WHITE);
+                sortComputer.setBackgroundColor(Color.WHITE);
+                sortMatch.setBackgroundColor(Color.WHITE);
+                sortOthers.setBackgroundColor(Color.RED);
+                sortPriceUp.setBackgroundColor(Color.WHITE);
+                sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_price_up:
                 orderFlag=5;
+                sortPhone.setBackgroundColor(Color.WHITE);
+                sortComputer.setBackgroundColor(Color.WHITE);
+                sortMatch.setBackgroundColor(Color.WHITE);
+                sortOthers.setBackgroundColor(Color.WHITE);
+                sortPriceUp.setBackgroundColor(Color.RED);
+                sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_price_down:
                 orderFlag=6;
+                sortPhone.setBackgroundColor(Color.WHITE);
+                sortComputer.setBackgroundColor(Color.WHITE);
+                sortMatch.setBackgroundColor(Color.WHITE);
+                sortOthers.setBackgroundColor(Color.WHITE);
+                sortPriceUp.setBackgroundColor(Color.WHITE);
+                sortPriceDown.setBackgroundColor(Color.RED);
                 break;
         }
         getSameCityList();
@@ -179,7 +216,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     }
 
 
-//    private void initView() {
+    //    private void initView() {
 //        initPTRListView();
 //        initListView();
 //    }
@@ -240,45 +277,45 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
 //            }
 //        });
 //    }
-public class MyAdapter extends BaseAdapter{
+    public class MyAdapter extends BaseAdapter{
 
-    private TextView tv_product_kind;
-    private TextView tv_project_description;
+        private TextView tv_product_kind;
+        private TextView tv_project_description;
 
-    @Override
-    public int getCount() {
-        return productList.size();
+        @Override
+        public int getCount() {
+            return productList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = View.inflate(getActivity(), R.layout.eh_item, null);
+            iv_project_photo = ((ImageView) view.findViewById(R.id.iv_project_photo));
+            TextView tv_project_name = ((TextView) view.findViewById(R.id.tv_project_name));
+            TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
+            tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
+            tv_product_kind = ((TextView) view.findViewById(R.id.tv_product_kind));
+            Product.Products list = productList.get(position);
+            tv_project_name.setText(list.name);
+            tv_project_price.setText(list.estoreprice + "");
+            tv_project_description.setText(list.description);
+            tv_product_kind.setText(list.category);
+            String[] imgurl=list.imgurl.split("=");
+            x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+imgurl[0]);
+            return view;
+        }
     }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(getActivity(), R.layout.eh_item, null);
-        iv_project_photo = ((ImageView) view.findViewById(R.id.iv_project_photo));
-        TextView tv_project_name = ((TextView) view.findViewById(R.id.tv_project_name));
-        TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
-        tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
-        tv_product_kind = ((TextView) view.findViewById(R.id.tv_product_kind));
-        Product.Products list = productList.get(position);
-        tv_project_name.setText(list.name);
-        tv_project_price.setText(list.estoreprice + "");
-        tv_project_description.setText(list.description);
-        tv_product_kind.setText(list.category);
-        String[] imgurl=list.imgurl.split("=");
-        x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+imgurl[0]);
-        return view;
-    }
-}
-//
+    //
     public void getSameCityList(){
 
         url=HttpUrlUtils.HTTP_URL+"getSameCityProducts";

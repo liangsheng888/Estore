@@ -29,50 +29,81 @@
         android:id="@+id/rl_samecity_sort"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout">
-    <Button
-        android:id="@+id/btn_sort_phone"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="手机"/>
-        <Button
-            android:id="@+id/btn_sort_computer"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="电脑"/>
-        <Button
-            android:id="@+id/btn_sort_match"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:text="笔记本"/>
-        <Button
-            android:id="@+id/btn_sort_others"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="其他"/>
-        <Button
-            android:id="@+id/btn_sort_price_up"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="价格↑"/>
-        <Button
-            android:id="@+id/btn_sort_price_down"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="价格↓"/>
-    </LinearLayout>
+            android:id="@+id/linearLayout">
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_phone"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="手  机"/>
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#aa000000"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_computer"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="电  脑"/>
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#aa000000"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_match"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="笔记本"/>
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#aa000000"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_others"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="其  他"/>
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#aa000000"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_price_up"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="价 格↑"/>
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#aa000000"/>
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btn_sort_price_down"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="价 格↓"/>
+        </LinearLayout>
         <!--<ListView
             android:id="@+id/lv_same_city"
             android:layout_width="match_parent"
@@ -83,23 +114,23 @@
         </ListView>-->
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/lv_same_city"
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#000000"
-        android:divider="#19000000"
-        android:dividerHeight="4dp"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:smoothScrollbar="true"
-        ptr:ptrAnimationStyle="rotate"
-        ptr:ptrHeaderTextColor="#ffffff"
-        ptr:ptrHeaderSubTextColor="#00ffff"
-        ptr:ptrHeaderBackground="@null"
-        ptr:ptrDrawable="@mipmap/refrsh">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+            android:id="@+id/lv_same_city"
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#000000"
+            android:divider="#19000000"
+            android:dividerHeight="4dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"
+            ptr:ptrAnimationStyle="rotate"
+            ptr:ptrHeaderTextColor="#ffffff"
+            ptr:ptrHeaderSubTextColor="#00ffff"
+            ptr:ptrHeaderBackground="@null"
+            ptr:ptrDrawable="@mipmap/refrsh">
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </FrameLayout>
