@@ -125,6 +125,15 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
             }
         });
+
+        lv_schools.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
+            }
+        });
+        lv_schools.setScrollingWhileRefreshingEnabled(true);
+        lv_schools.setMode(PullToRefreshBase.Mode.BOTH);
         new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
 
         actualListView.setAdapter(adapter);

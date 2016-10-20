@@ -44,6 +44,7 @@ public  class GetDataTaskListView extends AsyncTask<Void, ArrayList<Product.Prod
     protected void onProgressUpdate(ArrayList<Product.Products>... values) {
         super.onProgressUpdate(values);
         PullToRefreshBase.Mode mode = pullToRefreshListView.getCurrentMode();
+
         for (Product.Products products : values[0]) {
             if(mode==PullToRefreshBase.Mode.PULL_FROM_START){
 

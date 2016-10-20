@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.GetDataTaskListView;
 import com.estore.activity.ProductInfoActivity;
@@ -115,6 +116,15 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
             }
         });
+
+        lv_same_city.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
+            }
+        });
+        lv_same_city.setScrollingWhileRefreshingEnabled(true);
+        lv_same_city.setMode(PullToRefreshBase.Mode.BOTH);
         new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
 
 
