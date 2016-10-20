@@ -22,8 +22,8 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressSelector extends AppCompatActivity implements View.OnClickListener {
 
+public class EdtAddressActivity extends AppCompatActivity implements View.OnClickListener {
     private Spinner provinceSpinner = null;  //省级（省、直辖市）
     private Spinner citySpinner = null;     //地级市
     private Spinner countySpinner = null;    //县级（区、县、县级市）
@@ -38,7 +38,6 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
     String userName;
     String userTel;
     String addressInfo;
-
     //省级选项值
     private String[] province = new String[]{"北京", "上海", "天津", "广东"};//,"重庆","黑龙江","江苏","山东","浙江","香港","澳门"};
     //地级选项值
@@ -74,11 +73,13 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
                             {"武江区", "浈江区", "曲江区", "乐昌市", "南雄市", "始兴县", "仁化县", "翁源县", "新丰县", "乳源县"}  //韶关
                     }
             };
+    Address address;
     private Button btn_address_ok;
     private EditText et_address_tel;
     private EditText et_address_name;
     private EditText et_address_info;
     private CheckBox rb_address;
+  int  ADDRESSEDT;//编辑传过来的标志位
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +87,28 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_address_selector);
         setSpinner();
         initView();
+//        initSetData() ;
         initEven();
+
         getdata();
+        Intent intent = getIntent();
+        address = (Address) intent.getSerializableExtra("addressSign");
+        System.out.println("编辑页面address"+address);
+         ADDRESSEDT= (int) intent.getSerializableExtra("addressedt");
+        System.out.println("编辑页面ADDRESSEDT"+ADDRESSEDT);
+        et_address_name.setText(address.userId+"");
+        et_address_tel.setText(address.cantactPhone);
+        et_address_info.setText(address.detailed_address);
     }
+
+//    private void initSetData() {
+//
+//            et_address_name.setText(address.userId+"");
+//            et_address_tel.setText(address.cantactPhone);
+//            et_address_info.setText(address.detailed_address);
+//
+//    }
+
 
     private void getdata() {
         provincestr = provinceSpinner.getSelectedItem().toString();
@@ -236,7 +256,8 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
             moren = 1;
         }
 
-        final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "insertaddressservlet");
+        final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "modifyaddressservlet");
+        requestParams.addBodyParameter("addressId", String.valueOf(address.getUserId()));
         requestParams.addBodyParameter("userId", userId);
         requestParams.addBodyParameter("cantactPhone", userTel);
         requestParams.addBodyParameter("contactAddress", province + city + county);
@@ -247,20 +268,20 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(String result) {
 
-                System.out.println("addressSelectorresult"+result);
+                System.out.println("addressSelectorresult" + result);
 
                 Intent intent = new Intent();
                 //把返回数据存入Intent
-                intent.putExtra("result","插入成功" );
+                intent.putExtra("result", "插入成功");
                 //设置返回数据
-                AddressSelector.this.setResult(RESULT_OK, intent);
+                EdtAddressActivity.this.setResult(RESULT_OK, intent);
                 //关闭Activity
-                AddressSelector.this.finish();
+                EdtAddressActivity.this.finish();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println("ex"+ex.getMessage()+"");
+                System.out.println("ex" + ex.getMessage() + "");
             }
 
             @Override
@@ -275,6 +296,4 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         });
 
     }
-
-
 }

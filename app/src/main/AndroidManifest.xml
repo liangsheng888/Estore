@@ -26,9 +26,7 @@
         </activity>
         <activity android:name=".SchoolActivity" />
         <activity android:name=".SameCityActivity" />
-        <activity android:name=".AddProActivity" >
-
-        </activity>
+        <activity android:name=".AddProActivity"></activity>
         <activity android:name=".AuctionActivity" />
         <activity android:name=".SellActivity" />
         <activity android:name=".ProductInfoActivity" />
@@ -51,7 +49,8 @@
         <activity android:name=".PublishAuctionDetialItemActivity" />
         <activity android:name=".PaiMaiMain_bidding" />
         <activity android:name=".AddessListActivity" />
-        <activity android:name=".AddressSelector"></activity>
+        <activity android:name=".AddressSelector" />
+        <activity android:name=".EdtAddressActivity"></activity>
     </application>
 
 </manifest>
