@@ -4,43 +4,132 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-
+    android:background="#ffffff"
     tools:context="com.estore.activity.RegisterActivity">
-    <TextView
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <ImageView
+            android:id="@+id/iv_back_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xiaoyu"
+            />
+        <TextView
+            android:id="@+id/tv_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            android:layout_marginRight="10dp"
+            android:textSize="24dp"
+            android:textColor="#c7c7c7"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_registerline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="昵  称"
+            android:background="@null"
+            android:textSize="16dp"
+            android:paddingLeft="10dp"
+            android:textColor="#b6b4b4"
+            />
+        <!--下划线-->
+        <ImageView
+            android:layout_below="@id/et_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
+
+            />
+
+        <EditText
+            android:id="@+id/et_regemail"
+            android:layout_below="@id/et_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:hint="请输入邮箱号"
+            android:textSize="16dp"
+            android:paddingLeft="10dp"
+            android:textColor="#b6b4b4"
+            />
+
+        <ImageView
+            android:layout_below="@id/et_regemail"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
+            />
+        <EditText
+        android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#6600ff"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="注册"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入邮箱"
-        android:textSize="20sp" />
+        android:hint="密   码"
+        android:background="@null"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:textColor="#b6b4b4"
+        android:layout_below="@id/et_regemail"
+        />
+        <!--下划线-->
+        <ImageView
+            android:layout_below="@id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
 
-    <EditText
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入昵称" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="请输入密码"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="再次输入密码"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#fff"
-        android:background="#660000ff"
-        android:text="注册"/>
+            />
+        <EditText
+            android:id="@+id/et_oncepassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="再次输入密码"
+            android:textSize="16dp"
+            android:paddingLeft="10dp"
+            android:textColor="#b6b4b4"
+            android:background="@null"
+            android:layout_below="@id/et_password"
+            />
+        <!--下划线-->
+        <ImageView
+            android:layout_below="@id/et_oncepassword"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#93dada"
+        android:layout_marginTop="20dp"
+        >
+        <TextView
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注   册"
+            android:textSize="24dp"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
 
 </LinearLayout>
+

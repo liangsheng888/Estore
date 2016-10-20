@@ -11,8 +11,15 @@ public class User implements Serializable {
 	private String nick;
 	private String imageUrl;
 	public User(){}
+
+	public User(String userName, String userPwd, String nick) {
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.nick = nick;
+	}
+
 	public User(Integer userId, String userName, String userPwd, String phone, String nick, String imageUrl,
-			String userSex, String storeName) {
+				String userSex, String storeName) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
