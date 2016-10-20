@@ -28,6 +28,9 @@ import com.estore.pojo.Product;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -58,11 +61,13 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private Button city;
     private Button auction;
     private String[] imgurls;
+    private RollPagerView mRollViewPager;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
+        PictureRoll(view);
 
         //lv_fr_home = (ListView) view.findViewById(R.id.lv_fr_home);
         //gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gv_home);
@@ -275,7 +280,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     // 加载图片
     private void initPicture() {
 
-        images = new ArrayList();
+        /*images = new ArrayList();
         ImageView imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageResource(R.drawable.a);
@@ -291,7 +296,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         imageView = new ImageView(getActivity());
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageResource(R.drawable.d);
-        images.add(imageView);
+        images.add(imageView);*/
 
     }
 
@@ -404,4 +409,50 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             return convertView;
         }
     }
+    public void PictureRoll(View view){
+        mRollViewPager = (RollPagerView)view.findViewById(R.id.roll_view_pager);
+
+        //设置播放时间间隔
+        mRollViewPager.setPlayDelay(3000);
+        //设置透明度
+        mRollViewPager.setAnimationDurtion(500);
+        //设置适配器
+        mRollViewPager.setAdapter(new TestNormalAdapter());
+
+        //设置指示器（顺序依次）
+        //自定义指示器图片
+        //设置圆点指示器颜色
+        //设置文字指示器
+        //隐藏指示器
+        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
+        mRollViewPager.setHintView(new ColorPointHintView(getActivity(), Color.YELLOW,Color.WHITE));
+        //mRollViewPager.setHintView(new TextHintView(this));
+        //mRollViewPager.setHintView(null);
+
+        // Toolbar
+
+    }
+    private class TestNormalAdapter extends StaticPagerAdapter {
+        private int[] imgs = {
+                R.drawable.guanggao,
+                R.drawable.guanggao2,
+                R.drawable.guanggao3,
+                R.drawable.guanggao1,
+        };
+
+        @Override
+        public View getView(ViewGroup container, int position) {
+            ImageView view = new ImageView(container.getContext());
+            view.setImageResource(imgs[position]);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return imgs.length;
+        }
+    }
+
 }

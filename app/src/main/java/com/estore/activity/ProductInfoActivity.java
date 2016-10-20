@@ -165,6 +165,9 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
+                            startActivity(intent);
+                            dialog.dismiss();
                             //注册
 
                         }

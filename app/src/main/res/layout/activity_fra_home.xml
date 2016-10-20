@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:myattr="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical">
       <!--<ListView
           android:id="@+id/lv_fr_home"
@@ -71,6 +72,12 @@
                 android:orientation="horizontal" >
             </LinearLayout>
       </com.estore.view.SlidingSwitcherView>-->
+      <com.jude.rollviewpager.RollPagerView
+          android:id="@+id/roll_view_pager"
+          android:layout_width="match_parent"
+          android:layout_height="200dp">
+
+      </com.jude.rollviewpager.RollPagerView>
 
       <LinearLayout
           android:layout_width="match_parent"
