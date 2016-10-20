@@ -37,10 +37,10 @@ import java.util.List;
 public class SchoolsFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "SchoolsFragment";
-//    private PullToRefreshListView lv_schools;
+    private PullToRefreshListView lv_schools;
     private BaseAdapter adapter;
-//    private ListView actualListView;
-//    private LinkedList<Product.Products> mListItems;
+    private ListView actualListView;
+    private LinkedList<Product.Products> mListItems;
     List<Product.Products> productList=new ArrayList<Product.Products>();
     private Button schoolSortPhone;
     private Button schoolSortComputer;
@@ -48,24 +48,25 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
     private Button schoolSortOthers;
     private Button schoolSortPriceUp;
     private Button schoolSortPriceDown;
-    private ListView lvSchool;
-    Integer orderFlag=0;
-    Integer page=1;
+    private Integer orderFlag=0;
+    private Integer page=1;
+    private String url;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_schools,null);
+
+        lv_schools = ((PullToRefreshListView) view.findViewById(R.id.lv_schools));
         schoolSortPhone = ((Button) view.findViewById(R.id.btn_schoolsort_phone));
         schoolSortComputer = ((Button) view.findViewById(R.id.btn_schoolsort_computer));
         schoolSortMatch = ((Button) view.findViewById(R.id.btn_schoolsort_match));
         schoolSortOthers = ((Button) view.findViewById(R.id.btn_schoolsort_others));
         schoolSortPriceUp = ((Button) view.findViewById(R.id.btn_schoolsort_price_up));
         schoolSortPriceDown = ((Button) view.findViewById(R.id.btn_sort_schoolprice_down));
-        lvSchool = ((ListView) view.findViewById(R.id.lv_school));
+
         getSchoolList();
-//        lv_schools = ((PullToRefreshListView) view.findViewById(R.id.lv_schools));
         return view;
     }
     @Override
@@ -78,11 +79,24 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
         schoolSortPriceUp.setOnClickListener(this);
         schoolSortPriceDown.setOnClickListener(this);
 
-        lvSchool.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        lvSchool.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Product.Products pp=productList.get(i);
+//                Log.i(TAG,i+"");
+//                Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
+//                Bundle bundle=new Bundle();
+//                bundle.putSerializable("pp",pp);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+
+        actualListView=lv_schools.getRefreshableView();
+        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Product.Products pp=productList.get(i);
-                Log.i(TAG,i+"");
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("pp",pp);
@@ -91,13 +105,29 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-//        initView();
-//        if(adapter==null) {
-//            adapter = new MyAdapter();
-//        }else if(adapter!=null){
-//            adapter.notifyDataSetChanged();
-//        }
-//        lv_schools.setAdapter(adapter);
+        lv_schools.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(
+                        getActivity(),
+                        System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+              //  new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+            }
+        });
+        new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+
+        actualListView.setAdapter(adapter);
 
     }
 
@@ -228,18 +258,11 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
     };
     public void getSchoolList(){
 
-//        if(productList==null){
-//            productList=new ArrayList<>();
-//        }
-//        else {
-//            productList.clear();
-//            productList=((MainActivity)getActivity()).getProducts();
-//        }
-//        Log.i("SameCityFrangment","SchoolFragment===========productList"+productList+"");
-
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"/getSchoolProducts");
+        url=HttpUrlUtils.HTTP_URL+"/getSchoolProducts";
+        RequestParams params=new RequestParams(url);
         params.addQueryStringParameter("orderFlag",orderFlag+"");
         params.addQueryStringParameter("page",page+"");
+        Log.i(TAG,url);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -253,7 +276,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 }else if(adapter!=null){
                     adapter.notifyDataSetChanged();
                 }
-                lvSchool.setAdapter(adapter);
+                actualListView.setAdapter(adapter);
             }
 
             @Override

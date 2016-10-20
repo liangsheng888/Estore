@@ -17,9 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.estore.activity.GetDataTaskListView;
-import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -37,7 +36,7 @@ import java.util.List;
 
 public class SameCityFragment extends Fragment implements View.OnClickListener{
     private ListView lvSameCity;
-    Integer orderFlag=0;
+    private static Integer orderFlag=0;
     Integer page=1;
     private Button sortPhone;
     private View sortComputer;
@@ -47,26 +46,25 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     private View sortPriceDown;
 
     private static final String TAG = "SameCityFragment";
-//    private PullToRefreshListView lv_same_city;
+    private PullToRefreshListView lv_same_city;
     private BaseAdapter adapter;
     private ImageView iv_project_photo;
      List<Product.Products> productList=new ArrayList<Product.Products>();
-//    private ListView actualListView;
-//    private LinkedList<Product.Products> mListItems;
-
+    private ListView actualListView;
+    private LinkedList<Product.Products> mListItems;
+    private String url;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_same_city,null);
-//        lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
+        lv_same_city = ((PullToRefreshListView) view.findViewById(R.id.lv_same_city));
         sortPhone = ((Button) view.findViewById(R.id.btn_sort_phone));
         sortComputer = view.findViewById(R.id.btn_sort_computer);
         sortMatch = view.findViewById(R.id.btn_sort_match);
         sortOthers = view.findViewById(R.id.btn_sort_others);
         sortPriceUp = view.findViewById(R.id.btn_sort_price_up);
         sortPriceDown = view.findViewById(R.id.btn_sort_price_down);
-        lvSameCity = ((ListView) view.findViewById(R.id.lv_same_city));
         getSameCityList();
         return view;
 
@@ -83,7 +81,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
         sortPriceUp.setOnClickListener(this);
         sortPriceDown.setOnClickListener(this);
 //        initView();
-        lvSameCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        actualListView=lv_same_city.getRefreshableView();
+        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Product.Products pp=productList.get(i);
@@ -96,8 +95,48 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-//        lv_same_city.setAdapter(adapter);
-//        new GetDataTaskListView(lv_same_city, adapter, mListItems).execute();
+
+        lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(
+                        getActivity(),
+                        System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+            }
+        });
+        new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+
+
+//        lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//            @Override
+//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(
+//                        getActivity(),
+//                        System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME
+//                                | DateUtils.FORMAT_SHOW_DATE
+//                                | DateUtils.FORMAT_ABBREV_ALL);
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//
+//                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+//
+//            }
+//
+//
+//        });
+//        new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+        actualListView.setAdapter(adapter);
 
     }
 
@@ -231,30 +270,18 @@ public class MyAdapter extends BaseAdapter{
 }
 //
     public void getSameCityList(){
-////        productList.clear();
-//        if(productList==null){
-//            productList=new ArrayList<>();
-//        }
-//        else {
-//            productList.clear();
-//            productList=((MainActivity)getActivity()).getProducts();
-//        }
-//
-//        Log.i("SameCityFrangment","SameCityFrangment=============productList"+productList+"");
 
-
-        RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"getSameCityProducts");
+        url=HttpUrlUtils.HTTP_URL+"getSameCityProducts";
+        RequestParams params=new RequestParams(url);
         Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
         params.addQueryStringParameter("orderFlag",orderFlag+"");
         params.addQueryStringParameter("page",page+"");
-//        Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i(TAG,result+"==========");
                 Gson gson=new Gson();
                 Product project=gson.fromJson(result,Product.class);
-//        List<Product> productList=((MainActivity)getActivity()).getProductList();
 
                 productList.clear();
                 productList.addAll(project.list);
@@ -263,7 +290,7 @@ public class MyAdapter extends BaseAdapter{
                 }else if(adapter!=null){
                     adapter.notifyDataSetChanged();
                 }
-                lvSameCity.setAdapter(adapter);
+                actualListView.setAdapter(adapter);
             }
 
             @Override
