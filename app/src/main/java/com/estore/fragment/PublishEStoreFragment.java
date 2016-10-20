@@ -119,7 +119,8 @@ public class PublishEStoreFragment extends Fragment {
             tv_pubestorewhere1 = ((TextView) view.findViewById(R.id.tv_pubestorewhere1));//高校
             MyPublishActivityBean.ProImag  pro=prolist.get(position);
             Log.e("PublishEStoreFragment","getView:"+pro.toString());
-            x.image().bind(iv_pubestorepic,HttpUrlUtils.HTTP_URL +pro.imgurl);
+            String[] imgurl=pro.imgurl.split("=");
+            x.image().bind(iv_pubestorepic,HttpUrlUtils.HTTP_URL +imgurl[0]);
             Log.i("TAG",HttpUrlUtils.HTTP_URL +pro.imgurl);
             tv_pubestoreprice.setText(pro.estoreprice+"");
             tv_pubestorerepresent.setText(pro.description+"");

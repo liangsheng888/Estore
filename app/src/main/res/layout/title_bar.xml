@@ -5,15 +5,15 @@
   	    android:layout_height="48dp"
   	    android:orientation="horizontal"
   	    android:weightSum="5"
-  	    android:background="@drawable/tab_bg">
+  	    android:background="#1d1a1a">
   	    <ImageView 
   	        android:id="@+id/iv_project_detail_back"
   	        android:layout_weight="1"
   	        android:layout_width="0dp"
-  	        android:layout_height="wrap_content"
+  	        android:layout_height="40dp"
   	        android:layout_gravity="center"
   	        android:clickable="true"
-  	        android:src="@drawable/nav_back"
+  	        android:src="@drawable/last_white"
   	        />
   	    <TextView 
   	        android:id="@+id/id_prod_list_tv"
@@ -22,8 +22,8 @@
   	        android:gravity="center"
   	       	android:layout_weight="3"
   	        android:text="商品列表"
-  	        android:textColor="@android:color/black"
-  	        android:textSize="18sp"
+  	        android:textColor="#fff"
+  	        android:textSize="24sp"
   	        android:textStyle="bold"/>
   	    <RelativeLayout 
   	        android:id="@+id/title_bar_rl_cartview"

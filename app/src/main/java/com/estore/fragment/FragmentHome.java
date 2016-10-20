@@ -1,6 +1,5 @@
 package com.estore.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,13 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.estore.activity.AuctionActivity;
 import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
 import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
-import com.estore.activity.SameCityActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
 import com.google.gson.Gson;
@@ -49,7 +46,7 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
  */
 public class FragmentHome extends Fragment implements View.OnClickListener {
     private static final int HOME =2 ;
-    private LinkedList<Product.Products> list;
+    private LinkedList<Product.Products> list=new LinkedList<>();
     //private ListView lv_fr_home;
     PullToRefreshGridView prg;
     //vate GridViewWithHeaderAndFooter gridView;
@@ -66,6 +63,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
+
         //lv_fr_home = (ListView) view.findViewById(R.id.lv_fr_home);
         //gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gv_home);
         prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
@@ -81,6 +79,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         return view;
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -102,9 +101,16 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
-                Log.e("MainActivity", pro.toString());
+                Log.e("MainActivity", "pro------"+pro.toString());
                 list.clear();
                 list.addAll(pro.list);
+                Log.e("MainActivity", "list------"+list.toString());
+                if(adapter==null){
+                    adapter = new MyAdapter();
+                }else {
+                    adapter.notifyDataSetChanged();
+                }
+                gridView.setAdapter(adapter);
 
 
             }
@@ -134,13 +140,15 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        adapter = new MyAdapter();
+
+
         gridView = prg.getRefreshableView();
         gridView.setNumColumns(3);
        // initPicture();
         Log.e("home", "onActivityCreated");
-        MainActivity activity = (MainActivity) this.getActivity();//得到MainActivity 对象 进行通信
-        list = activity.getList();
+        getData();//网络拿数据
+     /*   MainActivity activity = (MainActivity) this.getActivity();//得到MainActivity 对象 进行通信
+        list = activity.getList();*/
         //从 MainActivty中拿到数据
         /*lv_fr_home.setAdapter(new MyAdapter());//设置适配器
         //设置点击事件
@@ -209,7 +217,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         // gridView.addHeaderView(ll_head);
         // lv_fr_home.addHeaderView(ll_head);
 
-        gridView.setAdapter(adapter);
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -329,12 +336,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_city_GridView_home:
                 //跳转到同城
-                startActivity(new Intent(getActivity(), SameCityActivity.class));
+                //startActivity(new Intent(getActivity(), SameCityActivity.class));
 
                 break;
             case R.id.btn_school_GridView_home:
                 //跳转到高校
-                startActivity(new Intent(getActivity(), AuctionActivity.class));
+                //startActivity(new Intent(getActivity(), AuctionActivity.class));
 
                 break;
         }
@@ -397,11 +404,4 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             return convertView;
         }
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ((MainActivity)getActivity()).changeFragment(new FragmentCar());//跳转到购物车
-    }
-
 }

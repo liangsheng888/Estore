@@ -24,7 +24,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginOther extends AppCompatActivity {
     private EditText et_username;
     private EditText et_psd;
     private RelativeLayout btn_login;
@@ -62,14 +62,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               final String username = et_username.getText().toString().trim();
+                final String username = et_username.getText().toString().trim();
                 final String psd = et_psd.getText().toString().trim();
                 if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(LoginActivity.this, "账户名不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginOther.this, "账户名不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(psd)) {
-                    Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginOther.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String url = HttpUrlUtils.HTTP_URL+"loginchecked?email=" + username + "&password=" + psd + "";
@@ -87,16 +87,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         if ("false".equals(result)) {
 
-                            Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginOther.this, result, Toast.LENGTH_SHORT).show();
                             return;
                         } else {
                             if(rb_rememberPsd.isChecked()){//记住密码
-                                SharedPreferencesUtils.saveUserInfo(LoginActivity.this,username,psd);
+                                SharedPreferencesUtils.saveUserInfo(LoginOther.this,username,psd);
                             }
-                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            intent.putExtra("direct",1);
-                            startActivity(intent);
+                            SharedPreferencesUtils.saveUserInfoOther(LoginOther.this,username,psd);
+
+                            Toast.makeText(LoginOther.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
 
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onError(Throwable ex, boolean isOnCallback) {
                         pb_login_state.setVisibility(View.GONE);
                         tv_login.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this,"网络超时，请重新登录",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginOther.this,"网络超时，请重新登录",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

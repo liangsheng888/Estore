@@ -91,7 +91,7 @@
                     <android.support.v4.view.ViewPager
                         android:id="@+id/vp_show_photo"
                         android:scaleType="centerCrop"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="300dp">
                     </android.support.v4.view.ViewPager>
                     <LinearLayout
