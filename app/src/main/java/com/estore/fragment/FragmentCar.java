@@ -58,11 +58,11 @@ public class FragmentCar extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.fragment_shoping_cart, null);
+           View view = View.inflate(getActivity(), R.layout.fragment_shoping_cart, null);
         cartListView = (ListView) view.findViewById(R.id.cart_listview);
         cart_buy_money=(TextView)view.findViewById(R.id.cart_buy_money);
         check_all=(CheckBox) view.findViewById(R.id.checkall);
-        cart_jiesuan=(TextView)view.findViewById(R.id.cart_jiesuan);
+     cart_jiesuan=(TextView)view.findViewById(R.id.cart_jiesuan);
         return view;
     }
 
