@@ -22,7 +22,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/qq_checkbox_text_color</item>
         <item name="android:paddingLeft">28dp</item>
-        <item name="android:button">@drawable/qq_btn_check</item>
     </style>
     <style name="eh_radiobutoon" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:button">@null</item>

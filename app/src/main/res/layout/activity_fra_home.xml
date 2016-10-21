@@ -5,73 +5,7 @@
     xmlns:myattr="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical">
-      <!--<ListView
-          android:id="@+id/lv_fr_home"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          >
 
-      </ListView>-->
-     <!-- <com.estore.view.GridViewWithHeaderAndFooter
-          android:id="@+id/gv_home"
-          android:numColumns="3"
-          android:gravity="center"
-          android:horizontalSpacing="2dp"
-          android:verticalSpacing="2dp"
-          android:background="#dcdcdc"
-          android:stretchMode="columnWidth"
-          android:listSelector="@null"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>-->
-     <!-- <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
-          android:id="@+id/autoScrollViewPager"
-          android:layout_width="match_parent"
-          android:layout_height="200dp">
-
-      </cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager>-->
-
-    <!--  <com.estore.view.SlidingSwitcherView
-          android:id="@+id/slidingLayout"
-          myattr:auto_play="true"
-          android:layout_width="match_parent"
-          android:scaleType="centerCrop"
-          android:layout_height="200dp" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:orientation="horizontal" >
-
-                  <ImageView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:src="@drawable/a" />
-
-                  <ImageView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:src="@drawable/b" />
-
-                  <ImageView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:src="@drawable/c" />
-
-                  <ImageView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:src="@drawable/d" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="30dip"
-                android:layout_marginLeft="180dp"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal" >
-            </LinearLayout>
-      </com.estore.view.SlidingSwitcherView>-->
       <com.jude.rollviewpager.RollPagerView
           android:id="@+id/roll_view_pager"
           android:layout_width="match_parent"
@@ -82,24 +16,23 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="#2200ff00"
+          android:background="#22f4f7f4"
+          android:gravity="center_vertical"
           android:orientation="horizontal">
             <Button
                 android:id="@+id/btn_school_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="90dp"
                 android:text="校园"
                 android:gravity="center"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@mipmap/school"
-                android:drawablePadding="-30dp"
+                android:drawableTop="@drawable/school"
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/btn_city_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:drawableLeft="@mipmap/city"
-                android:drawablePadding="-30dp"
+                android:layout_height="90dp"
+                android:drawableTop="@drawable/city"
                 android:layout_marginLeft="2dp"
                 android:background="@android:color/transparent"
                 android:text="同城"
@@ -107,12 +40,11 @@
             <Button
                 android:id="@+id/btn_auction_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:drawablePadding="-30dp"
+                android:layout_height="90dp"
                 android:text="最新拍卖"
                 android:layout_marginLeft="2dp"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@mipmap/paimai"
+                android:drawableTop="@drawable/auct"
                 android:layout_weight="1"/>
       </LinearLayout>
 
@@ -128,7 +60,7 @@
           android:background="#f7f7ff"
           android:stretchMode="columnWidth"
           android:verticalSpacing="2dp"
-          ptr:ptrDrawable="@drawable/add"
+          ptr:ptrDrawable="@drawable/xuanzhuan"
           ptr:ptrMode="both" />
 
 </LinearLayout>

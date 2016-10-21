@@ -129,6 +129,9 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                                         TextView order_item_info_price= viewHolder.getViewById(R.id.order_item_info_price);//商品价格
 
                                         TextView order_item_info_buynum= viewHolder.getViewById(R.id.order_item_info_buynum);//商品数量
+                                        ImageView proPhoto=viewHolder.getViewById(R.id.order_item_iv_left);
+                                        String[] imgurl=orderDetail.getProduct().imgurl.split("=");
+                                        x.image().bind(proPhoto,HttpUrlUtils.HTTP_URL + imgurl[0]);
                                         order_item_info_buynum.setText(orderDetail.getGoodsNum()+"");
                                         order_item_info_price.setText(orderDetail.getGoodsPrice()+"");
 

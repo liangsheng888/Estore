@@ -29,6 +29,7 @@
         />
 
 </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +39,7 @@
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:hint="标题(名字)"
+            android:hint="宝贝名称"
             android:singleLine="true"
             android:textColor="#000"
             />
@@ -50,7 +51,7 @@
         android:layout_height="1dp"></View>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:background="#ffffff"
 
         >
@@ -58,29 +59,11 @@
             android:background="@null"
             android:id="@+id/et_proDescription"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:hint="二货历史简介/描述"
+            android:layout_height="100dp"
+            android:hint="描述下你的宝贝的品牌，新旧，使用时间等"
             android:gravity="top"
             android:textColor="#000"
             />
-
-        <TextView
-            android:id="@+id/tv_choicephoto"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentBottom="true"
-            android:drawableTop="@drawable/photo_selector"
-            android:text="宝贝美图"
-            />
-        <GridView
-            android:id="@+id/gv_showPhoto"
-            android:layout_toRightOf="@id/tv_choicephoto"
-            android:numColumns="3"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp" />
 
     </RelativeLayout>
     <View
@@ -89,7 +72,29 @@
         android:layout_height="1dp"></View>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:id="@+id/tv_choicephoto"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:drawableTop="@drawable/jia_qing"
+            android:text="上传图片"
+            />
+        <GridView
+            android:id="@+id/gv_showPhoto"
+            android:layout_toRightOf="@id/tv_choicephoto"
+            android:numColumns="3"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:layout_height="40dp">
         <ImageView
             android:id="@+id/iv_place"
@@ -112,13 +117,20 @@
     <ImageView
         android:layout_below="@id/iv_place"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="10dp"
         android:background="#eae9e8"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="发布"
+            android:layout_marginLeft="10dp"
+            android:textSize="22dp"/>
         <RadioGroup
             android:id="@+id/rgIsSchool"
             android:layout_width="wrap_content"

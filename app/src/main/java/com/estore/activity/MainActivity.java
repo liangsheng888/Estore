@@ -254,6 +254,20 @@ public class MainActivity extends Activity {
             ((RadioButton) findViewById(R.id.rb_cat)).setChecked(true);
             return;
 
+        }else if(direct==3){
+            Log.i("MainActivity","direct"+direct);
+
+            changeFragment(1);
+            ((RadioButton) findViewById(R.id.rb_old)).setChecked(true);
+            return;
+
+        }else if(direct==4){
+            Log.i("MainActivity","direct"+direct);
+
+            changeFragment(1);
+            ((RadioButton) findViewById(R.id.rb_old)).setChecked(true);
+            return;
+
         }
 
 

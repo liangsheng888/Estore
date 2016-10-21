@@ -49,6 +49,8 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
  */
 public class FragmentHome extends Fragment implements View.OnClickListener {
     private static final int HOME =2 ;
+    private static final int SAME_CITY = 3;
+    private static final int HIGH_SCHOOL =4 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
     //private ListView lv_fr_home;
     PullToRefreshGridView prg;
@@ -152,14 +154,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
        // initPicture();
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
-     /*   MainActivity activity = (MainActivity) this.getActivity();//得到MainActivity 对象 进行通信
-        list = activity.getList();*/
-        //从 MainActivty中拿到数据
-        /*lv_fr_home.setAdapter(new MyAdapter());//设置适配器
-        //设置点击事件
-        */
-
-
         //为GridView设置点击事件
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -252,7 +246,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
 
         });
-        //设置滚动时延时时间
+       /* //设置滚动时延时时间
 
         autoScrollViewPager.setInterval(2000);
         //AutoScrollViewPager.RIGHT/AutoScrollViewPager.LEFT;
@@ -265,16 +259,16 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         autoScrollViewPager.setScrollDurationFactor(10);
 //设置当滑动到最后一个或者第一个时，如何切换下一张
         //设置当滑动到最后一个或者第一个时，如何切换下一张
-/**
+*//**
  * SLIDE_BORDER_MODE_NONE：不能再滑动
  * SLIDE_BORDER_MODE_TO_PARENT：移动父视图的Pager
  * SLIDE_BORDER_MODE_CYCLE：循环
  * 默认为SLIDE_BORDER_MODE_NONE
- */
+ *//*
         autoScrollViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
 
         //当触摸的时候，停止轮播
-        autoScrollViewPager.setStopScrollWhenTouch(true);
+        autoScrollViewPager.setStopScrollWhenTouch(true);*/
     }
 
     // 加载图片
@@ -341,12 +335,19 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_city_GridView_home:
                 //跳转到同城
-                //startActivity(new Intent(getActivity(), SameCityActivity.class));
+                Intent intent= new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("direct",SAME_CITY);
+
+                startActivity(intent);
 
                 break;
             case R.id.btn_school_GridView_home:
                 //跳转到高校
-                //startActivity(new Intent(getActivity(), AuctionActivity.class));
+                Intent intent2= new Intent(getActivity(), MainActivity.class);
+                intent2.putExtra("direct",HIGH_SCHOOL);
+
+                startActivity(intent2);
+
 
                 break;
         }
