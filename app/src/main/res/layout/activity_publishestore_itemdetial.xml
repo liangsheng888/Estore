@@ -35,7 +35,7 @@
             android:id="@+id/iv_erdetial_propic"
             android:layout_width="match_parent"
             android:src="@drawable/pro"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:paddingRight="10dp"
             android:layout_marginTop="20dp"
             android:paddingLeft="10dp"

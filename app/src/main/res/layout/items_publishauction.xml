@@ -35,9 +35,10 @@
             android:layout_height="wrap_content"
             android:text="时间"
             android:textSize="20dp"
-            android:layout_toRightOf="@id/iv_pubauctionpic"
             android:layout_below="@+id/tv_pubauctionprice"
-            android:layout_marginLeft="155dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/iv_pubauctionpic"
+            android:layout_marginLeft="20dp"
 
 
             />
@@ -55,6 +56,16 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/iv_pubauctionpic"
             />
+        <Button
+            android:id="@+id/btn_pubauctiondelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:background="#aaff0000"
+            android:textColor="#ffffff"
+            android:text="删  除"/>
+
     </RelativeLayout>
     <!-- 分割线 -->
     <ImageView
