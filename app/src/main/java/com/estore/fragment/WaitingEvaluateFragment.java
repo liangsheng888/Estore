@@ -4,6 +4,7 @@ package com.estore.fragment;
 我的订单---待评价页面
  */
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ViewHolder;
 import com.estore.pojo.GoodsOrderState;
@@ -76,7 +79,7 @@ public class WaitingEvaluateFragment extends Fragment {
     }
     public void getData(){
         Log.i("WaitingDeliverFragment", "getOrderData: ");
-        String userId=((MyApplication)getActivity().getApplication()).getUser().getUserId()+"";
+        String userId=new GetUserInfoByNet().getUserInfoByNet(getActivity())+"";
         //
         RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+userId+"&orderStatusId=5");
         //传参数：user_id,order_id
@@ -267,6 +270,23 @@ public class WaitingEvaluateFragment extends Fragment {
                                             //评论，
                                             Log.i("WaitingDeliverFragment", "评论");
                                             AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                                            Dialog dialog=builder.create();
+
+                                            View view=View.inflate(getActivity(),R.layout.layout_envalute,null);
+                                            EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
+
+                                            TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
+                                            TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
+                                            fabiao.setOnClickListener(new View.OnClickListener() {
+
+                                                @Override
+                                                public void onClick(View v) {
+                                                    //上传评论
+                                                    uploadData();
+                                                }
+                                            });
+
+                                            builder.setView(view);
                                             builder.setTitle("评论");
 
                                             //
@@ -352,6 +372,42 @@ public class WaitingEvaluateFragment extends Fragment {
             @Override
             public void onFinished() {
 
+            }
+        });
+    }
+
+    private void uploadData() {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"envaluteServlet");
+        /*rp.addBodyParameter("user_id",user_id);
+        rp.addBodyParameter("product_id",user_id);
+        rp.addBodyParameter("order_id",user_id);
+        rp.addBodyParameter("file",user_id);
+*/
+
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
             }
         });
     }

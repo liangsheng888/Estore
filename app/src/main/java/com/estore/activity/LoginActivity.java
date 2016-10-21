@@ -93,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
                             if(rb_rememberPsd.isChecked()){//记住密码
                                 SharedPreferencesUtils.saveUserInfo(LoginActivity.this,username,psd);
                             }
+                            SharedPreferencesUtils.saveUserInfoOther(LoginActivity.this,username,psd);
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                            intent.putExtra("direct",1);
+                            intent.putExtra("direct",5);
                             startActivity(intent);
                         }
                     }

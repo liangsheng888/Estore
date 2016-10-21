@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ViewHolder;
 import com.estore.pojo.GoodsOrderState;
@@ -77,7 +78,7 @@ public class WaitingPayMoneyFragment extends Fragment {
     }
     public void getData(){
         Log.i("WaitingPayMoneyFragment", "getOrderData: ");
-        String userId=((MyApplication)getActivity().getApplication()).getUser().getUserId()+"";
+        String userId=new GetUserInfoByNet().getUserInfoByNet(getActivity())+"";
         //
         RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+userId+"&orderStatusId=1");
         //传参数：user_id,order_id

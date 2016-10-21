@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ViewHolder;
 import com.estore.pojo.GoodsOrderState;
@@ -79,7 +80,7 @@ public class AllOrdersFragment extends Fragment {
         Log.i("AllOrdersFragment", "getOrderData: ");
         String userId=((MyApplication)getActivity().getApplication()).getUser().getUserId()+"";
         //
-        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+userId+"&orderStatusId=0");
+        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+new GetUserInfoByNet().getUserInfoByNet(getActivity())+"&orderStatusId=0");
         //传参数：user_id,order_id
      /*   requestParams.addQueryStringParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
         Log.i("OrderAllFragment", "userId: "+((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");

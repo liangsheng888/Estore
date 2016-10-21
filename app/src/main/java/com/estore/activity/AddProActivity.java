@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.HttpUrlUtils;
 
 import org.xutils.common.Callback;
@@ -281,11 +282,38 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         dialog.show();
     }
 
+    private void showDialog() {
+        builder=new AlertDialog.Builder(AddProActivity.this);
+        dialog=builder.create();
+        builder.setTitle("亲！你没有登录账号，请登录？");
+        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(AddProActivity.this,LoginOther.class);
+                startActivity(intent);
+
+
+            }
+        });
+        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(AddProActivity.this,RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        dialog.show();
+    }
+
     private void addProducts() {
         SharedPreferences sp=getSharedPreferences("User",Context.MODE_APPEND);
         String username=sp.getString("username",null)  ;
         if(TextUtils.isEmpty(username)){
-            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            showDialog() ;
+            /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
             final Dialog dialog=builder.create();
             builder.setTitle("亲！你没有登录账号，请登录？");
             View view=View.inflate(this,R.layout.login_user,null);
@@ -303,12 +331,15 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //注册
+                    //注册dialog.dismiss();
+                    Intent intent=new Intent(AddProActivity.this,RegisterActivity.class);
+                    startActivity(intent);
+
 
                 }
             });
             builder.setView(view);
-            builder.show();
+            builder.show();*/
             return;
         }
 
@@ -352,7 +383,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        params.addBodyParameter("userid","1");
+        //
+        params.addBodyParameter("userid",((MyApplication) getApplication()).getUser().getUserId()+"");
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.myappliction.MyApplication;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.pojo.InsertOrderBean;
@@ -81,7 +82,7 @@ public class ProOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderInsertServlet");
                 InsertOrderBean insertOrderBean=new InsertOrderBean();
-                insertOrderBean.setUserId(((MyApplication)getApplication()).getUser().getUserId());
+                insertOrderBean.setUserId(new GetUserInfoByNet().getUserInfoByNet(ProOrderActivity.this));
                 insertOrderBean.setAddressId(1);//默认地址
                 insertOrderBean.setDetails(mapOrderInfo);//所有的商品：添加的是key-value的
                 insertOrderBean.setTotalPrice(totalprice);

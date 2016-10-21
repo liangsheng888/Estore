@@ -3,6 +3,7 @@ package com.estore.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.myappliction.MyApplication;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.pojo.Cart;
@@ -63,6 +65,8 @@ public class ProductInfoActivity extends AppCompatActivity {
     private Button    btn_buy_now;//立即购买
     private Button addbt;
     private Button subbt;
+    private Dialog dialog;
+    private AlertDialog.Builder builder;
 
     Map<Product.Products,Integer> mapPro=new HashMap<>();//购买商品，及数量
     private User user=new User();
@@ -155,18 +159,16 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Log.e("ProductInfoActivity","加入购物车");
                 String username=sp.getString("username",null);
                 if(username==null){
-                    AlertDialog.Builder builder=new AlertDialog.Builder(ProductInfoActivity.this);
-                    final Dialog dialog=builder.create();
-                    builder.setTitle("亲！你没有登录账号，请登录？");
-                    View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
+                    /*builder=new AlertDialog.Builder(ProductInfoActivity.this);
+                    dialog=builder.create();
+                    builder.setTitle("亲！你没有登录账号，请登录？");*/
+
+                   /* View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
                     ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //登录
-                            dialog.dismiss();
-                            Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
-                            startActivity(intent);
-
+                           //
 
 
 
@@ -175,7 +177,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog.dismiss();
+                           // dialog.dismiss();
                             Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
                             startActivity(intent);
 
@@ -184,7 +186,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                         }
                     });
 
-                    builder.setView(view);
+                    builder.setView(view);*/
                     builder.show();
                     return ;
                 }
@@ -203,7 +205,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                // Gson gson=new Gson();
                 //String json= gson.toJson(cart);
                 rp.addBodyParameter("product_id",pp.id+"");
-                rp.addBodyParameter("user_id",user.getUserId()+"");
+                rp.addBodyParameter("user_id",new GetUserInfoByNet().getUserInfoByNet(ProductInfoActivity.this)+"");
                 rp.addBodyParameter("cart_num",Integer.parseInt(edt.getText().toString().trim())+"");
                 rp.addBodyParameter("create_time",new Timestamp(System.currentTimeMillis()).toString());
                 //rp.addBodyParameter("cartInfo",json);
@@ -244,17 +246,23 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Log.e("ProductInfoActivity","立即购买");
                 String username=sp.getString("username",null);
                 if(username==null){
-                    AlertDialog.Builder builder=new AlertDialog.Builder(ProductInfoActivity.this);
-                    final Dialog dialog=builder.create();
-                    builder.setTitle("亲！你没有登录账号，请登录？");
-                    View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
+                    builder.show();
+                    return ;
+                   /* builder=new AlertDialog.Builder(ProductInfoActivity.this);
+                    dialog=builder.create();
+                    builder.setTitle("亲！你没有登录账号，请登录？");*/
+/*
+                    View view=getWindow().getDecorView();
+                            //View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
                     ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //登录
+                           // dialog.dismiss();
+
                             Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
                             startActivity(intent);
-                            dialog.dismiss();
+
 
 
                         }
@@ -263,13 +271,16 @@ public class ProductInfoActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             //注册
+                            Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
+                            startActivity(intent);
+
 
                         }
                     });
-                    builder.setView(view);
-                    builder.show();
-                    return ;
+                    builder.setView(view);*/
+
                 }
+                user.setUserName(sp.getString("username",null));
                 MapSerializable ms=new MapSerializable();
                 mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
                 ms.setPro(mapPro);
@@ -318,6 +329,33 @@ public class ProductInfoActivity extends AppCompatActivity {
         addbt=(Button)findViewById(R.id.addbt);
         subbt=(Button)findViewById(R.id.subbt);
 
+        showDialog();
+
+    }
+
+    private void showDialog() {
+        builder=new AlertDialog.Builder(ProductInfoActivity.this);
+        dialog=builder.create();
+        builder.setTitle("亲！你没有登录账号，请登录？");
+        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
+                startActivity(intent);
+
+
+            }
+        });
+        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     //接收上个界面传递的商品信息
@@ -329,10 +367,14 @@ public class ProductInfoActivity extends AppCompatActivity {
         return pp;
     }
    public  void getDataCartNumber(){
+       if(sp.getString("username",null)!=null){
+           user.setUserName(sp.getString("username",null));
+           GetUserInfoByNet get=new GetUserInfoByNet();
+
         //获取网络数据，
        //显示加入购物车的数量
        //queryCartServlet
-        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+user.getUserId());
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+get.getUserInfoByNet(this) );
        //Log.e("ProductInfoActivity","url："+HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+new MyApplication().getUser().getUserId());
        x.http().get(rp, new Callback.CacheCallback<String>() {
 
@@ -377,5 +419,13 @@ public class ProductInfoActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }}
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+
+
     }
 }

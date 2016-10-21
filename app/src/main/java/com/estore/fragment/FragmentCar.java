@@ -20,6 +20,7 @@ import com.estore.activity.ProOrderActivity;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.httputils.ViewHolder;
@@ -142,9 +143,7 @@ public class FragmentCar extends Fragment {
     }
 
     public void getData() {
-        MyApplication my = (MyApplication) getActivity().getApplication();
-        user = my.getUser();
-        RequestParams rp = new RequestParams(HttpUrlUtils.HTTP_URL + "queryCartServlet?userId=" + user.getUserId());
+        RequestParams rp = new RequestParams(HttpUrlUtils.HTTP_URL + "queryCartServlet?userId="+ new GetUserInfoByNet().getUserInfoByNet(getActivity()));
 
         x.http().get(rp, new Callback.CacheCallback<String>() {
             @Override

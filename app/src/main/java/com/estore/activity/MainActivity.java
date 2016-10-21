@@ -8,7 +8,9 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends Activity {
+    private SharedPreferences sp;
     private ListView lv;
 
     public LinkedList<Product.Products> getList() {
@@ -78,6 +81,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sp=getSharedPreferences("User",MODE_APPEND);
 
 
         mapList = new ArrayList<Map<String, Object>>();
@@ -131,6 +135,13 @@ public class MainActivity extends Activity {
                         showAdd();
                         break;
                     case R.id.rb_cat:
+
+                        if(sp.getString("username",null)==null){
+                            showDialog();
+
+                            return;
+                        }
+
                         newIndex=2;
                         changeFragment( newIndex);
 
@@ -268,9 +279,41 @@ public class MainActivity extends Activity {
             ((RadioButton) findViewById(R.id.rb_old)).setChecked(true);
             return;
 
+        }else if(direct==5){
+            changeFragment(3);
+            ((RadioButton) findViewById(R.id.rb_mine)).setChecked(true);
+            return;
+
+
         }
 
 
+    }
+    private void showDialog() {
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+
+        builder.setTitle("亲！你没有登录账号，请登录？");
+        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(MainActivity.this,LoginOther.class);
+                startActivity(intent);
+
+
+            }
+        });
+        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        builder.show();
     }
     }
 

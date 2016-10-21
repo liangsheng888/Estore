@@ -3,13 +3,36 @@ package com.estore.pojo;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	 
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + userId +
+				", userName='" + userName + '\'' +
+				", userPwd='" + userPwd + '\'' +
+				", phone='" + phone + '\'' +
+				", nick='" + nick + '\'' +
+				", imageUrl='" + imageUrl + '\'' +
+				", userSex='" + userSex + '\'' +
+				", storeName='" + storeName + '\'' +
+				'}';
+	}
+
 	private Integer userId;
 	private String userName;
 	private String userPwd;
 	private String phone;
+
+	public String getEamil() {
+		return eamil;
+	}
+
+	public void setEamil(String eamil) {
+		this.eamil = eamil;
+	}
+
 	private String nick;
 	private String imageUrl;
+	private String eamil;
 	public User(){}
 
 	public User(String userName, String userPwd, String nick) {
