@@ -136,7 +136,8 @@
             ptr:ptrHeaderTextColor="#ffffff"
             ptr:ptrHeaderSubTextColor="#00ffff"
             ptr:ptrHeaderBackground="@null"
-            ptr:ptrDrawable="@mipmap/refrsh">
+            ptr:ptrDrawable="@mipmap/refrsh"
+            ptr:ptrMode="disabled">
         </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </FrameLayout>

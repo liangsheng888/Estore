@@ -49,8 +49,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
     private TextView schoolSortOthers;
     private TextView schoolSortPriceUp;
     private TextView schoolSortPriceDown;
-    private Integer orderFlag=0;
-    private Integer page=1;
+    Integer orderFlag=0;
+    Integer page=1;
     private String url;
 
     @Nullable
@@ -122,8 +122,10 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-                new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+                page=((MainActivity)getActivity()).getPage();
+                orderFlag=((MainActivity)getActivity()).getOrderFlag();
+                page++;
+                new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url,page).execute();
             }
         });
 
@@ -135,17 +137,31 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
         });
         lv_schools.setScrollingWhileRefreshingEnabled(true);
         lv_schools.setMode(PullToRefreshBase.Mode.BOTH);
-        new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
+//        new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url,page).execute();
 
         actualListView.setAdapter(adapter);
 
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            schoolSortPhone.setBackgroundColor(Color.WHITE);
+            schoolSortComputer.setBackgroundColor(Color.WHITE);
+            schoolSortMatch.setBackgroundColor(Color.WHITE);
+            schoolSortOthers.setBackgroundColor(Color.WHITE);
+            schoolSortPriceUp.setBackgroundColor(Color.WHITE);
+            schoolSortPriceDown.setBackgroundColor(Color.WHITE);
+            getSchoolList();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_schoolsort_phone:
-                orderFlag=1;
+                ((MainActivity)getActivity()).setOrderFlag(1);
                 schoolSortPhone.setBackgroundColor(Color.RED);
                 schoolSortComputer.setBackgroundColor(Color.WHITE);
                 schoolSortMatch.setBackgroundColor(Color.WHITE);
@@ -154,7 +170,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_computer:
-                orderFlag=2;
+                ((MainActivity)getActivity()).setOrderFlag(2);
                 schoolSortPhone.setBackgroundColor(Color.WHITE);
                 schoolSortComputer.setBackgroundColor(Color.RED);
                 schoolSortMatch.setBackgroundColor(Color.WHITE);
@@ -163,7 +179,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_match:
-                orderFlag=3;
+                ((MainActivity)getActivity()).setOrderFlag(3);
                 schoolSortPhone.setBackgroundColor(Color.WHITE);
                 schoolSortComputer.setBackgroundColor(Color.WHITE);
                 schoolSortMatch.setBackgroundColor(Color.RED);
@@ -172,7 +188,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_others:
-                orderFlag=4;
+                ((MainActivity)getActivity()).setOrderFlag(4);
                 schoolSortPhone.setBackgroundColor(Color.WHITE);
                 schoolSortComputer.setBackgroundColor(Color.WHITE);
                 schoolSortMatch.setBackgroundColor(Color.WHITE);
@@ -181,7 +197,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_schoolsort_price_up:
-                orderFlag=5;
+                ((MainActivity)getActivity()).setOrderFlag(5);
                 schoolSortPhone.setBackgroundColor(Color.WHITE);
                 schoolSortComputer.setBackgroundColor(Color.WHITE);
                 schoolSortMatch.setBackgroundColor(Color.WHITE);
@@ -190,7 +206,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_schoolprice_down:
-                orderFlag=6;
+                ((MainActivity)getActivity()).setOrderFlag(6);
                 schoolSortPhone.setBackgroundColor(Color.WHITE);
                 schoolSortComputer.setBackgroundColor(Color.WHITE);
                 schoolSortMatch.setBackgroundColor(Color.WHITE);
@@ -199,6 +215,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 schoolSortPriceDown.setBackgroundColor(Color.RED);
                 break;
         }
+        ((MainActivity)getActivity()).setPage(1);
         getSchoolList();
 
     }
@@ -303,7 +320,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
 
     };
     public void getSchoolList(){
-
+        page=((MainActivity)getActivity()).getPage();
+        orderFlag=((MainActivity)getActivity()).getOrderFlag();
         url=HttpUrlUtils.HTTP_URL+"/getSchoolProducts";
         RequestParams params=new RequestParams(url);
         params.addQueryStringParameter("orderFlag",orderFlag+"");
