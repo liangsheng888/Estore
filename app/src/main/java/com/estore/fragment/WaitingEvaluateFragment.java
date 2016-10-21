@@ -3,6 +3,7 @@ package com.estore.fragment;
 /*
 我的订单---待评价页面
  */
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -265,6 +266,10 @@ public class WaitingEvaluateFragment extends Fragment {
                                         case UNREMARK:
                                             //评论，
                                             Log.i("WaitingDeliverFragment", "评论");
+                                            AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                                            builder.setTitle("评论");
+
+                                            //
                                             changeState(order.getGoodsOrderId(),REMARK,"已评论",position);
                                             break;
 
