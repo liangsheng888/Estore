@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
+
+
     >
 
     <com.estore.view.TitleBar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000"
         shoping:titleBarTitle="确认订单"
-        shoping:titleBarColor="@color/black"
+        shoping:titleBarColor="#fff"
         shoping:titleBarLeftImage="@drawable/nav_back">
 
     </com.estore.view.TitleBar>
@@ -213,6 +214,8 @@
             <RelativeLayout
                 android:id="@+id/order_prod_yunfeitotal"
                 android:background="#ffffff"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView

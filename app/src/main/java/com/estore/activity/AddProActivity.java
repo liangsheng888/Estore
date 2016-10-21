@@ -73,8 +73,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private RelativeLayout rl_price;//价格
 
     private Spinner sp_proAddress;
-    private ImageView iv_addOne;
-    private ImageView iv_subOne;
+    private ImageView iv_add_pro_last;
+    //private ImageView iv_subOne;
     private String proAddress;//商品地址
     private int pnum;//商品数量
     private AlertDialog.Builder builder;
@@ -106,6 +106,13 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         btn_add_pro.setOnClickListener(this);
         tv_choice_photo.setOnClickListener(this);
         rl_fenlei.setOnClickListener(this);
+        //fanhui
+        iv_add_pro_last.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         cb_baoyou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -195,7 +202,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         et_proNum = (EditText) findViewById(R.id.et_pronum);
         et_proPrice = (EditText) findViewById(R.id.et_proPrice);
         et_proDescription = (EditText) findViewById(R.id.et_proDescription);
-//        iv_addOne = (ImageView) findViewById(R.id.iv_addOne);
+        iv_add_pro_last = (ImageView) findViewById(R.id.iv_add_pro_last);
 //        iv_subOne = (ImageView) findViewById(R.id.iv_subOne);
           sp_proAddress = (Spinner) findViewById(R.id.sp_proAddress);//        sp_proCategory=(Spinner)findViewById(R.id.sp_category);
          rgIsSchool=(RadioGroup)findViewById(R.id.rgIsSchool);

@@ -246,7 +246,8 @@ public class FragmentCar extends Fragment {
             tv_price.setText(cart.getProduct().estoreprice + "");
             tv_num.setText(car_numbers.get(position) + "");//
             tv_name.setText(cart.getProduct().name);
-            x.image().bind(iv, HttpUrlUtils.HTTP_URL + cart.getProduct().imgurl);
+            String[] imgurl=cart.getProduct().imgurl.split("=");
+            x.image().bind(iv, HttpUrlUtils.HTTP_URL + imgurl[0]);
             //checkBox 选择 价钱改变
             final CheckBox cb_check = viewHolder.getViewById(R.id.check_item);
             cb_check.setTag(position);

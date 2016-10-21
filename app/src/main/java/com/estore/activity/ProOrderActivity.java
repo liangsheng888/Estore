@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.myappliction.MyApplication;
@@ -38,6 +39,7 @@ public class ProOrderActivity extends AppCompatActivity {
     private TextView order_prod_fapiao_right;//发票
     private ListView order_scroll_listview;//订单中的商品列表
     private TextView order_total_money;//实际价格
+    private RelativeLayout order_dizhi;//默认地址
     private Button order_goumai;//立即购买
     private Map<Product.Products, Integer> mapOrderInfo;
     private int number=0;//订单商品数数量

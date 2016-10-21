@@ -100,6 +100,14 @@ public class ProductInfoActivity extends AppCompatActivity {
         prod_info_tv_pnum.setText("库存:"+pp.pnum);
         tv_product_detail_city.setText(pp.proaddress);
         tv_product_detail_schools.setText(pp.proaddress);
+        //fanhui
+        iv_project_detail_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         vp_show_photo.setAdapter(new PagerAdapter() {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
@@ -155,9 +163,11 @@ public class ProductInfoActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             //登录
+                            dialog.dismiss();
                             Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
                             startActivity(intent);
-                            dialog.dismiss();
+
+
 
 
                         }
@@ -165,13 +175,15 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            dialog.dismiss();
                             Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
                             startActivity(intent);
-                            dialog.dismiss();
+
                             //注册
 
                         }
                     });
+
                     builder.setView(view);
                     builder.show();
                     return ;

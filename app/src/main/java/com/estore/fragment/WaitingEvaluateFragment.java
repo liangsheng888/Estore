@@ -3,6 +3,7 @@ package com.estore.fragment;
 /*
 我的订单---待评价页面
  */
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -130,6 +131,9 @@ public class WaitingEvaluateFragment extends Fragment {
                                         TextView order_item_info_price= viewHolder.getViewById(R.id.order_item_info_price);//商品价格
 
                                         TextView order_item_info_buynum= viewHolder.getViewById(R.id.order_item_info_buynum);//商品数量
+                                        ImageView proPhoto=viewHolder.getViewById(R.id.order_item_iv_left);
+                                        String[] imgurl=orderDetail.getProduct().imgurl.split("=");
+                                        x.image().bind(proPhoto,HttpUrlUtils.HTTP_URL + imgurl[0]);
                                         order_item_info_buynum.setText(orderDetail.getGoodsNum()+"");
                                         order_item_info_price.setText(orderDetail.getGoodsPrice()+"");
 
@@ -262,6 +266,10 @@ public class WaitingEvaluateFragment extends Fragment {
                                         case UNREMARK:
                                             //评论，
                                             Log.i("WaitingDeliverFragment", "评论");
+                                            AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                                            builder.setTitle("评论");
+
+                                            //
                                             changeState(order.getGoodsOrderId(),REMARK,"已评论",position);
                                             break;
 
