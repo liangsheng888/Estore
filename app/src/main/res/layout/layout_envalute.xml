@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -128,13 +129,14 @@
             android:textSize="20sp"
 
             android:text="交易评分"/>
-        <ImageView
+        <RadioButton
             android:id="@+id/xing_gray"
             android:layout_toRightOf="@id/tv_mai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@null"
             android:layout_marginLeft="30dp"
-            android:src="@drawable/xing_selector"
+            android:background="@drawable/xing_selector"
             />
         <ImageView
             android:id="@+id/xing_gray2"

@@ -33,6 +33,7 @@ import com.estore.fragment.FragmentHome;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.fragment.EhFragment;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Product;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -155,7 +156,8 @@ public class MainActivity extends Activity {
                     case R.id.rb_cat:
 
                         if(sp.getString("username",null)==null){
-                            showDialog();
+                            ShowLoginDialogUtils.showDialogLogin(MainActivity.this);
+
 
                             return;
                         }
@@ -213,6 +215,8 @@ public class MainActivity extends Activity {
         AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
         final Dialog dialog=builder.create();
         View view=View.inflate(this,R.layout.layout_add_item,null);
+        dialog.show();
+        dialog.getWindow().setContentView(view);
         RadioGroup rg=(RadioGroup)view.findViewById(R.id.rg_addPro);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -230,8 +234,7 @@ public class MainActivity extends Activity {
                 dialog.dismiss();
             }
         });
-        builder.setView(view);
-        builder.show();
+
 //
 //
 //
@@ -309,32 +312,7 @@ public class MainActivity extends Activity {
 
 
     }
-    private void showDialog() {
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-
-        builder.setTitle("亲！你没有登录账号，请登录？");
-        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent=new Intent(MainActivity.this,LoginOther.class);
-                startActivity(intent);
-
-
-            }
-        });
-        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        builder.show();
-    }
     }
 
 
