@@ -96,18 +96,12 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         System.out.println("编辑页面address"+address);
          ADDRESSEDT= (int) intent.getSerializableExtra("addressedt");
         System.out.println("编辑页面ADDRESSEDT"+ADDRESSEDT);
-        et_address_name.setText(address.userId+"");
+        et_address_name.setText(address.cantactName+"");
         et_address_tel.setText(address.cantactPhone);
         et_address_info.setText(address.detailed_address);
     }
 
-//    private void initSetData() {
-//
-//            et_address_name.setText(address.userId+"");
-//            et_address_tel.setText(address.cantactPhone);
-//            et_address_info.setText(address.detailed_address);
-//
-//    }
+
 
 
     private void getdata() {

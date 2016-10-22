@@ -44,7 +44,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
     Address address;
     int EDTADDRESS = 0;//传输到编辑地址界面的标志位
     int ADDRESSEDT = 0;//编辑按钮跳转编辑页面时所用标志位
-
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
 //                cb_address_moren.setOnClickListener(AddessListActivity.this);
                 btn_address_delete.setOnClickListener(AddessListActivity.this);
                 btn_address_delete.setTag(i);
+
 
                 Address address = addressList.get(i);
                 tv_auct_shouhuoren.setText(address.cantactName + "");
@@ -196,11 +197,11 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_new_address:
                 Intent intent = new Intent(getApplicationContext(), AddressSelector.class);
                 Bundle bundle = new Bundle();
-                int position = (int) view.getTag();
-                System.out.println(position);
-                address = addressList.get(position);
+
+//                System.out.println(position);
+//                address = addressList.get(position);
                 bundle.putSerializable("addressSign_add", address);
-                intent.putExtra("addressedt", ADDRESSEDT);//传到添加页面的标志位
+//                intent.putExtra("addressedt", ADDRESSEDT);//传到添加页面的标志位
                 intent.putExtras(bundle);
                 Toast.makeText(AddessListActivity.this, "跳转到选择新地址界面", Toast.LENGTH_SHORT).show();
                 System.out.println("跳转到选择新地址界面");
