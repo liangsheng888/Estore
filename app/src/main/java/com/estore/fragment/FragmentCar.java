@@ -3,6 +3,8 @@ package com.estore.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -40,13 +42,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import swipetodismiss.SwipeMenu;
+import swipetodismiss.SwipeMenuCreator;
+import swipetodismiss.SwipeMenuItem;
+import swipetodismiss.SwipeMenuListView;
+
 
 /**
  * Created by Administrator on 2016/9/19.
  */
 public class FragmentCar extends Fragment {
     private User user;
-    private ListView cartListView;
+//    private ListView cartListView;
     private List<Cart> cartlist = new ArrayList<>();//
     private CartAapater cartAdapter;
     private int totalPrice;
@@ -55,12 +62,15 @@ public class FragmentCar extends Fragment {
     private Button btn_jia;
     private Button btn_jian;
     private CheckBox check_all;
+    private SwipeMenuListView cartListView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
            View view = View.inflate(getActivity(), R.layout.fragment_shoping_cart, null);
-        cartListView = (ListView) view.findViewById(R.id.cart_listview);
+//        cartListView = (ListView) view.findViewById(R.id.cart_listview);
+
+        cartListView=(SwipeMenuListView) view.findViewById(R.id.cart_listview);
         cart_buy_money=(TextView)view.findViewById(R.id.cart_buy_money);
         check_all=(CheckBox) view.findViewById(R.id.checkall);
      cart_jiesuan=(TextView)view.findViewById(R.id.cart_jiesuan);
@@ -109,6 +119,32 @@ public class FragmentCar extends Fragment {
 
 
         });
+
+        SwipeMenuCreator creator=new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                // 设置删除框
+                SwipeMenuItem deleteitem = new SwipeMenuItem(getActivity());
+                deleteitem.setBackground(new ColorDrawable(Color.RED));
+                deleteitem.setWidth(dp2px(90));
+                deleteitem.setTitle("删除");
+                deleteitem.setTitleSize(15);
+                deleteitem.setTitleColor(Color.WHITE);
+                menu.addMenuItem(deleteitem);
+            }
+        };
+        cartListView.setMenuCreator(creator);
+//        cartListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+//                cartlist.remove(position);
+//                cartAdapter.notifyDataSetChanged();
+//                return false;
+//            }
+//        });
+
+
+
         cart_jiesuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,5 +391,8 @@ public class FragmentCar extends Fragment {
         }
     }
 
-    ;
+    public int dp2px(float dipValue) {
+        final float scale = this.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
 }
