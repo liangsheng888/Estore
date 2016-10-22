@@ -25,10 +25,15 @@
         ptr:ptrDrawable="@mipmap/ic_launcher">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>-->
     <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/rl_samecity_sort"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:id="@+id/rl_samecity_sort"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <!--<HorizontalScrollView
+            android:id="@+id/filter_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center">-->
         <LinearLayout
             android:padding="5dp"
             android:orientation="horizontal"
@@ -104,6 +109,7 @@
                 android:textSize="22sp"
                 android:text="价 格↓"/>
         </LinearLayout>
+        <!--</HorizontalScrollView>-->
         <!--<ListView
             android:id="@+id/lv_same_city"
             android:layout_width="match_parent"
@@ -130,7 +136,8 @@
             ptr:ptrHeaderTextColor="#ffffff"
             ptr:ptrHeaderSubTextColor="#00ffff"
             ptr:ptrHeaderBackground="@null"
-            ptr:ptrDrawable="@mipmap/refrsh">
+            ptr:ptrDrawable="@mipmap/refrsh"
+            ptr:ptrMode="disabled">
         </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </FrameLayout>

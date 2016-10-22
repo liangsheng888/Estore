@@ -1,6 +1,7 @@
 package com.estore.activity;
 import android.os.AsyncTask;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.estore.fragment.SameCityFragment;
 import com.estore.httputils.HttpUrlUtils;
@@ -20,7 +21,7 @@ import java.util.LinkedList;
  * Created by 执行Z on 2016/9/25.
  */
 public  class GetDataTaskListView extends AsyncTask<Void, ArrayList<Product.Products>, Void> {
-    private static Integer page=1;
+//    private static Integer page=1;
     private ArrayList<Product.Products> lists=new ArrayList<>();
     private PullToRefreshListView pullToRefreshListView;//lv_same_city
     private BaseAdapter adapter;
@@ -28,16 +29,18 @@ public  class GetDataTaskListView extends AsyncTask<Void, ArrayList<Product.Prod
     Product product;
     private  Integer orderFlag;
     private String url;
+    private Integer page;
 
     public GetDataTaskListView(PullToRefreshListView pullToRefreshListView /*listview*/,
                                BaseAdapter adapter, LinkedList<Product.Products> mListItems /*listItems*/,
-                               int orderFlag /*分类标识符*/, String url /*请求链接*/) {
+                               int orderFlag /*分类标识符*/, String url /*请求链接*/, Integer page) {
         // TODO 自动生成的构造函数存根
         this.pullToRefreshListView = pullToRefreshListView;
         this.adapter = adapter;
         this.mListItems = mListItems;
         this.orderFlag=orderFlag;
         this.url=url;
+        this.page=page;
     }
 
     @Override
@@ -46,10 +49,10 @@ public  class GetDataTaskListView extends AsyncTask<Void, ArrayList<Product.Prod
         PullToRefreshBase.Mode mode = pullToRefreshListView.getCurrentMode();
 
         for (Product.Products products : values[0]) {
-            if(mode==PullToRefreshBase.Mode.PULL_FROM_START){
-
+            if(mode==PullToRefreshBase.Mode.PULL_FROM_END){
+                    mListItems.add(products);
             }else {
-                mListItems.add(products);
+
             }
         }
         if(adapter!=null) {

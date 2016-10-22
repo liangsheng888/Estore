@@ -14,13 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.activity.GetDataTaskListView;
+import com.estore.activity.MainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -38,8 +38,7 @@ import java.util.List;
 
 public class SameCityFragment extends Fragment implements View.OnClickListener{
     private ListView lvSameCity;
-    private static Integer orderFlag=0;
-    Integer page=1;
+    Integer orderFlag=0;
     private TextView sortPhone;
     private TextView sortComputer;
     private TextView sortMatch;
@@ -51,10 +50,12 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     private PullToRefreshListView lv_same_city;
     private BaseAdapter adapter;
     private ImageView iv_project_photo;
-    List<Product.Products> productList=new ArrayList<Product.Products>();
+//    List<Product.Products> productList=new ArrayList<Product.Products>();
     private ListView actualListView;
-    private LinkedList<Product.Products> mListItems;
+    private LinkedList<Product.Products> mListItems=new LinkedList<>();
     private String url;
+//    private static Integer page;
+    Integer page=1;
 
     @Nullable
     @Override
@@ -87,7 +88,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
         actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Product.Products pp=productList.get(i);
+                Product.Products pp=mListItems.get(i);
                 Log.i(TAG,i+"");
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
@@ -99,8 +100,10 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
 
 
         lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
+//            @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+
                 String label = DateUtils.formatDateTime(
                         getActivity(),
                         System.currentTimeMillis(),
@@ -109,12 +112,28 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                                 | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
-                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+////                try {
+////                    Thread.sleep(3000);
+////                } catch (InterruptedException e) {
+////                    e.printStackTrace();
+////                }
+//
+////                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url,page).execute();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
+                page=((MainActivity)getActivity()).getPage();
+                orderFlag=((MainActivity)getActivity()).getOrderFlag();
+                page++;
+                String label = DateUtils.formatDateTime(
+                        getActivity(),
+                        System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url,page).execute();
             }
         });
 
@@ -122,13 +141,12 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onLastItemVisible() {
                 Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
+//                lv_same_city.setMode(PullToRefreshBase.Mode.MANUAL_REFRESH_ONLY);
             }
         });
         lv_same_city.setScrollingWhileRefreshingEnabled(true);
-        lv_same_city.setMode(PullToRefreshBase.Mode.BOTH);
-        new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url).execute();
-
-
+        lv_same_city.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+//        new GetDataTaskListView(lv_same_city,adapter,mListItems,orderFlag,url,page).execute();
 //        lv_same_city.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
 //            @Override
 //            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -151,12 +169,27 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
 
     }
 
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            sortPhone.setBackgroundColor(Color.WHITE);
+            sortComputer.setBackgroundColor(Color.WHITE);
+            sortMatch.setBackgroundColor(Color.WHITE);
+            sortOthers.setBackgroundColor(Color.WHITE);
+            sortPriceUp.setBackgroundColor(Color.WHITE);
+            sortPriceDown.setBackgroundColor(Color.WHITE);
+            getSameCityList();
+        }
+    }
+
     @Override
     public void onClick(View view) {
 
         switch (view.getId()){
             case R.id.btn_sort_phone:
-                orderFlag=1;
+                ((MainActivity)getActivity()).setOrderFlag(1);
                 sortPhone.setBackgroundColor(Color.RED);
                 sortComputer.setBackgroundColor(Color.WHITE);
                 sortMatch.setBackgroundColor(Color.WHITE);
@@ -165,7 +198,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_computer:
-                orderFlag=2;
+                ((MainActivity)getActivity()).setOrderFlag(2);
                 sortPhone.setBackgroundColor(Color.WHITE);
                 sortComputer.setBackgroundColor(Color.RED);
                 sortMatch.setBackgroundColor(Color.WHITE);
@@ -174,7 +207,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_match:
-                orderFlag=3;
+                ((MainActivity)getActivity()).setOrderFlag(3);
                 sortPhone.setBackgroundColor(Color.WHITE);
                 sortComputer.setBackgroundColor(Color.WHITE);
                 sortMatch.setBackgroundColor(Color.RED);
@@ -183,7 +216,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_others:
-                orderFlag=4;
+                ((MainActivity)getActivity()).setOrderFlag(4);
                 sortPhone.setBackgroundColor(Color.WHITE);
                 sortComputer.setBackgroundColor(Color.WHITE);
                 sortMatch.setBackgroundColor(Color.WHITE);
@@ -192,7 +225,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_price_up:
-                orderFlag=5;
+                ((MainActivity)getActivity()).setOrderFlag(5);
                 sortPhone.setBackgroundColor(Color.WHITE);
                 sortComputer.setBackgroundColor(Color.WHITE);
                 sortMatch.setBackgroundColor(Color.WHITE);
@@ -201,7 +234,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_sort_price_down:
-                orderFlag=6;
+                ((MainActivity)getActivity()).setOrderFlag(6);
                 sortPhone.setBackgroundColor(Color.WHITE);
                 sortComputer.setBackgroundColor(Color.WHITE);
                 sortMatch.setBackgroundColor(Color.WHITE);
@@ -210,6 +243,9 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 sortPriceDown.setBackgroundColor(Color.RED);
                 break;
         }
+
+        ((MainActivity)getActivity()).setPage(1);
+
         getSameCityList();
 
 
@@ -284,7 +320,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
 
         @Override
         public int getCount() {
-            return productList.size();
+            return mListItems.size();
         }
 
         @Override
@@ -305,7 +341,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
             TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
             tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
             tv_product_kind = ((TextView) view.findViewById(R.id.tv_product_kind));
-            Product.Products list = productList.get(position);
+            Product.Products list = mListItems.get(position);
             tv_project_name.setText(list.name);
             tv_project_price.setText(list.estoreprice + "");
             tv_project_description.setText(list.description);
@@ -317,7 +353,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
     }
     //
     public void getSameCityList(){
-
+        page=((MainActivity)getActivity()).getPage();
+        orderFlag=((MainActivity)getActivity()).getOrderFlag();
         url=HttpUrlUtils.HTTP_URL+"getSameCityProducts";
         RequestParams params=new RequestParams(url);
         Log.i(TAG,HttpUrlUtils.HTTP_URL+"imgurl");
@@ -330,8 +367,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener{
                 Gson gson=new Gson();
                 Product project=gson.fromJson(result,Product.class);
 
-                productList.clear();
-                productList.addAll(project.list);
+                mListItems.clear();
+                mListItems.addAll(project.list);
                 if(adapter==null) {
                     adapter = new MyAdapter();
                 }else if(adapter!=null){

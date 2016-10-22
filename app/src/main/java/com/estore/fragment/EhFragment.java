@@ -40,6 +40,7 @@ public class EhFragment extends Fragment {
     private Fragment oldFragment;
     private Fragment newFragment;
 //    private ImageView ehSort;
+//    private static Integer page=1;
 //
     List<String> popContents=new ArrayList<String>();
 //    int orderFlag=0;
@@ -78,6 +79,9 @@ public class EhFragment extends Fragment {
                 Fragment fragment=null;
                 switch (checkedId){
                     case R.id.rb_samecity:
+
+
+//                        page=1;
                         //prowhere=0代表同城
 //                        ((MainActivity)getActivity()).setProwhere(0);
                         if (fragment1==null)
@@ -85,12 +89,15 @@ public class EhFragment extends Fragment {
                         newFragment=fragment1;
                         break;
                     case R.id.rb_schools:
+//                        ((MainActivity)getActivity()).setPage(1);
                         //prowhere=1代表高校
 //                        ((MainActivity)getActivity()).setProwhere(1);
                         if (fragment2==null)
                             fragment2=new SchoolsFragment();
                         newFragment=fragment2;
                 }
+                ((MainActivity)getActivity()).setPage(1);
+                ((MainActivity)getActivity()).setOrderFlag(0);
                 //点击事件完成给prowhere赋值后调用MainActivity中getData()方法
 //                ((MainActivity)getActivity()).getData();
 

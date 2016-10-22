@@ -75,7 +75,25 @@ public class MainActivity extends Activity {
     private int[] id = {R.id.iv_name, R.id.tv_name};
     private int[] imgs = {R.drawable.add_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red, R.drawable.car_red};
     private List<Map<String, Object>> mapList;//策划菜单数据
+    public   Integer page=1;
 
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer orderFlag=0;
+
+    public Integer getOrderFlag() {
+        return orderFlag;
+    }
+
+    public void setOrderFlag(Integer orderFlag) {
+        this.orderFlag = orderFlag;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +165,9 @@ public class MainActivity extends Activity {
 
                         break;
                     case R.id.rb_old:
+                        page=1;
                         newIndex=1;
+                        orderFlag=0;
                         changeFragment( newIndex);
 
 

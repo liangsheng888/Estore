@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -69,6 +70,8 @@ public class PublishAuctionFragment extends Fragment {
         private ImageView iv_pubauctionpic;
         private TextView tv_pubauctionprice;
         private TextView tv_pubauctiontime;
+        private Button btnDelete;
+
         @Override
         public int getCount() {
             return pubList.size();
@@ -86,16 +89,25 @@ public class PublishAuctionFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            final int index=position;
             View view=View.inflate(getActivity(),R.layout.items_publishauction,null);
             iv_pubauctionpic = ((ImageView) view.findViewById(R.id.iv_pubauctionpic));
             tv_pubauctionname = ((TextView) view.findViewById(R.id.tv_pubauctionname));
             tv_pubauctionprice = ((TextView) view.findViewById(R.id.tv_pubauctionprice));
             tv_pubauctiontime = ((TextView) view.findViewById(R.id.tv_pubauctiontime));
+//            btnDelete = ((Button) view.findViewById(R.id.btn_pubauctiondelete));
             ListMyAuctionActivityBean.ProImag pubimag=pubList.get(position);
             x.image().bind(iv_pubauctionpic, HttpUrlUtils.HTTP_URL+pubimag.auct_imgurl);
             tv_pubauctionname.setText(pubimag.auct_name);
             tv_pubauctionprice.setText(pubimag.auct_minprice+"");
             tv_pubauctiontime.setText(pubimag.auct_begin);
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             return view;
         }
     }
