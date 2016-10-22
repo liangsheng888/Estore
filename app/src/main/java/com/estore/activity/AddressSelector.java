@@ -38,6 +38,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
     String userName;
     String userTel;
     String addressInfo;
+    Address address;
 
     //省级选项值
     private String[] province = new String[]{"北京", "上海", "天津", "广东"};//,"重庆","黑龙江","江苏","山东","浙江","香港","澳门"};
@@ -88,6 +89,8 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         initView();
         initEven();
         getdata();
+        Intent intent=getIntent();
+        address= (Address) intent.getSerializableExtra("addressSign_add");
     }
 
     private void getdata() {
@@ -228,7 +231,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         String city = citySpinner.getSelectedItem().toString();
         String county = countySpinner.getSelectedItem().toString();
 
-        String userId = et_address_name.getText().toString().trim();
+        String userName = et_address_name.getText().toString().trim();
         String userTel = et_address_tel.getText().toString().trim();
         String detailedaddress = et_address_info.getText().toString().trim();
         Boolean ismoren = rb_address.isChecked();
@@ -237,7 +240,8 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         }
 
         final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "insertaddressservlet");
-        requestParams.addBodyParameter("userId", userId);
+        requestParams.addBodyParameter("userName", userName);
+        requestParams.addBodyParameter("userId",address.getUserId()+"");
         requestParams.addBodyParameter("cantactPhone", userTel);
         requestParams.addBodyParameter("contactAddress", province + city + county);
         requestParams.addBodyParameter("isDefault", String.valueOf(moren));
