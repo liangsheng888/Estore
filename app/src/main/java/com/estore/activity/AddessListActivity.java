@@ -44,7 +44,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
     Address address;
     int EDTADDRESS = 0;//传输到编辑地址界面的标志位
     int ADDRESSEDT = 0;//编辑按钮跳转编辑页面时所用标志位
-
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,8 +95,9 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                 btn_address_delete.setOnClickListener(AddessListActivity.this);
                 btn_address_delete.setTag(i);
 
+
                 Address address = addressList.get(i);
-                tv_auct_shouhuoren.setText(address.userId + "");
+                tv_auct_shouhuoren.setText(address.cantactName + "");
                 tv_tel.setText(address.cantactPhone);
                 tv_bidding_addess.setText(address.detailed_address);
                 return view1;
@@ -133,7 +134,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                 System.out.println(i);
 
                 switch (addressSign) {
-                    case 1:
+                    case 1://拍卖页面
                         Intent intent = new Intent();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("addressSign", address);
@@ -162,11 +163,6 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
 
                 Gson gson = new Gson();
 
-//                Type type=new TypeToken<List<Address>>(){}.getType();
-//
-//                List<Address> newlist = new ArrayList<Address>();
-//                System.out.println("2正确");
-//                newlist=gson.fromJson(result,type);
                 List<Address> newlist = new ArrayList<Address>();
                 Type type = new TypeToken<List<Address>>() {
                 }.getType();
@@ -200,14 +196,21 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.btn_new_address:
                 Intent intent = new Intent(getApplicationContext(), AddressSelector.class);
+                Bundle bundle = new Bundle();
+
+//                System.out.println(position);
+//                address = addressList.get(position);
+                bundle.putSerializable("addressSign_add", address);
+//                intent.putExtra("addressedt", ADDRESSEDT);//传到添加页面的标志位
+                intent.putExtras(bundle);
                 Toast.makeText(AddessListActivity.this, "跳转到选择新地址界面", Toast.LENGTH_SHORT).show();
                 System.out.println("跳转到选择新地址界面");
                 startActivityForResult(intent, ADDRESSINFO);
                 break;
             case R.id.btn_address_edt:
                 intent = new Intent(AddessListActivity.this, EdtAddressActivity.class);
-                Bundle bundle = new Bundle();
-                int position = (int) view.getTag();
+              bundle = new Bundle();
+               position = (int) view.getTag();
                 System.out.println(position);
                 address = addressList.get(position);
                 bundle.putSerializable("addressSign", address);

@@ -47,6 +47,7 @@
         <activity android:name=".AddessListActivity" />
         <activity android:name=".AddressSelector" />
         <activity android:name=".LoginOther"></activity>
+        <activity android:name=".EdtAddressActivity"></activity>
     </application>
 
 </manifest>
