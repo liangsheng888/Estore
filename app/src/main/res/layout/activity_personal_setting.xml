@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:background="#ffffff"
     tools:context="com.estore.activity.PersonalSettingActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -21,6 +22,7 @@
             android:layout_marginLeft="10dp"
             />
         <ImageView
+            android:id="@+id/user_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/personalimag"
@@ -70,85 +72,284 @@
         android:layout_height="2dp"
         android:background="#f2f2f2"
         />
-    <RadioGroup
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="305dp"
+        android:layout_height="250dp">
+        <RelativeLayout
+            android:id="@+id/rl_photorl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/rb_perphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/perphotoyellow"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/rb_perphoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="头像"
+                android:textSize="22dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rb_perphoto"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dayu"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_below="@id/rl_photorl"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <!-- 昵称 -->
+        <RelativeLayout
+            android:id="@+id/rl_nicknamerl"
+            android:layout_below="@id/rl_photorl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/rb_pernickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nickname"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/tv_nicknametext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="22dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rb_pernickname"
+                />
+            <TextView
+                android:id="@+id/tv_nicknamecontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="渣渣"
+                android:background="#dcfffc"
+                android:textSize="25dp"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp"
+
+
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dayu"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_below="@id/rl_nicknamerl"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <!-- 性别-->
+        <RelativeLayout
+            android:id="@+id/rl_sexrl"
+            android:layout_below="@id/rl_nicknamerl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/rb_persexs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sex"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别"
+                android:textSize="22dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rb_persexs"
+                android:layout_marginLeft="5dp"
+                />
+            <TextView
+                android:id="@+id/tv_persexcontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textSize="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dayu"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_below="@id/rl_sexrl"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <!-- 生日-->
+        <RelativeLayout
+            android:id="@+id/rl_phonenumrl"
+            android:layout_below="@id/rl_sexrl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/rb_perbirthdays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/birthdayyellow"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号"
+                android:textSize="22dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rb_perbirthdays"
+                android:layout_marginLeft="5dp"
+
+                />
+            <TextView
+                android:id="@+id/tv_phonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18848980290"
+                android:textSize="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dayu"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_below="@id/rl_phonenumrl"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+        <!-- 收货地址-->
+        <RelativeLayout
+            android:id="@+id/rl_adressrl"
+            android:layout_below="@id/rl_phonenumrl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/rb_peradressphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/placeyellow"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="家庭地址"
+                android:textSize="22dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/rb_peradressphoto"
+                android:layout_marginLeft="5dp"
+                />
+            <TextView
+                android:id="@+id/tv_deliveryadress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="江苏苏州"
+                android:textSize="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="5dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dayu"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <!-- 分割线 -->
+        <ImageView
+            android:layout_below="@id/rl_adressrl"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f2f2f2"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_saverl"
+        android:layout_below="@id/tv_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#a1fcf7"
         >
-        <RadioButton
-            android:id="@+id/rb_perphoto"
-            style="@style/personalsetting"
-            android:text="头像"
-            android:drawableLeft="@drawable/perphotoyellow"
-            android:drawableRight="@drawable/dayu"
-            android:layout_marginRight="20dp"
-            />
-        <!-- 分割线 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
-            />
-        <RadioButton
-            android:id="@+id/rb_pernickname"
-            style="@style/buttonvertical"
-            android:text="昵称"
-            android:drawableLeft="@drawable/nickname"
-            android:drawableRight="@drawable/dayu"
-            android:layout_marginRight="20dp"
-            />
-        <!-- 分割线 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
-            />
-        <RadioButton
-            android:id="@+id/rb_persexs"
-            style="@style/buttonvertical"
-            android:text="性别"
-            android:drawableLeft="@drawable/sex"
-            android:drawableRight="@drawable/dayu"
-            android:layout_marginRight="20dp"
-            />
-        <!-- 分割线 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
-            />
-        <RadioButton
-            android:id="@+id/rb_perbirthday"
-            style="@style/buttonvertical"
-            android:text="生日"
-            android:drawableLeft="@drawable/birthdayyellow"
-            android:drawableRight="@drawable/dayu"
-            android:layout_marginRight="20dp"
-            />
 
-
-        <!-- 分割线 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textSize="28dp"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
             />
-        <RadioButton
-            android:id="@+id/rb_peraddress"
-            style="@style/buttonvertical"
-            android:text="收货地址"
-            android:drawableLeft="@drawable/placeyellow"
-            android:drawableRight="@drawable/dayu"
-            android:layout_marginRight="20dp"
-            />
-
-        <!-- 分割线 -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
-            />
-    </RadioGroup>
+    </RelativeLayout>
+    <!-- 分割线 -->
+    <ImageView
+        android:layout_below="@id/rl_adressrl"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#f2f2f2"
+        />
 
 
 </LinearLayout>

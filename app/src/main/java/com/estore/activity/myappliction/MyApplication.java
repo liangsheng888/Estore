@@ -18,6 +18,15 @@ import org.xutils.x;
  * Created by Administrator on 2016/9/13.
  */
 public class MyApplication extends Application{
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public void onCreate() {
@@ -25,7 +34,8 @@ public class MyApplication extends Application{
 
 
         super.onCreate();
-
+        User user=new User();
+        user.getUserId();
 
         //初始化xutils
         x.Ext.init(this);
