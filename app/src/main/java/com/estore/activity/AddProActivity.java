@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.activity.myappliction.MyApplication;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 
 import org.xutils.common.Callback;
@@ -384,7 +385,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
         //
-        params.addBodyParameter("userid",((MyApplication) getApplication()).getUser().getUserId()+"");
+        params.addBodyParameter("userid",new GetUserInfoByNet().getUserInfoByNet(this)+"");
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {

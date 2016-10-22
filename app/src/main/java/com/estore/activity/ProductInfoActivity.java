@@ -84,8 +84,6 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
         sp=getSharedPreferences("User", Context.MODE_APPEND);
-        MyApplication my=(MyApplication)getApplication();
-        user=my.getUser();
         initView();
         initData();
         getDataCartNumber();
@@ -201,8 +199,8 @@ public class ProductInfoActivity extends AppCompatActivity {
                 //添加都服务器
                 RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"insertCartServlet");
                 Log.e("ProductInfoActivity",pp.toString());
-               // Cart cart=new Cart(pp,user.getUserId(),Integer.parseInt(edt.getText().toString().trim()),new Timestamp(System.currentTimeMillis()));
-               // Gson gson=new Gson();
+                // Cart cart=new Cart(pp,user.getUserId(),Integer.parseInt(edt.getText().toString().trim()),new Timestamp(System.currentTimeMillis()));
+                // Gson gson=new Gson();
                 //String json= gson.toJson(cart);
                 rp.addBodyParameter("product_id",pp.id+"");
                 rp.addBodyParameter("user_id",new GetUserInfoByNet().getUserInfoByNet(ProductInfoActivity.this)+"");
@@ -298,7 +296,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         title_bar_rl_cartview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          Intent intent=new Intent(ProductInfoActivity.this,MainActivity.class);
+                Intent intent=new Intent(ProductInfoActivity.this,MainActivity.class);
                 intent.putExtra("direct",2);
                 startActivity(intent);
                 //finish();
@@ -366,60 +364,60 @@ public class ProductInfoActivity extends AppCompatActivity {
         Log.e(TAG,pp.toString());
         return pp;
     }
-   public  void getDataCartNumber(){
-       if(sp.getString("username",null)!=null){
-           user.setUserName(sp.getString("username",null));
-           GetUserInfoByNet get=new GetUserInfoByNet();
+    public  void getDataCartNumber(){
+        if(sp.getString("username",null)!=null){
+            user.setUserName(sp.getString("username",null));
+            GetUserInfoByNet get=new GetUserInfoByNet();
 
-        //获取网络数据，
-       //显示加入购物车的数量
-       //queryCartServlet
-        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+get.getUserInfoByNet(this) );
-       //Log.e("ProductInfoActivity","url："+HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+new MyApplication().getUser().getUserId());
-       x.http().get(rp, new Callback.CacheCallback<String>() {
+            //获取网络数据，
+            //显示加入购物车的数量
+            //queryCartServlet
+            RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+get.getUserInfoByNet(this) );
+            //Log.e("ProductInfoActivity","url："+HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+new MyApplication().getUser().getUserId());
+            x.http().get(rp, new Callback.CacheCallback<String>() {
 
-            @Override
-            public void onSuccess(String result) {
-                Log.e("ProductInfoActivity",result);
-                Gson gson=new Gson();
-                List<Cart> listcart=gson.fromJson(result,new TypeToken<List<Cart>>(){}.getType());
-                Log.e("ProductInfoActivity",listcart.toString());
-                if(listcart.size()>0){
-                    //获取购物车所有数量
-                    for (Cart car:listcart) {
-                        carNumber+=car.getCollectNumber();
-                    };
-                    //显示在图标上
-                    title_bar_reddot.setVisibility(View.VISIBLE);
-                    title_bar_reddot.setText(carNumber+"");
+                @Override
+                public void onSuccess(String result) {
+                    Log.e("ProductInfoActivity",result);
+                    Gson gson=new Gson();
+                    List<Cart> listcart=gson.fromJson(result,new TypeToken<List<Cart>>(){}.getType());
+                    Log.e("ProductInfoActivity",listcart.toString());
+                    if(listcart.size()>0){
+                        //获取购物车所有数量
+                        for (Cart car:listcart) {
+                            carNumber+=car.getCollectNumber();
+                        };
+                        //显示在图标上
+                        title_bar_reddot.setVisibility(View.VISIBLE);
+                        title_bar_reddot.setText(carNumber+"");
+
+                    }
+                    else {
+                        title_bar_reddot.setVisibility(View.GONE);
+                    }}
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    Log.e("ProductInfoActivity","访问购物车数据失败");
 
                 }
-                else {
-                    title_bar_reddot.setVisibility(View.GONE);
-                }}
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Log.e("ProductInfoActivity","访问购物车数据失败");
+                @Override
+                public void onCancelled(CancelledException cex) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(CancelledException cex) {
+                @Override
+                public void onFinished() {
 
-            }
+                }
 
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        });
-    }}
+                @Override
+                public boolean onCache(String result) {
+                    return false;
+                }
+            });
+        }}
 
     @Override
     protected void onPause() {

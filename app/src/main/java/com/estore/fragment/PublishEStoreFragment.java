@@ -51,9 +51,6 @@ public class PublishEStoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication my = (MyApplication)getActivity().getApplication();
-
-        user = my.getUser();
     }
 
     @Override

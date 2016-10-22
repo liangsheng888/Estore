@@ -78,7 +78,7 @@ public class AllOrdersFragment extends Fragment {
     }
     public void getData(){
         Log.i("AllOrdersFragment", "getOrderData: ");
-        String userId=((MyApplication)getActivity().getApplication()).getUser().getUserId()+"";
+        String userId=new GetUserInfoByNet().getUserInfoByNet(getActivity())+"";
         //
         RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+new GetUserInfoByNet().getUserInfoByNet(getActivity())+"&orderStatusId=0");
         //传参数：user_id,order_id
