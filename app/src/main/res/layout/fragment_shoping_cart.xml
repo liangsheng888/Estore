@@ -74,13 +74,13 @@
             android:textColor="@android:color/black"/>
     </RelativeLayout>
 <!-- android:layout_below="@id/titlebar"-->
-    <ListView
+    <swipetodismiss.SwipeMenuListView
         android:id="@+id/cart_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/cart_bottom"
         android:background="#f7f7f7"
         android:divider="@null" >
-    </ListView>
+    </swipetodismiss.SwipeMenuListView>
 
 </RelativeLayout>

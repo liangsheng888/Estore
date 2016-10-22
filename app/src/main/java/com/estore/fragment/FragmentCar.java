@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.ProOrderActivity;
 import com.estore.activity.R;
@@ -134,14 +135,44 @@ public class FragmentCar extends Fragment {
             }
         };
         cartListView.setMenuCreator(creator);
-//        cartListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-//                cartlist.remove(position);
-//                cartAdapter.notifyDataSetChanged();
-//                return false;
-//            }
-//        });
+        cartListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                Log.i("FragmentCar","@@@@@@@@@@@@@@@"+position+"");
+                Log.i("FragmentCar","gggggggggg"+cartlist.size());
+                cartlist.remove(position);
+                cartAdapter.notifyDataSetChanged();
+                Integer cartId=cartlist.get(position).getCartId();
+                Log.i("FragmentCar","============="+cartId+"");
+                String url=HttpUrlUtils.HTTP_URL+"deleteCartServlet";
+                RequestParams requestParams=new RequestParams(url);
+                requestParams.addQueryStringParameter("cartId",cartId+"");
+                x.http().get(requestParams, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        Toast.makeText(getActivity(),"删除失败",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+                return false;
+            }
+        });
+
 
 
 
