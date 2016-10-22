@@ -26,6 +26,7 @@ import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
+import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Cart;
 import com.estore.pojo.Product;
 import com.estore.pojo.User;
@@ -55,6 +56,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     private TextView prod_info_tv_des;//商品名称
     private TextView prod_info_tv_pnum;//商品数量
     private Button    btn_touch_seller;
+
     private TextView tv_product_detail_city;
     private TextView tv_product_detail_schools;
     private RelativeLayout title_bar_rl_cartview;
@@ -157,35 +159,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Log.e("ProductInfoActivity","加入购物车");
                 String username=sp.getString("username",null);
                 if(username==null){
-                    /*builder=new AlertDialog.Builder(ProductInfoActivity.this);
-                    dialog=builder.create();
-                    builder.setTitle("亲！你没有登录账号，请登录？");*/
-
-                   /* View view=View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
-                    ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //登录
-                           //
-
-
-
-                        }
-                    });
-                    ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                           // dialog.dismiss();
-                            Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
-                            startActivity(intent);
-
-                            //注册
-
-                        }
-                    });
-
-                    builder.setView(view);*/
-                    builder.show();
+                    ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);
                     return ;
                 }
                 carNumber+=Integer.parseInt(edt.getText().toString().trim());
@@ -244,39 +218,8 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Log.e("ProductInfoActivity","立即购买");
                 String username=sp.getString("username",null);
                 if(username==null){
-                    builder.show();
+                    ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);
                     return ;
-                   /* builder=new AlertDialog.Builder(ProductInfoActivity.this);
-                    dialog=builder.create();
-                    builder.setTitle("亲！你没有登录账号，请登录？");*/
-/*
-                    View view=getWindow().getDecorView();
-                            //View.inflate(ProductInfoActivity.this,R.layout.login_user,null);
-                    ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //登录
-                           // dialog.dismiss();
-
-                            Intent intent=new Intent(ProductInfoActivity.this,LoginOther.class);
-                            startActivity(intent);
-
-
-
-                        }
-                    });
-                    ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //注册
-                            Intent intent=new Intent(ProductInfoActivity.this,RegisterActivity.class);
-                            startActivity(intent);
-
-
-                        }
-                    });
-                    builder.setView(view);*/
-
                 }
                 user.setUserName(sp.getString("username",null));
                 MapSerializable ms=new MapSerializable();
@@ -296,6 +239,11 @@ public class ProductInfoActivity extends AppCompatActivity {
         title_bar_rl_cartview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sp.getString("username",null)==null){
+                    ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);//登录
+                    return;
+                }
+
                 Intent intent=new Intent(ProductInfoActivity.this,MainActivity.class);
                 intent.putExtra("direct",2);
                 startActivity(intent);

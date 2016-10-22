@@ -37,13 +37,13 @@
   	        android:layout_width="28dp"
   	        android:layout_height="28dp"
   	        android:layout_gravity="center_vertical"
-  	        android:src="@drawable/ic_cart" 
+  	        android:src="@drawable/cart_bai"
   	        android:scaleType="centerCrop"
   	        />
   	       <TextView
   	       	 android:id="@+id/title_bar_reddot"
-	        android:layout_width="50dp"
-	        android:layout_height="16dp"
+	        android:layout_width="26dp"
+	        android:layout_height="20dp"
 	        android:layout_alignRight="@id/id_prod_list_iv_right"
 			android:background="@drawable/reddot"
 
