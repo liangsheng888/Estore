@@ -23,7 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.myappliction.MyApplication;
-import com.estore.httputils.GetUserInfoByNet;
+
+import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.httputils.ShowLoginDialogUtils;
@@ -162,6 +163,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);
                     return ;
                 }
+
                 carNumber+=Integer.parseInt(edt.getText().toString().trim());
                 title_bar_reddot.setVisibility(View.VISIBLE);
                 title_bar_reddot.setText(carNumber+"");
@@ -177,7 +179,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 // Gson gson=new Gson();
                 //String json= gson.toJson(cart);
                 rp.addBodyParameter("product_id",pp.id+"");
-                rp.addBodyParameter("user_id",new GetUserInfoByNet().getUserInfoByNet(ProductInfoActivity.this)+"");
+                rp.addBodyParameter("user_id",user.getUserId()+"");
                 rp.addBodyParameter("cart_num",Integer.parseInt(edt.getText().toString().trim())+"");
                 rp.addBodyParameter("create_time",new Timestamp(System.currentTimeMillis()).toString());
                 //rp.addBodyParameter("cartInfo",json);
@@ -315,12 +317,10 @@ public class ProductInfoActivity extends AppCompatActivity {
     public  void getDataCartNumber(){
         if(sp.getString("username",null)!=null){
             user.setUserName(sp.getString("username",null));
-            GetUserInfoByNet get=new GetUserInfoByNet();
-
-            //获取网络数据，
+           //获取网络数据，
             //显示加入购物车的数量
             //queryCartServlet
-            RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+get.getUserInfoByNet(this) );
+            RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+sp.getInt("userId",0) );
             //Log.e("ProductInfoActivity","url："+HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+new MyApplication().getUser().getUserId());
             x.http().get(rp, new Callback.CacheCallback<String>() {
 

@@ -33,9 +33,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.estore.activity.myappliction.MyApplication;
-import com.estore.httputils.GetUserInfoByNet;
+import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.pojo.User;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -95,11 +95,17 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private static final int CAMERA_REQUEST = 2;
     private static final int PHOTO_CLIP = 3;
     private static final String TAG = "AddProActivity";
+    private SharedPreferences sp;
+    private User user=new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pro);
+        sp=getSharedPreferences("User",MODE_APPEND);
+        ;
+        user.setUserId(sp.getInt("userId",0));
+
         initView();
         initData();
     }
@@ -253,7 +259,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         View view = View.inflate(this, R.layout.layout_choice_getphoto, null);
 
 
-        ((TextView) view.findViewById(R.id.tv_camera)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) view.findViewById(R.id.tv_camera)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "打开相机");
@@ -265,7 +271,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-        ((TextView) view.findViewById(R.id.tv_photo)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) view.findViewById(R.id.tv_photo)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "选择本地照片");
@@ -385,7 +391,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
         //
-        params.addBodyParameter("userid",new GetUserInfoByNet().getUserInfoByNet(this)+"");
+        params.addBodyParameter("userid", user.getUserId()+"");
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {

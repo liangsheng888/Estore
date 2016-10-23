@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -198,6 +199,13 @@ public class MainActivity extends Activity {
     }
 
     private void showAdd() {
+        SharedPreferences sp=getSharedPreferences("User", Context.MODE_APPEND);
+        String username=sp.getString("username",null)  ;
+        if(username==null){
+            ShowLoginDialogUtils.showDialogLogin(this);
+            return;
+        }
+
 
 
 //        PopupWindow pop=new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,true);

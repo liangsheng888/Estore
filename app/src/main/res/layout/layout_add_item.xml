@@ -13,8 +13,6 @@
         <RadioButton
             android:id="@+id/rb_fabupro"
             android:layout_width="wrap_content"
-
-            android:layout_marginTop="20dp"
             android:button="@null"
             android:gravity="center"
             android:textSize="18sp"
@@ -24,11 +22,10 @@
     <RadioButton
         android:id="@+id/rb_paimaipro"
         android:layout_width="wrap_content"
-        android:drawableTop="@drawable/auct"
+        android:drawableTop="@drawable/paimai"
         android:text="拍卖"
         android:layout_marginLeft="90dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:button="@null"
         android:textSize="18sp"
         android:layout_height="100dp" />

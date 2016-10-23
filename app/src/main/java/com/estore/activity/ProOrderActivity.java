@@ -2,6 +2,7 @@ package com.estore.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.myappliction.MyApplication;
-import com.estore.httputils.GetUserInfoByNet;
+import com.estore.httputils.GetUserIdByNet;
+
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.pojo.InsertOrderBean;
 import com.estore.pojo.Product;
+import com.estore.pojo.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,11 +48,16 @@ public class ProOrderActivity extends AppCompatActivity {
     private Map<Product.Products, Integer> mapOrderInfo;
     private int number=0;//订单商品数数量
     private Double totalprice=0.0;
+    private SharedPreferences sp;
+    private User user=new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prod_order);
+        sp=getSharedPreferences("User",MODE_APPEND);
+        ;
+        user.setUserId(sp.getInt("userId",0));
         getDataByIntent();
         initView();
         initData();
@@ -82,7 +90,7 @@ public class ProOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderInsertServlet");
                 InsertOrderBean insertOrderBean=new InsertOrderBean();
-                insertOrderBean.setUserId(new GetUserInfoByNet().getUserInfoByNet(ProOrderActivity.this));
+                insertOrderBean.setUserId(user.getUserId());
                 insertOrderBean.setAddressId(1);//默认地址
                 insertOrderBean.setDetails(mapOrderInfo);//所有的商品：添加的是key-value的
                 insertOrderBean.setTotalPrice(totalprice);

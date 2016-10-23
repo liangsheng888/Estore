@@ -15,20 +15,12 @@ import org.xutils.x;
 /**
  * Created by Administrator on 2016/10/21.
  */
-public class GetUserInfoByNet {
-    private Integer userId=0;
-    public GetUserInfoByNet(){}
+public class GetUserIdByNet {
 
-    public Integer getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
-    public int getUserInfoByNet(Context context) {
 
+    public static void getUserIdByNet(final Context context) {
         SharedPreferences sp;
         sp = context.getSharedPreferences("User", Context.MODE_APPEND);
         String username = sp.getString("username", null);
@@ -38,15 +30,11 @@ public class GetUserInfoByNet {
             Log.e("GetUserInfoByNet", "username" + username.toString());
             rp.addBodyParameter("username", username);
             x.http().post(rp, new Callback.CacheCallback<String>() {
+
                 @Override
                 public void onSuccess(String result) {
-                    Log.e("GetUserInfoByNet", "result" + result.toString());
-                    userId=Integer.parseInt(result);
-
-
-
-
-
+                    Log.e("GetUserInfoByNet", "result" + result);
+                    SharedPreferencesUtils.saveUserId(context,Integer.parseInt(result));
                 }
 
                 @Override
@@ -69,8 +57,7 @@ public class GetUserInfoByNet {
                     return false;
                 }
             });
-
-
         }
-        return userId;}
+
+    }
 }

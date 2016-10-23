@@ -3,6 +3,7 @@ package com.estore.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import com.estore.activity.ProOrderActivity;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
-import com.estore.httputils.GetUserInfoByNet;
+import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.httputils.ViewHolder;
@@ -53,7 +54,8 @@ import swipetodismiss.SwipeMenuListView;
  * Created by Administrator on 2016/9/19.
  */
 public class FragmentCar extends Fragment {
-    private User user;
+    private SharedPreferences sp;
+    private User user=new User();
 //    private ListView cartListView;
     private List<Cart> cartlist = new ArrayList<>();//
     private CartAapater cartAdapter;
@@ -81,6 +83,9 @@ public class FragmentCar extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+        ;
+        user.setUserId(sp.getInt("userId",0));
         getData();
         //全选
         check_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -210,7 +215,7 @@ public class FragmentCar extends Fragment {
     }
 
     public void getData() {
-        RequestParams rp = new RequestParams(HttpUrlUtils.HTTP_URL + "queryCartServlet?userId="+ new GetUserInfoByNet().getUserInfoByNet(getActivity()));
+        RequestParams rp = new RequestParams(HttpUrlUtils.HTTP_URL + "queryCartServlet?userId="+user.getUserId());
 
         x.http().get(rp, new Callback.CacheCallback<String>() {
             @Override

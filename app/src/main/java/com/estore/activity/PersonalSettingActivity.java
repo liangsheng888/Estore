@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.activity.myappliction.MyApplication;
-import com.estore.httputils.GetUserInfoByNet;
+import com.estore.httputils.GetUserIdByNet;
+
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.User;
 import com.google.gson.Gson;
@@ -27,6 +29,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 public class PersonalSettingActivity extends AppCompatActivity  {
+    private User user=new User();
 
     private ImageView iv_perreturn;
     private Dialog dialog = null;
@@ -34,6 +37,7 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     private TextView tv_persexcontent;
     private TextView tv_phonenumber;
     private TextView tv_deliveryadress;
+    private SharedPreferences sp;
     //弹框
     private RelativeLayout rl_photorl;
     private RelativeLayout rl_sexrl;
@@ -47,6 +51,14 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_setting);
+        sp=getSharedPreferences("User",MODE_APPEND);
+        user.setUserId(sp.getInt("userId",0));
+        GetUserIdByNet.getUserIdByNet(PersonalSettingActivity.this);
+
+
+        Log.i("PersonalSettingActivity","userId:"+user.getUserId());
+
+
         //请求数据
         getUserIfo();
         initView();
@@ -173,7 +185,7 @@ public class PersonalSettingActivity extends AppCompatActivity  {
                 String  sex= tv_persexcontent.getText().toString();
                 String  phonnmber=tv_phonenumber.getText().toString();
                 String  uaeraddress=tv_deliveryadress.getText().toString();
-                User userModify=new User(nickname,sex,uaeraddress,new GetUserInfoByNet().getUserInfoByNet(getApplicationContext()),phonnmber);
+                User userModify=new User(nickname,sex,uaeraddress,user.getUserId(),phonnmber);
                 Gson gson=new Gson();
                 String usergson=gson.toJson(userModify);
                 RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"/modifyuserservlet");
@@ -209,8 +221,8 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     }
 
     public void getUserIfo() {
-        String url=HttpUrlUtils.HTTP_URL+ "/finduserservlet?userid="+new GetUserInfoByNet().getUserInfoByNet(PersonalSettingActivity.this);
-        Log.i("PersonalSettingActivity",(new GetUserInfoByNet().getUserInfoByNet(PersonalSettingActivity.this))+"userId");
+        String url=HttpUrlUtils.HTTP_URL+ "/finduserservlet?userid="+ user.getUserId();
+        Log.i("PersonalSettingActivity",user.getUserId()+"userId");
         RequestParams repuestparams=new RequestParams(url);
         x.http().get(repuestparams, new Callback.CommonCallback<String>() {
             @Override

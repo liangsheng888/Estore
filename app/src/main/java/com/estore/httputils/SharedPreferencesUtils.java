@@ -23,6 +23,15 @@ public class SharedPreferencesUtils {
         ed.commit();
         return true;
     }
+    public static boolean saveUserId(Context context,int userId){
+        SharedPreferences sp=context.getSharedPreferences("User",Context.MODE_APPEND);
+        SharedPreferences.Editor ed=sp.edit();
+        ed.putInt("userId",userId);
+
+        ed.commit();
+        return true;
+    }
+
     }
 
 

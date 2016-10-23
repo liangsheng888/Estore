@@ -3,6 +3,7 @@ package com.estore.fragment;
 我的订单---待发货页面
  */
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,12 +19,14 @@ import android.widget.TextView;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
-import com.estore.httputils.GetUserInfoByNet;
+import com.estore.httputils.GetUserIdByNet;
+
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ViewHolder;
 import com.estore.pojo.GoodsOrderState;
 import com.estore.pojo.Order;
 import com.estore.pojo.OrderDetail;
+import com.estore.pojo.User;
 import com.estore.view.NoScrollListview;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -59,6 +62,8 @@ public class WaitingDeliverFragment extends Fragment {
     public static final int REMARK=6;    //已评价
     public static final int UNREMARK=5;//待评价
     public static final int CANCEL=7;//取消订单
+    private SharedPreferences sp;
+    private User user=new User();
 
     private ListView lv_unDeliver;
 
@@ -73,15 +78,19 @@ public class WaitingDeliverFragment extends Fragment {
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+        ;
+        user.setUserId(sp.getInt("userId",0));
         getData();
 
         super.onActivityCreated(savedInstanceState);
     }
     public void getData(){
+
         Log.i("WaitingDeliverFragment", "getOrderData: ");
-        String userId=new GetUserInfoByNet().getUserInfoByNet(getActivity())+"";
+      //  String userId= GetUserIdByNet.getUserIdByNet(getActivity())+"";
         //
-        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+userId+"&orderStatusId=3");
+        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+user.getUserId()+"&orderStatusId=3");
         //传参数：user_id,order_id
      /*   requestParams.addQueryStringParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
         Log.i("OrderAllFragment", "userId: "+((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
