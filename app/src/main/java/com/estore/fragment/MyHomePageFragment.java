@@ -27,6 +27,8 @@ import com.estore.activity.R;
 import com.estore.activity.RegisterActivity;
 import com.estore.activity.SystemInformActivity;
 import com.estore.activity.TakePhotosAndSelectActivity;
+import com.estore.httputils.GetUserIdByNet;
+import com.estore.httputils.SharedPreferencesUtils;
 
 /**
  * 我的部分主页面
@@ -136,6 +138,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
             builder.show();
             return;
         }
+        GetUserIdByNet.getUserIdByNet(getActivity());
         switch (v.getId()){
             case R.id.rb_publish :
                 Intent intent=new Intent(getActivity(),PublishActivity.class);

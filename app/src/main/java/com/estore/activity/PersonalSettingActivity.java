@@ -53,9 +53,6 @@ public class PersonalSettingActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_personal_setting);
         sp=getSharedPreferences("User",MODE_APPEND);
         user.setUserId(sp.getInt("userId",0));
-        GetUserIdByNet.getUserIdByNet(PersonalSettingActivity.this);
-
-
         Log.i("PersonalSettingActivity","userId:"+user.getUserId());
 
 
@@ -221,7 +218,7 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     }
 
     public void getUserIfo() {
-        String url=HttpUrlUtils.HTTP_URL+ "/finduserservlet?userid="+ user.getUserId();
+        String url=HttpUrlUtils.HTTP_URL+ "/findUserServlet?userid="+ user.getUserId();
         Log.i("PersonalSettingActivity",user.getUserId()+"userId");
         RequestParams repuestparams=new RequestParams(url);
         x.http().get(repuestparams, new Callback.CommonCallback<String>() {
