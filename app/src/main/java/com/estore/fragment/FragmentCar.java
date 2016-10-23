@@ -137,11 +137,9 @@ public class FragmentCar extends Fragment {
         cartListView.setMenuCreator(creator);
         cartListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                Log.i("FragmentCar","@@@@@@@@@@@@@@@"+position+"");
+            public boolean onMenuItemClick( final int  position, SwipeMenu menu, int index) {
+                Log.i("FragmentCar","position"+position+"");
                 Log.i("FragmentCar","gggggggggg"+cartlist.size());
-                cartlist.remove(position);
-                cartAdapter.notifyDataSetChanged();
                 Integer cartId=cartlist.get(position).getCartId();
                 Log.i("FragmentCar","============="+cartId+"");
                 String url=HttpUrlUtils.HTTP_URL+"deleteCartServlet";
@@ -151,6 +149,8 @@ public class FragmentCar extends Fragment {
                     @Override
                     public void onSuccess(String result) {
                         Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
+                        cartlist.remove(position);
+                        cartAdapter.notifyDataSetChanged();
                     }
 
                     @Override
