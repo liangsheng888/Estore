@@ -18,8 +18,6 @@
         android:id="@+id/iv_userPhoto"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:src="@drawable/sj" />
 
     <TextView
@@ -28,12 +26,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="商品名称"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_estoreprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="二货价格" />
 
 

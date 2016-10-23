@@ -9,7 +9,7 @@
       <com.jude.rollviewpager.RollPagerView
           android:id="@+id/roll_view_pager"
           android:layout_width="match_parent"
-          android:layout_height="200dp">
+          android:layout_height="150dp">
 
       </com.jude.rollviewpager.RollPagerView>
 
@@ -22,29 +22,61 @@
             <Button
                 android:id="@+id/btn_school_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:text="校园"
+                android:layout_height="60dp"
+
                 android:gravity="center"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/school"
+                android:drawableTop="@mipmap/school"
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/btn_city_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:drawableTop="@drawable/city"
+                android:layout_height="60dp"
+                android:drawableTop="@mipmap/city"
                 android:layout_marginLeft="2dp"
                 android:background="@android:color/transparent"
-                android:text="同城"
+
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/btn_auction_GridView_home"
                 android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:text="最新拍卖"
+                android:layout_height="60dp"
                 android:layout_marginLeft="2dp"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/auct"
+                android:drawableTop="@mipmap/auct"
+                android:layout_weight="1"/>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#22f4f7f4"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_computer_city"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:drawableTop="@mipmap/computer"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/btn_bijiben"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:drawableTop="@mipmap/iphone"
+                android:layout_marginLeft="2dp"
+                android:background="@android:color/transparent"
+
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/btn_shoujicity"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="2dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@mipmap/biji"
                 android:layout_weight="1"/>
       </LinearLayout>
 

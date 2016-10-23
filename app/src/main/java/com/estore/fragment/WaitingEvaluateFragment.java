@@ -67,9 +67,9 @@ public class WaitingEvaluateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       View view= inflater.inflate(R.layout.fragment_waiting_evaluate, null);
+        View view= inflater.inflate(R.layout.fragment_waiting_evaluate, null);
         lv_unEvaluate = ((ListView) view.findViewById(R.id.lv_unEvaluate));
-       return  view;
+        return  view;
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -251,56 +251,45 @@ public class WaitingEvaluateFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
-                                        case UNPAY:
-                                            Log.i("WaitingDeliverFragment", "付款");
-                                            //付款
-                                            Log.i("WaitingDeliverFragment", "onClick: ");
-                                            break;
-                                        case UNRECEIVE:
-                                            //确认收货，
-                                            Log.i("WaitingDeliverFragment", "确认收货");
-                                            changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
-                                            break;
-                                        case UNSEND:
-                                            //发货，
-                                            Log.i("WaitingDeliverFragment", "卖家发货");
-                                            changeState(order.getGoodsOrderId(),UNRECEIVE,"已发货",position);
-                                            break;
                                         case UNREMARK:
                                             //评论，
                                             Log.i("WaitingDeliverFragment", "评论");
+
                                             AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                                            Dialog dialog=builder.create();
-
+                                           final  Dialog dialog=builder.create();
                                             View view=View.inflate(getActivity(),R.layout.layout_envalute,null);
+                                            dialog.show();
+                                            dialog.getWindow().setContentView(view);
+                                            builder.setTitle("评论");
                                             EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
-
                                             TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
                                             TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
                                             fabiao.setOnClickListener(new View.OnClickListener() {
 
                                                 @Override
                                                 public void onClick(View v) {
+                                                    dialog.dismiss();
                                                     //上传评论
-                                                    uploadData();
+                                                    uploadEnvalue();
+                                                    return;
                                                 }
                                             });
-
-                                            builder.setView(view);
-                                            builder.setTitle("评论");
-
                                             //
                                             changeState(order.getGoodsOrderId(),REMARK,"已评论",position);
                                             break;
+                                        case REMARK://删除订单
+                                            Log.i("OrderAllFragment", "删除订单");
+                                            orders.remove(position);
 
+                                            deleteOrder(order.getGoodsOrderId());
+                                            orderApater.notifyDataSetChanged();
 
+                                            break;
                                     }
                                 }
                             });
 
                         }
-
-
 
                         //更新订单状态，更新界面
                         public void changeState(int orderId, final int newStateId, final String newStateName,final int position){
@@ -339,17 +328,7 @@ public class WaitingEvaluateFragment extends Fragment {
 
                                 }
                             });
-
-
-
                         }
-
-
-
-
-
-
-
                     };
                     lv_unEvaluate.setAdapter(orderApater);
                 }else{
@@ -376,8 +355,47 @@ public class WaitingEvaluateFragment extends Fragment {
         });
     }
 
-    private void uploadData() {
+    private void deleteOrder(Integer goodsOrderId) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"deleteOrderServlet");
+        Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
+
+        rp.addBodyParameter("orderId",goodsOrderId+"");
+
+
+
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+
+
+    private void uploadEnvalue() {
         RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"envaluteServlet");
+        //Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
         /*rp.addBodyParameter("user_id",user_id);
         rp.addBodyParameter("product_id",user_id);
         rp.addBodyParameter("order_id",user_id);
@@ -411,5 +429,11 @@ public class WaitingEvaluateFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getData();
+        }
 
-}
+}}

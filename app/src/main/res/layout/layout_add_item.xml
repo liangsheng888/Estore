@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="200dp"
     android:background="#1f19dfcf"
     android:gravity="center">
     <RadioGroup
@@ -24,7 +24,7 @@
     <RadioButton
         android:id="@+id/rb_paimaipro"
         android:layout_width="wrap_content"
-        android:drawableTop="@mipmap/pai"
+        android:drawableTop="@drawable/auct"
         android:text="拍卖"
         android:layout_marginLeft="90dp"
         android:gravity="center"

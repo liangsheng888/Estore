@@ -258,6 +258,14 @@ public class WaitingPayMoneyFragment extends Fragment {
                                             Log.i("WaitingPayMoneyFragment", "卖家发货");
                                             changeState(order.getGoodsOrderId(),UNRECEIVE,"已发货",position);
                                             break;
+                                        case CANCEL://交易关闭
+                                            Log.i("OrderAllFragment", "删除订单");
+                                            orders.remove(position);
+
+                                            deleteOrder(order.getGoodsOrderId());
+                                            orderApater.notifyDataSetChanged();
+
+                                            break;
 
 
                                     }
@@ -341,5 +349,45 @@ public class WaitingPayMoneyFragment extends Fragment {
             }
         });
     }
+    private void deleteOrder(Integer goodsOrderId) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"deleteOrderServlet");
+        Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
 
-}
+        rp.addBodyParameter("orderId",goodsOrderId+"");
+
+
+
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getData();
+        }
+}}

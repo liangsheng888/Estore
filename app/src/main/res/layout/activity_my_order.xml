@@ -8,15 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#f7f6f6"
+        android:background="#4d4444"
+
         >
         <ImageView
             android:id="@+id/iv_orderreturn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xiaoyu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/last_white"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             />
         <TextView
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="我的订单"
             android:textSize="24dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
 
             />

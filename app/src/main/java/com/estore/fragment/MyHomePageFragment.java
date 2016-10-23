@@ -106,7 +106,6 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
         if(username==null){
             AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
             final Dialog dialog=builder.create();
-            builder.setTitle("亲！你没有登录账号，请登录？");
             View view=View.inflate(getActivity(),R.layout.login_user,null);
             ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
                 @Override

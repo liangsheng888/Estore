@@ -1,6 +1,8 @@
 package com.estore.fragment;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +43,8 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/10/13.
  */
-public class AllOrdersFragment extends Fragment {
+public class AllOrdersFragment extends Fragment{
+
     private ListView frag_allorders_listview;
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
 
@@ -258,25 +262,55 @@ public class AllOrdersFragment extends Fragment {
                                             Log.i("OrderAllFragment", "卖家发货");
                                             changeState(order.getGoodsOrderId(),UNRECEIVE,"已发货",position);
                                             break;
+                                        case UNREMARK:
+                                            //评论，
+                                            Log.i("OrderAllFragment", "评论");
 
+                                            AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                                            final Dialog dialog=builder.create();
+                                            View view=View.inflate(getActivity(),R.layout.layout_envalute,null);
+                                            dialog.show();
+                                            dialog.getWindow().setContentView(view);
+                                            builder.setTitle("评论");
+                                            EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
+                                            TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
+                                            TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
+                                            fabiao.setOnClickListener(new View.OnClickListener() {
+
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.dismiss();
+                                                    //上传评论
+                                                    uploadEnvalue();
+                                                    return;
+                                                }
+                                            });
+                                            changeState(order.getGoodsOrderId(),REMARK,"已评论",position);
+                                            //
+
+                                            break;
+                                        case REMARK://删除订单
+                                        case CANCEL://交易关闭
+                                            Log.i("OrderAllFragment", "删除订单");
+                                            orders.remove(position);
+
+                                            deleteOrder(order.getGoodsOrderId());
+                                            orderApater.notifyDataSetChanged();
+
+                                            break;
+                                    }
 
                                     }
-                                }
+
                             });
 
                         }
-
-
-
                         //更新订单状态，更新界面
                         public void changeState(int orderId, final int newStateId, final String newStateName,final int position){
 
                             RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderUpdateServlet");
                             requestParams.addBodyParameter("orderId",orderId+"");
                             requestParams.addBodyParameter("newStateId",newStateId+"");
-
-
-
                             //更新订单，更新界面
                             x.http().post(requestParams, new Callback.CommonCallback<String>() {
 
@@ -305,23 +339,12 @@ public class AllOrdersFragment extends Fragment {
 
                                 }
                             });
-
-
-
                         }
-
-
-
-
-
-
-
-                    };
+                  };
                     frag_allorders_listview.setAdapter(orderApater);
                 }else{
                     orderApater.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -340,5 +363,85 @@ public class AllOrdersFragment extends Fragment {
 
             }
         });
+    }
+    private void deleteOrder(Integer goodsOrderId) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"deleteOrderServlet");
+        Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
+
+        rp.addBodyParameter("orderId",goodsOrderId+"");
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+    private void uploadEnvalue() {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"envaluteServlet");
+        //Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
+        /*rp.addBodyParameter("user_id",user_id);
+        rp.addBodyParameter("product_id",user_id);
+        rp.addBodyParameter("order_id",user_id);
+        rp.addBodyParameter("file",user_id);
+*/
+
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                orderApater.notifyDataSetChanged();//更新界面
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getData();
+        }
     }
 }
