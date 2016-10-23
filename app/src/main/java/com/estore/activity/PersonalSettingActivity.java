@@ -228,12 +228,16 @@ public class PersonalSettingActivity extends AppCompatActivity  {
                 Log.i("PersonalSettingActivity",result);
                 Gson gson=new Gson();
                 UserBean users = gson.fromJson(result, UserBean.class);
+                Log.i("PersonalSettingActivity",users.toString());
+
                 tv_nicknamecontent = ((TextView) findViewById(R.id.tv_nicknamecontent));//昵称
                 tv_nicknamecontent.setText(users.getNickname());
                 tv_persexcontent = ((TextView) findViewById(R.id.tv_persexcontent));//性别
                 tv_persexcontent.setText(users.getSex().equals("1")?"男":"女");
                 tv_phonenumber = ((TextView) findViewById(R.id.tv_phonenumber));//手机号
+
                 tv_phonenumber.setText(users.getUser_phone());
+                Log.i("PersonalSettingActivity",users.getUser_phone()+"---"+users.getUser_address());
                 tv_deliveryadress = ((TextView) findViewById(R.id.tv_deliveryadress));//地址
                 tv_deliveryadress.setText(users.getUser_address());
             }

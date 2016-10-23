@@ -3,6 +3,7 @@ package com.estore.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.estore.activity.PublishAuctionDetialItemActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
+import com.estore.pojo.User;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -36,11 +38,20 @@ public class PublishAuctionFragment extends Fragment {
     private ListView lv_auctionlv;
     private TextView tv_btauction;
     private BaseAdapter adapter;
+    User user=new User();
+    private SharedPreferences sp;
     final List<ListMyAuctionActivityBean.ProImag> pubList=new ArrayList<ListMyAuctionActivityBean.ProImag>();
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+        user.setUserId(sp.getInt("userId",0));
     }
 
     @Override
@@ -115,7 +126,7 @@ public class PublishAuctionFragment extends Fragment {
     private void getPublishAuction() {
         //请求url获得数据
         // RequestParams rq=new RequestParams("http://10.40.5.18:8080/EStore/myPaiMaiServlet?email=2238265450@qq.com");
-        String url =HttpUrlUtils.HTTP_URL+"/myPaiMaiServlet?email=978188219@qq.com";//访问网络的url
+        String url =HttpUrlUtils.HTTP_URL+"/myPaiMaiServlet?user_id="+user.getUserId();//访问网络的url
         Log.i("getPublishAuction",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
         x.http().get(requestParams, new Callback.CommonCallback<String>() {

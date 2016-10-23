@@ -3,6 +3,7 @@ package com.estore.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class PublishEStoreFragment extends Fragment {
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
     private BaseAdapter  adapter;
     User user=new User();
+    private SharedPreferences sp;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -51,6 +53,8 @@ public class PublishEStoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+        user.setUserId(sp.getInt("userId",0));
     }
 
     @Override
