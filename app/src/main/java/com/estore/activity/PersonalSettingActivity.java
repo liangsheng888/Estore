@@ -22,6 +22,7 @@ import com.estore.httputils.GetUserIdByNet;
 
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.User;
+import com.estore.pojo.UserBean;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -226,15 +227,15 @@ public class PersonalSettingActivity extends AppCompatActivity  {
             public void onSuccess(String result) {
                 Log.i("PersonalSettingActivity",result);
                 Gson gson=new Gson();
-                User users = gson.fromJson(result, User.class);
+                UserBean users = gson.fromJson(result, UserBean.class);
                 tv_nicknamecontent = ((TextView) findViewById(R.id.tv_nicknamecontent));//昵称
-                tv_nicknamecontent.setText(users.getUserName());
+                tv_nicknamecontent.setText(users.getNickname());
                 tv_persexcontent = ((TextView) findViewById(R.id.tv_persexcontent));//性别
-                tv_persexcontent.setText(users.getUserSex());
+                tv_persexcontent.setText(users.getSex().equals("1")?"男":"女");
                 tv_phonenumber = ((TextView) findViewById(R.id.tv_phonenumber));//手机号
-                tv_phonenumber.setText(users.getPhone());
+                tv_phonenumber.setText(users.getUser_phone());
                 tv_deliveryadress = ((TextView) findViewById(R.id.tv_deliveryadress));//地址
-                tv_deliveryadress.setText(users.getAddress());
+                tv_deliveryadress.setText(users.getUser_address());
             }
 
             @Override
