@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.activity.myappliction.MyApplication;
+import com.estore.httputils.GetUserInfoByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.User;
 import com.google.gson.Gson;
@@ -42,7 +43,6 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     private RelativeLayout rl_save;
     private static final String TAG = "PersonalSettingActivity";
     String sex[] = {"男", "女"};
-    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,12 +169,11 @@ public class PersonalSettingActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"save", Toast.LENGTH_SHORT).show();
-                Integer id=((MyApplication)getApplication()).getUser().getUserId();
                 String nickname=tv_nicknamecontent.getText().toString();
                 String  sex= tv_persexcontent.getText().toString();
                 String  phonnmber=tv_phonenumber.getText().toString();
                 String  uaeraddress=tv_deliveryadress.getText().toString();
-                User userModify=new User(nickname,sex,uaeraddress,id,phonnmber);
+                User userModify=new User(nickname,sex,uaeraddress,new GetUserInfoByNet().getUserInfoByNet(getApplicationContext()),phonnmber);
                 Gson gson=new Gson();
                 String usergson=gson.toJson(userModify);
                 RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"/modifyuserservlet");
@@ -210,7 +209,8 @@ public class PersonalSettingActivity extends AppCompatActivity  {
     }
 
     public void getUserIfo() {
-        String url=HttpUrlUtils.HTTP_URL+ "/finduserservlet?userid="+user.getUserId();
+        String url=HttpUrlUtils.HTTP_URL+ "/finduserservlet?userid="+new GetUserInfoByNet().getUserInfoByNet(PersonalSettingActivity.this);
+        Log.i("PersonalSettingActivity",(new GetUserInfoByNet().getUserInfoByNet(PersonalSettingActivity.this))+"userId");
         RequestParams repuestparams=new RequestParams(url);
         x.http().get(repuestparams, new Callback.CommonCallback<String>() {
             @Override

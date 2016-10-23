@@ -102,12 +102,12 @@ public class PublishAuctionFragment extends Fragment {
             tv_pubauctionprice.setText(pubimag.auct_minprice+"");
             tv_pubauctiontime.setText(pubimag.auct_begin);
 
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+//            btnDelete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                }
+//            });
             return view;
         }
     }
