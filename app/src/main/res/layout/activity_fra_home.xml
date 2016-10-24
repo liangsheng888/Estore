@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:myattr="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
-    android:orientation="vertical">
-
-      <com.jude.rollviewpager.RollPagerView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+     <!-- <com.jude.rollviewpager.RollPagerView
           android:id="@+id/roll_view_pager"
           android:layout_width="match_parent"
           android:layout_height="150dp">
@@ -83,12 +80,12 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@mipmap/biji"
                 android:layout_weight="1"/>
-      </LinearLayout>
-      <View
+      </LinearLayout>-->
+      <!--<View
           android:background="#d1cfcf"
           android:layout_height="1dp"
-          android:layout_width="match_parent"></View>
-
+          android:layout_width="match_parent"></View>-->
+<!--
       <com.handmark.pulltorefresh.library.PullToRefreshGridView
           xmlns:ptr="http://schemas.android.com/apk/res-auto"
           android:id="@+id/pull_refresh_grid"
@@ -102,6 +99,23 @@
           android:stretchMode="columnWidth"
           android:verticalSpacing="2dp"
           ptr:ptrDrawable="@drawable/xuanzhuan"
-          ptr:ptrMode="both" />
+          ptr:ptrMode="both" />-->
+     <!-- <com.estore.view.GridViewWithHeaderAndFooter
+          android:id="@+id/gridViewWithHeaderAndFooter"
+          android:layout_width="match_parent"
+          android:numColumns="3"
+          android:layout_height="match_parent">
 
-</LinearLayout>
+      </com.estore.view.GridViewWithHeaderAndFooter>-->
+    <ListView
+        android:id="@+id/lv_jingpin"
+        android:clickable="true"
+        android:focusable="true"
+        android:touchscreenBlocksFocus="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+      </LinearLayout>
+
+
+

@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.httputils.HttpUrlUtils;
@@ -46,7 +47,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private NumberPicker np_zuct_picker;
     int minprice = 1;
     int maxprice = 1;
-     private  static List<Bitmap> imglist=new ArrayList<>();
+    private static List<Bitmap> imglist = new ArrayList<>();
     //头像的存储完整路径
     private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" + getPhotoFileName());
 
@@ -59,11 +60,18 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private Spinner sp_city;
     private EditText et_auct_price;
     private NumberPicker np_auct_bidprice;
-    private Spinner sp_auct_type;
+    private TextView tv_auct_type;
     private GridView gv_img;
     Integer bidprice;
     String auct_type;
     String address;
+    String[] type = {"手机", "电脑", "笔记本", "其他"};
+    String[] aucttime={"am08:00","am12:00","pm16:00","pm20:00"};
+    String typeStr;//选择拍品类型
+    //    String auctTime;//拍品上架时间
+    private TextView tv_auct_time2;
+    Date sdftime;
+    String sdftimestr;
     //    np_zuct_picker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +88,14 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         np_zuct_picker = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
         //iv_auct_modle_phote1 = ((ImageView) findViewById(R.id.iv_auct_modle_phote1));
         gv_img = ((GridView) findViewById(R.id.gv_img));
+
+        et_upload_aucttitle = ((EditText) findViewById(R.id.et_upload_aucttitle));
+        et_auct_miaoshu = ((EditText) findViewById(R.id.et_auct_miaoshu));
+        sp_city = ((Spinner) findViewById(R.id.sp_city));
+        et_auct_price = ((EditText) findViewById(R.id.et_auct_price));
+        np_auct_bidprice = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
+        tv_auct_type = ((TextView) findViewById(R.id.tv_auct_type2));
+        tv_auct_time2 = ((TextView) findViewById(R.id.tv_auct_time2));//选择上架竞拍时间段
 
     }
 
@@ -107,30 +123,34 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         });
 
     }
+
+
+
     public class PhoteAdapter extends BaseAdapter {
         @Override
-        public int getCount () {
+        public int getCount() {
             return imglist.size();
         }
 
         @Override
-        public Object getItem ( int position){
+        public Object getItem(int position) {
             return null;
         }
 
         @Override
-        public long getItemId ( int position){
+        public long getItemId(int position) {
             return 0;
         }
 
         @Override
-        public View getView ( int position, View convertView, ViewGroup parent){
+        public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView = new ImageView(getApplicationContext());
             imageView.setImageBitmap(imglist.get(position));
 
             return imageView;
         }
     }
+
     public void simpleDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择上传方式");
@@ -271,63 +291,132 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         sendMsgandImg();//图片和其他输入信息
 
     }
+    public void timeOnclick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请选择类型");
+        System.out.println("点击选择拍品开拍时间");
+        //builder.setMessage("你确定？");
+        builder.setIcon(R.drawable.emoji_81);
+        builder.setSingleChoiceItems(aucttime, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_auct_time2.setText(aucttime[i]);
+                Long longtime;
+                switch (i){
+                    case 0:
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"08"+"mmss").format(new Date());
+
+//                      try {
+//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
+//                      } catch (ParseException e) {
+//                          e.printStackTrace();
+//                      }
+                        break;
+                    case 1:
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
+//                      try {
+//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
+//                      } catch (ParseException e) {
+//                          e.printStackTrace();
+//                      }
+                        break;
+                    case 2:
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
+//                      try {
+//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
+//                      } catch (ParseException e) {
+//                          e.printStackTrace();
+//                      }
+                        break;
+                    case 3:
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
+
+//                      try {
+//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
+//                      } catch (ParseException e) {
+//                          e.printStackTrace();
+//                      }
+                        break;
+                }
+
+                System.out.println("sdftime"+sdftimestr+"====================="+sdftime);
+//               auctTime= tv_auct_time2.getText().toString();
+            }
+        });
+        builder.show();
+    }
+
+
+    public void typeOnclick(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请选择类型");
+        System.out.println("点击选择拍品类型");
+        //builder.setMessage("你确定？");
+        builder.setIcon(R.drawable.emoji_81);
+        builder.setSingleChoiceItems(type, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                System.out.println(type[i]);
+                typeStr = type[i];
+//                tv_auct_type.setText(type[i]);
+//                auct_type = tv_auct_type.getText().toString();
+                tv_auct_type.setText(typeStr);
+                auct_type = tv_auct_type.getText().toString();
+
+            }
+        });
+        builder.show();
+
+
+    }
 
     private void sendMsgandImg() {
-        et_upload_aucttitle = ((EditText) findViewById(R.id.et_upload_aucttitle));
-        et_auct_miaoshu = ((EditText) findViewById(R.id.et_auct_miaoshu));
-        sp_city = ((Spinner) findViewById(R.id.sp_city));
-        et_auct_price = ((EditText) findViewById(R.id.et_auct_price));
-        np_auct_bidprice = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
-        sp_auct_type = ((Spinner) findViewById(R.id.sp_auct_type));
-        //获得spinner中的item
+
         address = sp_city.getSelectedItem().toString();
-        auct_type=sp_auct_type.getSelectedItem().toString();
-        bidprice=np_auct_bidprice.getValue();
+
+//        auct_type=tv_auct_type.getSelectedItem().toString();
+        bidprice = np_auct_bidprice.getValue();
 
 
+        String proName = et_upload_aucttitle.getText().toString().trim();
+        String proDescription = et_auct_miaoshu.getText().toString().trim();
+        String price = et_auct_price.getText().toString().trim();
 
-         String proName=et_upload_aucttitle.getText().toString().trim();
-         String proDescription= et_auct_miaoshu.getText().toString().trim();
-         String price= et_auct_price.getText().toString().trim();
 
-
-        RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL +"addpaimaibycilent");//upload 是你要访问的servlet
+        RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "addPaiMaiByCilent");//upload 是你要访问的servlet
 
 
         try {
-            params.addBodyParameter("proName", URLEncoder.encode(proName,"utf-8"));
-            params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
-            params.addBodyParameter("category",URLEncoder.encode(auct_type,"utf-8"));
-            params.addBodyParameter("address",URLEncoder.encode(address,"utf-8"));
+            params.addBodyParameter("proName", URLEncoder.encode(proName, "utf-8"));
+            params.addBodyParameter("proDescription", URLEncoder.encode(proDescription, "utf-8"));
+            params.addBodyParameter("category", URLEncoder.encode(auct_type, "utf-8"));
+            params.addBodyParameter("address", URLEncoder.encode(address, "utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
         params.addBodyParameter("proPrice", price);
 //        params.addBodyParameter("category",auct_type);
-        params.addBodyParameter("bidprice", bidprice+"");
+        params.addBodyParameter("bidprice", bidprice + "");
+        params.addBodyParameter("auctTime", sdftimestr + "");
         params.addBodyParameter("file", file);
-        System.out.println("-----file------"+file+"/n"+"----proName-------"+proName
-                +"/n"+"--------proDescription-------"+proDescription+"/n"
-                +"---------proDescription---------"+proDescription
-                +"/n"+"---------address-------"+address
-                +"/n"+"--------price---------"+price
-                +"/n"+"---------auct_type-------"+auct_type
-                +"/n"+"--------bidprice---------"+bidprice);
+        System.out.println("-----file------" + file + "/n" + "----proName-------" + proName
+                + "/n" + "--------proDescription-------" + proDescription + "/n"
+                + "---------proDescription---------" + proDescription
+                + "/n" + "---------address-------" + address
+                + "/n" + "--------price---------" + price
+                + "/n" + "---------auct_type-------" + auct_type
+                + "/n" + "--------bidprice---------" + bidprice+"auctTime"+sdftimestr);
 
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                System.out.println("=--------result----------------"+result);
+                System.out.println("=--------result----------------" + result);
             }
-
-
-
-
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println(ex+"---------------------------------------------");
+                System.out.println(ex + "---------------------------------------------");
             }
 
             @Override

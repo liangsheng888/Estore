@@ -3,18 +3,23 @@ package com.estore.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +30,7 @@ import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
+import com.estore.view.GridViewWithHeaderAndFooter;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -52,12 +58,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private static final int SAME_CITY = 3;
     private static final int HIGH_SCHOOL =4 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
-    //private ListView lv_fr_home;
-    PullToRefreshGridView prg;
-    //vate GridViewWithHeaderAndFooter gridView;
-    GridView gridView;
+    private ListView lv_jingpin;
+   // PullToRefreshGridView prg;
+    GridViewWithHeaderAndFooter gridViewWithHeaderAndFooter;
+   // GridView gridView;
     private MyAdapter adapter;
-    private AutoScrollViewPager autoScrollViewPager;
+  //  private AutoScrollViewPager autoScrollViewPager;
     List<ImageView> images = null;
     private Button school;
     private Button city;
@@ -69,15 +75,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
-        PictureRoll(view);
 
-        //lv_fr_home = (ListView) view.findViewById(R.id.lv_fr_home);
-        //gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gv_home);
-        prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
-        school = (Button) view.findViewById(R.id.btn_school_GridView_home);
 
-        city = (Button) view.findViewById(R.id.btn_city_GridView_home);
-        auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
+        lv_jingpin = (ListView) view.findViewById(R.id.lv_jingpin);
+        //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
+      //  prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
+
 
         //autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
        // initViewPager();//
@@ -115,9 +118,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 }else {
                     adapter.notifyDataSetChanged();
                 }
-                gridView.setAdapter(adapter);
-
-
+             //   gridView.setAdapter(adapter);
+                lv_jingpin.setAdapter(adapter);
             }
 
             @Override
@@ -147,18 +149,21 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
 
 
-        gridView = prg.getRefreshableView();
+       /* gridView = prg.getRefreshableView();
         gridView.setNumColumns(3);
+*/
        // initPicture();
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
         //为GridView设置点击事件
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Log.e("home", "为GridView设置点击事件");
+        lv_jingpin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long i = parent.getItemIdAtPosition(position);
+                //long i = parent.getItemIdAtPosition(position);
+                Log.e("home", "点击事件");
                 Product.Products pp = list.get(position);
-                Toast.makeText(getActivity(), id + "", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), id + "", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ProductInfoActivity.class);
                 // intent.putExtra("pp",pp);
                 Bundle bundle = new Bundle();
@@ -168,7 +173,18 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 startActivityForResult(intent,HOME);
             }
         });
+        lv_jingpin.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+        /*
         prg.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
@@ -193,8 +209,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 Log.e("TAG", "onPullUpToRefresh");
                 new GetDataTask(prg, adapter, list).execute();
             }
-        });
-        new GetDataTask(prg, adapter, list).execute();
+        });*/
+        //new GetDataTask(prg, adapter, list).execute();
         /*LinearLayout ll_head = new LinearLayout(getActivity());
         //设置布局长度充满屏幕
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
@@ -203,96 +219,27 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         Button city = (Button) view.findViewById(R.id.btn_city_GridView_home);
         Button auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);*/
+
+        // autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
+        View view=View.inflate(getActivity(),R.layout.fra_home_add_header,null);
+
+        school = (Button) view.findViewById(R.id.btn_school_GridView_home);
+
+        city = (Button) view.findViewById(R.id.btn_city_GridView_home);
+        auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
         school.setOnClickListener(this);
         city.setOnClickListener(this);
         auction.setOnClickListener(this);
-        // autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
+        PictureRoll(view);
 
-
-        // ll_head.addView(view, layoutParams);
+         // ll_head.addView(view, layoutParams);
         //为GrildView 添加头
-        // gridView.addHeaderView(ll_head);
+        lv_jingpin.addHeaderView(view);
         // lv_fr_home.addHeaderView(ll_head);
 
 
         super.onActivityCreated(savedInstanceState);
     }
-
-    private void initViewPager() {
-
-        autoScrollViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return Integer.MAX_VALUE;
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                container.addView((View) images.get(position % images.size()));
-                return images.get(position % images.size());
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View) object);
-            }
-
-
-        });
-       /* //设置滚动时延时时间
-
-        autoScrollViewPager.setInterval(2000);
-        //AutoScrollViewPager.RIGHT/AutoScrollViewPager.LEFT;
-        //设置轮播的方向
-        autoScrollViewPager.setDirection(AutoScrollViewPager.RIGHT);
-        //设置是否自动循环轮播，默认为true
-//注意：一旦设为true，则不能和ViewPagerIndicator一起使用
-        autoScrollViewPager.setCycle(true);
-//设置切换动画的时长
-        autoScrollViewPager.setScrollDurationFactor(10);
-//设置当滑动到最后一个或者第一个时，如何切换下一张
-        //设置当滑动到最后一个或者第一个时，如何切换下一张
-*//**
- * SLIDE_BORDER_MODE_NONE：不能再滑动
- * SLIDE_BORDER_MODE_TO_PARENT：移动父视图的Pager
- * SLIDE_BORDER_MODE_CYCLE：循环
- * 默认为SLIDE_BORDER_MODE_NONE
- *//*
-        autoScrollViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
-
-        //当触摸的时候，停止轮播
-        autoScrollViewPager.setStopScrollWhenTouch(true);*/
-    }
-
-    // 加载图片
-    private void initPicture() {
-
-        /*images = new ArrayList();
-        ImageView imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.a);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.b);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.c);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.d);
-        images.add(imageView);*/
-
-    }
-
-
     @Override
     public void onDestroyView() {
         Log.e("home", "onDestroyView");
@@ -353,9 +300,11 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     }
 
     public static class ViewHolder {
-        TextView tv_name;
-        TextView tv_estoreprice;
+        TextView tv_name,tv_username;
+        TextView tv_estoreprice,tv_jingpin_desc,tv_jingpin_address;
         ImageView iv;
+        //ViewPager vp_jingpin;
+        GridView gv_jingpin;
     }
 
 
@@ -382,18 +331,25 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = View.inflate(getActivity(), R.layout.list_item, null);
-                viewHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
 
-                viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_estoreprice);
+                //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
+                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id. gv_jingpin);
+
+                viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
+                viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
+                viewHolder.tv_username = (TextView) convertView.findViewById(R.id.tv_username);
+                viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_jingpin_price);
+                viewHolder.tv_jingpin_address = (TextView) convertView.findViewById(R.id.tv_jingpin_address);
 
 
-                viewHolder.iv = (ImageView) convertView.findViewById(R.id.iv_userPhoto);
+               // viewHolder.iv = (ImageView) convertView.findViewById(R.id.iv_userPhoto);
 
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
                 //view = convertView;
             }
+
             Product.Products pp = list.get(position);//根据当前位置获得pp
             ImageOptions.Builder io = new ImageOptions.Builder();
             imgurls=pp.imgurl.split("=");//将拿到的图片路径分割成字符串数组
@@ -401,10 +357,14 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             // iv.setImageUrl(HttpUrlUtils.HTTP_URL+ pp.imgurl.trim(), R.drawable.sj, R.drawable.sj);
             Log.e("MainActivity", HttpUrlUtils.HTTP_URL +imgurls[0]);
             viewHolder.tv_name.setText(pp.name);
-            viewHolder.tv_estoreprice.setText(pp.estoreprice + "");
+            viewHolder.tv_estoreprice.setText("￥"+pp.estoreprice);
+            viewHolder. tv_jingpin_desc.setText(pp.description);
+            viewHolder.tv_jingpin_address.setText(pp.proaddress);
 
+            viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
+           // viewHolder.gv_jingpin.setLayoutParams(new LinearLayout.LayoutParams(200,400));
+            viewHolder.gv_jingpin.setAdapter(new Adapter(imgurls));
             convertView.setBackgroundColor(Color.WHITE);
-
             return convertView;
         }
     }
@@ -452,6 +412,39 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         public int getCount() {
             return imgs.length;
         }
+    }
+
+    public class Adapter extends BaseAdapter{
+        private String[] imgurls;
+        public Adapter(String[] imgurls){
+            this.imgurls=imgurls;
+        }
+
+
+        @Override
+        public int getCount() {
+            return imgurls.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+               if(convertView==null){
+                convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
+                ImageView iv=(ImageView) convertView.findViewById(R.id.iv_pro);
+                x.image().bind(iv,HttpUrlUtils.HTTP_URL+imgurls[position]);
+            return convertView;
+        }
+
     }
 
 
