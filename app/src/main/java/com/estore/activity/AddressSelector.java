@@ -208,6 +208,11 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
 //                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
             }
 
+
+
+
+
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 

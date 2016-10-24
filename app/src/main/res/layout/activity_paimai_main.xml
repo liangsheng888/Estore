@@ -55,12 +55,12 @@
             />
     </RelativeLayout>
 
-    <ListView
+    <com.estore.view.LoadListView
         android:id="@+id/lv_list_paimai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </ListView>
+    </com.estore.view.LoadListView>
 
 </LinearLayout>
 

@@ -321,6 +321,10 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                 System.out.println("=--------result----------------"+result);
             }
 
+
+
+
+
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 System.out.println(ex+"---------------------------------------------");

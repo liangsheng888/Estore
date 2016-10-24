@@ -31,7 +31,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
 
     private void initView() {
         tv_bidding_addess = ((TextView) findViewById(R.id.tv_bidding_addess));//选择地址
-        tv_auct_shouhuo = ((TextView) findViewById(R.id.tv_auct_shouhuo));
+        tv_auct_shouhuo = ((TextView) findViewById(R.id.tv_auct_bid_shouhuo));
         tv_usertel = ((TextView) findViewById(R.id.tv_usertel));
         tv_address_info = ((TextView) findViewById(R.id.tv_address_info));
         ll_auct_address = ((LinearLayout) findViewById(R.id.ll_auct_address));
@@ -56,7 +56,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
         System.out.println("获得地址信息"+address);
         ll_auct_address.setVisibility(View.VISIBLE);
 
-        tv_auct_shouhuo.setText(address.userId+"");
+        tv_auct_shouhuo.setText(address.cantactName+"");
         tv_usertel.setText(address.cantactPhone);
         tv_address_info.setText(address.detailed_address);
 

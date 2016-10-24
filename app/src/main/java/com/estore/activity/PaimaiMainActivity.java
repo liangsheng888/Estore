@@ -2,6 +2,7 @@ package com.estore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -12,12 +13,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -26,12 +27,12 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
-public class PaimaiMainActivity extends AppCompatActivity implements View.OnClickListener {
+public class PaimaiMainActivity extends AppCompatActivity implements View.OnClickListener,LoadListView.ILoadListener {
 
-    private ListView lv_list_paimai;
+   LoadListView lv_list_paimai;
     private ArrayList items;
     BaseAdapter adapter = null;
-
+     int page=1;
     // 一个listview对应的list是不可以变化的（引用）
     final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
     private Button btn_paimai_bidding;
@@ -73,57 +74,57 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
             }
         });
 //        //设置头图片
-        lv_list_paimai = ((ListView) findViewById(R.id.lv_list_paimai));
+        lv_list_paimai = ((LoadListView) findViewById(R.id.lv_list_paimai));
+        lv_list_paimai.setInterface(this);
 
-
-        adapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return auctList.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                ViewHodle viewHodle = null;
-                if (viewHodle == null) {
-                    viewHodle = new ViewHodle();
-                    convertView = View.inflate(PaimaiMainActivity.this, R.layout.paimai_list_item, null);
-                    viewHodle.tv_auct_name = ((TextView) convertView.findViewById(R.id.tv_auct_name));
-//                    viewHodle.tv_username = ((TextView) convertView.findViewById(R.id.tv_username));
-                    viewHodle.iv_auct_imgurl = ((ImageView) convertView.findViewById(R.id.iv_auct_imgurl));
-                    viewHodle.tv_auct_minprice = ((TextView) convertView.findViewById(R.id.tv_auct_minprice));
-
-                    convertView.setTag(viewHodle);//缓存对象
-                } else {
-                    viewHodle = (ViewHodle) convertView.getTag();
-                }
-
-                AuctListActivityBean.Auct auct = auctList.get(position);
-
-                //获得数据
-                viewHodle.tv_auct_name.setText(auct.auct_name);
-//                viewHodle.tv_username.setText(auct.user_id);
-                viewHodle.tv_auct_minprice.setText("￥" + auct.auct_minprice + "");
-                x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
-                System.out.println("http://10.40.5.6:8080/EStore/" + auct.auct_imgurl);
-//                iv_auct_imgurl.setImageResource();
-//                tv_endbidprice.setText(auct.endBidPrice+"");
-//                auct_begin.setText(auct.auct_begin+"");
-                return convertView;
-
-            }
-        };
-
+//        adapter = new BaseAdapter() {
+//            @Override
+//            public int getCount() {
+//                return auctList.size();
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return null;
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                ViewHodle viewHodle = null;
+//                if (viewHodle == null) {
+//                    viewHodle = new ViewHodle();
+//                    convertView = View.inflate(PaimaiMainActivity.this, R.layout.paimai_list_item, null);
+//                    viewHodle.tv_auct_name = ((TextView) convertView.findViewById(R.id.tv_auct_name));
+////                    viewHodle.tv_username = ((TextView) convertView.findViewById(R.id.tv_username));
+//                    viewHodle.iv_auct_imgurl = ((ImageView) convertView.findViewById(R.id.iv_auct_imgurl));
+//                    viewHodle.tv_auct_minprice = ((TextView) convertView.findViewById(R.id.tv_auct_minprice));
+//
+//                    convertView.setTag(viewHodle);//缓存对象
+//                } else {
+//                    viewHodle = (ViewHodle) convertView.getTag();
+//                }
+//
+//                AuctListActivityBean.Auct auct = auctList.get(position);
+//
+//                //获得数据
+//                viewHodle.tv_auct_name.setText(auct.auct_name);
+////                viewHodle.tv_username.setText(auct.user_id);
+//                viewHodle.tv_auct_minprice.setText("￥" + auct.auct_minprice + "");
+//                x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
+//                System.out.println("http://10.40.5.6:8080/EStore/" + auct.auct_imgurl);
+////                iv_auct_imgurl.setImageResource();
+////                tv_endbidprice.setText(auct.endBidPrice+"");
+////                auct_begin.setText(auct.auct_begin+"");
+//                return convertView;
+//
+//            }
+//        };
+        adapter();
         lv_list_paimai.setAdapter(adapter);
 
         //从服务器拿
@@ -131,7 +132,57 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
 
 
     }
+public  void  adapter(){
+    adapter = new BaseAdapter() {
+        @Override
+        public int getCount() {
+            return auctList.size();
+        }
 
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHodle viewHodle = null;
+            if (viewHodle == null) {
+                viewHodle = new ViewHodle();
+                convertView = View.inflate(PaimaiMainActivity.this, R.layout.paimai_list_item, null);
+                viewHodle.tv_auct_name = ((TextView) convertView.findViewById(R.id.tv_auct_name));
+//                    viewHodle.tv_username = ((TextView) convertView.findViewById(R.id.tv_username));
+                viewHodle.iv_auct_imgurl = ((ImageView) convertView.findViewById(R.id.iv_auct_imgurl));
+                viewHodle.tv_auct_minprice = ((TextView) convertView.findViewById(R.id.tv_auct_minprice));
+
+                convertView.setTag(viewHodle);//缓存对象
+            } else {
+                viewHodle = (ViewHodle) convertView.getTag();
+            }
+
+            AuctListActivityBean.Auct auct = auctList.get(position);
+
+            //获得数据
+            viewHodle.tv_auct_name.setText(auct.auct_name);
+//                viewHodle.tv_username.setText(auct.user_id);
+            viewHodle.tv_auct_minprice.setText("￥" + auct.auct_minprice + "");
+            x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
+            System.out.println("http://10.40.5.6:8080/EStore/" + auct.auct_imgurl);
+//                iv_auct_imgurl.setImageResource();
+//                tv_endbidprice.setText(auct.endBidPrice+"");
+//                auct_begin.setText(auct.auct_begin+"");
+            return convertView;
+
+        }
+    };
+
+
+}
     private void initEven() {
 
     }
@@ -147,18 +198,41 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取更多数据
+
+                getLoadData();
+                adapter();
+                lv_list_paimai.setAdapter(adapter);
+
+//                //更新listview显示；
+//                showListView(apk_list);
+//                //通知listview加载完毕
+                lv_list_paimai.loadComplete();
+            }
+        }, 2000);
+    }
+
+    public void getLoadData() {
+        getAuctList();
+    }
     private static class ViewHodle {
         TextView tv_auct_name;
         TextView tv_username;
         ImageView iv_auct_imgurl;
-        TextView tv_auct_minprice;
-
-
+        TextView tv_auct_minprice;//
     }
 
     private void getAuctList() {
         final RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiProducts?page=1");
+        params.addBodyParameter("page",page+1+"");
         System.out.println("进入getAuctList" + params);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
