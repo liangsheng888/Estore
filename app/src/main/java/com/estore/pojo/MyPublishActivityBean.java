@@ -7,49 +7,127 @@ import java.util.List;
  * Created by Administrator on 2016/10/13 0013.
  */
 public class MyPublishActivityBean implements Serializable {
-    /*
-    {
-    "status": 1,
-    "list": [
-        {
-            "category": "笔记本",
-            "pnum": 1,
-            "heighschool": "河南科技大学",
-            "estoreprice": 2000,
-            "description": "渣渣买的，，质量不渣渣",
-            "samecity": "河南洛阳",
-            "name": "手表",
-            " prowhere": 0,
-            "imgurl": "uploads//010a5a5e-f146-478b-88b7-a9b42176249e_2.png"
-        },
-     */
+
     public int status;//1
     public List<ProImag> list;
     public static class ProImag implements Serializable {
+        public int id;
         public  String category;
         public int pnum;
-        public  String heighschool;
+        public  String schoolname;
         public double estoreprice;
         public String description;
-        public  String samecity;
+        public  String cityaddress;
 
         public  String name;
         public int prowhere;
         public String imgurl;
 
+//        public int getId() {
+//            return id;
+//        }
+//
+//        public void setId(int id) {
+//            this.id = id;
+//        }
+//
+//        public String getCategory() {
+//            return category;
+//        }
+//
+//        public void setCategory(String category) {
+//            this.category = category;
+//        }
+//
+//        public int getPnum() {
+//            return pnum;
+//        }
+//
+//        public void setPnum(int pnum) {
+//            this.pnum = pnum;
+//        }
+//
+//        public String getSchoolname() {
+//            return schoolname;
+//        }
+//
+//        public void setSchoolname(String schoolname) {
+//            this.schoolname = schoolname;
+//        }
+//
+//        public double getEstoreprice() {
+//            return estoreprice;
+//        }
+//
+//        public void setEstoreprice(double estoreprice) {
+//            this.estoreprice = estoreprice;
+//        }
+//
+//        public String getDescription() {
+//            return description;
+//        }
+//
+//        public void setDescription(String description) {
+//            this.description = description;
+//        }
+//
+//        public String getCityaddress() {
+//            return cityaddress;
+//        }
+//
+//        public void setCityaddress(String cityaddress) {
+//            this.cityaddress = cityaddress;
+//        }
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public void setName(String name) {
+//            this.name = name;
+//        }
+//
+//        public int getProwhere() {
+//            return prowhere;
+//        }
+//
+//        public void setProwhere(int prowhere) {
+//            this.prowhere = prowhere;
+//        }
+//
+//        public String getImgurl() {
+//            return imgurl;
+//        }
+//
+//        public void setImgurl(String imgurl) {
+//            this.imgurl = imgurl;
+//        }
+
         @Override
         public String toString() {
             return "ProImag{" +
-                    "category='" + category + '\'' +
-                    ", pum=" + pnum +
-                    ", heighschool='" + heighschool + '\'' +
+                    "productId=" + id +
+                    ", category='" + category + '\'' +
+                    ", pnum=" + pnum +
+                    ", schoolname='" + schoolname + '\'' +
                     ", estoreprice=" + estoreprice +
                     ", description='" + description + '\'' +
-                    ", samecity='" + samecity + '\'' +
+                    ", cityaddress='" + cityaddress + '\'' +
                     ", name='" + name + '\'' +
                     ", prowhere=" + prowhere +
                     ", imgurl='" + imgurl + '\'' +
                     '}';
         }
     }
+
+    @Override
+    public String toString() {
+        return "MyPublishActivityBean{" +
+                "status=" + status +
+                ", list=" + list +
+                '}';
+    }
+
+
+
 }

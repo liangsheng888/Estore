@@ -76,7 +76,7 @@ public class FragmentCar extends Fragment {
         cartListView=(SwipeMenuListView) view.findViewById(R.id.cart_listview);
         cart_buy_money=(TextView)view.findViewById(R.id.cart_buy_money);
         check_all=(CheckBox) view.findViewById(R.id.checkall);
-     cart_jiesuan=(TextView)view.findViewById(R.id.cart_jiesuan);
+        cart_jiesuan=(TextView)view.findViewById(R.id.cart_jiesuan);
         return view;
     }
 
