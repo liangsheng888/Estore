@@ -12,6 +12,11 @@
           android:layout_height="150dp">
 
       </com.jude.rollviewpager.RollPagerView>
+      <View
+          android:background="#d1cfcf"
+          android:layout_height="1dp"
+          android:layout_marginTop="1dp"
+          android:layout_width="match_parent"></View>
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -79,6 +84,10 @@
                 android:drawableTop="@mipmap/biji"
                 android:layout_weight="1"/>
       </LinearLayout>
+      <View
+          android:background="#d1cfcf"
+          android:layout_height="1dp"
+          android:layout_width="match_parent"></View>
 
       <com.handmark.pulltorefresh.library.PullToRefreshGridView
           xmlns:ptr="http://schemas.android.com/apk/res-auto"

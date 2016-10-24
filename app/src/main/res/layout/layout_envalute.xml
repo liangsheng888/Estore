@@ -129,7 +129,7 @@
             android:textSize="20sp"
 
             android:text="交易评分"/>
-        <RadioButton
+        <CheckBox
             android:id="@+id/xing_gray"
             android:layout_toRightOf="@id/tv_mai"
             android:layout_width="wrap_content"
@@ -138,61 +138,68 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray2"
             android:layout_toRightOf="@id/xing_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray3"
             android:layout_toRightOf="@id/xing_gray2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray4"
             android:layout_toRightOf="@id/xing_gray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray5"
             android:layout_toRightOf="@id/xing_gray4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray6"
             android:layout_toRightOf="@id/xing_gray5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray7"
             android:layout_toRightOf="@id/xing_gray6"
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
-        <ImageView
+        <CheckBox
             android:id="@+id/xing_gray8"
             android:layout_toRightOf="@id/xing_gray7"
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/xing_selector"
+            android:button="@null"
+            android:background="@drawable/xing_selector"
             />
     </RelativeLayout>
     <RelativeLayout

@@ -93,8 +93,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         //刷新
         if(!hidden){
             getData();
-
-
     }}
 
     private void getData() {
@@ -455,5 +453,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             return imgs.length;
         }
     }
+
 
 }
