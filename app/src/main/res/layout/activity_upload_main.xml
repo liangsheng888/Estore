@@ -1,261 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:scrollbars="vertical"
     android:fadingEdge="vertical"
-  >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:scrollbars="vertical">
 
-    android:orientation="vertical"
-    android:theme="@android:style/Theme.Holo.NoActionBar"
-    tools:context=".paimai.UploadAuctMainActivity">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        tools:context=".paimai.UploadAuctMainActivity">
 
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_title"
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#4e4949"
+                android:gravity="center"
+                android:text="上传拍卖信息"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#4e4949"
-            android:gravity="center"
-            android:text="上传拍卖信息"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/tv_upload_aucttitle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="标题哦"
-            android:textSize="25sp"
-            android:textColor="#000"/>
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <EditText
-            android:id="@+id/et_upload_aucttitle"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_upload_aucttitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="标题哦"
+                android:textColor="#000"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/et_upload_aucttitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="#000"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入狂拽酷霸炫的标题" />
-    </LinearLayout>
+            android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+            <Button
+                android:id="@+id/btn_auct_upload_phote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableRight="@drawable/auct_upload_phtoe"
+                android:onClick="simpleDialog"
+                android:text="上传图片"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_auct_upload_phote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/auct_upload_phtoe"
-            android:onClick="simpleDialog"
-            android:text="上传图片"
-            android:textSize="20sp"
-            android:background="@null"
-            />
-
-        <!--<ImageView-->
+            <!--<ImageView-->
             <!--android:id="@+id/iv_auct_modle_phote1"-->
             <!--android:layout_width="64dp"-->
             <!--android:layout_height="64dp"-->
             <!--android:scaleType="centerCrop"-->
             <!--android:src="@drawable/modlepicture1" />-->
-<GridView
-    android:id="@+id/gv_img"
-    android:layout_width="wrap_content"
-    android:layout_height="40dp"
-    android:numColumns="3">
+            <GridView
+                android:id="@+id/gv_img"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:numColumns="3">
 
-</GridView>
+            </GridView>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_auct_miaoshu"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商品描述"
+            android:background="#b5eaffee"
+            android:padding="10dp">
 
-            android:textColor="#000"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tv_auct_dizhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_auct_miaoshu"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_gps_gray"
+                android:text="地址"
+                android:textColor="#000"
+                android:textSize="20sp" />
 
+            <Spinner
+                android:id="@+id/sp_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_auct_dizhi"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv_auct_dizhi"
+                android:textColor="#000"
+                android:entries="@array/city"
+                android:popupBackground="#73cac2">
 
-        <EditText
-            android:id="@+id/et_auct_miaoshu"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/btn_auct_upload_phote"
-            android:layout_toRightOf="@+id/tv_auct_miaoshu"
-            android:background="@android:drawable/edit_text"
-            android:ellipsize="end"
-            android:textColor="#000"
-            android:gravity="top"/>
-    </LinearLayout>
+            </Spinner>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/tv_auct_dizhi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_auct_miaoshu"
-            android:layout_marginTop="20dp"
-            android:text="地址"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/sp_city"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/tv_auct_dizhi"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/tv_auct_dizhi"
-            android:entries="@array/city">
-
-        </Spinner>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/tv_auct_price"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sp_city"
-            android:text="底价"
-            android:textColor="#000"
-            android:textSize="20sp" />
+            android:background="#f6ffff"
+            android:padding="10dp">
 
-        <EditText
-            android:id="@+id/et_auct_price"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/sp_city"
-            android:layout_toRightOf="@+id/tv_auct_price"
-            android:hint="¥" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_auct_miaoshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品描述"
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+                android:textColor="#000"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/tv_auct_meicijiajia"
-            android:layout_width="wrap_content"
+
+            <EditText
+                android:id="@+id/et_auct_miaoshu"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/btn_auct_upload_phote"
+                android:layout_toRightOf="@+id/tv_auct_miaoshu"
+                android:background="@android:drawable/edit_text"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:textColor="#000" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_auct_price"
-            android:layout_marginTop="15dp"
-            android:text="每次加价"
-            android:textSize="20sp"
-            android:textColor="#000"/>
+            android:padding="10dp">
 
-        <NumberPicker
-            android:id="@+id/np_auct_bidprice"
+            <TextView
+                android:id="@+id/tv_auct_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sp_city"
+                android:text="底价:￥"
+                android:textColor="#000"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:id="@+id/et_auct_price"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/sp_city"
+                android:layout_toRightOf="@+id/tv_auct_price"
+                android:background="@drawable/tab_bg"
+
+                android:textColorHighlight="#000"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/dikang_bg"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_auct_meicijiajia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_auct_price"
+                android:layout_marginTop="15dp"
+                android:text="每次加价"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <NumberPicker
+                android:id="@+id/np_auct_bidprice"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignTop="@+id/tv_auct_meicijiajia"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/tv_auct_meicijiajia"
+                android:background="#744a17"
+                android:focusable="true"
+                android:textColor="#f00"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/prod_info_tv_fapiao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/ic_mail_install"
+                android:drawablePadding="3dp"
+                android:padding="10dp"
+                android:text="正规发票"
+                android:textColor="@android:color/background_dark"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/prod_info_tv_baoyou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_mail_install"
+                android:drawablePadding="3dp"
+                android:drawableRight="@android:drawable/checkbox_off_background"
+                android:padding="10dp"
+                android:text="全国包邮"
+                android:textColor="@android:color/background_dark"
+                android:textSize="12sp" />
+
+            <View
+                style="@style/bg_line"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_auct_type1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/tv_auct_meicijiajia"
+                android:text="类型"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/tv_auct_type2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignTop="@+id/tv_auct_type"
+                android:layout_toRightOf="@+id/tv_auct_type"
+                android:drawableEnd="@drawable/ic_arrow_right2"
+                android:gravity="center"
+                android:onClick="typeOnclick"
+                android:text="点击选择"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignTop="@+id/tv_auct_meicijiajia"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/tv_auct_meicijiajia"
-            android:background="#000000"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal" />
-    </LinearLayout>
+            android:background="@drawable/dikang_bg"
+            android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_auct_type"
-            android:layout_width="wrap_content"
+            <!--<DatePicker-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:id="@+id/datePicker"-->
+            <!--android:calendarViewShown="false"-->
+            <!--android:calendarTextColor="#000"-->
+            <!--android:background="#a8d1d2"/>-->
+            <TextView
+                android:id="@+id/tv_auct_time1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传的拍次"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_auct_time2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_auct_time1"
+                android:drawableRight="@drawable/ic_arrow_right2"
+                android:popupBackground="#a8d1d2"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:onClick="timeOnclick"/>
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_auct_quedingshangchuan"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-
-            android:textColor="#000"
-            android:layout_below="@+id/tv_auct_meicijiajia"
-            android:text="类型"
-            android:textSize="20sp" />
-
-
-
-        <Spinner
-            android:id="@+id/sp_auct_type"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignTop="@+id/tv_auct_type"
-            android:layout_toRightOf="@+id/tv_auct_type"
-
-            android:entries="@array/auct_type"
-            android:textSize="20sp" />
+            android:layout_gravity="center_horizontal"
+            android:background="#234256"
+            android:onClick="uploadauct"
+            android:text="确定上传" />
     </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:padding="10dp">
-
-
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/datePicker"
-            android:calendarViewShown="false"
-            android:calendarTextColor="#000"
-            android:background="#a8d1d2"/>
-        <Spinner
-
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignTop="@+id/tv_auct_type"
-        android:layout_toRightOf="@+id/tv_auct_type"
-        android:entries="@array/auct_zauct_tome"
-        android:textSize="20sp"
-
-            android:popupBackground="#a8d1d2"/>
-
-
-    </LinearLayout>
-    <Button
-        android:id="@+id/btn_auct_quedingshangchuan"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:onClick="uploadauct"
-        android:text="确定上传"
-        android:background="#234256"/>
-</LinearLayout>
 </ScrollView>
