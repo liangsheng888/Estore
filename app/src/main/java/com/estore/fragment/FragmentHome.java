@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
@@ -20,6 +21,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
 import com.estore.view.GridViewWithHeaderAndFooter;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -53,31 +56,35 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 /**
  * Created by Administrator on 2016/9/19.
  */
-public class FragmentHome extends Fragment implements View.OnClickListener {
+public class FragmentHome extends Fragment implements LoadListView.ILoadListener, View.OnClickListener {
     private static final int HOME =2 ;
     private static final int SAME_CITY = 3;
     private static final int HIGH_SCHOOL =4 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
-    private ListView lv_jingpin;
+    private LoadListView lv_jingpin;
    // PullToRefreshGridView prg;
     GridViewWithHeaderAndFooter gridViewWithHeaderAndFooter;
    // GridView gridView;
     private MyAdapter adapter;
   //  private AutoScrollViewPager autoScrollViewPager;
     List<ImageView> images = null;
+    private int page=1;
     private Button school;
     private Button city;
     private Button auction;
     private String[] imgurls;
     private RollPagerView mRollViewPager;
+    private RelativeLayout rl_header;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
+        lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
+       // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
+        lv_jingpin.setInterface(this);
 
-
-        lv_jingpin = (ListView) view.findViewById(R.id.lv_jingpin);
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
       //  prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
 
@@ -99,7 +106,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     }}
 
     private void getData() {
-        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
+        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page="+page;
 
 
         final RequestParams params = new RequestParams(url);
@@ -107,19 +114,33 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
             @Override
             public void onSuccess(String result) {
+                page++;
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
+
                 Log.e("MainActivity", "pro------"+pro.toString());
-                list.clear();
+
+                if(pro.list.size()<=0){
+                    View view=View.inflate(getActivity(),R.layout.footer_layout,null);
+                    ((LinearLayout)view.findViewById(R.id.load_layout)).setVisibility(View.GONE);
+                    ((LinearLayout)view.findViewById(R.id.load_nothing)).setVisibility(View.VISIBLE);
+
+
+                }
+                //list.clear();
                 list.addAll(pro.list);
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
                     adapter = new MyAdapter();
                 }else {
+
+                    lv_jingpin.setSelection(list.size()-1);
                     adapter.notifyDataSetChanged();
                 }
-             //   gridView.setAdapter(adapter);
+               // gridView.setAdapter(adapter);
+
                 lv_jingpin.setAdapter(adapter);
+
             }
 
             @Override
@@ -162,7 +183,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //long i = parent.getItemIdAtPosition(position);
                 Log.e("home", "点击事件");
-                Product.Products pp = list.get(position);
+                Product.Products pp = list.get(position-1);
                 //Toast.makeText(getActivity(), id + "", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ProductInfoActivity.class);
                 // intent.putExtra("pp",pp);
@@ -171,17 +192,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 intent.putExtras(bundle);
                 Log.e("FragmentHome", pp.toString());
                 startActivityForResult(intent,HOME);
-            }
-        });
-        lv_jingpin.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
             }
         });
         /*
@@ -299,6 +309,35 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取更多数据
+
+                getLoadData();
+//                //更新listview显示；
+//                showListView(apk_list);
+//                //通知listview加载完毕
+                lv_jingpin.loadComplete();
+            }
+        }, 2000);
+
+    }
+    //获取加载数据
+    public void getLoadData() {
+        getJinPinList();
+    }
+
+    private void getJinPinList() {
+        getData();
+
+
+    }
     public static class ViewHolder {
         TextView tv_name,tv_username;
         TextView tv_estoreprice,tv_jingpin_desc,tv_jingpin_address;
@@ -333,7 +372,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 convertView = View.inflate(getActivity(), R.layout.list_item, null);
 
                 //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
-                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id. gv_jingpin);
+                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);
 
                 viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
                 viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
@@ -361,7 +400,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             viewHolder. tv_jingpin_desc.setText(pp.description);
             viewHolder.tv_jingpin_address.setText(pp.proaddress);
 
-            viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
+            //viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
+           // viewHolder.gv_jingpin.setBackgroundColor(Color.WHITE);
+            viewHolder.gv_jingpin.setClickable(false);
+            viewHolder.gv_jingpin.setPressed(false);
+            viewHolder.gv_jingpin.setEnabled(false);
+
            // viewHolder.gv_jingpin.setLayoutParams(new LinearLayout.LayoutParams(200,400));
             viewHolder.gv_jingpin.setAdapter(new Adapter(imgurls));
             convertView.setBackgroundColor(Color.WHITE);
@@ -441,7 +485,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                if(convertView==null){
                 convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
                 ImageView iv=(ImageView) convertView.findViewById(R.id.iv_pro);
+
                 x.image().bind(iv,HttpUrlUtils.HTTP_URL+imgurls[position]);
+            convertView.setBackgroundColor(Color.WHITE);
             return convertView;
         }
 

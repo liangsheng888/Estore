@@ -27,6 +27,7 @@ import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
+import com.estore.httputils.SharedPreferencesUtils;
 import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Cart;
 import com.estore.pojo.Product;
@@ -163,6 +164,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);
                     return ;
                 }
+                GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
 
                 carNumber+=Integer.parseInt(edt.getText().toString().trim());
                 title_bar_reddot.setVisibility(View.VISIBLE);
@@ -179,7 +181,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 // Gson gson=new Gson();
                 //String json= gson.toJson(cart);
                 rp.addBodyParameter("product_id",pp.id+"");
-                rp.addBodyParameter("user_id",user.getUserId()+"");
+                rp.addBodyParameter("user_id",sp.getInt("userId",0)+"");
                 rp.addBodyParameter("cart_num",Integer.parseInt(edt.getText().toString().trim())+"");
                 rp.addBodyParameter("create_time",new Timestamp(System.currentTimeMillis()).toString());
                 //rp.addBodyParameter("cartInfo",json);
@@ -223,6 +225,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);
                     return ;
                 }
+                GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
                 user.setUserName(sp.getString("username",null));
                 MapSerializable ms=new MapSerializable();
                 mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
@@ -245,6 +248,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);//登录
                     return;
                 }
+                GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
 
                 Intent intent=new Intent(ProductInfoActivity.this,MainActivity.class);
                 intent.putExtra("direct",2);

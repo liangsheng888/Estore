@@ -311,8 +311,6 @@ public class FragmentCar extends Fragment {
             ImageView iv = viewHolder.getViewById(R.id.cart_item_prod_img);
             cart=cartlist.get(position);
             Log.e("FragmentCar","cart"+cart.toString());
-
-
             if(cart!=null)
             tv_price.setText(cart.getProduct().estoreprice + "");
             tv_num.setText(car_numbers.get(position) + "");//

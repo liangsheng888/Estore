@@ -33,6 +33,7 @@ import com.estore.fragment.FragmentCar;
 import com.estore.fragment.FragmentHome;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.fragment.EhFragment;
+import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Product;
@@ -158,10 +159,9 @@ public class MainActivity extends Activity {
 
                         if(sp.getString("username",null)==null){
                             ShowLoginDialogUtils.showDialogLogin(MainActivity.this);
-
-
                             return;
                         }
+                        GetUserIdByNet.getUserIdByNet(MainActivity.this);
 
                         newIndex=2;
                         changeFragment( newIndex);
