@@ -139,7 +139,7 @@
                 android:layout_width="80dp"
                 android:layout_alignParentRight="true"
                 android:layout_height="80dp"
-                android:src="@drawable/bijiben"
+                android:src="@drawable/computer_"
                />
         </RelativeLayout>
            <View
@@ -210,7 +210,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/bijiben"
+            android:src="@drawable/shouji"
            android:layout_alignParentRight="true" />
         </RelativeLayout>
         <View
@@ -229,7 +229,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/bijiben"
+            android:src="@drawable/shoubiao"
             android:id="@+id/iv_shoubiao"
             android:layout_alignParentRight="true"/>
 
