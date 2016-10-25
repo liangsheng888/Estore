@@ -88,6 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="正在进行中"
+            android:background="#7fc9ac"
             android:gravity="center"
             android:textSize="20sp" />
         <TextView
@@ -96,6 +97,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="未开始"
+            android:background="#7fc9ac"
+
             android:gravity="center"
             android:textSize="20sp" />
         <!--<Spinner-->
