@@ -3,28 +3,38 @@ package com.estore.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
+import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
+import com.estore.view.GridViewWithHeaderAndFooter;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -37,6 +47,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,37 +58,46 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 /**
  * Created by Administrator on 2016/9/19.
  */
-public class FragmentHome extends Fragment implements View.OnClickListener {
+public class FragmentHome extends Fragment implements LoadListView.ILoadListener, View.OnClickListener {
     private static final int HOME =2 ;
     private static final int SAME_CITY = 3;
     private static final int HIGH_SCHOOL =4 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
-    //private ListView lv_fr_home;
-    PullToRefreshGridView prg;
-    //vate GridViewWithHeaderAndFooter gridView;
-    GridView gridView;
+    private LoadListView lv_jingpin;
+   // PullToRefreshGridView prg;
+    GridViewWithHeaderAndFooter gridViewWithHeaderAndFooter;
+   // GridView gridView;
     private MyAdapter adapter;
-    private AutoScrollViewPager autoScrollViewPager;
+  //  private AutoScrollViewPager autoScrollViewPager;
     List<ImageView> images = null;
+    private int page=1;
     private Button school;
     private Button city;
     private Button auction;
     private String[] imgurls;
     private RollPagerView mRollViewPager;
+    private RelativeLayout rl_header;
+    private RelativeLayout computer;
+    private RelativeLayout computerText;
+    Integer orderFlag;
+    List<Product.Products> proList=new ArrayList<Product.Products>();
+    private String url;
+    private RelativeLayout phone;
+    private RelativeLayout watch;
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
-        PictureRoll(view);
+        lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
+       // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
+        lv_jingpin.setInterface(this);
 
-        //lv_fr_home = (ListView) view.findViewById(R.id.lv_fr_home);
-        //gridView = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gv_home);
-        prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
-        school = (Button) view.findViewById(R.id.btn_school_GridView_home);
+        //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
+      //  prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
 
-        city = (Button) view.findViewById(R.id.btn_city_GridView_home);
-        auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
 
         //autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
        // initViewPager();//
@@ -96,7 +116,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     }}
 
     private void getData() {
-        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
+        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page="+page;
 
 
         final RequestParams params = new RequestParams(url);
@@ -104,19 +124,33 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
             @Override
             public void onSuccess(String result) {
+                page++;
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
+
                 Log.e("MainActivity", "pro------"+pro.toString());
-                list.clear();
+
+                if(pro.list.size()<=0){
+                    View view=View.inflate(getActivity(),R.layout.footer_layout,null);
+                    ((LinearLayout)view.findViewById(R.id.load_layout)).setVisibility(View.GONE);
+                    ((LinearLayout)view.findViewById(R.id.load_nothing)).setVisibility(View.VISIBLE);
+
+
+                }
+                //list.clear();
                 list.addAll(pro.list);
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
                     adapter = new MyAdapter();
+                    lv_jingpin.setSelection(0);
                 }else {
+
+                    lv_jingpin.setSelection(list.size()-1);
                     adapter.notifyDataSetChanged();
                 }
-                gridView.setAdapter(adapter);
+               // gridView.setAdapter(adapter);
 
+                lv_jingpin.setAdapter(adapter);
 
             }
 
@@ -146,19 +180,17 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
-
-        gridView = prg.getRefreshableView();
-        gridView.setNumColumns(3);
-       // initPicture();
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
         //为GridView设置点击事件
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Log.e("home", "为GridView设置点击事件");
+        lv_jingpin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long i = parent.getItemIdAtPosition(position);
-                Product.Products pp = list.get(position);
-                Toast.makeText(getActivity(), id + "", Toast.LENGTH_LONG).show();
+                //long i = parent.getItemIdAtPosition(position);
+                Log.e("home", "点击事件");
+                Product.Products pp = list.get(position-1);
+                //Toast.makeText(getActivity(), id + "", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ProductInfoActivity.class);
                 // intent.putExtra("pp",pp);
                 Bundle bundle = new Bundle();
@@ -169,130 +201,34 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             }
         });
 
-        prg.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
-                Log.e("TAG", "onPullDownToRefresh"); // Do work to
-                String label = DateUtils.formatDateTime(
-                        getActivity(),
-                        System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME
-                                | DateUtils.FORMAT_SHOW_DATE
-                                | DateUtils.FORMAT_ABBREV_ALL);
+        View view=View.inflate(getActivity(),R.layout.fra_home_add_header,null);
 
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy()
-                        .setLastUpdatedLabel(label);
+        school = (Button) view.findViewById(R.id.btn_school_GridView_home);
 
+        city = (Button) view.findViewById(R.id.btn_city_GridView_home);
+        auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
+        computer = ((RelativeLayout) view.findViewById(R.id.rl_first_computer));
+        computerText = ((RelativeLayout) view.findViewById(R.id.rl_first_computertext));
+        phone = ((RelativeLayout) view.findViewById(R.id.rl_first_phone));
+        watch = ((RelativeLayout) view.findViewById(R.id.rl_first_watch));
+        computer.setOnClickListener(this);
+        computerText.setOnClickListener(this);
+        phone.setOnClickListener(this);
+        watch.setOnClickListener(this);
 
-                new GetDataTask(prg, adapter, list).execute();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
-                Log.e("TAG", "onPullUpToRefresh");
-                new GetDataTask(prg, adapter, list).execute();
-            }
-        });
-        new GetDataTask(prg, adapter, list).execute();
-        /*LinearLayout ll_head = new LinearLayout(getActivity());
-        //设置布局长度充满屏幕
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-        View view = View.inflate(getActivity(), R.layout.header_listview_home, null);
-        Button school = (Button) view.findViewById(R.id.btn_school_GridView_home);
-
-        Button city = (Button) view.findViewById(R.id.btn_city_GridView_home);
-        Button auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);*/
         school.setOnClickListener(this);
         city.setOnClickListener(this);
         auction.setOnClickListener(this);
-        // autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
+        PictureRoll(view);
 
-
-        // ll_head.addView(view, layoutParams);
+         // ll_head.addView(view, layoutParams);
         //为GrildView 添加头
-        // gridView.addHeaderView(ll_head);
+        lv_jingpin.addHeaderView(view);
         // lv_fr_home.addHeaderView(ll_head);
 
 
         super.onActivityCreated(savedInstanceState);
     }
-
-    private void initViewPager() {
-
-        autoScrollViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return Integer.MAX_VALUE;
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                container.addView((View) images.get(position % images.size()));
-                return images.get(position % images.size());
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View) object);
-            }
-
-
-        });
-       /* //设置滚动时延时时间
-
-        autoScrollViewPager.setInterval(2000);
-        //AutoScrollViewPager.RIGHT/AutoScrollViewPager.LEFT;
-        //设置轮播的方向
-        autoScrollViewPager.setDirection(AutoScrollViewPager.RIGHT);
-        //设置是否自动循环轮播，默认为true
-//注意：一旦设为true，则不能和ViewPagerIndicator一起使用
-        autoScrollViewPager.setCycle(true);
-//设置切换动画的时长
-        autoScrollViewPager.setScrollDurationFactor(10);
-//设置当滑动到最后一个或者第一个时，如何切换下一张
-        //设置当滑动到最后一个或者第一个时，如何切换下一张
-*//**
- * SLIDE_BORDER_MODE_NONE：不能再滑动
- * SLIDE_BORDER_MODE_TO_PARENT：移动父视图的Pager
- * SLIDE_BORDER_MODE_CYCLE：循环
- * 默认为SLIDE_BORDER_MODE_NONE
- *//*
-        autoScrollViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
-
-        //当触摸的时候，停止轮播
-        autoScrollViewPager.setStopScrollWhenTouch(true);*/
-    }
-
-    // 加载图片
-    private void initPicture() {
-
-        /*images = new ArrayList();
-        ImageView imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.a);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.b);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.c);
-        images.add(imageView);
-        imageView = new ImageView(getActivity());
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setImageResource(R.drawable.d);
-        images.add(imageView);*/
-
-    }
-
-
     @Override
     public void onDestroyView() {
         Log.e("home", "onDestroyView");
@@ -348,14 +284,102 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
 
                 break;
+            case R.id.rl_first_computer://电脑
+                orderFlag=1;
+                getProInfoByCategory(orderFlag);
+
+                break;
+            case R.id.rl_first_computertext://笔记本
+                orderFlag=2;
+                getProInfoByCategory(orderFlag);
+                break;
+            case R.id.rl_first_phone://手机
+                orderFlag=3;
+                getProInfoByCategory(orderFlag);
+                break;
+            case R.id.rl_first_watch://手表
+                orderFlag=4;
+                getProInfoByCategory(orderFlag);
+
+                break;
         }
 
     }
 
+    private void getProInfoByCategory(Integer orderFlag) {
+        url=HttpUrlUtils.HTTP_URL+"getComputerServlet?page=1";
+        RequestParams requestParams2=new RequestParams(url);
+        requestParams2.addQueryStringParameter("orderFlag",orderFlag+"");
+        x.http().get(requestParams2, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                Gson gson = new Gson();
+                Product pro = gson.fromJson(result, Product.class);
+                proList.addAll(pro.list);
+
+                Log.i("cc",list+"");
+                Intent intent1=new Intent(getActivity(),MainComputerActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("proList", (Serializable) proList);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //获取更多数据
+
+                getLoadData();
+//                //更新listview显示；
+//                showListView(apk_list);
+//                //通知listview加载完毕
+                lv_jingpin.loadComplete();
+            }
+        }, 2000);
+
+    }
+    //获取加载数据
+    public void getLoadData() {
+        getJinPinList();
+    }
+
+    private void getJinPinList() {
+        getData();
+
+
+    }
     public static class ViewHolder {
-        TextView tv_name;
-        TextView tv_estoreprice;
+        TextView tv_name,tv_username;
+        TextView tv_estoreprice,tv_jingpin_desc,tv_jingpin_address;
         ImageView iv;
+        //ViewPager vp_jingpin;
+        GridView gv_jingpin;
     }
 
 
@@ -382,18 +406,25 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = View.inflate(getActivity(), R.layout.list_item, null);
-                viewHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
 
-                viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_estoreprice);
+                //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
+                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);
+
+                viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
+                viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
+                viewHolder.tv_username = (TextView) convertView.findViewById(R.id.tv_username);
+                viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_jingpin_price);
+                viewHolder.tv_jingpin_address = (TextView) convertView.findViewById(R.id.tv_jingpin_address);
 
 
-                viewHolder.iv = (ImageView) convertView.findViewById(R.id.iv_userPhoto);
+               // viewHolder.iv = (ImageView) convertView.findViewById(R.id.iv_userPhoto);
 
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
                 //view = convertView;
             }
+
             Product.Products pp = list.get(position);//根据当前位置获得pp
             ImageOptions.Builder io = new ImageOptions.Builder();
             imgurls=pp.imgurl.split("=");//将拿到的图片路径分割成字符串数组
@@ -401,10 +432,19 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             // iv.setImageUrl(HttpUrlUtils.HTTP_URL+ pp.imgurl.trim(), R.drawable.sj, R.drawable.sj);
             Log.e("MainActivity", HttpUrlUtils.HTTP_URL +imgurls[0]);
             viewHolder.tv_name.setText(pp.name);
-            viewHolder.tv_estoreprice.setText(pp.estoreprice + "");
+            viewHolder.tv_estoreprice.setText("￥"+pp.estoreprice);
+            viewHolder. tv_jingpin_desc.setText(pp.description);
+            viewHolder.tv_jingpin_address.setText(pp.proaddress);
 
+            //viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
+           // viewHolder.gv_jingpin.setBackgroundColor(Color.WHITE);
+            viewHolder.gv_jingpin.setClickable(false);
+            viewHolder.gv_jingpin.setPressed(false);
+            viewHolder.gv_jingpin.setEnabled(false);
+
+           // viewHolder.gv_jingpin.setLayoutParams(new LinearLayout.LayoutParams(200,400));
+            viewHolder.gv_jingpin.setAdapter(new Adapter(imgurls));
             convertView.setBackgroundColor(Color.WHITE);
-
             return convertView;
         }
     }
@@ -452,6 +492,41 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         public int getCount() {
             return imgs.length;
         }
+    }
+
+    public class Adapter extends BaseAdapter{
+        private String[] imgurls;
+        public Adapter(String[] imgurls){
+            this.imgurls=imgurls;
+        }
+
+
+        @Override
+        public int getCount() {
+            return imgurls.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+               if(convertView==null){
+                convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
+                ImageView iv=(ImageView) convertView.findViewById(R.id.iv_pro);
+
+                x.image().bind(iv,HttpUrlUtils.HTTP_URL+imgurls[position]);
+            convertView.setBackgroundColor(Color.WHITE);
+            return convertView;
+        }
+
     }
 
 

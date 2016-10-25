@@ -26,7 +26,7 @@ import java.util.LinkedList;
  * Created by 执行Z on 2016/9/25.
  */
 public  class GetDataTask extends AsyncTask<Void,ArrayList<Product.Products>, Void> {
-    private static Integer page=1;
+    private  Integer page=1;
     private ArrayList<Product.Products> lists=new ArrayList<>();
     Product pro;
 

@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.pojo.MyPublishActivityBean;
 import com.estore.pojo.User;
 
 import org.xutils.common.Callback;
@@ -56,13 +57,11 @@ import java.util.UUID;
 /***
  * 发布商品
  */
-public class AddProActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class ModifyMyAddProductActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView tv_choice_photo;
     private TextView tv_school;
     private TextView tv_youfei;//邮费
     private Button btn_add_pro;
-
     private EditText et_proName;
     private EditText et_proNum;
     private EditText et_proPrice;
@@ -97,20 +96,34 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "AddProActivity";
     private SharedPreferences sp;
     private User user=new User();
+    private MyPublishActivityBean.ProImag list=new MyPublishActivityBean.ProImag();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_pro);
-        sp=getSharedPreferences("User",MODE_APPEND);
-        ;
-        user.setUserId(sp.getInt("userId",0));
-
+        setContentView(R.layout.activity_modify_my_add_product);
         initView();
+        sp=getSharedPreferences("User",MODE_APPEND);
+        user.setUserId(sp.getInt("userId",0));
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        Log.i("cc","ModifyMyAddProductActivity"+bundle);
+        list=(MyPublishActivityBean.ProImag) bundle.getSerializable("list");
+        Log.i("cc","ModifyMyAddProductActivity"+list);
+
+        Log.i("cc","list.name"+list.name);
+        et_proName.setText(list.name);
+        et_proNum.setText(list.pnum+"");
+        et_proDescription.setText(list.description);
+        et_proPrice.setText(list.estoreprice+"");
+        tv_fenlei.setText(list.category);
+
+
         initData();
     }
 
     private void initData() {
+
         btn_add_pro.setOnClickListener(this);
         tv_choice_photo.setOnClickListener(this);
         rl_fenlei.setOnClickListener(this);
@@ -124,38 +137,38 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         cb_baoyou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                  if(!isChecked){
-                      AlertDialog.Builder builder=new AlertDialog.Builder(AddProActivity.this);
-                      builder.setTitle("请输入邮费");
-                      final EditText et_youfei=new EditText(AddProActivity.this);
-                      builder.setView(et_youfei);
-                      builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                          @Override
-                          public void onClick(DialogInterface dialog, int which) {
-                              tv_youfei.setText("邮费  ￥"+et_youfei.getText().toString().trim());
-                              youfei=Integer.parseInt(et_youfei.getText().toString().trim());
-                              tv_youfei.setVisibility(View.VISIBLE);
+                if(!isChecked){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ModifyMyAddProductActivity.this);
+                    builder.setTitle("请输入邮费");
+                    final EditText et_youfei=new EditText(ModifyMyAddProductActivity.this);
+                    builder.setView(et_youfei);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tv_youfei.setText("邮费  ￥"+et_youfei.getText().toString().trim());
+                            youfei=Integer.parseInt(et_youfei.getText().toString().trim());
+                            tv_youfei.setVisibility(View.VISIBLE);
 
-                              dialog.dismiss();
+                            dialog.dismiss();
 
-                          }
-                      });
-                      builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                          @Override
-                          public void onClick(DialogInterface dialog, int which) {
-                              tv_youfei.setVisibility(View.GONE);
-                              cb_baoyou.setChecked(true);
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tv_youfei.setVisibility(View.GONE);
+                            cb_baoyou.setChecked(true);
 
-                          }
-                      });
-                      builder.show();
+                        }
+                    });
+                    builder.show();
 
-                  }else {
-                      tv_youfei.setText("");
-                      tv_youfei.setVisibility(View.GONE);
+                }else {
+                    tv_youfei.setText("");
+                    tv_youfei.setVisibility(View.GONE);
 
 
-                  }
+                }
             }
         });
         //为 spinner 设置点击事件sp_proAddress
@@ -183,7 +196,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
                         break;
 
                     case R.id.rb_shcool:
-                        AlertDialog.Builder builder=new AlertDialog.Builder(AddProActivity.this);
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ModifyMyAddProductActivity.this);
                         builder.setTitle("选择学校");
                         builder.setSingleChoiceItems(schoolData, 0, new DialogInterface.OnClickListener() {
                             @Override
@@ -212,8 +225,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         et_proDescription = (EditText) findViewById(R.id.et_proDescription);
         iv_add_pro_last = (ImageView) findViewById(R.id.iv_add_pro_last);
 //        iv_subOne = (ImageView) findViewById(R.id.iv_subOne);
-          sp_proAddress = (Spinner) findViewById(R.id.sp_proAddress);//        sp_proCategory=(Spinner)findViewById(R.id.sp_category);
-         rgIsSchool=(RadioGroup)findViewById(R.id.rgIsSchool);
+        sp_proAddress = (Spinner) findViewById(R.id.sp_proAddress);//        sp_proCategory=(Spinner)findViewById(R.id.sp_category);
+        rgIsSchool=(RadioGroup)findViewById(R.id.rgIsSchool);
         cb_baoyou=(CheckBox)findViewById(R.id.cb_baoyou);
         tv_school=(TextView)findViewById(R.id.tv_school);
         gv_showphoto=(GridView) this.findViewById(R.id.gv_showPhoto);
@@ -234,20 +247,21 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_add_pro://添加商品
                 Log.e(TAG, "添加商品");
                 addProducts();
+                Toast.makeText(getApplicationContext(),"修改成功",Toast.LENGTH_SHORT).show();
                 break;
-          case R.id.rl_fenlei://分类
-              AlertDialog.Builder builder=new AlertDialog.Builder(AddProActivity.this);
-              builder.setTitle("宝贝类别");
-              builder.setSingleChoiceItems(proNameData, 0, new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                      tv_fenlei.setText(proNameData[which]);
-                      dialog.dismiss();
+            case R.id.rl_fenlei://分类
+                AlertDialog.Builder builder=new AlertDialog.Builder(ModifyMyAddProductActivity.this);
+                builder.setTitle("宝贝类别");
+                builder.setSingleChoiceItems(proNameData, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tv_fenlei.setText(proNameData[which]);
+                        dialog.dismiss();
 
-                  }
-              });
-              builder.show();
-              break;
+                    }
+                });
+                builder.show();
+                break;
 
 
         }
@@ -263,7 +277,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "打开相机");
-               file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" +
+                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" +
                         getPhotoFileName());
 
                 getPictureByCamera(file);
@@ -289,37 +303,38 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         dialog.show();
     }
 
-    private void showDialog() {
-        builder=new AlertDialog.Builder(AddProActivity.this);
-        dialog=builder.create();
-        builder.setTitle("亲！你没有登录账号，请登录？");
-        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent=new Intent(AddProActivity.this,LoginOther.class);
-                startActivity(intent);
-
-
-            }
-        });
-        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent=new Intent(AddProActivity.this,RegisterActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        dialog.show();
-    }
+//    private void showDialog() {
+//        builder=new AlertDialog.Builder(ModifyMyAddProductActivity.this);
+//        dialog=builder.create();
+//        builder.setTitle("亲！你没有登录账号，请登录？");
+//        builder.setPositiveButton("登录", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                Intent intent=new Intent(ModifyMyAddProductActivity.this,LoginOther.class);
+//                startActivity(intent);
+//
+//
+//            }
+//        });
+//        builder.setNegativeButton("注册", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                Intent intent=new Intent(ModifyMyAddProductActivity.this,RegisterActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+//        dialog.show();
+//    }
 
     private void addProducts() {
         SharedPreferences sp=getSharedPreferences("User",Context.MODE_APPEND);
-        String username=sp.getString("username",null)  ;
-        if(TextUtils.isEmpty(username)){
-            showDialog() ;
+        String username=sp.getString("username",null);
+        int userId=sp.getInt("userId",0);
+//        if(TextUtils.isEmpty(username)){
+//            showDialog() ;
             /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
             final Dialog dialog=builder.create();
             builder.setTitle("亲！你没有登录账号，请登录？");
@@ -346,13 +361,12 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
                 }
             });
             builder.setView(view);
-            builder.show();*/
-            return;
-        }
+//            builder.show();*/
+//            return;
+//        }
 
 
         //数据上传服务器
-
         String proName = et_proName.getText().toString().trim();
         Log.e("AddProActivity",proName);
         String proNum = et_proNum.getText().toString().trim();
@@ -365,7 +379,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         Log.e("AddProActivity",address);
         String schoolname=tv_school.getText().toString().trim();
 
-        RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL+"addProductsByCilent");
+        RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL+"modifyProductByCilent");
+//        params.addQueryStringParameter("userId",userId+"");
        /* try {
             params = new RequestParams(HttpUrlUtils.HTTP_URL+"addProductsByCilent?file="+file+"&email=978188219@qq.com&proName="
                     + URLEncoder.encode(proName,"utf-8")+"&proNum="+proNum+"&proPrice="+proPrice+"&proCategory="+URLEncoder.encode(proCategory,"utf-8")+"&proDescription="+URLEncoder.encode(proDescription,"utf-8")+"&address="+ URLEncoder.encode(address,"utf-8"));
@@ -373,17 +388,16 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }*/
         try {
-        //params.setMultipart(true);
+            //params.setMultipart(true);
             for (int i=0;i<imageFileLists.size();i++){
                 params.addBodyParameter("file"+i,imageFileLists.get(i));
             }
-
-          params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
-          params.addBodyParameter("proNum",proNum);
+            params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
+            params.addBodyParameter("proNum",proNum);
             params.addBodyParameter("youfei",youfei+"");
-           params.addBodyParameter("proPrice",proPrice);
-           params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));
-           params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
+            params.addBodyParameter("proPrice",proPrice);
+            params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));
+            params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
             params.addBodyParameter("address",URLEncoder.encode(address,"utf-8"));
             params.addBodyParameter("prowhere",flag+"");
             params.addBodyParameter("schoolname",URLEncoder.encode(schoolname,"utf-8"));
@@ -395,49 +409,52 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-            if(result.equals("true")){
-                Toast.makeText(AddProActivity.this,"发布商品成功",Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder=new  AlertDialog.Builder(AddProActivity.this);
-                builder.setTitle("继续添加？");
-                builder.setPositiveButton("查看", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //跳转到我的发布
-                        Intent intent = new Intent(AddProActivity.this, PublishActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                builder.setNegativeButton("继续", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //清空数据
-                        et_proName.setText("");
-                        et_proPrice.setText("");
-                        et_proNum.setText("");
-                        cb_baoyou.setChecked(true);
-                        ((RadioButton)findViewById(R.id.rb_city)).setChecked(true);
-
-
-
-                        imageLists.clear();
-                        adapter.notifyDataSetChanged();
-
-
-
-
-                    }
-                });
-                builder.show();
-
-
-            }else{
-                Toast.makeText(AddProActivity.this,"发布失败",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(ModifyMyAddProductActivity.this,PublishActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(),"修改成功",  Toast.LENGTH_SHORT).show();
+//                if(result.equals("true")){
+//                    Toast.makeText(ModifyMyAddProductActivity.this,"发布商品成功",Toast.LENGTH_SHORT).show();
+//                    AlertDialog.Builder builder=new  AlertDialog.Builder(ModifyMyAddProductActivity.this);
+//                    builder.setTitle("继续添加？");
+//                    builder.setPositiveButton("查看", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            //跳转到我的发布
+//                            Intent intent = new Intent(ModifyMyAddProductActivity.this, PublishActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    builder.setNegativeButton("继续", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            //清空数据
+//                            et_proName.setText("");
+//                            et_proPrice.setText("");
+//                            et_proNum.setText("");
+//                            cb_baoyou.setChecked(true);
+//                            ((RadioButton)findViewById(R.id.rb_city)).setChecked(true);
+//
+//
+//
+//                            imageLists.clear();
+//                            adapter.notifyDataSetChanged();
+//
+//
+//
+//
+//                        }
+//                    });
+//                    builder.show();
+//
+//
+//                }else{
+//                    Toast.makeText(ModifyMyAddProductActivity.this,"发布失败",Toast.LENGTH_SHORT).show();
+//                }
             }
-            }
-
+//
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(AddProActivity.this,"网络异常",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModifyMyAddProductActivity.this,"网络异常",Toast.LENGTH_SHORT).show();
             }
 
             @Override
