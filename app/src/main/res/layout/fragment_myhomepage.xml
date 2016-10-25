@@ -6,8 +6,8 @@
     android:background="#ffffff">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#f7f6f6"
+        android:layout_height="60dp"
+        android:background="#f25226"
         >
         <ImageView
             android:id="@+id/iv_intercalate"
@@ -28,28 +28,30 @@
             android:layout_marginLeft="5dp"
 
             />
-        <ImageView
-            android:id="@+id/iv_userphoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/userphoto"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="渣渣冯"
-            android:textSize="22dp"
-            android:background="#d0d1d1"
-            android:layout_below="@id/iv_userphoto"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            />
+
     </RelativeLayout>
     <ImageView
+        android:id="@+id/iv_userphoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/userphoto"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="渣渣冯"
+        android:textSize="16dp"
+        android:background="#f8ffff"
+        android:layout_below="@id/iv_userphoto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        />
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         android:background="#f2f2f2"
         />
     <RadioGroup
@@ -81,7 +83,7 @@
     <!-- 分割线 -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         android:background="#f2f2f2"
         />
     <RadioGroup

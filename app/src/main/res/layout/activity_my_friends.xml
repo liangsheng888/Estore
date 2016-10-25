@@ -7,8 +7,8 @@
     tools:context="com.estore.activity.MyFriendsActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#f7f6f6"
+        android:layout_height="60dp"
+        android:background="#f26522"
         >
         <ImageView
             android:id="@+id/iv_friendsreturn"
@@ -19,13 +19,22 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             />
-        <ImageView
+        <TextView
+            android:id="@+id/tv_treasure"
+            android:layout_width="wrap_content"
+            android:text="好友列表"
+            android:layout_centerInParent="true"
+            android:textSize="26sp"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            />
+        <!--<ImageView
             android:id="@+id/iv_userphoto"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/userphoto"
           android:layout_centerInParent="true"
-            />
+            />-->
     </RelativeLayout>
     <!-- 分割线 -->
     <ImageView
@@ -34,26 +43,8 @@
         android:layout_height="1dp"
         android:background="#dad9d9"
         />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
-        <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:background="#f7f6f6"
-            android:layout_height="40dp">
-            <TextView
-                android:id="@+id/tv_treasure"
-                android:layout_width="wrap_content"
-                android:text="好友列表"
-                android:layout_centerInParent="true"
-                android:textSize="22sp"
-                android:layout_height="wrap_content"
-                />
-        </RelativeLayout>
-    </RelativeLayout>
+
+
     <!-- 分割线 -->
     <ImageView
         android:id="@+id/line2"

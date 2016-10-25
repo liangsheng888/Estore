@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#dedbdb"
+        android:background="#f26522"
         >
         <ImageView
             android:id="@+id/iv_audetial_return"
@@ -22,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="宝贝详情"
-            android:textSize="24dp"
+            android:textSize="26dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
             />
     </RelativeLayout>

@@ -46,8 +46,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="手  机"/>
+                android:textSize="18sp"
+                android:text="手机"/>
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
@@ -58,8 +58,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="电  脑"/>
+                android:textSize="18sp"
+                android:text="电脑"/>
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:text="笔记本"/>
             <ImageView
                 android:layout_width="1dp"
@@ -82,8 +82,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="其  他"/>
+                android:textSize="18sp"
+                android:text="其他"/>
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
@@ -94,8 +94,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="价 格↑"/>
+                android:textSize="18sp"
+                android:text="价格↑"/>
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
@@ -106,8 +106,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="价 格↓"/>
+                android:textSize="18sp"
+                android:text="价格↓"/>
         </LinearLayout>
         <!--</HorizontalScrollView>-->
         <!--<ListView

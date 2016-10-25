@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#f7f6f6"
+        android:background="#f26522"
         >
         <ImageView
             android:id="@+id/iv_carereturn"
@@ -25,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的关注"
-            android:textSize="24dp"
+            android:textSize="26dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
 
             />

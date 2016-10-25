@@ -5,7 +5,7 @@
   	    android:layout_height="48dp"
   	    android:orientation="horizontal"
   	    android:weightSum="5"
-  	    android:background="#1d1a1a">
+	   android:background="#f26522">
   	    <ImageView 
   	        android:id="@+id/iv_project_detail_back"
   	        android:layout_weight="1"
@@ -42,8 +42,8 @@
   	        />
   	       <TextView
   	       	 android:id="@+id/title_bar_reddot"
-	        android:layout_width="26dp"
-	        android:layout_height="20dp"
+	        android:layout_width="30dp"
+	        android:layout_height="17dp"
 	        android:layout_alignRight="@id/id_prod_list_iv_right"
 			android:background="@drawable/reddot"
 
