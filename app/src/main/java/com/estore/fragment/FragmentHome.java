@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
+import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
@@ -46,6 +47,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,6 +77,14 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private String[] imgurls;
     private RollPagerView mRollViewPager;
     private RelativeLayout rl_header;
+    private RelativeLayout computer;
+    private RelativeLayout computerText;
+    Integer orderFlag;
+    List<Product.Products> proList=new ArrayList<Product.Products>();
+    private String url;
+    private RelativeLayout phone;
+    private RelativeLayout watch;
+
 
 
 
@@ -132,6 +142,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
                     adapter = new MyAdapter();
+                    lv_jingpin.setSelection(0);
                 }else {
 
                     lv_jingpin.setSelection(list.size()-1);
@@ -169,11 +180,6 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
-
-       /* gridView = prg.getRefreshableView();
-        gridView.setNumColumns(3);
-*/
-       // initPicture();
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
         //为GridView设置点击事件
@@ -194,49 +200,22 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 startActivityForResult(intent,HOME);
             }
         });
-        /*
-        prg.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
-                Log.e("TAG", "onPullDownToRefresh"); // Do work to
-                String label = DateUtils.formatDateTime(
-                        getActivity(),
-                        System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME
-                                | DateUtils.FORMAT_SHOW_DATE
-                                | DateUtils.FORMAT_ABBREV_ALL);
 
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy()
-                        .setLastUpdatedLabel(label);
-
-
-                new GetDataTask(prg, adapter, list).execute();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
-                Log.e("TAG", "onPullUpToRefresh");
-                new GetDataTask(prg, adapter, list).execute();
-            }
-        });*/
-        //new GetDataTask(prg, adapter, list).execute();
-        /*LinearLayout ll_head = new LinearLayout(getActivity());
-        //设置布局长度充满屏幕
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-        View view = View.inflate(getActivity(), R.layout.header_listview_home, null);
-        Button school = (Button) view.findViewById(R.id.btn_school_GridView_home);
-
-        Button city = (Button) view.findViewById(R.id.btn_city_GridView_home);
-        Button auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);*/
-
-        // autoScrollViewPager = (AutoScrollViewPager) view.findViewById(R.id.autoScrollViewPager);//找到AutoScrollViewPager
         View view=View.inflate(getActivity(),R.layout.fra_home_add_header,null);
 
         school = (Button) view.findViewById(R.id.btn_school_GridView_home);
 
         city = (Button) view.findViewById(R.id.btn_city_GridView_home);
         auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
+        computer = ((RelativeLayout) view.findViewById(R.id.rl_first_computer));
+        computerText = ((RelativeLayout) view.findViewById(R.id.rl_first_computertext));
+        phone = ((RelativeLayout) view.findViewById(R.id.rl_first_phone));
+        watch = ((RelativeLayout) view.findViewById(R.id.rl_first_watch));
+        computer.setOnClickListener(this);
+        computerText.setOnClickListener(this);
+        phone.setOnClickListener(this);
+        watch.setOnClickListener(this);
+
         school.setOnClickListener(this);
         city.setOnClickListener(this);
         auction.setOnClickListener(this);
@@ -305,7 +284,64 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
 
                 break;
+            case R.id.rl_first_computer://电脑
+                orderFlag=1;
+                getProInfoByCategory(orderFlag);
+
+                break;
+            case R.id.rl_first_computertext://笔记本
+                orderFlag=2;
+                getProInfoByCategory(orderFlag);
+                break;
+            case R.id.rl_first_phone://手机
+                orderFlag=3;
+                getProInfoByCategory(orderFlag);
+                break;
+            case R.id.rl_first_watch://手表
+                orderFlag=4;
+                getProInfoByCategory(orderFlag);
+
+                break;
         }
+
+    }
+
+    private void getProInfoByCategory(Integer orderFlag) {
+        url=HttpUrlUtils.HTTP_URL+"getComputerServlet?page=1";
+        RequestParams requestParams2=new RequestParams(url);
+        requestParams2.addQueryStringParameter("orderFlag",orderFlag+"");
+        x.http().get(requestParams2, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+                Gson gson = new Gson();
+                Product pro = gson.fromJson(result, Product.class);
+                proList.addAll(pro.list);
+
+                Log.i("cc",list+"");
+                Intent intent1=new Intent(getActivity(),MainComputerActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("proList", (Serializable) proList);
+                intent1.putExtras(bundle);
+                startActivity(intent1);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
 
     }
 

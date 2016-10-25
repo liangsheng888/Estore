@@ -115,6 +115,7 @@
 
         android:layout_marginTop="1dp">
         <RelativeLayout
+            android:id="@+id/rl_first_computer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -147,6 +148,7 @@
             android:layout_height="80dp"
               ></View>
         <RelativeLayout
+            android:id="@+id/rl_first_computertext"
             android:layout_margin="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -185,6 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:id="@+id/rl_first_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -218,6 +221,7 @@
             android:layout_centerHorizontal="true"></View>
 
         <RelativeLayout
+            android:id="@+id/rl_first_watch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

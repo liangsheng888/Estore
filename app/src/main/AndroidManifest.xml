@@ -49,6 +49,7 @@
         <activity android:name=".LoginOther" />
         <activity android:name=".EdtAddressActivity" />
         <activity android:name=".ModifyMyAddProductActivity"></activity>
+        <activity android:name=".MainComputerActivity"></activity>
     </application>
 
 </manifest>
