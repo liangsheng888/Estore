@@ -333,7 +333,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 convertView = View.inflate(getActivity(), R.layout.list_item, null);
 
                 //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
-                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id. gv_jingpin);
+                viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);
 
                 viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
                 viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
@@ -362,6 +362,11 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             viewHolder.tv_jingpin_address.setText(pp.proaddress);
 
             viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
+            viewHolder.gv_jingpin.setBackgroundColor(Color.WHITE);
+            viewHolder.gv_jingpin.setClickable(false);
+            viewHolder.gv_jingpin.setPressed(false);
+            viewHolder.gv_jingpin.setEnabled(false);
+
            // viewHolder.gv_jingpin.setLayoutParams(new LinearLayout.LayoutParams(200,400));
             viewHolder.gv_jingpin.setAdapter(new Adapter(imgurls));
             convertView.setBackgroundColor(Color.WHITE);
@@ -441,7 +446,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                if(convertView==null){
                 convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
                 ImageView iv=(ImageView) convertView.findViewById(R.id.iv_pro);
+
                 x.image().bind(iv,HttpUrlUtils.HTTP_URL+imgurls[position]);
+            convertView.setBackgroundColor(Color.WHITE);
             return convertView;
         }
 

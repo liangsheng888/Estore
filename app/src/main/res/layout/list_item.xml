@@ -6,6 +6,7 @@
     android:background="#fafafc"
     android:gravity="center"
     android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
     android:padding="10dp">
     <!--<com.loopj.android.image.SmartImageView
         android:id="@+id/iv_userPhoto"
@@ -60,6 +61,7 @@
         android:layout_height="140dp"
         android:numColumns="3"
         android:clickable="false"
+        android:descendantFocusability="blocksDescendants"
         android:touchscreenBlocksFocus="false"
         android:layout_marginTop="10dp"></GridView>
     <TextView
