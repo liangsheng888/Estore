@@ -50,6 +50,7 @@
         <activity android:name=".EdtAddressActivity" />
         <activity android:name=".ModifyMyAddProductActivity"></activity>
         <activity android:name=".MainComputerActivity"></activity>
+        <activity android:name=".PaiMaiAll"></activity>
     </application>
 
 </manifest>

@@ -35,8 +35,11 @@ public class PaiMaiAll extends AppCompatActivity {
     final ArrayList<ProductAll> auctList = new ArrayList<>();
     List<ProductAll> newlist = new ArrayList<ProductAll>();
     String bidTime = "12";
-    private ListView lv_paimai_all_;
-    final Map<String, List> listPaiMai = new HashMap<>();
+    private ListView lv_paimai_all_1;
+    private ListView lv_paimai_all_2;
+    private ListView lv_paimai_all_3;
+    private ListView lv_paimai_all_4;
+    Map<String, List> listPaiMai = new HashMap<>();
     List<String> imgurlList = new ArrayList<>();
 
     @Override
@@ -82,8 +85,10 @@ public class PaiMaiAll extends AppCompatActivity {
 
     private void initView() {
 
-        lv_paimai_all_ = ((ListView) findViewById(R.id.lv_paimai_all_));
-
+        lv_paimai_all_1 = ((ListView) findViewById(R.id.lv_paimai_all_1));
+        lv_paimai_all_2 = ((ListView) findViewById(R.id.lv_paimai_all_2));
+        lv_paimai_all_3 = ((ListView) findViewById(R.id.lv_paimai_all_3));
+        lv_paimai_all_4 = ((ListView) findViewById(R.id.lv_paimai_all_4));
     }
 
     private void initEven() {
@@ -92,15 +97,19 @@ public class PaiMaiAll extends AppCompatActivity {
     }
 
     private void initData() {
-        listPaiMai.put(bidTime="08",auctList);
-        listPaiMai.put(bidTime="12",auctList);
-        listPaiMai.put(bidTime="16",auctList);
-        listPaiMai.put(bidTime="20",auctList);
+        listPaiMai = new HashMap<>();
+
+//        listPaiMai.put(bidTime="12",auctList);
+//        listPaiMai.put(bidTime="16",auctList);
+//        listPaiMai.put(bidTime="20",auctList);
         new Thread(new Runnable() {
             @Override
             public void run() {
+                listPaiMai.put(bidTime="08",auctList);
                 bidTime = "08";
                 getAdapter();
+                lv_paimai_all_1.setAdapter(adapter);
+                getPaiMaiAllData();
             }
         }).start();
 
@@ -109,6 +118,8 @@ public class PaiMaiAll extends AppCompatActivity {
             public void run() {
                 bidTime = "12";
                 getAdapter();
+                lv_paimai_all_2.setAdapter(adapter);
+                getPaiMaiAllData();
             }
         }).start();
         new Thread(new Runnable() {
@@ -116,6 +127,8 @@ public class PaiMaiAll extends AppCompatActivity {
             public void run() {
                 bidTime = "16";
                 getAdapter();
+                lv_paimai_all_3.setAdapter(adapter);
+                getPaiMaiAllData();
             }
         }).start();
         new Thread(new Runnable() {
@@ -123,6 +136,8 @@ public class PaiMaiAll extends AppCompatActivity {
             public void run() {
                 bidTime = "20";
                 getAdapter();
+                lv_paimai_all_4.setAdapter(adapter);
+                getPaiMaiAllData();
             }
         }).start();
 //        Handler handler = new Handler();
@@ -191,8 +206,7 @@ public class PaiMaiAll extends AppCompatActivity {
             }
 
         };
-        lv_paimai_all_.setAdapter(adapter);
-        getPaiMaiAllData();
+
     }
 
 

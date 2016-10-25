@@ -30,7 +30,25 @@
 
 
     <ListView
-        android:id="@+id/lv_paimai_all_"
+        android:id="@+id/lv_paimai_all_1"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    <ListView
+        android:id="@+id/lv_paimai_all_2"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    <ListView
+        android:id="@+id/lv_paimai_all_3"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    <ListView
+        android:id="@+id/lv_paimai_all_4"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -24,7 +24,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="#4e4949"
+                android:background="#f26522"
                 android:gravity="center"
                 android:text="上传拍卖信息"
                 android:textColor="#fff"
@@ -67,6 +67,7 @@
                 android:drawableRight="@drawable/auct_upload_phtoe"
                 android:onClick="simpleDialog"
                 android:text="上传图片"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <!--<ImageView-->
@@ -167,7 +168,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/sp_city"
                 android:layout_toRightOf="@+id/tv_auct_price"
-                android:background="@drawable/tab_bg"
+                android:background="#f5e9e9"
 
                 android:textColorHighlight="#000"
                 android:textColor="@color/black"
@@ -313,7 +314,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="#234256"
+            android:background="#f26522"
             android:onClick="uploadauct"
             android:text="确定上传" />
     </LinearLayout>

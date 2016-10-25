@@ -36,7 +36,7 @@
         android:layout_height="100dp"
         android:horizontalSpacing="3dp"
         android:numColumns="3"
-        android:padding="5dp"
+
         ></GridView>
 
     <TextView
@@ -56,6 +56,6 @@
         android:gravity="center"
         android:text="今天限时热销描述"
         android:textSize="20sp"
-        android:background="#d9d7aa"/>
+        android:background="#cad4f9"/>
 
 </LinearLayout>
