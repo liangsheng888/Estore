@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="#1ff7f9f9"
+    android:background="#1fc1f2ec"
     android:gravity="center">
     <RadioGroup
         android:layout_width="match_parent"
@@ -12,23 +12,23 @@
         android:id="@+id/rg_addPro">
         <RadioButton
             android:id="@+id/rb_fabupro"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:button="@null"
             android:gravity="center"
             android:textSize="18sp"
-            android:drawableTop="@mipmap/addpro"
+            android:drawableTop="@drawable/addpro"
             android:text="发布"
-            android:layout_height="100dp" />
+            android:layout_height="120dp" />
     <RadioButton
         android:id="@+id/rb_paimaipro"
         android:layout_width="wrap_content"
-        android:drawableTop="@mipmap/pai"
+        android:drawableTop="@drawable/jingpai"
         android:text="拍卖"
         android:layout_marginLeft="90dp"
         android:gravity="center"
         android:button="@null"
         android:textSize="18sp"
-        android:layout_height="100dp" />
+        android:layout_height="120dp" />
 
     </RadioGroup>
 </LinearLayout>

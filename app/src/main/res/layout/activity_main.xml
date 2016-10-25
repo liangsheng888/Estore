@@ -62,7 +62,7 @@
                 android:id="@+id/rb_fabu"
                 style="@style/main_rb_driection"
                 android:drawableTop="@drawable/add_selector"
-                android:text="发布"/>
+                />
             <RadioButton
                 android:id="@+id/rb_cat"
                 style="@style/main_rb_driection"
