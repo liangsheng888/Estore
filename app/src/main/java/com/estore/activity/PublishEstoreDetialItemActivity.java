@@ -69,11 +69,11 @@ public class PublishEstoreDetialItemActivity extends AppCompatActivity {
         //判断同城高校
         // Toast.makeText(getActivity(),pro.heighschool+"",Toast.LENGTH_LONG).show();
         if (bundlepro.prowhere==1) {//高校
-            tv_pubestorewhere1.setText(bundlepro.samecity);
+            tv_pubestorewhere1.setText(bundlepro.cityaddress);
         }
         if(bundlepro.prowhere==0) {//同城高校
-            tv_pubestorewhere.setText(bundlepro.samecity);
-            tv_pubestorewhere1.setText(bundlepro.heighschool);
+            tv_pubestorewhere.setText(bundlepro.cityaddress);
+            tv_pubestorewhere1.setText(bundlepro.schoolname);
 
         }
 

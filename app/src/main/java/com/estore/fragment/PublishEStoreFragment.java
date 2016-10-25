@@ -4,6 +4,8 @@ package com.estore.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.activity.ModifyMyAddProductActivity;
 import com.estore.activity.PublishEstoreDetialItemActivity;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
@@ -33,14 +36,20 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import swipetodismiss.SwipeMenu;
+import swipetodismiss.SwipeMenuCreator;
+import swipetodismiss.SwipeMenuItem;
+import swipetodismiss.SwipeMenuListView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PublishEStoreFragment extends Fragment {
     //fragment生命周期
+    MyPublishActivityBean.ProImag  pro;
     private TextView tv_btestore;
-    private ListView lv_publishest;
+    private SwipeMenuListView lv_publishest;
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
     private BaseAdapter  adapter;
     User user=new User();
@@ -62,7 +71,7 @@ public class PublishEStoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         getProduct();
         View view=inflater.inflate(R.layout.fragment_publish_estore,null);
-        lv_publishest= ((ListView) view.findViewById(R.id.lv_publishest));
+        lv_publishest= ((SwipeMenuListView) view.findViewById(R.id.lv_publishest));
         //跳到详细页
         lv_publishest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,6 +91,85 @@ public class PublishEStoreFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //adapter=new myAdapter();
+
+        SwipeMenuCreator creator=new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+
+                // 设置修改框
+                SwipeMenuItem zhidingitem = new SwipeMenuItem(getActivity());
+                zhidingitem.setBackground(new ColorDrawable(Color.GRAY));
+                zhidingitem.setWidth(dp2px(90));
+                zhidingitem.setTitle("修改");
+                zhidingitem.setTitleSize(15);
+                zhidingitem.setTitleColor(Color.WHITE);
+                menu.addMenuItem(zhidingitem);
+
+                // 设置删除框
+                SwipeMenuItem deleteitem = new SwipeMenuItem(getActivity());
+                deleteitem.setBackground(new ColorDrawable(Color.RED));
+                deleteitem.setWidth(dp2px(90));
+                deleteitem.setTitle("删除");
+                deleteitem.setTitleSize(15);
+                deleteitem.setTitleColor(Color.WHITE);
+                menu.addMenuItem(deleteitem);
+            }
+        };
+        lv_publishest.setMenuCreator(creator);
+        lv_publishest.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick( final int  position, SwipeMenu menu, int index) {
+
+                switch (index){
+                    case 0:
+                        MyPublishActivityBean.ProImag list=prolist.get(position);
+                        Log.i("cc","list"+list);
+                        Intent intent=new Intent(getActivity(), ModifyMyAddProductActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable("list",list);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+//                        Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+
+                        String url=HttpUrlUtils.HTTP_URL+"deleteMyAddProductServlet";
+                        int productId=prolist.get(position).id;
+                        Log.i("cc","position"+position);
+                        Log.i("cc","productId"+productId);
+                        RequestParams requestParams=new RequestParams(url);
+                        requestParams.addQueryStringParameter("productId",productId+"");
+                        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
+                                prolist.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+                                Toast.makeText(getActivity(),"删除失败",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+
+                        break;
+
+                }
+
+                return false;
+            }
+        });
 
     }
     //适配器
@@ -128,11 +216,11 @@ public class PublishEStoreFragment extends Fragment {
             //判断同城高校
             // Toast.makeText(getActivity(),pro.heighschool+"",Toast.LENGTH_LONG).show();
             if (pro.prowhere==1) {//高校
-                tv_pubestorewhere.setText(pro.samecity);
+                tv_pubestorewhere.setText(pro.cityaddress);
             }
             if(pro.prowhere==0) {//同城高校
-                tv_pubestorewhere.setText(pro.samecity);
-                tv_pubestorewhere1.setText(pro.heighschool);
+                tv_pubestorewhere.setText(pro.cityaddress);
+                tv_pubestorewhere1.setText(pro.schoolname);
 
             }
             return view;
@@ -181,6 +269,8 @@ public class PublishEStoreFragment extends Fragment {
     private void getProduct() {
         //RequestParams requestParams=new RequestParams("http://10.40.5.18:8080/EStore/getmypublishservlet?email=491830643@qq.com");
         String url = HttpUrlUtils.HTTP_URL + "myAddProductsServlet?user_id="+user.getUserId();//访问网络的url
+        Log.i("cc",user.getUserId()+"");
+        Log.i("cc",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -188,6 +278,7 @@ public class PublishEStoreFragment extends Fragment {
                 Log.e("PublishEStoreFragment","result"+result);
                 Gson gson=new Gson();
                 MyPublishActivityBean  probean=gson.fromJson(result,MyPublishActivityBean.class);
+                Log.i("cc","probean"+probean+"");
                 prolist.addAll(probean.list);
                 Log.e("PublishEStoreFragment",prolist.toString());
                 if(adapter==null){
@@ -219,5 +310,10 @@ public class PublishEStoreFragment extends Fragment {
         });
     }
 
+
+    public int dp2px(float dipValue) {
+        final float scale = this.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
 
 }

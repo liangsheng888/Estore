@@ -13,18 +13,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ListViewActivity" />
-        <activity android:name=".ViewPagerActivity" >
+        <activity android:name=".ViewPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddProActivity"></activity>
+        <activity android:name=".AddProActivity" />
         <activity android:name=".ProductInfoActivity" />
         <activity android:name=".MyPullToRefreshListView" />
         <activity android:name=".PaimaiMainActivity" />
@@ -46,8 +46,9 @@
         <activity android:name=".PaiMaiMain_bidding" />
         <activity android:name=".AddessListActivity" />
         <activity android:name=".AddressSelector" />
-        <activity android:name=".LoginOther"></activity>
-        <activity android:name=".EdtAddressActivity"></activity>
+        <activity android:name=".LoginOther" />
+        <activity android:name=".EdtAddressActivity" />
+        <activity android:name=".ModifyMyAddProductActivity"></activity>
     </application>
 
 </manifest>
