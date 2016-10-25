@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#54a97c">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="8:00-12:00场"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="距结束 00 时 12 分 10 秒"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_paimai_all"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:horizontalSpacing="3dp"
+        android:numColumns="3"
+        android:padding="5dp"
+        ></GridView>
+
+    <TextView
+        android:id="@+id/tv_paimai_all_collet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="#0b542e"
+        android:padding="5dp"
+        android:text="998次收藏"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="今天限时热销描述"
+        android:textSize="20sp"
+        android:background="#d9d7aa"/>
+
+</LinearLayout>
