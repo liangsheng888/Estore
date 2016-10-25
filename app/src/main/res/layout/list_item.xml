@@ -61,6 +61,9 @@
         android:layout_height="140dp"
         android:numColumns="3"
         android:clickable="false"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:background="#fdf9f9"
         android:descendantFocusability="blocksDescendants"
         android:touchscreenBlocksFocus="false"
         android:layout_marginTop="10dp"></GridView>

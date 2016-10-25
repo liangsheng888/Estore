@@ -132,6 +132,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
 
 
     }
+
 public  void  adapter(){
     adapter = new BaseAdapter() {
         @Override

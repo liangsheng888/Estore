@@ -378,8 +378,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
                 params.addBodyParameter("file"+i,imageFileLists.get(i));
             }
 
-        params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
-        params.addBodyParameter("proNum",proNum);
+          params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
+          params.addBodyParameter("proNum",proNum);
             params.addBodyParameter("youfei",youfei+"");
            params.addBodyParameter("proPrice",proPrice);
            params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));

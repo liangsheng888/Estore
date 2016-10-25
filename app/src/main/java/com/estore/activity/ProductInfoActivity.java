@@ -181,7 +181,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 // Gson gson=new Gson();
                 //String json= gson.toJson(cart);
                 rp.addBodyParameter("product_id",pp.id+"");
-                rp.addBodyParameter("user_id",user.getUserId()+"");
+                rp.addBodyParameter("user_id",sp.getInt("userId",0)+"");
                 rp.addBodyParameter("cart_num",Integer.parseInt(edt.getText().toString().trim())+"");
                 rp.addBodyParameter("create_time",new Timestamp(System.currentTimeMillis()).toString());
                 //rp.addBodyParameter("cartInfo",json);
