@@ -214,7 +214,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                 System.out.println(position);
                 address = addressList.get(position);
                 bundle.putSerializable("addressSign", address);
-                intent.putExtra("addressedt", ADDRESSEDT);//传到编辑页面的标志位
+//                intent.putExtra("addressedt", ADDRESSEDT);//传到编辑页面的标志位
                 intent.putExtras(bundle);
                 System.out.println("点击编辑携带数据填充" + address);
                 startActivityForResult(intent, EDTADDRESS);

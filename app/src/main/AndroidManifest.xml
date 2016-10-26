@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ListViewActivity" />
@@ -48,9 +49,10 @@
         <activity android:name=".AddressSelector" />
         <activity android:name=".LoginOther" />
         <activity android:name=".EdtAddressActivity" />
-        <activity android:name=".ModifyMyAddProductActivity"></activity>
-        <activity android:name=".MainComputerActivity"></activity>
-        <activity android:name=".PaiMaiAll"></activity>
+        <activity android:name=".ModifyMyAddProductActivity" />
+        <activity android:name=".MainComputerActivity" />
+        <activity android:name=".PaiMaiAll" />
+        <activity android:name=".PaiMAIbidding_bidActivity"></activity>
     </application>
 
 </manifest>

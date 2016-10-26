@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
     Address address;
     public  final static int SIGN=4; //传值回调标志位
     private LinearLayout ll_auct_address;
+    private Button btn_up_baozheng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,13 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
         tv_usertel = ((TextView) findViewById(R.id.tv_usertel));
         tv_address_info = ((TextView) findViewById(R.id.tv_address_info));
         ll_auct_address = ((LinearLayout) findViewById(R.id.ll_auct_address));
+        btn_up_baozheng = ((Button) findViewById(R.id.btn_up_baozheng));
 
     }
 
     private void initEven() {
         tv_bidding_addess.setOnClickListener(this);
+        btn_up_baozheng.setOnClickListener(this);
     }
 
     private void initData() {
@@ -74,6 +78,11 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
                 bundle.putInt("addressSign", addressSign);
                 intent.putExtras(bundle);
                 startActivityForResult(intent,SIGN);
+                break;
+            case R.id.btn_up_baozheng:
+                intent=new Intent(getApplicationContext(),PaiMaiMain_bidding.class);
+                startActivity(intent);
+
                 break;
         }
     }

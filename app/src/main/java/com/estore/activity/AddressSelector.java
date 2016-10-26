@@ -125,18 +125,18 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
 
         //绑定适配器和值
         provinceAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, android.R.id.text1, province);
+                R.layout.simple_spinner_item, android.R.id.text1, province);
         provinceSpinner.setAdapter(provinceAdapter);
 
         provinceSpinner.setSelection(3, true);  //设置默认选中项，此处为默认选中第4个值
 
         cityAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, city[3]);
+                R.layout.simple_spinner_item, city[3]);
         citySpinner.setAdapter(cityAdapter);
         citySpinner.setSelection(0, true);  //默认选中第0个
 
         countyAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, county[3][0]);
+                R.layout.simple_spinner_item, county[3][0]);
         countySpinner.setAdapter(countyAdapter);
         countySpinner.setSelection(0, true);
 
@@ -149,9 +149,9 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long arg3) {
 
                 TextView tv = (TextView) view;
-                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
+//                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
 
-                tv.setTextSize(18.0f);    //设置大小
+//                tv.setTextSize(18.0f);    //设置大小
 
 //                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
 
@@ -159,7 +159,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
 
                 //将地级适配器的值改变为city[position]中的值
                 cityAdapter = new ArrayAdapter<String>(
-                        getApplicationContext(), android.R.layout.simple_spinner_item, city[position]);
+                        getApplicationContext(), R.layout.simple_spinner_item, city[position]);
                 // 设置二级下拉列表的选项内容适配器
                 citySpinner.setAdapter(cityAdapter);
                 provincePosition = position;    //记录当前省级序号，留给下面修改县级适配器时用
@@ -180,13 +180,13 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
             public void onItemSelected(AdapterView<?> arg0, View view,
                                        int position, long arg3) {
                 countyAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_spinner_item, county[provincePosition][position]);
+                        R.layout.simple_spinner_item, county[provincePosition][position]);
                 countySpinner.setAdapter(countyAdapter);
 
                 TextView tv = (TextView) view;
-                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
+//                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
 
-                tv.setTextSize(18.0f);    //设置大小
+//                tv.setTextSize(18.0f);    //设置大小
 
 //                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
             }
@@ -201,9 +201,9 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView tv = (TextView) view;
-                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
-
-                tv.setTextSize(18.0f);    //设置大小
+//                tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色
+//              tv.setTextColor(Color.BLACK);
+//                tv.setTextSize(18.0f);    //设置大小
 
 //                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中
             }
@@ -243,7 +243,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         if (ismoren) {
             moren = 1;
         }
-
+        System.out.println("address----------"+address);
         final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "insertaddressservlet");
         requestParams.addBodyParameter("userName", userName);
         requestParams.addBodyParameter("userId",address.getUserId()+"");

@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  收 货 人:"
-
+                android:textColor="#000"
                 android:layout_marginLeft="20dp"
                 android:textSize="18sp"
                 />
@@ -35,6 +35,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:text="联系方式"
+                android:textColor="#000"
                 android:layout_marginRight="20dp"
 
                 android:textSize="18sp" />
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="收货地址:"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
@@ -61,6 +63,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/tv_auct_adress"
                 android:lineSpacingMultiplier="1.5"
+                android:textColor="#000"
                 android:text="江苏省苏州市姑苏区苏州工业园区独墅湖高教区仁爱路1号"
                />
         </LinearLayout>

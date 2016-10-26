@@ -142,6 +142,34 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rl_paimai_jilu">
+
+                <TextView
+                    android:id="@+id/tv_paimai_jilu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="拍卖记录:"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="#0e101a"
+                    android:padding="2dp"
+                    android:drawableLeft="@drawable/cuizi_befor"/>
+           <TextView
+               android:layout_toRightOf="@id/tv_paimai_jilu"
+               android:layout_width="match_parent"
+               android:layout_height="40dp"
+               android:text="0条"
+               android:textSize="20sp"
+               android:gravity="center_vertical"
+               android:textColor="#41434e"
+               android:drawableEnd="@drawable/ic_arrow_right2"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#eee"
                 android:orientation="vertical">
@@ -219,9 +247,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:background="#97c09c"
                     android:drawableTop="@drawable/bidding_tixing"
                     android:gravity="center"
-                    android:background="#97c09c"
                     android:text="提醒"
 
                     android:textSize="20sp" />
@@ -236,12 +264,11 @@
                     android:id="@+id/btn_paimai_shoucang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="收藏"
                     android:background="#97c09c"
                     android:drawableTop="@drawable/bidding_shoucang"
-                    android:textSize="20sp"
-                   />
+                    android:gravity="center"
+                    android:text="收藏"
+                    android:textSize="20sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -250,15 +277,14 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:background="#eb4f38"
                     android:id="@+id/btn_paimai_bidding"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#eb4f38"
+                    android:drawableTop="@drawable/bidding_jiajia"
                     android:gravity="center"
                     android:text="加价"
-                    android:drawableTop="@drawable/bidding_jiajia"
-                    android:textSize="20sp"
-                   />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </LinearLayout>

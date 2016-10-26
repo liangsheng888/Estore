@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="main_rb_driection" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <!-- Customize your theme here. -->
         <item name="android:layout_width">0dp</item>
@@ -18,18 +19,20 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/qq_checkbox_text_color</item>
         <item name="android:paddingLeft">28dp</item>
     </style>
+
     <style name="eh_radiobutoon" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
-       <!-- <item name="android:background">@drawable/shape_yellow</item>-->
+        <!-- <item name="android:background">@drawable/shape_yellow</item>-->
         <item name="android:textSize">20sp</item>
 
     </style>
@@ -95,4 +98,8 @@
         <item name="android:paddingLeft">20dp</item>
     </style>
 
+    <style name="spinner_style">
+        <item name="android:background">@drawable/spinner_selector</item>
+        <item name="android:paddingLeft">5dip</item>
+    </style>
 </resources>

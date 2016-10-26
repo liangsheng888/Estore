@@ -19,12 +19,10 @@
 
         android:background="@drawable/dikang_bg"/>
     <Spinner
-
         android:id="@+id/spin_province"
         android:layout_width="match_parent"
+        android:popupBackground="#ffffff"
 
-        android:popupBackground="#000"
-        android:foreground="#d00"
 
         android:layout_height="60dp"
       />
@@ -32,19 +30,18 @@
     <Spinner
         android:id="@+id/spin_city"
         android:layout_width="match_parent"
-
-        android:foreground="#d00"
-        android:popupBackground="#000"
+        android:popupBackground="#ffffff"
         android:layout_height="60dp"
+
+
       />
 
     <Spinner
         android:id="@+id/spin_county"
         android:layout_width="match_parent"
-
-        android:foreground="#d00"
-        android:popupBackground="#000"
+        android:popupBackground="#ffffff"
         android:layout_height="60dp"
+
 
       />
     <EditText
@@ -64,6 +61,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="#f00"
-    android:text="确定"/>
+    android:text="确 定"
+    />
 
 </LinearLayout>
