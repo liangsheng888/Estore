@@ -10,19 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
+import org.xutils.x;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class PaimaiMain_infoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,7 +33,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     private TextView tv_auct_username;
     private TextView tv_auct_time;
     private TextView btn_paimai_bidding;
-
+    private String[] imgurls;
 
 
     @Override
@@ -43,6 +43,11 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_paimai_main_info);
         initView();
         intEven();
+        Intent intent = getIntent();
+        AuctListActivityBean.Auct auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        System.out.println("(intent.getExtras()----------------------" + auct);
+        imgurls=auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
@@ -73,12 +78,15 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         });
         vp_zuct_info_ad = ((ViewPager) findViewById(R.id.vp_zuct_info_ad));
 
-        List<Integer> imgsrc = new ArrayList<Integer>();
-        imgsrc.add(0, R.drawable.add1);
-        imgsrc.add(1, R.drawable.add1);
-        imgsrc.add(2, R.drawable.add);
-        imgsrc.add(3, R.drawable.add);
-        MyPageAdapter pageAdapter = new MyPageAdapter(imgsrc);
+//        List<Integer> imgsrc = new ArrayList<Integer>();
+//        imgsrc.add(0, R.drawable.add1);
+//        imgsrc.add(1, R.drawable.add1);
+//        imgsrc.add(2, R.drawable.add);
+//        imgsrc.add(3, R.drawable.add);
+//        for (int i=0; i<imgurls.length;i++){
+//            imgsrc= imgsrc.get(i);
+//        }
+        MyPageAdapter pageAdapter = new MyPageAdapter();
         vp_zuct_info_ad.setAdapter(pageAdapter);
 
         vp_zuct_info_ad.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -98,9 +106,6 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 //        lv_auct_name_liuyan = ((ListView) findViewById(R.id.lv_auct_name_liuyan));
 
         //获得从拍卖listview得到的数据
-        Intent intent = getIntent();
-        AuctListActivityBean.Auct auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
-        System.out.println("(intent.getExtras()----------------------" + auct);
 
         tv_beginprice = ((TextView) findViewById(R.id.tv_beginprice));
         tv_auct_name = ((TextView) findViewById(R.id.tv_auct_name));
@@ -171,15 +176,15 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
     private class MyPageAdapter extends PagerAdapter {
 
-        List<Integer> imgsrc;
-
-        public MyPageAdapter(List<Integer> imgsrc) {
-            this.imgsrc = imgsrc;
-        }
+//        List<Integer> imgsrc;
+//
+//        public MyPageAdapter(List<Integer> imgsrc) {
+//            this.imgsrc = imgsrc;
+//        }
 
         @Override
         public int getCount() {
-            return imgsrc.size();
+            return imgurls.length;
         }
 
         @Override
@@ -199,7 +204,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         public Object instantiateItem(ViewGroup container, int position) {
             View view = View.inflate(getApplicationContext(), R.layout.auct_info_daa_item, null);
             ImageView iv_vp_item = ((ImageView) view.findViewById(R.id.iv_auct_info_add_item));
-            iv_vp_item.setImageResource(imgsrc.get(position));
+            x.image().bind(iv_vp_item, HttpUrlUtils.HTTP_URL+imgurls[position]);
+//            iv_vp_item.setImageResource(imgsrc.get(position));
             container.addView(view);//肯定要的
 
             return view;

@@ -50,6 +50,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private static List<Bitmap> imglist = new ArrayList<>();
     //头像的存储完整路径
     private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" + getPhotoFileName());
+    private List<File> imageFileLists=new ArrayList<File>();
 
     private static final int PHOTO_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
@@ -72,6 +73,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private TextView tv_auct_time2;
     Date sdftime;
     String sdftimestr;
+    String endTime;
     //    np_zuct_picker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +233,9 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         // 最后通知图库更新
+
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
+        imageFileLists.add(file);
     }
 
     private void getPicFromPhoto() {
@@ -306,7 +310,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                 switch (i){
                     case 0:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"08"+"mmss").format(new Date());
-
+                        endTime= new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -315,6 +319,8 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
+                        endTime= new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
+//
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -323,7 +329,10 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
-//                      try {
+                        endTime= new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
+//
+//
+// try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
 //                          e.printStackTrace();
@@ -331,7 +340,8 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
-
+                        endTime= new SimpleDateFormat("yyyyMMdd"+"24"+"mmss").format(new Date());
+//
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -392,6 +402,11 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             params.addBodyParameter("proDescription", URLEncoder.encode(proDescription, "utf-8"));
             params.addBodyParameter("category", URLEncoder.encode(auct_type, "utf-8"));
             params.addBodyParameter("address", URLEncoder.encode(address, "utf-8"));
+
+                //params.setMultipart(true);
+                for (int i=0;i<imageFileLists.size();i++){
+                    params.addBodyParameter("file"+i,imageFileLists.get(i));
+                }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -399,8 +414,9 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         params.addBodyParameter("proPrice", price);
 //        params.addBodyParameter("category",auct_type);
         params.addBodyParameter("bidprice", bidprice + "");
-        params.addBodyParameter("auctTime", sdftimestr + "");
-        params.addBodyParameter("file", file);
+        params.addBodyParameter("auctTime", sdftimestr + "");//开拍时间段
+        params.addBodyParameter("endTime", endTime + "");//默认时间段
+//        params.addBodyParameter("file", file);
         System.out.println("-----file------" + file + "/n" + "----proName-------" + proName
                 + "/n" + "--------proDescription-------" + proDescription + "/n"
                 + "---------proDescription---------" + proDescription
@@ -413,11 +429,13 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String result) {
                 System.out.println("=--------result----------------" + result);
+                Toast.makeText(UploadAuctMainActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println(ex + "---------------------------------------------");
+                Toast.makeText(UploadAuctMainActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                System.out.println(ex.getMessage() + "---------------------------------------------");
             }
 
             @Override

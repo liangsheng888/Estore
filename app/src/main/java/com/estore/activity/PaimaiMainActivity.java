@@ -37,7 +37,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
     final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
     private Button btn_paimai_bidding;
     private TextView tv_type1;
-
+    private String[] imgurls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +114,8 @@ public  void  adapter(){
                 viewHodle.iv_auct_imgurl = ((ImageView) convertView.findViewById(R.id.iv_auct_imgurl));
                 viewHodle.tv_auct_minprice = ((TextView) convertView.findViewById(R.id.tv_auct_minprice));
 
+                viewHodle. tv_endbidprice = ((TextView) convertView.findViewById(R.id. tv_endbidprice));
+
                 convertView.setTag(viewHodle);//缓存对象
             } else {
                 viewHodle = (ViewHodle) convertView.getTag();
@@ -124,8 +126,10 @@ public  void  adapter(){
             //获得数据
             viewHodle.tv_auct_name.setText(auct.auct_name);
 //                viewHodle.tv_username.setText(auct.user_id);
-            viewHodle.tv_auct_minprice.setText("￥" + auct.auct_minprice + "");
-            x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
+            viewHodle.tv_endbidprice.setText("￥" + auct.auct_minprice + "");
+            imgurls=auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
+            x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + imgurls[0]);
+//            x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + auct.auct_imgurl);
             System.out.println("http://10.40.5.6:8080/EStore/" + auct.auct_imgurl);
 //                iv_auct_imgurl.setImageResource();
 //                tv_endbidprice.setText(auct.endBidPrice+"");
@@ -186,6 +190,7 @@ public  void  adapter(){
         TextView tv_username;
         ImageView iv_auct_imgurl;
         TextView tv_auct_minprice;//
+        TextView  tv_endbidprice;
     }
 
     private void getAuctList() {
