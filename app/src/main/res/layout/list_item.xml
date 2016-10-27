@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:descendantFocusability="blocksDescendants"
-    android:padding="10dp">
+    android:padding="15dp">
     <!--<com.loopj.android.image.SmartImageView
         android:id="@+id/iv_userPhoto"
         android:layout_width="wrap_content"
@@ -18,12 +18,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_jing_userphoto"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/emoji_411" />
 
         <TextView
@@ -31,15 +32,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_jing_userphoto"
-            android:text="zhangsan"
-            android:textColor="#000"
+            android:text="愤怒的小鸟"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:text="刚刚"/>
     </RelativeLayout>
 
@@ -74,7 +78,7 @@
         android:gravity="left"
         android:text="￥500"
         android:textColor="#f00"
-        android:textSize="26sp" />
+        android:textSize="22sp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,7 +109,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <ImageView
@@ -116,11 +120,26 @@
 
         <TextView
             android:id="@+id/tv_jingpin_address"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_gps"
             android:text="地址"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_xing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/favor_fill1"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/tv_xingnum" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/tv_xingnum"/>
     </RelativeLayout>
 </LinearLayout>

@@ -6,219 +6,293 @@
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/roll_view_pager"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true">
 
     </com.jude.rollviewpager.RollPagerView>
+
     <View
-        android:background="#d1cfcf"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="1dp"
-        android:layout_width="match_parent"></View>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#22f4f7f4"
-        android:gravity="center_vertical"
-        android:id="@+id/ll"
         android:layout_below="@id/roll_view_pager"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_school_GridView_home"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
+        android:background="#d1cfcf"></View>
 
-            android:gravity="center"
-            android:background="@android:color/transparent"
-            android:drawableTop="@mipmap/school"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_city_GridView_home"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:drawableTop="@mipmap/city"
-            android:layout_marginLeft="2dp"
-            android:background="@android:color/transparent"
-
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_auction_GridView_home"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="2dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@mipmap/auct"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
+        android:layout_below="@id/roll_view_pager"
         android:background="#22f4f7f4"
-        android:layout_below="@id/ll"
-        android:id="@+id/ll2"
         android:gravity="center_vertical"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_computer_city"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
 
+        <LinearLayout
+            android:id="@+id/ll_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:background="@android:color/transparent"
-            android:drawableTop="@mipmap/computer"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_bijiben"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:drawableTop="@mipmap/iphone"
-            android:layout_marginLeft="2dp"
-            android:background="@android:color/transparent"
+            android:orientation="vertical">
 
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_shoujicity"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="2dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@mipmap/biji"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_sc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="校园"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_sc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="学弟学妹皆欢喜"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_school_GridView_home"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="2dp"
+                android:src="@mipmap/xuexiao" />
+
+        </LinearLayout>
+        <!--<View
+            android:layout_width="1dp"
+            android:id="@+id/view_1"
+            android:layout_toRightOf="@id/ll_school"
+            android:layout_height="match_parent"
+            android:background="#d1cfcf"></View>
+-->
+
+        <LinearLayout
+            android:id="@+id/ll_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+           android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp"
+
+                android:text="同城"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="闲置物品充分用"/>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/btn_city_GridView_home"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="2dp"
+               android:src="@mipmap/city_"
+                android:layout_marginBottom="5dp"
+                android:layout_toEndOf="@+id/ll_school" />
+
+
+
+        </LinearLayout>
+        <!--<View
+            android:layout_width="1dp"
+            android:id="@+id/view_2"
+            android:layout_toRightOf="@id/ll_city"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="#d1cfcf"></View>-->
+
+        <LinearLayout
+            android:id="@+id/ll_auct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:text="拍卖"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="好的物品就得拍"/>
+
+            <ImageView
+                android:id="@+id/iv_auction_GridView_home"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/pai_"
+
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <View
         android:id="@+id/view"
-        android:background="#f4f1f1"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@id/ll2"
-        android:layout_width="match_parent"></View>
+        android:layout_below="@id/ll"
+        android:background="#f4f1f1"></View>
+
     <TextView
         android:id="@+id/tv_remen"
+        android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_below="@id/view"
         android:gravity="center"
-        android:textColor="#f00"
-        android:layout_width="match_parent"
-        android:text="热门市场">
+        android:text="热门市场"
+        android:textColor="#f00">
 
     </TextView>
+
     <View
-        android:background="#d1cfcf"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_remen"
-        android:layout_width="match_parent"></View>
+        android:background="#d1cfcf"></View>
+
     <LinearLayout
         android:id="@+id/ll3"
-        android:layout_below="@id/tv_remen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_remen"
 
         android:layout_marginTop="1dp">
+
         <RelativeLayout
             android:id="@+id/rl_first_computer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1">
+
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="电脑"
                 android:textColor="#000"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:id="@+id/textView"
-                />
+                android:textSize="18sp" />
+
             <TextView
-                android:layout_below="@id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性能高才得劲"/>
+                android:layout_below="@id/textView"
+                android:text="性能高才得劲" />
+
             <ImageView
                 android:id="@+id/iv_diannao"
                 android:layout_width="80dp"
-                android:layout_alignParentRight="true"
                 android:layout_height="80dp"
-                android:src="@drawable/computer_"
-               />
+                android:layout_alignParentRight="true"
+                android:src="@drawable/computer_" />
         </RelativeLayout>
-           <View
+
+        <View
             android:layout_width="1dp"
-            android:background="#d7d4d4"
-            android:layout_height="80dp"
-              ></View>
+            android:layout_height="match_parent"
+            android:background="#d7d4d4"></View>
+
         <RelativeLayout
             android:id="@+id/rl_first_computertext"
-            android:layout_margin="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="笔记本"
-            android:layout_marginTop="10dp"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:id="@+id/textView2" />
+
             <TextView
-                android:layout_below="@id/textView2"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="玩转低价潮流"/>
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/bijiben"
-            android:id="@+id/iv_bijiben" />
+                android:layout_marginTop="10dp"
+                android:text="笔记本"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView2"
+                android:text="玩转低价潮流" />
+
+            <ImageView
+                android:id="@+id/iv_bijiben"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/bijiben" />
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:id="@+id/view3"
-        android:background="#d1cfcf"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/ll3"
-        android:layout_width="match_parent"></View>
+        android:background="#d1cfcf"></View>
+
     <LinearLayout
         android:id="@+id/ll4"
-        android:layout_below="@id/ll3"
-        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll3"
+        android:layout_marginTop="2dp">
+
         <RelativeLayout
             android:id="@+id/rl_first_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="手机"
-            android:layout_marginTop="10dp"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:id="@+id/textView1"
-            />
+
             <TextView
-                android:layout_below="@id/textView1"
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性价比高,更实惠"/>
+                android:layout_marginTop="10dp"
+                android:text="手机"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/shouji"
-           android:layout_alignParentRight="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView1"
+                android:text="性价比高,更实惠" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/shouji" />
         </RelativeLayout>
+
         <View
             android:layout_width="1dp"
-            android:background="#d7d4d4"
-            android:layout_height="80dp"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"></View>
+            android:layout_centerHorizontal="true"
+            android:background="#d7d4d4"></View>
 
         <RelativeLayout
             android:id="@+id/rl_first_watch"
@@ -226,48 +300,53 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/shoubiao"
-            android:id="@+id/iv_shoubiao"
-            android:layout_alignParentRight="true"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="手表"
-            android:layout_marginTop="10dp"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:id="@+id/textView3" />
+            <ImageView
+                android:id="@+id/iv_shoubiao"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/shoubiao" />
+
             <TextView
-                android:layout_below="@id/textView3"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="精品商品,放心购"/>
+                android:layout_marginTop="10dp"
+                android:text="手表"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView3"
+                android:text="精品商品,放心购" />
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:id="@+id/view2"
-        android:background="#f4f1f1"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@id/ll4"
-        android:layout_width="match_parent"></View>
+        android:background="#f4f1f1"></View>
+
     <TextView
         android:id="@+id/tv_jingping"
+        android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_below="@id/view2"
         android:gravity="center"
-        android:textColor="#f00"
-        android:layout_width="match_parent"
-        android:text="精品推荐">
+        android:text="精品推荐"
+        android:textColor="#f00">
 
     </TextView>
+
     <View
-        android:background="#d1cfcf"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_jingping"
-        android:layout_width="match_parent"></View>
+        android:background="#d1cfcf"></View>
 
 </RelativeLayout>

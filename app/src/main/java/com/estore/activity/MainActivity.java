@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -51,9 +53,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
     private SharedPreferences sp;
     private ListView lv;
+    private ImageButton rb_fabu;
 
     public LinkedList<Product.Products> getList() {
         return list;
@@ -62,7 +65,7 @@ public class MainActivity extends Activity {
     private final LinkedList<Product.Products> list =new LinkedList<Product.Products>();
 
     private Fragment[] fragments;
-    Button[] buttons=new Button[5];
+    ImageButton[] buttons=new  ImageButton[5];
     private RadioGroup rg;
     private ListView lv_sild;//侧滑菜单
     private Fragment fr_home;
@@ -89,7 +92,8 @@ public class MainActivity extends Activity {
     }
 
     public Integer orderFlag=0;
-
+    private int[] drawable={R.drawable.home_red,R.drawable.old_red,R.drawable.car_red,R.drawable.mine_red};
+    private int[] drawable_gray={R.drawable.home_gray,R.drawable.old_gray,R.drawable.car_gray,R.drawable.mine_gray};
     public Integer getOrderFlag() {
         return orderFlag;
     }
@@ -117,13 +121,14 @@ public class MainActivity extends Activity {
         initData();}
 
     private void initView() {
-        rg = ((RadioGroup) this.findViewById(R.id.rg_bottom_driection));
+      //  rg = ((RadioGroup) this.findViewById(R.id.rg_bottom_driection));
         lv_sild = (ListView) this.findViewById(R.id.lv_slidMenu);
-        buttons[0]= ((RadioButton) this.findViewById(R.id.rb_home));
+        rb_fabu=(ImageButton)this.findViewById(R.id.rb_fabu);
+        buttons[0]= ((ImageButton) this.findViewById(R.id.rb_home));
         //buttons[1]=((RadioButton) this.findViewById(R.id.rb_fabu));
-        buttons[2]=((RadioButton) this.findViewById(R.id.rb_cat));
-        buttons[1]=((RadioButton) this.findViewById(R.id.rb_old));
-        buttons[3]=((RadioButton) this.findViewById(R.id.rb_mine));
+        buttons[2]=((ImageButton) this.findViewById(R.id.rb_cat));
+        buttons[1]=((ImageButton) this.findViewById(R.id.rb_old));
+        buttons[3]=((ImageButton) this.findViewById(R.id.rb_mine));
         fr_home = new FragmentHome();
         fr_car = new FragmentCar();
         fr_add = new EhFragment();
@@ -133,7 +138,7 @@ public class MainActivity extends Activity {
         getFragmentManager().beginTransaction().add(R.id.fl_main, fragments[0]).commit();
 
         //初始时，按钮1选中
-        buttons[0].setSelected(true);
+        buttons[0].setImageResource(drawable[0]);
 
 
 
@@ -141,50 +146,23 @@ public class MainActivity extends Activity {
     }
 //
     private void initData() {
+        buttons[0].setOnClickListener(this);
+        buttons[1].setOnClickListener(this);
+        buttons[2].setOnClickListener(this);
+        buttons[3].setOnClickListener(this);
+        rb_fabu.setOnClickListener(this);
 
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+
+      /*  rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //Toast.makeText(MainActivity.this, checkedId+"", Toast.LENGTH_SHORT).show();
 
-                switch (checkedId) {
-                    case R.id.rb_home:
-                        newIndex=0;
-                        changeFragment( newIndex);
-                        break;
-                    case R.id.rb_fabu:
-                        showAdd();
-                        break;
-                    case R.id.rb_cat:
-
-                        if(sp.getString("username",null)==null){
-                            ShowLoginDialogUtils.showDialogLogin(MainActivity.this);
-                            return;
-                        }
-                        GetUserIdByNet.getUserIdByNet(MainActivity.this);
-
-                        newIndex=2;
-                        changeFragment( newIndex);
-
-                        break;
-                    case R.id.rb_old:
-                        page=1;
-                        newIndex=1;
-                        orderFlag=0;
-                        changeFragment( newIndex);
-
-
-                        break;
-                    case R.id.rb_mine:
-                        newIndex=3;
-                        changeFragment( newIndex);
-
-                        break;
-                }
 
 
             }
-        });
+        });*/
 
         lv_sild.setAdapter(new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,menuData));
         //设置点击事件
@@ -269,10 +247,11 @@ public class MainActivity extends Activity {
             transaction.show(fragments[newIndex]).commit();
         }
         //之前选中的项，取消选中
-        buttons[oldIndex].setSelected(false);
+       buttons[oldIndex].setImageResource(drawable_gray[oldIndex]);
+      buttons[newIndex].setImageResource((drawable[newIndex]));
         //当前选择项，按钮被选中
-        buttons[newIndex].setSelected(true);
-        buttons[oldIndex].setBackgroundColor(Color.WHITE);
+        //buttons[newIndex].setBackgroundColor(drawable[oldIndex]);
+       // buttons[oldIndex].setBackgroundColor(Color.WHITE);
         //当前选择项变为选中项
         oldIndex=newIndex;
     }
@@ -286,42 +265,85 @@ public class MainActivity extends Activity {
             Log.i("MainActivity","direct"+direct);
 
             changeFragment(0);
-            ((RadioButton) findViewById(R.id.rb_home)).setChecked(true);
+            buttons[0].setImageResource(drawable[0]);
+            //((Button) findViewById(R.id.rb_home)).setChecked(true);
             return ;
 
         }else if(direct==2){
             Log.i("MainActivity","direct"+direct);
 
             changeFragment(2);
-            ((RadioButton) findViewById(R.id.rb_cat)).setChecked(true);
+            buttons[2].setImageResource(drawable[2]);
+          //  ((Button) findViewById(R.id.rb_cat)).setChecked(true);
             return;
 
         }else if(direct==3){
             Log.i("MainActivity","direct"+direct);
 
             changeFragment(1);
-            ((RadioButton) findViewById(R.id.rb_old)).setChecked(true);
+            buttons[1].setImageResource(drawable[1]);
+           // ((Button) findViewById(R.id.rb_old)).setChecked(true);
             return;
 
         }else if(direct==4){
             Log.i("MainActivity","direct"+direct);
 
             changeFragment(1);
-            ((RadioButton) findViewById(R.id.rb_old)).setChecked(true);
+            buttons[1].setImageResource(drawable[1]);
+
+           // ((Button) findViewById(R.id.rb_old)).setChecked(true);
             return;
 
         }else if(direct==5){
             changeFragment(3);
-            ((RadioButton) findViewById(R.id.rb_mine)).setChecked(true);
+            buttons[3].setImageResource(drawable[3]);
+            //((Button) findViewById(R.id.rb_mine)).setChecked(true);
             return;
-
-
         }
 
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rb_home:
+                newIndex=0;
+                changeFragment( newIndex);
+                break;
+            case R.id.rb_fabu:
+                showAdd();
+                rb_fabu.setImageResource(R.drawable.add_red);
+                break;
+            case R.id.rb_cat:
+
+                if(sp.getString("username",null)==null){
+                    ShowLoginDialogUtils.showDialogLogin(MainActivity.this);
+                    return;
+                }
+                GetUserIdByNet.getUserIdByNet(MainActivity.this);
+
+                newIndex=2;
+                changeFragment( newIndex);
+
+                break;
+            case R.id.rb_old:
+                page=1;
+                newIndex=1;
+                orderFlag=0;
+                changeFragment( newIndex);
+
+
+                break;
+            case R.id.rb_mine:
+                newIndex=3;
+                changeFragment( newIndex);
+                break;
+        }
+
+
     }
+}
 
 
 

@@ -144,6 +144,7 @@ public class PublishEStoreFragment extends Fragment {
                             public void onSuccess(String result) {
                                 Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
                                 prolist.remove(position);
+
                                 adapter.notifyDataSetChanged();
                             }
 
@@ -172,6 +173,7 @@ public class PublishEStoreFragment extends Fragment {
         });
 
     }
+
     //适配器
     public class myAdapter extends BaseAdapter{
         private ImageView iv_pubestorepic;
@@ -263,6 +265,7 @@ public class PublishEStoreFragment extends Fragment {
     }
     @Override
     public void onHiddenChanged(boolean hidden) {
+        getProduct();
         super.onHiddenChanged(hidden);
     }
     //请求数据
@@ -284,11 +287,12 @@ public class PublishEStoreFragment extends Fragment {
                 if(adapter==null){
                     Log.e("PublishEStoreFragment","adapter=null");
                     adapter=new myAdapter();
-                    lv_publishest.setAdapter(adapter);
+
                 }else{
                     Log.e("PublishEStoreFragment","adapter!=null");
                     adapter.notifyDataSetChanged();
                 }
+                lv_publishest.setAdapter(adapter);
 
             }
 
@@ -315,5 +319,4 @@ public class PublishEStoreFragment extends Fragment {
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
-
 }

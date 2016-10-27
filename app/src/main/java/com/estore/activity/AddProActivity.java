@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,7 +38,7 @@ import android.widget.Toast;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.User;
-
+import org.json.JSONArray;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -53,15 +55,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import me.iwf.photopicker.PhotoPickUtils;
+import me.iwf.photopicker.widget.MultiPickResultView;
+
 /***
  * 发布商品
  */
 public class AddProActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int REQUEST_CAMERA_CODE =5 ;
+    private static final int REQUEST_PREVIEW_CODE =6 ;
     private TextView tv_choice_photo;
     private TextView tv_school;
     private TextView tv_youfei;//邮费
     private Button btn_add_pro;
+    private ArrayList<String> imagePaths = new ArrayList<>();
+    //GridAdapter gridAdapter;
+
 
     private EditText et_proName;
     private EditText et_proNum;
@@ -87,7 +97,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private List<Bitmap> imageLists=new ArrayList<Bitmap>();
     private List<File> imageFileLists=new ArrayList<File>();
     private int youfei=0;
-    private MyAdapterShowPhoto adapter;
+   // private MyAdapterShowPhoto adapter;
+    MultiPickResultView recyclerView;
     //头像的存储完整路径
     private  File file =null;
 
@@ -97,7 +108,6 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "AddProActivity";
     private SharedPreferences sp;
     private User user=new User();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +122,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initData() {
         btn_add_pro.setOnClickListener(this);
-        tv_choice_photo.setOnClickListener(this);
+        //tv_choice_photo.setOnClickListener(this);
         rl_fenlei.setOnClickListener(this);
         //fanhui
         iv_add_pro_last.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +213,12 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initView() {
-        tv_choice_photo = (TextView) findViewById(R.id.tv_choicephoto);
+       // tv_choice_photo = (TextView) findViewById(R.id.tv_choicephoto);
+        recyclerView = (MultiPickResultView) findViewById(R.id.recycler_view);
+        recyclerView.init(this,MultiPickResultView.ACTION_SELECT,null);
+        //onActivityResult里一行代码回调
+        
+
         btn_add_pro = (Button) findViewById(R.id.btn_add_pro);
         tv_fenlei = (TextView) findViewById(R.id.tv_fenlei);
         et_proName = (EditText) findViewById(R.id.et_proName);
@@ -221,16 +236,17 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         rl_fenlei=(RelativeLayout) findViewById(R.id.rl_fenlei);
         tv_youfei=(TextView)findViewById(R.id.tv_youfei);
 
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.tv_choicephoto:
+            /*case R.id.tv_choicephoto:
                 showChoicePhoto();
-
-                break;
+                break;*/
             case R.id.btn_add_pro://添加商品
                 Log.e(TAG, "添加商品");
                 addProducts();
@@ -252,43 +268,6 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-
-    private void showChoicePhoto() {
-        builder = new AlertDialog.Builder(this);
-        builder.setTitle("选择打开方式");
-        View view = View.inflate(this, R.layout.layout_choice_getphoto, null);
-
-
-        ((ImageView) view.findViewById(R.id.tv_camera)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "打开相机");
-               file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" +
-                        getPhotoFileName());
-
-                getPictureByCamera(file);
-                dialog.dismiss();
-
-            }
-        });
-        ((ImageView) view.findViewById(R.id.tv_photo)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "选择本地照片");
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" +
-                        getPhotoFileName());
-                getPicFromPhoto();
-                dialog.dismiss();
-
-
-            }
-        });
-
-        builder.setView(view);
-        dialog = builder.create();
-        dialog.show();
-    }
-
     private void showDialog() {
         builder=new AlertDialog.Builder(AddProActivity.this);
         dialog=builder.create();
@@ -320,33 +299,6 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         String username=sp.getString("username",null)  ;
         if(TextUtils.isEmpty(username)){
             showDialog() ;
-            /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            final Dialog dialog=builder.create();
-            builder.setTitle("亲！你没有登录账号，请登录？");
-            View view=View.inflate(this,R.layout.login_user,null);
-            ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //登录
-                    Intent intent=new Intent(AddProActivity.this,LoginOther.class);
-                    startActivity(intent);
-                    dialog.dismiss();
-
-
-                }
-            });
-            ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //注册dialog.dismiss();
-                    Intent intent=new Intent(AddProActivity.this,RegisterActivity.class);
-                    startActivity(intent);
-
-
-                }
-            });
-            builder.setView(view);
-            builder.show();*/
             return;
         }
 
@@ -376,6 +328,7 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         //params.setMultipart(true);
             for (int i=0;i<imageFileLists.size();i++){
                 params.addBodyParameter("file"+i,imageFileLists.get(i));
+                Log.e("file",imageFileLists.get(i)+"size"+imageFileLists.size());
             }
 
           params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
@@ -416,16 +369,9 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
                         et_proNum.setText("");
                         cb_baoyou.setChecked(true);
                         ((RadioButton)findViewById(R.id.rb_city)).setChecked(true);
-
-
-
-                        imageLists.clear();
-                        adapter.notifyDataSetChanged();
-
-
-
-
-                    }
+                     /*   imageLists.clear();
+                        adapter.notifyDataSetChanged();*/
+                 }
                 });
                 builder.show();
 
@@ -458,158 +404,36 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void getPicFromPhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK, null);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                "image/*");
-        startActivityForResult(intent, PHOTO_REQUEST);
-    }
-
-    public void getPictureByCamera(File file) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 下面这句指定调用相机拍照后的照片存储的路径
-        System.out.println("getPicFromCamera===========" + file.getAbsolutePath());
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(intent, CAMERA_REQUEST);
-
-    }
-
-    // 使用系统当前日期加以调整作为照片的名称
-    private String getPhotoFileName() {
-        Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-
-        System.out.println("============" + UUID.randomUUID());
-        Log.e("UUID:",UUID.randomUUID()+"");
-        return sdf.format(date) + "_" + UUID.randomUUID() + ".png";
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CAMERA_REQUEST:
-                switch (resultCode) {
-                    case -1://-1表示拍照成功  固定
-                        System.out.println("CAMERA_REQUEST" + file.getAbsolutePath());
-                        if (file.exists()) {
-                            //剪切图片
-                            photoClip(Uri.fromFile(file));
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case PHOTO_REQUEST:
-                if (data != null) {
-                    photoClip(data.getData());
+        recyclerView.onActivityResult(requestCode,resultCode,data);
+        PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
+            @Override
+            public void onPickSuccess(ArrayList<String> photos) {//已经预先做了null或size为0的判断
+                for (String str:
+                        photos) {
+                    imageFileLists.add(new File(str));
 
                 }
-                break;
-            case PHOTO_CLIP:
-                //保存图片到本地
-                if (data != null) {
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        Log.w("test", "data");
-                        Bitmap photo = extras.getParcelable("data");
-                        imageLists.add(photo);//将bitmap添加到集合
-                        Log.e("AddProActivty",imageLists.toString());
-                        adapter=new MyAdapterShowPhoto();
-                        adapter.notifyDataSetChanged();
-                        gv_showphoto.setAdapter(adapter);
-
-                        saveImageToGallery(this, photo);//保存bitmap到本地
-
-                        //iv_showPhoto.setImageBitmap(photo);
-                    }
-                }
-                break;
-
-        }
-    }
-
-    //对图片进行剪切
-    private void photoClip(Uri uri) {
-        // 调用系统中自带的图片剪裁
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, PHOTO_CLIP);
-    }
-
-    public void saveImageToGallery(Context context, Bitmap bmp) {
-        // 首先保存图片
-//        File appDir = new File(Environment.getExternalStorageDirectory(), "Boohee");
-//        if (!appDir.exists()) {
-//            appDir.mkdir();
-//        }
-//        String fileName = System.currentTimeMillis() + ".jpg";
-//        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-
-
-            fos.flush();
-            fos.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 其次把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                    file.getAbsolutePath(), file.getName(), null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        // 最后通知图库更新
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
-        imageFileLists.add(file);
-        Log.e("FileUrl:",imageFileLists.toString());
-    }
-
-    public class MyAdapterShowPhoto extends BaseAdapter{
-
-        @Override
-        public int getCount() {
-            return imageLists.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return imageLists.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view=null;
-            if(convertView!=null){
-                view=convertView;
-            }else{
-                view=  View.inflate(getApplicationContext(),R.layout.addproactivity_addphoto_item,null);
-                ImageView iv=(ImageView)view.findViewById(R.id.iv_showphotos);
-                iv.setImageBitmap(imageLists.get(position));
             }
-            return view;
-        }
-    }
 
-}
+            @Override
+            public void onPreviewBack(ArrayList<String> photos) {
+
+            }
+
+            @Override
+            public void onPickFail(String error) {
+                Toast.makeText(AddProActivity.this, error, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onPickCancle() {
+                Toast.makeText(AddProActivity.this, "取消选择", Toast.LENGTH_LONG).show();
+
+            }
+
+        });
+    }}
+

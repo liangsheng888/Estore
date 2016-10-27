@@ -32,6 +32,7 @@ dependencies {
         compile project(':libs:pulltorefresh')
         compile 'com.android.support:support-v4:23.0.0'
         compile 'com.jude:rollviewpager:1.2.9'
+        compile 'com.github.glassLake:PhotoPicker:1.0.2'
 
 
     }
