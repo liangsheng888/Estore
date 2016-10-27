@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="140dp"
         android:background="#f7f6f6"
         >
         <ImageView
@@ -18,15 +18,26 @@
             android:layout_height="wrap_content"
             android:src="@drawable/xiaoyu"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             />
         <ImageView
             android:id="@+id/user_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/personalimag"
+            android:src="@drawable/userphoto"
             android:layout_centerInParent="true"
+            />
+        <TextView
+            android:id="@+id/rl_saverl"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:text="完成"
+            android:gravity="center"
+            android:background="#eaeaea"
             />
     </RelativeLayout>
     <!-- 分割线 -->
@@ -48,7 +59,7 @@
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:background="#efeeee"
-        android:layout_height="60dp">
+        android:layout_height="40dp">
 
         <TextView
             android:id="@+id/tv_perdatum"
@@ -69,7 +80,7 @@
     <!-- 分割线 -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#f2f2f2"
         />
     <RelativeLayout
@@ -83,7 +94,7 @@
                 android:id="@+id/rb_perphoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/perphotoyellow"
+                android:src="@drawable/perphoto"
                 android:layout_marginLeft="20dp"
                 android:layout_centerVertical="true"
                 />
@@ -92,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="头像"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_perphoto"
                 android:layout_marginLeft="5dp"
@@ -102,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/dayu"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="18dp"
                 android:layout_centerVertical="true"
                 />
 
@@ -110,8 +121,9 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_photorl"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_width="305dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="1dp"
             android:background="#f2f2f2"
             />
         <!-- 昵称 -->
@@ -133,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="昵称"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_pernickname"
@@ -144,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:background="#dcfffc"
-                android:textSize="25dp"
+                android:textSize="18dp"
                 android:layout_marginLeft="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -157,15 +169,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/dayu"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="18dp"
                 android:layout_centerVertical="true"
                 />
         </RelativeLayout>
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_nicknamerl"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_width="305dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="1dp"
             android:background="#f2f2f2"
             />
         <!-- 性别-->
@@ -180,14 +193,14 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/sex"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="16dp"
 
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="性别"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_persexs"
                 android:layout_marginLeft="5dp"
@@ -196,7 +209,7 @@
                 android:id="@+id/tv_persexcontent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="女"
+                android:text=""
                 android:textSize="22dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -208,15 +221,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/dayu"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="18dp"
                 android:layout_centerVertical="true"
                 />
         </RelativeLayout>
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_sexrl"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_width="305dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="1dp"
             android:background="#f2f2f2"
             />
         <!-- 生日-->
@@ -229,16 +243,16 @@
                 android:id="@+id/rb_perbirthdays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/birthdayyellow"
+                android:src="@drawable/phonenum"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="16dp"
                 />
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="手机号"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_perbirthdays"
                 android:layout_marginLeft="5dp"
@@ -250,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="#000"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="50dp"
@@ -261,15 +275,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/dayu"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="18dp"
                 android:layout_centerVertical="true"
                 />
         </RelativeLayout>
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_phonenumrl"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_width="305dp"
+            android:layout_height="1dp"
+            android:layout_alignParentRight="true"
             android:background="#f2f2f2"
             />
         <!-- 收货地址-->
@@ -282,7 +297,7 @@
                 android:id="@+id/rb_peradressphoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/placeyellow"
+                android:src="@drawable/home"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 />
@@ -290,19 +305,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="家庭地址"
-                android:textSize="22dp"
+                android:textSize="20dp"
+
 
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_peradressphoto"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="8dp"
                 />
             <TextView
                 android:id="@+id/tv_deliveryadress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="22dp"
-                android:textColor="#000"
+                android:textSize="18dp"
+                android:background="#dcfffc"
 
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -314,46 +330,37 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/dayu"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="18dp"
                 android:layout_centerVertical="true"
                 />
         </RelativeLayout>
         <!-- 分割线 -->
-        <ImageView
-            android:layout_below="@id/rl_adressrl"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#f2f2f2"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_saverl"
-        android:layout_below="@id/tv_phonenumber"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:background="#a1fcf7"
-        >
-
-        <TextView
-            android:id="@+id/tv_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="保存"
-            android:textSize="28dp"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            />
     </RelativeLayout>
     <!-- 分割线 -->
     <ImageView
         android:layout_below="@id/rl_adressrl"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#f2f2f2"
         />
+    <RadioButton
+        android:id="@+id/rl_saver"
+        android:layout_below="@id/tv_phonenumber"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:button="@null"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:text="退出登录"
+        android:textColor="#f55454"
+        android:background="#dfe1e1"
+        >
+
+
+    </RadioButton>
+
 
 
 </LinearLayout>

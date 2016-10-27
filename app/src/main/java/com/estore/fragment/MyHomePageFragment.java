@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -28,45 +32,105 @@ import com.estore.activity.RegisterActivity;
 import com.estore.activity.SystemInformActivity;
 import com.estore.activity.TakePhotosAndSelectActivity;
 import com.estore.httputils.GetUserIdByNet;
+import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.SharedPreferencesUtils;
+import com.estore.httputils.xUtilsImageUtils;
+import com.estore.pojo.MyPublishActivityBean;
+import com.estore.pojo.UserBean;
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 
 /**
  * 我的部分主页面
  */
 public class MyHomePageFragment extends Fragment implements View.OnClickListener {
     //private RadioButton rb_but5;
-    private RadioButton rb_publish;
-    private RadioButton rb_auction;
+    private Button rb_publish;
+    private Button rb_auction;
     private RadioButton rb_myfriends;
     private RadioButton rb_mycare;
     private RadioButton rb_mywallet;
     private RadioButton rb_mynotice;
-    private RadioButton rb_myorder;
+    private Button rb_myorder;
     private ImageView iv_intercalate;
-    private ImageView iv_userphoto;
     private SharedPreferences sp;
     private String username;
+    private TextView tv_myNickname;
+    UserBean user=new UserBean();
+    private ImageView iv_userphoto;
+    private BaseAdapter adapter;
+    private ImageView iv_denglu;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_myhomepage,null);
+        sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+
+
+        tv_myNickname = ((TextView) view.findViewById(R.id.tv_myNickname));
         //我的页面跳转
         iv_intercalate= ((ImageView)view.findViewById(R.id.iv_intercalate));
-        //rb_but5 = ((RadioButton) view.findViewById(R.id.rb_but5));
-        rb_publish = ((RadioButton) view.findViewById(R.id.rb_publish));
-        rb_auction = ((RadioButton) view.findViewById(R.id.rb_auction));
+        rb_publish = ((Button) view.findViewById(R.id.rb_publish));
+        rb_auction = ((Button) view.findViewById(R.id.rb_auction));
         rb_myfriends = ((RadioButton) view.findViewById(R.id.rb_myfriends));
         rb_mycare = ((RadioButton) view.findViewById(R.id.rb_mycare));
         rb_mywallet = ((RadioButton) view.findViewById(R.id.rb_mywallet));
         rb_mynotice = ((RadioButton) view.findViewById(R.id.rb_mynotice));
-        rb_myorder = ((RadioButton) view.findViewById(R.id.rb_myorder));
-        //拍照
-        iv_userphoto = ((ImageView) view.findViewById(R.id.iv_userphoto));
+        rb_myorder = ((Button) view.findViewById(R.id.rb_myorder));
+        iv_denglu = ((ImageView) view.findViewById(R.id.iv_denglu));
+        xUtilsImageUtils.display( iv_denglu,HttpUrlUtils.HTTP_URL +user.getUserPhoto(),true);
+        tv_myNickname = ((TextView) view.findViewById(R.id.tv_myNickname));
+
         return  view;
 
-
     }
+
+    //请求网络
+    private void getUserinfo() {
+        String url = HttpUrlUtils.HTTP_URL + "/findUserServlet?userId="+sp.getInt("userId",0);
+        Log.i("MyHomePageFageTragment","url"+user.getUserId());
+        RequestParams requestParams=new RequestParams(url);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("MyHomePageFragment","onSuccess"+result);
+                Gson gson=new Gson();
+                user=gson.fromJson(result,UserBean.class);
+                Log.i("MyHomePageFragment","user"+user);
+                xUtilsImageUtils.display( iv_denglu,HttpUrlUtils.HTTP_URL +user.getUserPhoto(),true);
+
+                tv_myNickname.setText(user.getNickname()+"");
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+    }
+
     //页面跳转
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -91,14 +155,11 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
 
         //订单
         rb_myorder.setOnClickListener(this);
-        //拍照
-        iv_userphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), TakePhotosAndSelectActivity.class);
-                startActivity(intent);
-            }
-        });
+        //昵称
+        tv_myNickname.setOnClickListener(this);
+        //头像
+        iv_denglu.setOnClickListener(this);
+        getUserinfo();
 
 
     }
@@ -113,7 +174,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
                 @Override
                 public void onClick(View v) {
                     //登录
-                     getActivity().finish();
+                    getActivity().finish();
                     Intent intent=new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
 
@@ -125,7 +186,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
             ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // dialog.dismiss();
+                    // dialog.dismiss();
                     Intent intent=new Intent(getActivity(),RegisterActivity.class);
                     startActivity(intent);
 
