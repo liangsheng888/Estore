@@ -1,31 +1,24 @@
 package com.estore.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.format.DateUtils;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
 import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
@@ -36,8 +29,6 @@ import com.estore.pojo.Product;
 import com.estore.view.GridViewWithHeaderAndFooter;
 import com.estore.view.LoadListView;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -51,8 +42,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 
 /**

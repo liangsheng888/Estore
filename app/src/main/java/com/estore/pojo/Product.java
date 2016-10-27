@@ -2,7 +2,6 @@ package com.estore.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/13.
@@ -22,6 +21,7 @@ public class Product implements Serializable {
         public String description;
         public String proaddress;
         public int prowhere;
+        public String schoolname;
 
 
         @Override
@@ -37,6 +37,7 @@ public class Product implements Serializable {
                     ", description='" + description + '\'' +
                     ", proaddress='" + proaddress + '\'' +
                     ", prowhere='" + prowhere + '\'' +
+                    ", schoolname='" + schoolname + '\'' +
                     '}';
         }
     }

@@ -2,16 +2,15 @@ package com.estore.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.estore.activity.LoginActivity;
-import com.estore.activity.LoginOther;
 import com.estore.activity.MyAuctionActivity;
 import com.estore.activity.MyCareActivity;
 import com.estore.activity.MyFriendsActivity;
@@ -30,12 +28,9 @@ import com.estore.activity.PublishActivity;
 import com.estore.activity.R;
 import com.estore.activity.RegisterActivity;
 import com.estore.activity.SystemInformActivity;
-import com.estore.activity.TakePhotosAndSelectActivity;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
-import com.estore.httputils.SharedPreferencesUtils;
 import com.estore.httputils.xUtilsImageUtils;
-import com.estore.pojo.MyPublishActivityBean;
 import com.estore.pojo.UserBean;
 import com.google.gson.Gson;
 
