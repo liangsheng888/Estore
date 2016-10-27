@@ -155,6 +155,10 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
 
         //订单
         rb_myorder.setOnClickListener(this);
+        //昵称
+        tv_myNickname.setOnClickListener(this);
+        //头像
+        iv_denglu.setOnClickListener(this);
         getUserinfo();
 
 
