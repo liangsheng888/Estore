@@ -53,6 +53,12 @@
         <activity android:name=".MainComputerActivity" />
         <activity android:name=".PaiMaiAll" />
         <activity android:name=".PaiMAIbidding_bidActivity"></activity>
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/customTheme"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/customTheme"/>
     </application>
 
 </manifest>

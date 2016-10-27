@@ -16,7 +16,8 @@
     </ListView>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <View
             android:id="@+id/struct"
             android:layout_width="0dp"
@@ -36,49 +37,42 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
-        <RadioGroup
-            android:id="@+id/rg_bottom_driection"
-
-            android:layout_below="@id/fl_main"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="60dp">
-            >
-            <RadioButton
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="60dp"
+             android:layout_alignParentBottom="true">
+            <ImageButton
                 android:id="@+id/rb_home"
                 style="@style/main_rb_driection"
-                android:drawableTop="@drawable/home_rb_selector"
-
+                android:src="@drawable/home_rb_selector"
                 android:text="首页"
                 />
-            <RadioButton
+            <ImageButton
                 android:id="@+id/rb_old"
                 style="@style/main_rb_driection"
-                android:drawableTop="@drawable/old_selector"
+                android:src="@drawable/old_selector"
 
                 android:text="二货"/>
-            <RadioButton
+            <ImageButton
                 android:id="@+id/rb_fabu"
                 style="@style/main_rb_driection"
-                android:drawableTop="@drawable/add_selector"
+                android:src="@drawable/add_selector"
                 />
-            <RadioButton
+            <ImageButton
                 android:id="@+id/rb_cat"
                 style="@style/main_rb_driection"
-                android:drawableTop="@drawable/cat_selector"
+                android:src="@drawable/cat_selector"
 
                 android:text="购物车"/>
-            <RadioButton
+            <ImageButton
                 android:id="@+id/rb_mine"
                 style="@style/main_rb_driection"
-                android:drawableTop="@drawable/mine_selector"
+                android:src="@drawable/mine_selector"
 
                 android:text="我的"/>
 
 
-        </RadioGroup>
-
+         </LinearLayout>
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

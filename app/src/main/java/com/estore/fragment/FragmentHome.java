@@ -79,6 +79,10 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private RelativeLayout rl_header;
     private RelativeLayout computer;
     private RelativeLayout computerText;
+    private LinearLayout ll_school;
+    private LinearLayout ll_city;
+    private LinearLayout ll_auct;
+
     Integer orderFlag;
     List<Product.Products> proList=new ArrayList<Product.Products>();
     private String url;
@@ -141,12 +145,14 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 list.addAll(pro.list);
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
+                    Log.e("MainActivity", "adapter==null");
                     adapter = new MyAdapter();
                     lv_jingpin.setSelection(0);
                 }else {
 
-                    lv_jingpin.setSelection(list.size()-1);
+                    Log.e("MainActivity", "adapter!=null");
                     adapter.notifyDataSetChanged();
+                    lv_jingpin.setSelection(list.size()-1);
                 }
                // gridView.setAdapter(adapter);
 
@@ -203,10 +209,11 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
         View view=View.inflate(getActivity(),R.layout.fra_home_add_header,null);
 
-        school = (Button) view.findViewById(R.id.btn_school_GridView_home);
+        ll_school = (LinearLayout) view.findViewById(R.id.ll_school);
 
-        city = (Button) view.findViewById(R.id.btn_city_GridView_home);
-        auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
+        ll_city = (LinearLayout) view.findViewById(R.id.ll_city);
+        ll_auct = (LinearLayout) view.findViewById(R.id.ll_auct);
+      //  auction = (Button) view.findViewById(R.id.btn_auction_GridView_home);
         computer = ((RelativeLayout) view.findViewById(R.id.rl_first_computer));
         computerText = ((RelativeLayout) view.findViewById(R.id.rl_first_computertext));
         phone = ((RelativeLayout) view.findViewById(R.id.rl_first_phone));
@@ -216,9 +223,9 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         phone.setOnClickListener(this);
         watch.setOnClickListener(this);
 
-        school.setOnClickListener(this);
-        city.setOnClickListener(this);
-        auction.setOnClickListener(this);
+        ll_school.setOnClickListener(this);
+        ll_city.setOnClickListener(this);
+        ll_auct.setOnClickListener(this);
         PictureRoll(view);
 
          // ll_head.addView(view, layoutParams);
@@ -262,12 +269,12 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btn_auction_GridView_home:
+            case R.id.ll_auct:
                 //跳转到拍卖
                 Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(),PaimaiMainActivity.class));
                 break;
-            case R.id.btn_city_GridView_home:
+            case R.id.ll_city:
                 //跳转到同城
                 Intent intent= new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("direct",SAME_CITY);
@@ -275,7 +282,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 startActivity(intent);
 
                 break;
-            case R.id.btn_school_GridView_home:
+            case R.id.ll_school:
                 //跳转到高校
                 Intent intent2= new Intent(getActivity(), MainActivity.class);
                 intent2.putExtra("direct",HIGH_SCHOOL);

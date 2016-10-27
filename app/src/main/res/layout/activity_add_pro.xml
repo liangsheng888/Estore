@@ -73,7 +73,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
-        <TextView
+        <me.iwf.photopicker.widget.MultiPickResultView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler_view"/>
+       <!-- <TextView
             android:id="@+id/tv_choicephoto"
             android:layout_width="80dp"
             android:layout_height="100dp"
@@ -81,8 +85,8 @@
             android:layout_marginLeft="5dp"
             android:drawableTop="@drawable/jia_qing"
             android:text="上传图片"
-            />
-        <GridView
+            />-->
+       <!-- <GridView
             android:id="@+id/gv_showPhoto"
             android:layout_toRightOf="@id/tv_choicephoto"
             android:numColumns="3"
@@ -90,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp" />
 
+-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

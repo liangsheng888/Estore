@@ -299,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/home"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="20dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -318,7 +318,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="18dp"
-                android:textColor="#000"
+                android:background="#dcfffc"
 
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -346,7 +346,7 @@
     <RadioButton
         android:id="@+id/rl_saver"
         android:layout_below="@id/tv_phonenumber"
-        android:layout_width="340dp"
+        android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"

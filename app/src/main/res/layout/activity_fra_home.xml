@@ -330,6 +330,7 @@
         android:id="@+id/lv_jingpin"
         android:clickable="true"
         android:focusable="true"
+        android:dividerHeight="10dp"
         android:touchscreenBlocksFocus="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
