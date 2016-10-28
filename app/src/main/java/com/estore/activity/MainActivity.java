@@ -248,7 +248,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         //之前选中的项，取消选中
        buttons[oldIndex].setImageResource(drawable_gray[oldIndex]);
-      buttons[newIndex].setImageResource((drawable[newIndex]));
+       buttons[newIndex].setImageResource((drawable[newIndex]));
         //当前选择项，按钮被选中
         //buttons[newIndex].setBackgroundColor(drawable[oldIndex]);
        // buttons[oldIndex].setBackgroundColor(Color.WHITE);

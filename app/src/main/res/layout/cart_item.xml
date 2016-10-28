@@ -3,106 +3,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="8dp"
-    android:background="#fff" >
+    android:background="#fff">
+
     <CheckBox
         android:id="@+id/check_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:padding="10dp"
         android:layout_centerVertical="true"
-      />
-    <ImageView 
+
+        android:padding="10dp" />
+
+    <ImageView
         android:id="@+id/cart_item_prod_img"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_toRightOf="@id/check_item"
         android:layout_centerVertical="true"
         android:padding="6dp"
-        android:layout_toRightOf="@id/check_item"
-        android:scaleType="fitXY"
-        />
-    <LinearLayout 
+        android:scaleType="fitXY" />
+
+    <LinearLayout
         android:id="@+id/cart_item_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:padding="10dp"
+        android:layout_toRightOf="@id/cart_item_prod_img"
         android:orientation="vertical"
-        android:layout_toRightOf="@id/cart_item_prod_img">
-        <TextView 
-            android:id="@+id/cart_item_prod_des"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品信息"
-            android:textSize="14sp"
-            android:textColor="@color/text_clo"
-            
-          />
-         <RelativeLayout
-        android:id="@+id/cart_item_ll"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-      >
-        <TextView 
-            android:id="@+id/cart_item_prod_price"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="88.0"
-            android:textColor="@color/red"
-            android:textSize="16sp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="13dp"
-            />
-        <RelativeLayout 
-            android:id="@+id/cart_item_jiajian"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-             android:layout_alignParentRight="true" 
-             android:gravity="right"
-             android:layout_toRightOf="@+id/cart_item_prod_price">
-             
-            <Button
-                android:focusable="false"
-                android:id="@+id/cart_item_jian"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/cart_item_prod_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="4dp"
-                android:background="#ffffff"
-				android:textColor="#0157D3"
-				android:textSize="24sp"
-				android:text="-"
-                />
-            <TextView 
-                android:id="@+id/cart_item_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="1"
+                android:ellipsize="end"
+                android:lines="2"
+                android:singleLine="true"
+                android:text="商品信息"
                 android:textColor="@color/text_clo"
-                android:layout_toRightOf="@+id/cart_item_jian"
-                />
-             <Button
-                 android:focusable="false"
-                android:id="@+id/cart_item_jia"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_bianji"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="4dp"
-                android:layout_toRightOf="@id/cart_item_number"
-                android:background="#ffffff"
-				android:textColor="#0157D3"
-				android:textSize="20sp"
-				android:text="+"
-                
-                />
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:text="编辑"
+                android:clickable="true"
+                android:focusable="true"
+
+                android:textColor="#000"
+                android:textSize="18sp" />
         </RelativeLayout>
-        
-   </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/cart_item_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:text="8件" />
+
+            <TextView
+                android:id="@+id/cart_item_prod_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:text="￥88.0"
+                android:textColor="@color/red"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/cart_item_jiajian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/cart_item_prod_price"
+                android:gravity="right"
+                android:visibility="invisible">
+
+                <Button
+                    android:id="@+id/cart_item_jian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="#ffffff"
+                    android:layout_alignParentRight="true"
+                    android:focusable="false"
+                    android:padding="4dp"
+                    android:text="-"
+                    android:textColor="#0157D3"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/cart_item_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/cart_item_jian"
+                    android:text="1"
+                    android:textColor="@color/text_clo" />
+
+                <Button
+                    android:id="@+id/cart_item_jia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/cart_item_number"
+                    android:background="#ffffff"
+                    android:focusable="false"
+                    android:padding="4dp"
+                    android:text="+"
+                    android:textColor="#0157D3"
+                    android:textSize="20sp"
+
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
     </LinearLayout>
-    <View style="@style/bg_line"
-        android:layout_alignParentBottom="true"/>
+
+    <View
+        style="@style/bg_line"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

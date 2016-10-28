@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class FragmentCar extends Fragment {
     private Button btn_jian;
     private CheckBox check_all;
     private SwipeMenuListView cartListView;
+    private int number=0;
 
     @Nullable
     @Override
@@ -307,13 +309,19 @@ public class FragmentCar extends Fragment {
         public void convert(ViewHolder viewHolder, Cart cart, final int position) {
             final TextView tv_price = viewHolder.getViewById(R.id.cart_item_prod_price);
             final TextView tv_num = viewHolder.getViewById(R.id.cart_item_number);
+            TextView tv_bianji=viewHolder.getViewById(R.id.tv_bianji);
+            final TextView tv_pronum=viewHolder.getViewById(R.id.tv_num);
             TextView tv_name = viewHolder.getViewById(R.id.cart_item_prod_des);
+            final RelativeLayout cart_item_jiajian = viewHolder.getViewById(R.id.cart_item_jiajian);
+
             ImageView iv = viewHolder.getViewById(R.id.cart_item_prod_img);
             cart=cartlist.get(position);
             Log.e("FragmentCar","cart"+cart.toString());
             if(cart!=null)
-            tv_price.setText(cart.getProduct().estoreprice + "");
+            tv_price.setText("￥"+cart.getProduct().estoreprice);
             tv_num.setText(car_numbers.get(position) + "");//
+            tv_pronum.setText(car_numbers.get(position)+"件");
+
             tv_name.setText(cart.getProduct().name);
             String[] imgurl=cart.getProduct().imgurl.split("=");
             x.image().bind(iv, HttpUrlUtils.HTTP_URL + imgurl[0]);
@@ -324,30 +332,44 @@ public class FragmentCar extends Fragment {
             //加 减
             btn_jia=viewHolder.getViewById(R.id.cart_item_jia);
             btn_jia.setTag(position);
+            final Cart finalCart = cart;
             btn_jia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int number=Integer.parseInt(tv_num.getText().toString())+1;
                     tv_num.setText(number+"");
+                    tv_pronum.setText(number+"件");
                     //map 中的收藏数量发上改变
                     car_numbers.put((int)v.getTag(),number);
                     //获取该位置的checked的状态
                     if(checkstus.get((int)v.getTag())){
-                        Double eachPrice= Double.parseDouble(tv_price.getText().toString())*Integer.parseInt(tv_num.getText().toString());
+                        Double eachPrice= finalCart.getProduct().estoreprice*number;
                         totalPrice+=Double.parseDouble(tv_price.getText().toString());
                         cart_buy_money.setText("￥"+totalPrice);
 
                     }
                 }
             });
+            tv_bianji.setOnClickListener(new View.OnClickListener() {
+                //编辑
+                @Override
+                public void onClick(View v) {
+                    if(cart_item_jiajian.getVisibility()==View.INVISIBLE){
+                      cart_item_jiajian.setVisibility(View.VISIBLE);}
+                    else {
+                        cart_item_jiajian.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
             btn_jian=viewHolder.getViewById(R.id.cart_item_jian);
             btn_jian.setTag(position);
+            final Cart finalCart1 = cart;
             btn_jian.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int number=0;
+
                     if(Integer.parseInt(tv_num.getText().toString())>1){
-                        number =Integer.parseInt(tv_num.getText().toString())-1;
+                        number =number-1;
                         tv_num.setText(number+"");
                     }
                     else {
@@ -355,9 +377,9 @@ public class FragmentCar extends Fragment {
                     }
                     car_numbers.put((int)v.getTag(),number);
                     if(checkstus.get((int)v.getTag())){
-                        Double eachPrice= Double.parseDouble(tv_price.getText().toString())*number;
+                        Double eachPrice= finalCart1.getProduct().estoreprice*number;
                         if(number>0){
-                            totalPrice-=Double.parseDouble(tv_price.getText().toString());}
+                            totalPrice-=finalCart1.getProduct().estoreprice;}
                         //有bug
                         cart_buy_money.setText("￥"+totalPrice);
                     }
@@ -374,7 +396,7 @@ public class FragmentCar extends Fragment {
                         numberSeclected++;
                         Log.e("ShopingCartFragment","checked");
                         checkstus.put((Integer) buttonView.getTag(),true);
-                        Double eachPrice= Double.parseDouble(tv_price.getText().toString())*Integer.parseInt(tv_num.getText().toString());
+                        Double eachPrice= finalCart1.getProduct().estoreprice*number;
                         totalPrice+=eachPrice;
                         cart_buy_money.setText(totalPrice+"￥");
                         Log.e("ShopingCartFragment","选中个数"+cartAdapter.getNumberSeclected());
@@ -386,9 +408,9 @@ public class FragmentCar extends Fragment {
                         Log.e("ShopingCartFragment","notchecked");
                         numberSeclected--;
                         checkstus.put((Integer) buttonView.getTag(),false);
-                        Double eachPrice= Double.parseDouble(tv_price.getText().toString())*Integer.parseInt(tv_num.getText().toString());
+                        Double eachPrice= finalCart1.getProduct().estoreprice*number;
                         totalPrice-=eachPrice;
-                        cart_buy_money.setText(totalPrice+"￥");
+                        cart_buy_money.setText("￥"+totalPrice);
                         if(check_all.isChecked()){
                             check_all.setChecked(false);
                         }

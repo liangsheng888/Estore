@@ -3,8 +3,10 @@ package com.estore.fragment;
 /*
 我的订单---待评价页面
  */
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,11 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.estore.activity.MainActivity;
 import com.estore.activity.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
@@ -48,6 +53,19 @@ import java.util.List;
  */
 public class WaitingEvaluateFragment extends Fragment {
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
+    private  EditText et_pinglun;//评价内容
+    private CheckBox cb_xing1;
+    private CheckBox cb_xing2;
+    private CheckBox cb_xing3;
+    private CheckBox cb_xing4;
+    private CheckBox cb_xing5;
+    private CheckBox cb_xing6;
+    private CheckBox cb_xing7;
+    private CheckBox cb_xing8;
+    private CheckBox cb_xing9;
+    int evt_honest=0;//星级
+
+
 
     CommonAdapter<Order> orderApater;//适配器
  /*	 1 待付款
@@ -257,6 +275,8 @@ public class WaitingEvaluateFragment extends Fragment {
                             });
 
                             btnRight.setOnClickListener(new View.OnClickListener() {
+
+
                                 @Override
                                 public void onClick(View v) {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
@@ -270,16 +290,48 @@ public class WaitingEvaluateFragment extends Fragment {
                                             dialog.show();
                                             dialog.getWindow().setContentView(view);
                                             builder.setTitle("评论");
-                                            EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
+                                            et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
                                             TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
                                             TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
+                                            cb_xing1 = ((CheckBox) view.findViewById(R.id.xing_gray));
+                                            cb_xing2 = ((CheckBox) view.findViewById(R.id.xing_gray2));
+                                            cb_xing3 = ((CheckBox) view.findViewById(R.id.xing_gray3));
+                                            cb_xing4 = ((CheckBox) view.findViewById(R.id.xing_gray4));
+                                            cb_xing5 = ((CheckBox) view.findViewById(R.id.xing_gray5));
+                                            cb_xing6 = ((CheckBox) view.findViewById(R.id.xing_gray6));
+                                            cb_xing7 = ((CheckBox) view.findViewById(R.id.xing_gray7));
+                                            cb_xing8 = ((CheckBox) view.findViewById(R.id.xing_gray8));
                                             fabiao.setOnClickListener(new View.OnClickListener() {
 
                                                 @Override
                                                 public void onClick(View v) {
+                                                    if(cb_xing1.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing2.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing3.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing4.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing5.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing6.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing7.isChecked()){
+                                                        evt_honest++;
+                                                    }
+                                                    if(cb_xing8.isChecked()){
+                                                        evt_honest++;
+                                                    }
                                                     dialog.dismiss();
                                                     //上传评论
-                                                    uploadEnvalue();
+                                                    uploadEnvalue(order.getGoodsOrderId(),order.getOrderDetails().get(position).getProduct().id);
                                                     return;
                                                 }
                                             });
@@ -402,18 +454,26 @@ public class WaitingEvaluateFragment extends Fragment {
 
 
 
-    private void uploadEnvalue() {
+    private void uploadEnvalue(Integer goodsOrderId, int product_id) {
         RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"envaluteServlet");
-        //Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
-        /*rp.addBodyParameter("user_id",user_id);
-        rp.addBodyParameter("product_id",user_id);
-        rp.addBodyParameter("order_id",user_id);
-        rp.addBodyParameter("file",user_id);
-*/
+         Log.i("WaitingEvaluateFragment", "评论 ");
+        rp.addBodyParameter("user_id",sp.getInt("userId",0)+"");
+        rp.addBodyParameter("product_id",product_id+"");
+        rp.addBodyParameter("order_id",goodsOrderId+"");
+        rp.addBodyParameter("evt_msg",et_pinglun.getText().toString());
+        rp.addBodyParameter("evt_honest",evt_honest+"");
+       // rp.addBodyParameter("file",user_id);
 
         x.http().post(rp, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e("WaitingEvaluateFragment",result);
+                if("true".equals(result)){
+                    Toast.makeText(getActivity(),"评价成功",Toast.LENGTH_LONG).show();
+                   /* Intent intent=new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);*/
+                }
+
 
             }
 

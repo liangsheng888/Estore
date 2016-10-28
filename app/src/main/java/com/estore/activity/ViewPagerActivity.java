@@ -51,7 +51,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         pictureLists.add(1,R.drawable.start_i2);
         pictureLists.add(2,R.drawable.start_i3);
         pictureLists.add(3,R.drawable.start_i4);
-        //跳转到login界面
         String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
 
         Log.e("ViewPagerActivity",HttpUrlUtils.HTTP_URL+"getAllProducts?page=1");
@@ -59,8 +58,10 @@ public class ViewPagerActivity extends AppCompatActivity {
         btn_tiaozhuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pb_login.setVisibility(View.VISIBLE);
-                x.http().get(params, new Callback.CacheCallback<String>() {
+                //pb_login.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
+                startActivity(intent);
+               /* x.http().get(params, new Callback.CacheCallback<String>() {
 
                     @Override
                     public void onSuccess(String result) {
@@ -93,7 +94,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                     public boolean onCache(String result) {
                         return false;
                     }
-                });
+                });*/
             }
         });
 

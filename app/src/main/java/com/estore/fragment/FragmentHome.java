@@ -1,13 +1,17 @@
 package com.estore.fragment;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +53,10 @@ import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,14 +96,15 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private String url;
     private RelativeLayout phone;
     private RelativeLayout watch;
-
-
+    private ProgressBar progressBar;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
+        progressBar = ((ProgressBar) view.findViewById(R.id.progressBar));
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
+        progressBar.setVisibility(View.VISIBLE);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
         lv_jingpin.setInterface(this);
 
@@ -128,6 +137,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
             @Override
             public void onSuccess(String result) {
+                Log.i("cc",result+"result");
                 page++;
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
@@ -149,7 +159,6 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                     adapter = new MyAdapter();
                     lv_jingpin.setSelection(0);
                 }else {
-
                     Log.e("MainActivity", "adapter!=null");
                     adapter.notifyDataSetChanged();
                     lv_jingpin.setSelection(list.size()-1);
@@ -186,8 +195,15 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
+        progressBar.setVisibility(View.GONE);
+
         //为GridView设置点击事件
         Log.e("home", "为GridView设置点击事件");
         lv_jingpin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -320,7 +336,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         x.http().get(requestParams2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
+                Log.i("cc",result+"result");
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
                 proList.addAll(pro.list);
@@ -387,6 +403,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         ImageView iv;
         //ViewPager vp_jingpin;
         GridView gv_jingpin;
+        TextView tv_time;
     }
 
 
@@ -406,6 +423,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             return position;
         }
 
+        @TargetApi(Build.VERSION_CODES.N)
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //View view = null;
@@ -417,7 +435,8 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
                 viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);
 
-                viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
+                viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+                viewHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_jin_proname);
                 viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
                 viewHolder.tv_username = (TextView) convertView.findViewById(R.id.tv_username);
                 viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_jingpin_price);
@@ -442,6 +461,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             viewHolder.tv_estoreprice.setText("￥"+pp.estoreprice);
             viewHolder. tv_jingpin_desc.setText(pp.description);
             viewHolder.tv_jingpin_address.setText(pp.proaddress);
+            viewHolder.tv_time.setText("发布时间"+pp.time);
 
             //viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
            // viewHolder.gv_jingpin.setBackgroundColor(Color.WHITE);

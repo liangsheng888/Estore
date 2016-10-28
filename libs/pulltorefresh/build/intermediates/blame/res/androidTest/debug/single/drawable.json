@@ -1,18 +1,10 @@
 [
     {
-        "merged": "E:\\project_process\\1028\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
-        "source": "E:\\project_process\\1028\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+        "merged": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
+        "source": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
     },
     {
-        "merged": "E:\\project_process\\1028\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
-        "source": "E:\\project_process\\1028\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
-    },
-    {
-        "merged": "E:\\androidstudio\\EStore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
-        "source": "E:\\androidstudio\\EStore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
-    },
-    {
-        "merged": "E:\\androidstudio\\EStore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
-        "source": "E:\\androidstudio\\EStore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
+        "merged": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
+        "source": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
     }
 ]

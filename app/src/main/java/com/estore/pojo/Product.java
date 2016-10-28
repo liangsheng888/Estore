@@ -2,6 +2,7 @@ package com.estore.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class Product implements Serializable {
         public String description;
         public String proaddress;
         public int prowhere;
-
+        public String time;
 
         @Override
         public String toString() {
@@ -36,7 +37,8 @@ public class Product implements Serializable {
                     ", imgurl='" + imgurl + '\'' +
                     ", description='" + description + '\'' +
                     ", proaddress='" + proaddress + '\'' +
-                    ", prowhere='" + prowhere + '\'' +
+                    ", prowhere=" + prowhere +
+                    ", time=" + time +
                     '}';
         }
     }
