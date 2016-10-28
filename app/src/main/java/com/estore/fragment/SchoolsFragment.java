@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.estore.activity.ProductInfoActivity;
@@ -25,7 +29,9 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class SchoolsFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
@@ -33,16 +39,29 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     private BaseAdapter mAdapter;
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
     Integer page=0;
-//    private ListView actualListView;
-
+    //    private ListView actualListView;
+    private TextView phone;
+    private TextView computer;
+    private TextView computertext;
+    private TextView others;
+    private ImageView prosort;
+    Integer orderFlag=0;
+    private TextView all;
+    List<String> popContents=new ArrayList<String>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_schools, null);
         schools = ((LoadListView) view.findViewById(R.id.lv_schools));
+        all = ((TextView) view.findViewById(R.id.tv_all));
+        phone = ((TextView) view.findViewById(R.id.tv_phone));
+        computer = ((TextView) view.findViewById(R.id.tv_computer));
+        computertext = ((TextView) view.findViewById(R.id.tv_computertext));
+        others = ((TextView) view.findViewById(R.id.tv_others));
+        prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         schools.setInterface(this);
-        getSameCityProductInfo();
+        getSchoolProductInfo();
 //        mAdapter=new MyAdapter();
 //        mAdapter.notifyDataSetChanged();
 //        sameCity.setAdapter(mAdapter);
@@ -54,6 +73,14 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        popContents.add("价格从高到低");
+        popContents.add("价格从低到高");
+        all.setOnClickListener(this);
+        phone.setOnClickListener(this);
+        computer.setOnClickListener(this);
+        computertext.setOnClickListener(this);
+        others.setOnClickListener(this);
+        prosort.setOnClickListener(this);
         schools.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -67,9 +94,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         });
     }
 
-    private void getSameCityProductInfo() {
+    private void getSchoolProductInfo() {
         String url= HttpUrlUtils.HTTP_URL+"getSchoolProducts";
-        Integer orderFlag=0;
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
         requestParams.addQueryStringParameter("page",page+1+"");
@@ -113,7 +139,27 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.tv_all:
+                orderFlag=0;
+                break;
+            case R.id.tv_phone:
+                orderFlag=1;
+                break;
+            case R.id.tv_computer:
+                orderFlag=2;
+                break;
+            case R.id.tv_computertext:
+                orderFlag=3;
+                break;
+            case R.id.tv_others:
+                orderFlag=4;
+                break;
+            case R.id.iv_sort:
+                initPopupWindow(prosort);
+                break;
+        }
+        getSchoolProductInfo();
     }
 
     @Override
@@ -123,7 +169,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
 
             @Override
             public void run() {
-                getSameCityProductInfo();
+                getSchoolProductInfo();
 
                 schools.loadComplete();
             }
@@ -177,9 +223,35 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         }
     }
 
+    public void initPopupWindow(View v){
+        View view=LayoutInflater.from(getActivity()).inflate(R.layout.popupwindow_time_item,null);
+        final PopupWindow popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,200);
+        ListView lv= (ListView) view.findViewById(R.id.lv_zonghe_paixu);
+        ArrayAdapter arrayAdapter=new ArrayAdapter(getActivity(),R.layout.popupwindow_listview_item,popContents);
+        lv.setAdapter(arrayAdapter);
+
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.showAsDropDown(v);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                popupWindow.dismiss();
+
+                if(position==0){
+                    orderFlag=5;
+                }else if(position==1){
+                    orderFlag=6;
+                }
+
+                getSchoolProductInfo();
+            }
+        });
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        getSameCityProductInfo();
+        getSchoolProductInfo();
     }
 }
