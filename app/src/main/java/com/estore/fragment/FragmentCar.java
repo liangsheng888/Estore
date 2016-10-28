@@ -1,6 +1,5 @@
 package com.estore.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,9 +25,7 @@ import android.widget.Toast;
 
 import com.estore.activity.ProOrderActivity;
 import com.estore.activity.R;
-import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
-import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.httputils.ViewHolder;
@@ -57,7 +57,7 @@ import swipetodismiss.SwipeMenuListView;
 public class FragmentCar extends Fragment {
     private SharedPreferences sp;
     private User user=new User();
-//    private ListView cartListView;
+    //    private ListView cartListView;
     private List<Cart> cartlist = new ArrayList<>();//
     private CartAapater cartAdapter;
     private int totalPrice;
@@ -72,7 +72,7 @@ public class FragmentCar extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-           View view = View.inflate(getActivity(), R.layout.fragment_shoping_cart, null);
+        View view = View.inflate(getActivity(), R.layout.fragment_shoping_cart, null);
 //        cartListView = (ListView) view.findViewById(R.id.cart_listview);
 
         cartListView=(SwipeMenuListView) view.findViewById(R.id.cart_listview);
@@ -312,13 +312,13 @@ public class FragmentCar extends Fragment {
             TextView tv_bianji=viewHolder.getViewById(R.id.tv_bianji);
             final TextView tv_pronum=viewHolder.getViewById(R.id.tv_num);
             TextView tv_name = viewHolder.getViewById(R.id.cart_item_prod_des);
-            final RelativeLayout cart_item_jiajian = viewHolder.getViewById(R.id.cart_item_jiajian);
+            final LinearLayout cart_item_jiajian = viewHolder.getViewById(R.id.cart_item_jiajian);
 
             ImageView iv = viewHolder.getViewById(R.id.cart_item_prod_img);
             cart=cartlist.get(position);
             Log.e("FragmentCar","cart"+cart.toString());
             if(cart!=null)
-            tv_price.setText("￥"+cart.getProduct().estoreprice);
+                tv_price.setText("￥"+cart.getProduct().estoreprice);
             tv_num.setText(car_numbers.get(position) + "");//
             tv_pronum.setText(car_numbers.get(position)+"件");
 
@@ -355,7 +355,7 @@ public class FragmentCar extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(cart_item_jiajian.getVisibility()==View.INVISIBLE){
-                      cart_item_jiajian.setVisibility(View.VISIBLE);}
+                        cart_item_jiajian.setVisibility(View.VISIBLE);}
                     else {
                         cart_item_jiajian.setVisibility(View.INVISIBLE);
                     }

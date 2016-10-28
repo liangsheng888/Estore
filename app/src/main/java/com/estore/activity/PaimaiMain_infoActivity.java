@@ -1,7 +1,9 @@
 package com.estore.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.text.SimpleDateFormat;
@@ -32,8 +37,11 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     private TextView tv_auct_name;
     private TextView tv_auct_username;
     private TextView tv_auct_time;
-    private TextView btn_paimai_bidding;
+    private CheckBox btn_paimai_bidding;
     private String[] imgurls;
+    private CheckBox btn_paimai_shoucang;
+    Boolean shoucangFlag = false;
+    AuctListActivityBean.Auct auct;
 
 
     @Override
@@ -43,10 +51,12 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_paimai_main_info);
         initView();
         intEven();
+
         Intent intent = getIntent();
-        AuctListActivityBean.Auct auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        getCollectData();
         System.out.println("(intent.getExtras()----------------------" + auct);
-        imgurls=auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
+        imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -156,11 +166,12 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
     private void intEven() {
         btn_paimai_bidding.setOnClickListener(this);
-
+        btn_paimai_shoucang.setOnClickListener(this);
     }
 
     private void initView() {
-        btn_paimai_bidding = ((TextView) findViewById(R.id.btn_paimai_bidding));
+        btn_paimai_bidding = ((CheckBox) findViewById(R.id.btn_paimai_bidding));
+        btn_paimai_shoucang = ((CheckBox) findViewById(R.id.btn_paimai_shoucang));
 
     }
 
@@ -170,7 +181,83 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             case R.id.btn_paimai_bidding:
                 Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_paimai_shoucang:
+                if (btn_paimai_shoucang.isChecked()) {
+                    shoucangFlag = true;
+                } else {
+                    shoucangFlag = false;
+                }
+                sendFlagForShoucang();
+
+                break;
         }
+    }
+
+    private void sendFlagForShoucang() {
+        RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "paiMaishoucang");
+        requestParams.addBodyParameter("shoucangFlag", String.valueOf(shoucangFlag));
+        requestParams.addBodyParameter("auct_id", auct.auct_id);
+        requestParams.addBodyParameter("user_id", auct.user_id);
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                if (result.equals("true")) {
+                    Toast.makeText(PaimaiMain_infoActivity.this, "收藏成功" + result, Toast.LENGTH_SHORT).show();
+                    System.out.println("收藏成功" + result);
+                }else {
+                    Toast.makeText(PaimaiMain_infoActivity.this, "取消收藏成功" + result, Toast.LENGTH_SHORT).show();
+                    System.out.println("取消收藏成功" + result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("收藏错误" + ex.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    public void getCollectData() {
+
+        RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getShouCangData");
+        requestParams.addBodyParameter("userId", auct.user_id);
+        requestParams.addBodyParameter("auctId", auct.auct_id);
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onSuccess(String result) {
+                if (result.equals(true)) {
+                    btn_paimai_shoucang.setChecked(true);
+//                    btn_paimai_shoucang.setTextColor(getColor(R.color.red));
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("查询商品是否被收藏" + ex.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
 
@@ -204,7 +291,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         public Object instantiateItem(ViewGroup container, int position) {
             View view = View.inflate(getApplicationContext(), R.layout.auct_info_daa_item, null);
             ImageView iv_vp_item = ((ImageView) view.findViewById(R.id.iv_auct_info_add_item));
-            x.image().bind(iv_vp_item, HttpUrlUtils.HTTP_URL+imgurls[position]);
+            x.image().bind(iv_vp_item, HttpUrlUtils.HTTP_URL + imgurls[position]);
 //            iv_vp_item.setImageResource(imgsrc.get(position));
             container.addView(view);//肯定要的
 

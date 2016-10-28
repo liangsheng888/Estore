@@ -17,12 +17,12 @@
             android:textColor="#000"
             android:gravity="top"
             android:layout_height="100dp" />
-       <!-- <TextView
-            android:id="@+id/tv_evt_photo"
-            android:layout_below="@id/et_evlaute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/jia_qing"/>-->
+        <!-- <TextView
+             android:id="@+id/tv_evt_photo"
+             android:layout_below="@id/et_evlaute"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:drawableTop="@drawable/jia_qing"/>-->
         <me.iwf.photopicker.widget.MultiPickResultView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

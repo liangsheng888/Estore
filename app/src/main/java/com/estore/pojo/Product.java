@@ -23,6 +23,7 @@ public class Product implements Serializable {
         public String description;
         public String proaddress;
         public int prowhere;
+        public String schoolname;
         public String time;
 
         @Override

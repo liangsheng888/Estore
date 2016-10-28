@@ -89,7 +89,7 @@
                 android:textColor="@color/red"
                 android:textSize="18sp" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/cart_item_jiajian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,9 +102,9 @@
                     android:id="@+id/cart_item_jian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+
                     android:background="#ffffff"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="2dp"
                     android:focusable="false"
                     android:padding="4dp"
                     android:text="-"
@@ -116,7 +116,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/cart_item_jian"
                     android:text="1"
                     android:textColor="@color/text_clo" />
 
@@ -125,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/cart_item_number"
+                    android:layout_alignParentLeft="true"
                     android:background="#ffffff"
                     android:focusable="false"
                     android:padding="4dp"
@@ -134,7 +133,7 @@
                     android:textSize="20sp"
 
                     />
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
     </LinearLayout>

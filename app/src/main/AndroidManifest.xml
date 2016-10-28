@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ListViewActivity" />
@@ -51,13 +51,14 @@
         <activity android:name=".ModifyMyAddProductActivity" />
         <activity android:name=".MainComputerActivity" />
         <activity android:name=".PaiMaiAll" />
-        <activity android:name=".PaiMAIbidding_bidActivity"></activity>
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-            android:theme="@style/customTheme"
-            />
-
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/customTheme"/>
+        <activity android:name=".PaiMAIbidding_bidActivity" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/customTheme" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/customTheme" />
+        <activity android:name=".EnvaluteActivity"></activity>
     </application>
 
 </manifest>
