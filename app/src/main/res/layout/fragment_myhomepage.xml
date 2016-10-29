@@ -8,7 +8,7 @@
         android:id="@+id/rl_login"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#ffffff"
+        android:background="#fcfcfc"
         >
         <ImageView
             android:id="@+id/iv_intercalate"
@@ -25,15 +25,15 @@
             android:id="@+id/iv_denglu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/userphoto"
+            android:src="@drawable/denglu"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             />
         <TextView
             android:id="@+id/tv_myNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="渣渣"
+            android:text="请登录账号"
             android:textSize="18dp"
             android:background="#d9d9d9"
             android:layout_below="@id/iv_denglu"
@@ -161,8 +161,8 @@
                     android:drawableLeft="@drawable/notice"
                     android:background="#ffffff"
                     android:drawableRight="@drawable/dayu"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="8dp"
                     />
                 <!-- 分割线 -->
                 <ImageView

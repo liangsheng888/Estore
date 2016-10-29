@@ -77,6 +77,7 @@ public class PublishEStoreFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MyPublishActivityBean.ProImag estoreimage=prolist.get(position);
+                Log.i("pub", "estoreimage "+estoreimage);
                 Intent intent=new Intent(getActivity(), PublishEstoreDetialItemActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("estoreimage",estoreimage);
@@ -92,94 +93,17 @@ public class PublishEStoreFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //adapter=new myAdapter();
 
-        SwipeMenuCreator creator=new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
 
-                // 设置修改框
-                SwipeMenuItem zhidingitem = new SwipeMenuItem(getActivity());
-                zhidingitem.setBackground(new ColorDrawable(Color.GRAY));
-                zhidingitem.setWidth(dp2px(90));
-                zhidingitem.setTitle("修改");
-                zhidingitem.setTitleSize(15);
-                zhidingitem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(zhidingitem);
-
-                // 设置删除框
-                SwipeMenuItem deleteitem = new SwipeMenuItem(getActivity());
-                deleteitem.setBackground(new ColorDrawable(Color.RED));
-                deleteitem.setWidth(dp2px(90));
-                deleteitem.setTitle("删除");
-                deleteitem.setTitleSize(15);
-                deleteitem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(deleteitem);
-            }
-        };
-        lv_publishest.setMenuCreator(creator);
-        lv_publishest.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick( final int  position, SwipeMenu menu, int index) {
-
-                switch (index){
-                    case 0:
-                        MyPublishActivityBean.ProImag list=prolist.get(position);
-                        Log.i("cc","list"+list);
-                        Intent intent=new Intent(getActivity(), ModifyMyAddProductActivity.class);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable("list",list);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-//                        Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-
-                        String url=HttpUrlUtils.HTTP_URL+"deleteMyAddProductServlet";
-                        int productId=prolist.get(position).id;
-                        Log.i("cc","position"+position);
-                        Log.i("cc","productId"+productId);
-                        RequestParams requestParams=new RequestParams(url);
-                        requestParams.addQueryStringParameter("productId",productId+"");
-                        x.http().get(requestParams, new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_SHORT).show();
-                                prolist.remove(position);
-
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-                                Toast.makeText(getActivity(),"删除失败",Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-
-                        break;
-
-                }
-
-                return false;
-            }
-        });
 
     }
-
     //适配器
     public class myAdapter extends BaseAdapter{
         private ImageView iv_pubestorepic;
         private TextView tv_pubestoreprice;
         private TextView tv_pubestorewhere;
         private TextView tv_pubestorerepresent;
+        private TextView  iv_erdetial_propic;
+        private TextView  tv_youfei ;
         private TextView tv_pubestorewhere1;
 
         @Override
@@ -203,11 +127,15 @@ public class PublishEStoreFragment extends Fragment {
             //得到listview
             View view = View.inflate(getActivity(), R.layout.items_publishestore, null);
             //得到listview的item
-            iv_pubestorepic = ((ImageView) view.findViewById(R.id.iv_pubestorepic));
-            tv_pubestoreprice = ((TextView) view.findViewById(R.id.tv_pubestoreprice));
+            iv_pubestorepic = ((ImageView) view.findViewById(R.id.iv_pubestorepic));//图片
+            tv_pubestoreprice = ((TextView) view.findViewById(R.id.tv_pubestoreprice));//价格
             tv_pubestorewhere = ((TextView) view.findViewById(R.id.tv_pubestorewhere));//同城
-            tv_pubestorerepresent = ((TextView) view.findViewById(R.id.tv_pubestorerepresent));
+            tv_pubestorerepresent = ((TextView) view.findViewById(R.id.tv_pubestorerepresent));//描述
             tv_pubestorewhere1 = ((TextView) view.findViewById(R.id.tv_pubestorewhere1));//高校
+
+
+
+
             MyPublishActivityBean.ProImag  pro=prolist.get(position);
             Log.e("PublishEStoreFragment","getView:"+pro.toString());
             String[] imgurl=pro.imgurl.split("=");
@@ -217,11 +145,11 @@ public class PublishEStoreFragment extends Fragment {
             tv_pubestorerepresent.setText(pro.description+"");
             //判断同城高校
             // Toast.makeText(getActivity(),pro.heighschool+"",Toast.LENGTH_LONG).show();
-            if (pro.prowhere==1) {//高校
-                tv_pubestorewhere.setText(pro.cityaddress);
+            if (pro.prowhere==0) {//高校
+                tv_pubestorewhere.setText(pro.schoolname);
             }
-            if(pro.prowhere==0) {//同城高校
-                tv_pubestorewhere.setText(pro.cityaddress);
+            if(pro.prowhere==1) {//同城高校
+                tv_pubestorewhere.setText(pro.proaddress);
                 tv_pubestorewhere1.setText(pro.schoolname);
 
             }
@@ -265,7 +193,6 @@ public class PublishEStoreFragment extends Fragment {
     }
     @Override
     public void onHiddenChanged(boolean hidden) {
-        getProduct();
         super.onHiddenChanged(hidden);
     }
     //请求数据
@@ -287,12 +214,11 @@ public class PublishEStoreFragment extends Fragment {
                 if(adapter==null){
                     Log.e("PublishEStoreFragment","adapter=null");
                     adapter=new myAdapter();
-
+                    lv_publishest.setAdapter(adapter);
                 }else{
                     Log.e("PublishEStoreFragment","adapter!=null");
                     adapter.notifyDataSetChanged();
                 }
-                lv_publishest.setAdapter(adapter);
 
             }
 
@@ -319,4 +245,5 @@ public class PublishEStoreFragment extends Fragment {
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
 }
