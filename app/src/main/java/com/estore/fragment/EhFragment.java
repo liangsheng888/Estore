@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.activity.R;
@@ -36,6 +38,11 @@ public class EhFragment extends Fragment{
     Fragment home1;
     Fragment home2;
     private String url;
+    //    List<CityItem> cityList;
+    RelativeLayout itmel;
+    GridView gridView;
+
+    private int curFragmentIndex = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,8 +59,10 @@ public class EhFragment extends Fragment{
         animation.setFillAfter(true);
         animation.setDuration(300);
         ivBottomLine.startAnimation(animation);
+
         return view;
     }
+
 
     private void InitTextView(View parentView) {
         tvSameCity = (TextView) parentView.findViewById(R.id.rb_samecity);
@@ -92,6 +101,7 @@ public class EhFragment extends Fragment{
         position_one = avg + offset;
     }
 
+
     public class MyOnClickListener implements View.OnClickListener {
         private int index = 0;
 
@@ -109,15 +119,15 @@ public class EhFragment extends Fragment{
 
         @Override
         public void onPageSelected(int arg0) {
+
+            curFragmentIndex=arg0;
             Animation animation = null;
             switch (arg0) {
                 case 0:
-
                     if (currIndex == 1) {
                         animation = new TranslateAnimation(position_one, offset, 0, 0);
                         tvSchools.setTextColor(resources.getColor(R.color.white));
                         tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
-
                     }
                     tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
                     tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
@@ -147,7 +157,5 @@ public class EhFragment extends Fragment{
         public void onPageScrollStateChanged(int arg0) {
         }
     }
-
-
 
 }
