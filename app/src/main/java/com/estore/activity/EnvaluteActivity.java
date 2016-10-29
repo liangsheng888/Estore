@@ -48,6 +48,7 @@ public class EnvaluteActivity extends AppCompatActivity {
     private int productId=0;
     private int position;
     public static final int REMARK = 6;    //已评价
+    private int store_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class EnvaluteActivity extends AppCompatActivity {
          orderId=  intent.getIntExtra("orderId",-1);
         productId=  intent.getIntExtra("productId",-1);
         position=intent.getIntExtra("position",-1);
+        store_id=intent.getIntExtra("estore_id",-1);
 
         et_pinglun = (EditText) findViewById(R.id.et_evlaute);
         ev_recycler_view = (MultiPickResultView) findViewById(R.id.ev_recycler_view);
@@ -121,6 +123,8 @@ public class EnvaluteActivity extends AppCompatActivity {
         rp.addBodyParameter("order_id", goodsOrderId + "");
         rp.addBodyParameter("evt_msg", et_pinglun.getText().toString());
         rp.addBodyParameter("evt_honest", evt_honest + "");
+        rp.addBodyParameter("store_id", store_id + "");
+
 
         //params.setMultipart(true);
         for (int i = 0; i < imageFileLists.size(); i++) {

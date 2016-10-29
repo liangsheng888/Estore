@@ -13,10 +13,13 @@ public class Product implements Serializable {
     public ArrayList<Products> list;
 
     public static class Products implements Serializable{
+        public int user_id;
         public int id;
         public String name;
         public String category;
         public double marketprice;
+        public String userPhoto;
+        public String userNick;
         public double estoreprice;
         public int pnum;
         public String imgurl;
@@ -25,21 +28,27 @@ public class Product implements Serializable {
         public int prowhere;
         public String schoolname;
         public String time;
+        public int xingCount;
 
         @Override
         public String toString() {
             return "Products{" +
-                    "id=" + id +
+                    "user_id=" + user_id +
+                    ", id=" + id +
                     ", name='" + name + '\'' +
                     ", category='" + category + '\'' +
                     ", marketprice=" + marketprice +
+                    ", userPhoto='" + userPhoto + '\'' +
+                    ", userNick='" + userNick + '\'' +
                     ", estoreprice=" + estoreprice +
                     ", pnum=" + pnum +
                     ", imgurl='" + imgurl + '\'' +
                     ", description='" + description + '\'' +
                     ", proaddress='" + proaddress + '\'' +
                     ", prowhere=" + prowhere +
-                    ", time=" + time +
+                    ", schoolname='" + schoolname + '\'' +
+                    ", time='" + time + '\'' +
+                    ", xingCount=" + xingCount +
                     '}';
         }
     }

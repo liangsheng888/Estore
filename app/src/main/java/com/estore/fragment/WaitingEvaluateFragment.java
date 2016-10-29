@@ -302,6 +302,8 @@ public class WaitingEvaluateFragment extends Fragment {
                                             intent.putExtra("orderId", order.getGoodsOrderId());
                                             intent.putExtra("productId", orderDetails.get(position).getProduct().id);
                                             intent.putExtra("position",position);
+
+                                            intent.putExtra("estore_id",orderDetails.get(position).getProduct().user_id);//商家Id
                                             startActivity(intent);
                                             //评论，
 
