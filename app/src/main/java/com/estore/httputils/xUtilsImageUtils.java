@@ -17,8 +17,8 @@ public class xUtilsImageUtils {
         ImageOptions imageOptions = new ImageOptions.Builder()
                 .setIgnoreGif(false)//是否忽略gif图。false表示不忽略。不写这句，默认是true
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
+                .setFailureDrawableId(R.drawable.emoji_81)
+                .setLoadingDrawableId(R.drawable.emoji_81)
                 .build();
         x.image().bind(imageView, iconUrl,imageOptions);
     }
@@ -36,8 +36,8 @@ public class xUtilsImageUtils {
                 .setRadius(DensityUtil.dip2px(radius))
                 .setIgnoreGif(false)
                 .setCrop(true)//是否对图片进行裁剪
-                .setFailureDrawableId(R.mipmap.ic_launcher)
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
+                .setFailureDrawableId(R.drawable.emoji_81)
+                .setLoadingDrawableId(R.drawable.emoji_81)
                 .build();
         x.image().bind(imageView, iconUrl, imageOptions);
     }
@@ -54,8 +54,8 @@ public class xUtilsImageUtils {
                 .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
                 .setCircular(isCircluar)
                 .setCrop(true)
-                .setLoadingDrawableId(R.mipmap.ic_launcher)
-                .setFailureDrawableId(R.mipmap.ic_launcher)
+                .setLoadingDrawableId(R.drawable.emoji_81)
+                .setFailureDrawableId(R.drawable.emoji_81)
                 .build();
         x.image().bind(imageView, iconUrl, imageOptions);
     }

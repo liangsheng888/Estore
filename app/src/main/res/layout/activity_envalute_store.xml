@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".EnvaluteStoreActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:background="#f26522">
+        <ImageView
+            android:id="@+id/iv_en_store_fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/last_white"
+            />
+        <TextView
+            android:id="@+id/tv_pingjia"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="宝贝评价"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+    <com.estore.view.LoadListView
+        android:id="@+id/lv_envalute"
+        android:layout_below="@id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.estore.view.LoadListView>
+
+</RelativeLayout>

@@ -16,6 +16,7 @@ public class Product implements Serializable {
         public int user_id;
         public int id;
         public String name;
+        public int youfei;
         public String category;
         public double marketprice;
         public String userPhoto;
@@ -36,6 +37,7 @@ public class Product implements Serializable {
                     "user_id=" + user_id +
                     ", id=" + id +
                     ", name='" + name + '\'' +
+                    ", youfei=" + youfei +
                     ", category='" + category + '\'' +
                     ", marketprice=" + marketprice +
                     ", userPhoto='" + userPhoto + '\'' +
