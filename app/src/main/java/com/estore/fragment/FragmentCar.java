@@ -336,7 +336,7 @@ public class FragmentCar extends Fragment {
             btn_jia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int number=Integer.parseInt(tv_num.getText().toString())+1;
+                      number=Integer.parseInt(tv_num.getText().toString())+1;
                     tv_num.setText(number+"");
                     tv_pronum.setText(number+"件");
                     //map 中的收藏数量发上改变
@@ -344,7 +344,7 @@ public class FragmentCar extends Fragment {
                     //获取该位置的checked的状态
                     if(checkstus.get((int)v.getTag())){
                         Double eachPrice= finalCart.getProduct().estoreprice*number;
-                        totalPrice+=Double.parseDouble(tv_price.getText().toString());
+                        totalPrice+=finalCart.getProduct().estoreprice;
                         cart_buy_money.setText("￥"+totalPrice);
 
                     }
@@ -371,9 +371,11 @@ public class FragmentCar extends Fragment {
                     if(Integer.parseInt(tv_num.getText().toString())>1){
                         number =number-1;
                         tv_num.setText(number+"");
+                        tv_pronum.setText(number+"件");
                     }
                     else {
                         tv_num.setText("1");
+                        tv_pronum.setText(1+"件");
                     }
                     car_numbers.put((int)v.getTag(),number);
                     if(checkstus.get((int)v.getTag())){

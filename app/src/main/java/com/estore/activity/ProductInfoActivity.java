@@ -466,9 +466,9 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
 
             Envalute envalute=envaLists.get(position);
             Log.e("ProductInfoActivity","评价"+envalute.toString());
-            xUtilsImageUtils.display(ivuserphoto,HttpUrlUtils.HTTP_URL+envalute.getUser().getImageUrl(),true);
+            xUtilsImageUtils.display(ivuserphoto,HttpUrlUtils.HTTP_URL+envalute.getUser().getUserPhoto(),true);
             xUtilsImageUtils.display(iv_evtimg,HttpUrlUtils.HTTP_URL+envalute.getEvt_imgurl());
-            tv_username.setText(envalute.getUser().getNick());
+            tv_username.setText(envalute.getUser().getNickname());
             tv_evttime.setText(envalute.getEvt_time());
             tv_evcontent.setText(envalute.getEvt_msg());
             return view;

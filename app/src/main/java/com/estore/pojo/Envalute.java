@@ -1,16 +1,15 @@
 package com.estore.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Envalute implements Serializable {
 	private Integer evt_id;
-	private User user;
-	private Product product;//
+	public bean.User user;
+	private Product.Products product;//
 	private String evt_msg;//内容
 	private String evt_imgurl;//图片
-	public Envalute(User user, Product product, String evtMsg,
-			Integer evtHonest) {
+	public Envalute(bean.User user, Product.Products product, String evtMsg,
+					Integer evtHonest) {
 		super();
 		this.user = user;
 		this.product = product;
@@ -18,8 +17,8 @@ public class Envalute implements Serializable {
 
 		evt_honest = evtHonest;
 	}
-	public Envalute( User user, Product product, String evtMsg,
-			String evtImgurl, String evtTime, Integer evtHonest) {
+	public Envalute(bean.User user, Product.Products product, String evtMsg,
+					String evtImgurl, String evtTime, Integer evtHonest) {
 		super();
 		this.user = user;
 		this.product = product;
@@ -30,16 +29,16 @@ public class Envalute implements Serializable {
 	}
 	private String evt_time;//评价时间
 	private Integer evt_honest;//诚信度
-	public User getUser() {
+	public bean.User getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(bean.User user) {
 		this.user = user;
 	}
-	public Product getProduct() {
+	public Product.Products getProduct() {
 		return product;
 	}
-	public void setProduct(Product product) {
+	public void setProduct(Product.Products product) {
 		this.product = product;
 	}
 	public String getEvt_msg() {
@@ -70,6 +69,17 @@ public class Envalute implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Envalute{" +
+				"evt_id=" + evt_id +
+				", user=" + user +
+				", product=" + product +
+				", evt_msg='" + evt_msg + '\'' +
+				", evt_imgurl='" + evt_imgurl + '\'' +
+				", evt_time='" + evt_time + '\'' +
+				", evt_honest=" + evt_honest +
+				'}';
+	}
 }
