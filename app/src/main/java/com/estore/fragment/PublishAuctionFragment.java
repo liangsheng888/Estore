@@ -23,6 +23,7 @@ import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
 import com.estore.pojo.User;
+import com.estore.pojo.UserBean;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
