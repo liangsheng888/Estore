@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="42dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/ll_pai_sousuo"
+    android:visibility="gone">
     <TextView
         android:id="@+id/tv_paimai_hande1"
         android:layout_width="0dp"

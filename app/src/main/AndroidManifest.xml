@@ -59,6 +59,9 @@
 
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/customTheme"/>
+        <service android:name="com.estore.Service.PaiMaiTiXingService">
+
+        </service>
     </application>
 
 </manifest>

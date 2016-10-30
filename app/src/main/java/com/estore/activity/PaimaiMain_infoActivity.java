@@ -1,8 +1,13 @@
 package com.estore.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.Service.PaiMaiTiXingService;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
@@ -42,8 +48,11 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     private CheckBox btn_paimai_shoucang;
     Boolean shoucangFlag = false;
     AuctListActivityBean.Auct auct;
-
-
+    private CheckBox btn_paimai_tixing;
+//        private MyBinder minder;
+PaiMaiTiXingService paiMaiTiXingService;
+    PaiMaiTiXingService.MyBinder myBinder;
+    MyConn myConn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +63,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+
+//        String flag=intent.getIntExtra()
         getCollectData();
         System.out.println("(intent.getExtras()----------------------" + auct);
         imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
@@ -127,6 +138,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         tv_auct_username.setText("拍卖人：" + auct.auct_id);
         //判断拍卖时间
         String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+
         Long a = Long.parseLong(j);
         System.out.println(j + "--------------时间--------------------" + a);
         String yy = auct.auct_begin.substring(0, 4);
@@ -137,24 +149,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         String mm = auct.auct_begin.substring(17, 19);
         String b = yy + month + day + hh + ss + mm;
         Long bb = Long.parseLong(b);
-//        System.out.println(b);
-//        Date date1 = null;
-//        Date date2 = null;
-//        try {
-//            date1 = new SimpleDateFormat("yyyyMMddHHmmss").parse(auct.auct_begin);
-//            date2 = (new SimpleDateFormat("yyyyMMddHHmmss").parse(auct.auct_end));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(date1+"---------------------------"+date2);
-//        String begin = (new SimpleDateFormat("yyyyMMddHHmmss").format(date1));
-//        String end = (new SimpleDateFormat("yyyyMMddHHmmss").format(date2));
-//
-//        Long c = Long.parseLong(begin);
-//        Long d = Long.parseLong(end);
 
 
-//      ystem.out.println("auct.auct_begin====================================" + auct.auct_begin);
         if (bb - a < 0) {
             tv_auct_time.setText("未开始敬请期待");
         } else {
@@ -167,12 +163,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     private void intEven() {
         btn_paimai_bidding.setOnClickListener(this);
         btn_paimai_shoucang.setOnClickListener(this);
+        btn_paimai_tixing.setOnClickListener(this);
     }
 
     private void initView() {
         btn_paimai_bidding = ((CheckBox) findViewById(R.id.btn_paimai_bidding));
         btn_paimai_shoucang = ((CheckBox) findViewById(R.id.btn_paimai_shoucang));
-
+        btn_paimai_tixing = ((CheckBox) findViewById(R.id.btn_paimai_tixing));
     }
 
     @Override
@@ -189,8 +186,42 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                     shoucangFlag = false;
                 }
                 sendFlagForShoucang();
+                break;
+            case R.id.btn_paimai_tixing:
+                if (btn_paimai_tixing.isChecked()) {
+                    myConn=new MyConn();
+                    intent = new Intent(this,PaiMaiTiXingService.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("PaiMaiService",auct.auct_begin);
+                    intent.putExtras(bundle);
+//                    startService(intent);
+                    bindService(intent,myConn,BIND_AUTO_CREATE);
+
+                } else {
+
+                }
 
                 break;
+        }
+    }
+
+    public class  MyConn implements ServiceConnection{
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            myBinder= (PaiMaiTiXingService.MyBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    }
+    public class sedPaiMaiBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
         }
     }
 
@@ -205,7 +236,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 if (result.equals("true")) {
                     Toast.makeText(PaimaiMain_infoActivity.this, "收藏成功" + result, Toast.LENGTH_SHORT).show();
                     System.out.println("收藏成功" + result);
-                }else {
+                } else {
                     Toast.makeText(PaimaiMain_infoActivity.this, "取消收藏成功" + result, Toast.LENGTH_SHORT).show();
                     System.out.println("取消收藏成功" + result);
                 }
