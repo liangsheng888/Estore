@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <!--<RelativeLayout
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
@@ -271,11 +272,21 @@
             android:layout_width="match_parent"></View>
 
     </RelativeLayout>-->
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
+        android:id="@+id/ll_seek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_columnWeight="4"
+
         android:background="#f00">
         <RelativeLayout
             android:paddingLeft="@dimen/padding_search_bar"
@@ -330,7 +341,7 @@
         android:id="@+id/lv_jingpin"
         android:clickable="true"
         android:focusable="true"
-        android:dividerHeight="10dp"
+        android:dividerHeight="8dp"
         android:touchscreenBlocksFocus="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

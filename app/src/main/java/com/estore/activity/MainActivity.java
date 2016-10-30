@@ -1,59 +1,39 @@
 package com.estore.activity;
 
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 
-
+import com.estore.fragment.EhFragment;
 import com.estore.fragment.FragmentCar;
 import com.estore.fragment.FragmentHome;
 import com.estore.fragment.MyHomePageFragment;
-import com.estore.fragment.EhFragment;
 import com.estore.httputils.GetUserIdByNet;
-import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Product;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences sp;
     private ListView lv;
     private ImageButton rb_fabu;
@@ -135,7 +115,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         fr_mine = new MyHomePageFragment();
 
         fragments=new Fragment[]{fr_home,fr_add,fr_car,fr_mine};
-        getFragmentManager().beginTransaction().add(R.id.fl_main, fragments[0]).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_main, fragments[0]).commit();
 
         //初始时，按钮1选中
         buttons[0].setImageResource(drawable[0]);
@@ -233,7 +213,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //如果选择的项不是当前选中项，则替换；否则，不做操作
         if(newIndex!=oldIndex){
 
-            transaction=getFragmentManager().beginTransaction();
+            transaction=getSupportFragmentManager().beginTransaction();
 
             transaction.hide(fragments[oldIndex]);//隐藏当前显示项
 
@@ -248,7 +228,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         //之前选中的项，取消选中
        buttons[oldIndex].setImageResource(drawable_gray[oldIndex]);
-      buttons[newIndex].setImageResource((drawable[newIndex]));
+       buttons[newIndex].setImageResource((drawable[newIndex]));
         //当前选择项，按钮被选中
         //buttons[newIndex].setBackgroundColor(drawable[oldIndex]);
        // buttons[oldIndex].setBackgroundColor(Color.WHITE);

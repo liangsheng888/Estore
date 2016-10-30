@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ public class PersonalSettingActivity extends AppCompatActivity {
     private TextView tv_persexcontent;
     private TextView tv_phonenumber;
     private TextView tv_deliveryadress;
+    private Button rb_tuichu;
     private SharedPreferences sp;
     private AlertDialog.Builder builder;
     //弹框
@@ -67,6 +69,7 @@ public class PersonalSettingActivity extends AppCompatActivity {
     private RelativeLayout rl_phonenumrl;
     private RelativeLayout rl_adressrl;
     private TextView rl_save;
+
     private static final String TAG = "PersonalSettingActivity";
     String sex[] = {"男", "女"};
 
@@ -96,8 +99,7 @@ public class PersonalSettingActivity extends AppCompatActivity {
     private void initView() {
         //返回个人资料
         iv_perreturn = ((ImageView) findViewById(R.id.iv_perreturn));
-
-
+        rb_tuichu = ((Button) findViewById(R.id.rb_tuichu));
         rl_photorl = ((RelativeLayout) findViewById(R.id.rl_photorl));
         rl_nickname = ((RelativeLayout) findViewById(R.id.rl_nicknamerl));
         rl_sexrl = ((RelativeLayout) findViewById(R.id.rl_sexrl));
@@ -111,12 +113,19 @@ public class PersonalSettingActivity extends AppCompatActivity {
 
 
         //返回
-//        iv_perreturn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        iv_perreturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        rb_tuichu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PersonalSettingActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
          /*
         String nickname, String userSex, String user_address,  String user_phone, String userPhoto
         */

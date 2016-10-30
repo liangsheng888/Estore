@@ -24,8 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的设置"
-            android:textSize="26dp"
-            android:textColor="#fff"
+            android:textSize="22dp"
             android:layout_centerInParent="true"
 
             />
@@ -39,19 +38,21 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
         <RelativeLayout
             android:id="@+id/rl_perset"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#f7f6f6"
-            android:layout_height="60dp">
+            android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_perdataset"
                 android:layout_width="wrap_content"
                 android:text="个人资料设置"
                 android:layout_centerInParent="true"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 />
         </RelativeLayout>
@@ -67,18 +68,20 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
         <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#f7f6f6"
-            android:layout_height="60dp">
+            android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_treasure1"
                 android:layout_width="wrap_content"
                 android:text="账户与安全"
                 android:layout_centerInParent="true"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 />
         </RelativeLayout>
@@ -92,18 +95,20 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
         <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#f7f6f6"
-            android:layout_height="60dp">
+            android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_treasure2"
                 android:layout_width="wrap_content"
                 android:text="消息通知"
                 android:layout_centerInParent="true"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 />
         </RelativeLayout>
@@ -118,7 +123,6 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#a3e6f2"
         >
 
         <ImageView
@@ -128,21 +132,25 @@
             />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             >
-            <RadioButton
+            <Button
+                android:id="@+id/rb_tuichuset"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:button="@null"
-                android:background="#fcf8f8"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:background="#d4d3d3"
                 android:text="退出设置"
                 android:gravity="center"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 />
         </RelativeLayout>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="5dp"
             android:src="@drawable/line"
             />
     </RadioGroup>

@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/sex"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="20dp"
 
                 />
             <TextView
@@ -243,9 +243,9 @@
                 android:id="@+id/rb_perbirthdays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/phonenum"
+                android:src="@drawable/phone"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="20dp"
                 />
             <TextView
 
@@ -310,7 +310,7 @@
 
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rb_peradressphoto"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="5dp"
                 />
             <TextView
                 android:id="@+id/tv_deliveryadress"
@@ -343,10 +343,11 @@
         android:layout_height="1dp"
         android:background="#f2f2f2"
         />
-    <RadioButton
-        android:id="@+id/rl_saver"
+    <Button
+
+        android:id="@+id/rb_tuichu"
         android:layout_below="@id/tv_phonenumber"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
@@ -359,7 +360,7 @@
         >
 
 
-    </RadioButton>
+    </Button>
 
 
 

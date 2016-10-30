@@ -1,103 +1,90 @@
 package com.estore.fragment;
 
-
-import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.text.format.DateUtils;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.estore.activity.GetDataTaskListView;
-import com.estore.activity.MainActivity;
+
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SchoolsFragment extends Fragment implements View.OnClickListener {
+public class SchoolsFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
-    private static final String TAG = "SchoolsFragment";
-    private PullToRefreshListView lv_schools;
-    private BaseAdapter adapter;
-    private ListView actualListView;
-    private LinkedList<Product.Products> mListItems;
-    List<Product.Products> productList=new ArrayList<Product.Products>();
-    private TextView schoolSortPhone;
-    private TextView schoolSortComputer;
-    private TextView schoolSortMatch;
-    private TextView schoolSortOthers;
-    private TextView schoolSortPriceUp;
-    private TextView schoolSortPriceDown;
+    private LoadListView schools;
+    private BaseAdapter mAdapter;
+    private LinkedList<Product.Products> mListItems=new LinkedList<>();
+    Integer page=0;
+    //    private ListView actualListView;
+    private TextView phone;
+    private TextView computer;
+    private TextView computertext;
+    private TextView others;
+    private ImageView prosort;
     Integer orderFlag=0;
-    Integer page=1;
-    private String url;
-
-    @Nullable
+    private TextView all;
+    List<String> popContents=new ArrayList<String>();
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        View view = inflater.inflate(R.layout.fragment_schools, null);
+        schools = ((LoadListView) view.findViewById(R.id.lv_schools));
+        all = ((TextView) view.findViewById(R.id.tv_all));
+        phone = ((TextView) view.findViewById(R.id.tv_phone));
+        computer = ((TextView) view.findViewById(R.id.tv_computer));
+        computertext = ((TextView) view.findViewById(R.id.tv_computertext));
+        others = ((TextView) view.findViewById(R.id.tv_others));
+        prosort = ((ImageView) view.findViewById(R.id.iv_sort));
+        schools.setInterface(this);
+        getSchoolProductInfo();
+//        mAdapter=new MyAdapter();
+//        mAdapter.notifyDataSetChanged();
+//        sameCity.setAdapter(mAdapter);
 
-        View view=inflater.inflate(R.layout.fragment_schools,null);
-
-        lv_schools = ((PullToRefreshListView) view.findViewById(R.id.lv_schools));
-        schoolSortPhone = ((TextView) view.findViewById(R.id.btn_schoolsort_phone));
-        schoolSortComputer = ((TextView) view.findViewById(R.id.btn_schoolsort_computer));
-        schoolSortMatch = ((TextView) view.findViewById(R.id.btn_schoolsort_match));
-        schoolSortOthers = ((TextView) view.findViewById(R.id.btn_schoolsort_others));
-        schoolSortPriceUp = ((TextView) view.findViewById(R.id.btn_schoolsort_price_up));
-        schoolSortPriceDown = ((TextView) view.findViewById(R.id.btn_sort_schoolprice_down));
-
-        getSchoolList();
         return view;
     }
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        schoolSortPhone.setOnClickListener(this);
-        schoolSortComputer.setOnClickListener(this);
-        schoolSortMatch.setOnClickListener(this);
-        schoolSortOthers.setOnClickListener(this);
-        schoolSortPriceUp.setOnClickListener(this);
-        schoolSortPriceDown.setOnClickListener(this);
 
-//        lvSchool.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Product.Products pp=productList.get(i);
-//                Log.i(TAG,i+"");
-//                Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
-//                Bundle bundle=new Bundle();
-//                bundle.putSerializable("pp",pp);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-
-        actualListView=lv_schools.getRefreshableView();
-        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        popContents.add("价格从高到低");
+        popContents.add("价格从低到高");
+        all.setOnClickListener(this);
+        phone.setOnClickListener(this);
+        computer.setOnClickListener(this);
+        computertext.setOnClickListener(this);
+        others.setOnClickListener(this);
+        prosort.setOnClickListener(this);
+        schools.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Product.Products pp=productList.get(i);
+                Product.Products pp=mListItems.get(i);
                 Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("pp",pp);
@@ -105,242 +92,30 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
-
-        lv_schools.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(
-                        getActivity(),
-                        System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME
-                                | DateUtils.FORMAT_SHOW_DATE
-                                | DateUtils.FORMAT_ABBREV_ALL);
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-
-                //  new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url).execute();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                page=((MainActivity)getActivity()).getPage();
-                orderFlag=((MainActivity)getActivity()).getOrderFlag();
-                page++;
-                new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url,page).execute();
-            }
-        });
-
-        lv_schools.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-            @Override
-            public void onLastItemVisible() {
-                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
-            }
-        });
-        lv_schools.setScrollingWhileRefreshingEnabled(true);
-        lv_schools.setMode(PullToRefreshBase.Mode.BOTH);
-//        new GetDataTaskListView(lv_schools,adapter,mListItems,orderFlag,url,page).execute();
-
-        actualListView.setAdapter(adapter);
-
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(!hidden){
-            schoolSortPhone.setBackgroundColor(Color.WHITE);
-            schoolSortComputer.setBackgroundColor(Color.WHITE);
-            schoolSortMatch.setBackgroundColor(Color.WHITE);
-            schoolSortOthers.setBackgroundColor(Color.WHITE);
-            schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-            schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-            getSchoolList();
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_schoolsort_phone:
-                ((MainActivity)getActivity()).setOrderFlag(1);
-                schoolSortPhone.setBackgroundColor(Color.RED);
-                schoolSortComputer.setBackgroundColor(Color.WHITE);
-                schoolSortMatch.setBackgroundColor(Color.WHITE);
-                schoolSortOthers.setBackgroundColor(Color.WHITE);
-                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.btn_schoolsort_computer:
-                ((MainActivity)getActivity()).setOrderFlag(2);
-                schoolSortPhone.setBackgroundColor(Color.WHITE);
-                schoolSortComputer.setBackgroundColor(Color.RED);
-                schoolSortMatch.setBackgroundColor(Color.WHITE);
-                schoolSortOthers.setBackgroundColor(Color.WHITE);
-                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.btn_schoolsort_match:
-                ((MainActivity)getActivity()).setOrderFlag(3);
-                schoolSortPhone.setBackgroundColor(Color.WHITE);
-                schoolSortComputer.setBackgroundColor(Color.WHITE);
-                schoolSortMatch.setBackgroundColor(Color.RED);
-                schoolSortOthers.setBackgroundColor(Color.WHITE);
-                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.btn_schoolsort_others:
-                ((MainActivity)getActivity()).setOrderFlag(4);
-                schoolSortPhone.setBackgroundColor(Color.WHITE);
-                schoolSortComputer.setBackgroundColor(Color.WHITE);
-                schoolSortMatch.setBackgroundColor(Color.WHITE);
-                schoolSortOthers.setBackgroundColor(Color.RED);
-                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.btn_schoolsort_price_up:
-                ((MainActivity)getActivity()).setOrderFlag(5);
-                schoolSortPhone.setBackgroundColor(Color.WHITE);
-                schoolSortComputer.setBackgroundColor(Color.WHITE);
-                schoolSortMatch.setBackgroundColor(Color.WHITE);
-                schoolSortOthers.setBackgroundColor(Color.WHITE);
-                schoolSortPriceUp.setBackgroundColor(Color.RED);
-                schoolSortPriceDown.setBackgroundColor(Color.WHITE);
-                break;
-            case R.id.btn_sort_schoolprice_down:
-                ((MainActivity)getActivity()).setOrderFlag(6);
-                schoolSortPhone.setBackgroundColor(Color.WHITE);
-                schoolSortComputer.setBackgroundColor(Color.WHITE);
-                schoolSortMatch.setBackgroundColor(Color.WHITE);
-                schoolSortOthers.setBackgroundColor(Color.WHITE);
-                schoolSortPriceUp.setBackgroundColor(Color.WHITE);
-                schoolSortPriceDown.setBackgroundColor(Color.RED);
-                break;
-        }
-        ((MainActivity)getActivity()).setPage(1);
-        getSchoolList();
-
-    }
-
-
-    //    private void initView() {
-//        initPTRListView();
-//        initListView();
-//    }
-//
-//    private void initListView() {
-//        lv_schools.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-//
-//            @Override
-//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-//                //设置下拉时显示的日期和时间
-//                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
-//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-//
-//                // 更新显示的label
-//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//                // 开始执行异步任务，传入适配器来进行数据改变
-//                new GetDataTaskListView(lv_schools, adapter,mListItems).execute();
-//            }
-//        });
-//
-//        // 添加滑动到底部的监听器
-//        lv_schools.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-//
-//            @Override
-//            public void onLastItemVisible() {
-//                Toast.makeText(getActivity(), "已经到底了", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        //mPullRefreshListView.isScrollingWhileRefreshingEnabled();//看刷新时是否允许滑动
-//        //在刷新时允许继续滑动
-//        lv_schools.setScrollingWhileRefreshingEnabled(true);
-//        //mPullRefreshListView.getMode();//得到模式
-//        //上下都可以刷新的模式。这里有两个选择：Mode.PULL_FROM_START，Mode.BOTH，PULL_FROM_END
-//        lv_schools.setMode(PullToRefreshBase.Mode.BOTH);
-//
-//    }
-//
-//    private void initPTRListView() {
-//        actualListView=lv_schools.getRefreshableView();
-//        mListItems=new LinkedList<Product.Products>();
-//        mListItems.addAll(productList);
-//        actualListView.setAdapter(adapter);
-//        actualListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e("SchoolsFragment","position="+position+"");
-//                int curposition=position-1;
-//                Product.Products pp=productList.get(curposition);
-//                Intent intent=new Intent(getActivity(), ProductInfoActivity.class);
-//                Bundle bundle=new Bundle();
-//                bundle.putSerializable("pp",pp);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-//
-//
-    public class MyAdapter extends BaseAdapter{
-        private TextView tv_project_description;
-        private TextView tvProductKind;
-
-        @Override
-        public int getCount() {
-            return productList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = View.inflate(getActivity(), R.layout.eh_item, null);
-            ImageView iv_project_photo = ((ImageView) view.findViewById(R.id.iv_project_photo));
-            TextView tv_project_name = ((TextView) view.findViewById(R.id.tv_project_name));
-            TextView tv_project_price = ((TextView) view.findViewById(R.id.tv_project_price));
-            tv_project_description = ((TextView) view.findViewById(R.id.tv_project_description));
-            tvProductKind = ((TextView) view.findViewById(R.id.tv_product_kind));
-            Product.Products list = productList.get(position);
-            tv_project_name.setText(list.name);
-            tv_project_price.setText(list.estoreprice + "");
-            tv_project_description.setText(list.description);
-            tvProductKind.setText(list.category);
-            String[] imgurl=list.imgurl.split("=");
-            x.image().bind(iv_project_photo, HttpUrlUtils.HTTP_URL+imgurl[0]);
-            return view;
-        }
-
-    };
-    public void getSchoolList(){
-        page=((MainActivity)getActivity()).getPage();
-        orderFlag=((MainActivity)getActivity()).getOrderFlag();
-        url=HttpUrlUtils.HTTP_URL+"/getSchoolProducts";
-        RequestParams params=new RequestParams(url);
-        params.addQueryStringParameter("orderFlag",orderFlag+"");
-        params.addQueryStringParameter("page",page+"");
-        Log.i(TAG,url);
-        x.http().get(params, new Callback.CommonCallback<String>() {
+    private void getSchoolProductInfo() {
+        String url= HttpUrlUtils.HTTP_URL+"getSchoolProducts";
+        RequestParams requestParams=new RequestParams(url);
+        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
+        requestParams.addQueryStringParameter("page",page+1+"");
+        Log.i("cc",url);
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i(TAG,result+"==========");
+                Log.i("cc",result);
                 Gson gson=new Gson();
-                Product project=gson.fromJson(result,Product.class);
-                productList.clear();
-                productList.addAll(project.list);
-                if(adapter==null) {
-                    adapter = new MyAdapter();
-                }else if(adapter!=null){
-                    adapter.notifyDataSetChanged();
+                Product product=gson.fromJson(result,Product.class);
+                mListItems.clear();
+                mListItems.addAll(product.list);
+                if(mAdapter==null){
+                    mAdapter=new MyAdapter();
+                }else{
+                    mAdapter.notifyDataSetChanged();
                 }
-                actualListView.setAdapter(adapter);
+
+                schools.setAdapter(mAdapter);
+
             }
 
             @Override
@@ -358,5 +133,125 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener {
 
             }
         });
+    }
+
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_all:
+                orderFlag=0;
+                break;
+            case R.id.tv_phone:
+                orderFlag=1;
+                break;
+            case R.id.tv_computer:
+                orderFlag=2;
+                break;
+            case R.id.tv_computertext:
+                orderFlag=3;
+                break;
+            case R.id.tv_others:
+                orderFlag=4;
+                break;
+            case R.id.iv_sort:
+                initPopupWindow(prosort);
+                break;
+        }
+        getSchoolProductInfo();
+    }
+
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                getSchoolProductInfo();
+
+                schools.loadComplete();
+            }
+        }, 2000);
+    }
+
+    public class MyAdapter extends  BaseAdapter{
+        private ImageView productPhoto;
+        private TextView productDetail;
+        private TextView productKind;
+        private TextView cityAddress;
+        private TextView schoolAddress;
+        private TextView productPrice;
+        private TextView productNum;
+
+        @Override
+        public int getCount() {
+            return mListItems.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view=View.inflate(getActivity(),R.layout.eh_item,null);
+            productPhoto = ((ImageView) view.findViewById(R.id.iv_project_photo));
+            productDetail = ((TextView) view.findViewById(R.id.tv_project_detail));
+            productKind = ((TextView) view.findViewById(R.id.tv_product_kind));
+            cityAddress = ((TextView) view.findViewById(R.id.tv_eh_cityaddress));
+            schoolAddress = ((TextView) view.findViewById(R.id.tv_eh_schooladdress));
+            productPrice = ((TextView) view.findViewById(R.id.tv_project_price));
+            productNum = ((TextView) view.findViewById(R.id.tv_product_number));
+            Product.Products list=mListItems.get(i);
+            String[] imgurl=list.imgurl.split("=");
+            x.image().bind(productPhoto,HttpUrlUtils.HTTP_URL+imgurl[0]);
+            productDetail.setText(list.description);
+            productKind.setText(list.category);
+            cityAddress.setText(list.proaddress);
+            schoolAddress.setText(list.schoolname);
+            productPrice.setText(list.estoreprice+"");
+            productNum.setText("总共"+list.pnum+"件");
+            return view;
+        }
+    }
+
+    public void initPopupWindow(View v){
+        View view=LayoutInflater.from(getActivity()).inflate(R.layout.popupwindow_time_item,null);
+        final PopupWindow popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,200);
+        ListView lv= (ListView) view.findViewById(R.id.lv_zonghe_paixu);
+        ArrayAdapter arrayAdapter=new ArrayAdapter(getActivity(),R.layout.popupwindow_listview_item,popContents);
+        lv.setAdapter(arrayAdapter);
+
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.showAsDropDown(v);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                popupWindow.dismiss();
+
+                if(position==0){
+                    orderFlag=5;
+                }else if(position==1){
+                    orderFlag=6;
+                }
+
+                getSchoolProductInfo();
+            }
+        });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        getSchoolProductInfo();
     }
 }

@@ -1,43 +1,35 @@
 package com.estore.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.format.DateUtils;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.estore.activity.GetDataTask;
 import com.estore.activity.MainActivity;
 import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.xUtilsImageUtils;
 import com.estore.pojo.Product;
 import com.estore.view.GridViewWithHeaderAndFooter;
 import com.estore.view.LoadListView;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -51,8 +43,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 
 /**
@@ -387,6 +377,9 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         ImageView iv;
         //ViewPager vp_jingpin;
         GridView gv_jingpin;
+        public TextView tv_time;
+        public TextView tv_xingnum;
+        public ImageView iv_jing_userphoto;
     }
 
 
@@ -416,10 +409,15 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
                 //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
                 viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);
-
+                viewHolder.tv_time=(TextView)convertView.findViewById(R.id.tv_time);
                 viewHolder.tv_name = (TextView) convertView.findViewById(R.id. tv_jin_proname);
                 viewHolder. tv_jingpin_desc = (TextView) convertView.findViewById(R.id.tv_jingpin_desc);
                 viewHolder.tv_username = (TextView) convertView.findViewById(R.id.tv_username);
+                viewHolder.tv_xingnum= (TextView) convertView.findViewById(R.id.tv_xingnum);
+                viewHolder.iv_jing_userphoto= (ImageView) convertView.findViewById(R.id.iv_jing_userphoto);
+               // xUtilsImageUtils.display();
+                
+                
                 viewHolder.tv_estoreprice = (TextView) convertView.findViewById(R.id.tv_jingpin_price);
                 viewHolder.tv_jingpin_address = (TextView) convertView.findViewById(R.id.tv_jingpin_address);
 
@@ -442,6 +440,11 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             viewHolder.tv_estoreprice.setText("￥"+pp.estoreprice);
             viewHolder. tv_jingpin_desc.setText(pp.description);
             viewHolder.tv_jingpin_address.setText(pp.proaddress);
+            viewHolder.tv_time.setText("发布时间"+pp.time);
+            viewHolder.tv_xingnum.setText(pp.xingCount+"");
+            viewHolder.tv_username.setText(pp.userNick);
+            xUtilsImageUtils.display(viewHolder.iv_jing_userphoto,pp.userPhoto,true);
+           // x.image().bind(viewHolder.iv_jing_userphoto,pp.userPhoto);
 
             //viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
            // viewHolder.gv_jingpin.setBackgroundColor(Color.WHITE);
@@ -526,15 +529,18 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
                if(convertView==null){
-                convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
+                 convertView=View.inflate(getActivity(),R.layout.layout_fra_pro_item,null);}
                 ImageView iv=(ImageView) convertView.findViewById(R.id.iv_pro);
-
                 x.image().bind(iv,HttpUrlUtils.HTTP_URL+imgurls[position]);
-            convertView.setBackgroundColor(Color.WHITE);
+                convertView.setBackgroundColor(Color.WHITE);
             return convertView;
         }
 
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        getData();
+    }
 }

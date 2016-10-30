@@ -282,7 +282,7 @@ public class AllOrdersFragment extends Fragment{
                                             dialog.getWindow().setContentView(view);
                                             builder.setTitle("评论");
                                             EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
-                                            TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
+                                            //TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
                                             TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
                                             fabiao.setOnClickListener(new View.OnClickListener() {
 

@@ -1,219 +1,161 @@
 package com.estore.fragment;
 
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.estore.activity.MainActivity;
 import com.estore.activity.R;
-import com.estore.httputils.HttpUrlUtils;
-import com.estore.pojo.Product;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.estore.httputils.MyFragmentPagerAdapter;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
-public class EhFragment extends Fragment {
-    private RadioGroup rg_eh_tab;
-    private Fragment fragment1;
-    private Fragment fragment2;
-    private Fragment oldFragment;
-    private Fragment newFragment;
-//    private ImageView ehSort;
-//    private static Integer page=1;
-//
-    List<String> popContents=new ArrayList<String>();
-//    int orderFlag=0;
-    List<Product.Products> products=new ArrayList<Product.Products>();
+public class EhFragment extends Fragment{
 
-    @Nullable
+    Resources resources;
+    private ViewPager mPager;
+    private ArrayList<Fragment> fragmentsList;
+    private ImageView ivBottomLine;
+    private TextView tvSameCity, tvSchools;
+
+    private int currIndex = 0;
+    private int bottomLineWidth;
+    private int offset = 0;
+    private int position_one;
+    public final static int num = 2 ;
+    Fragment home1;
+    Fragment home2;
+    private String url;
+    //    List<CityItem> cityList;
+    RelativeLayout itmel;
+    GridView gridView;
+
+    private int curFragmentIndex = 0;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_eh,null);
-        rg_eh_tab = ((RadioGroup) view.findViewById(R.id.rg_eh_tab));
-//        ehSort = ((ImageView) view.findViewById(R.id.iv_eh_sort));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        View view = inflater.inflate(R.layout.fragment_eh, null);
+        resources = getResources();
+        InitWidth(view);
+        InitTextView(view);
+        InitViewPager(view);
+        TranslateAnimation animation = new TranslateAnimation(position_one, offset, 0, 0);
+        tvSchools.setTextColor(resources.getColor(R.color.white));
+        tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
+        animation.setFillAfter(true);
+        animation.setDuration(300);
+        ivBottomLine.startAnimation(animation);
+
         return view;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-////        getData();
-        switchFragment(new SameCityFragment());
-//        //orderFlag=0默认显示按照最新发布时间排序的全部商品
-//        popContents.add("手机");//orderFlag=1
-//        popContents.add("电脑");//orderFlag=2
-//        popContents.add("手表");//orderFlag=3
-//        popContents.add("其他");//orderFlag=4
-//        popContents.add("价格 ↑");//orderFlag=5
-//        popContents.add("价格 ↓");//orderFlag=6
-//        ehSort.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                initPopupWindow(view);
-//            }
-//        });
 
-        rg_eh_tab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Fragment fragment=null;
-                switch (checkedId){
-                    case R.id.rb_samecity:
+    private void InitTextView(View parentView) {
+        tvSameCity = (TextView) parentView.findViewById(R.id.rb_samecity);
+        tvSchools = (TextView) parentView.findViewById(R.id.rb_schools);
+        tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
+        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+        tvSameCity.setOnClickListener(new MyOnClickListener(0));
+        tvSchools.setOnClickListener(new MyOnClickListener(1));
+    }
+
+    private void InitViewPager(View parentView) {
+        mPager = (ViewPager) parentView.findViewById(R.id.vPager);
+        fragmentsList = new ArrayList<Fragment>();
+
+        home1 = new SameCityFragment();
+        home2 = new SchoolsFragment();
+
+        fragmentsList.add(home1);
+        fragmentsList.add(home2);
+
+        mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), fragmentsList));
+        mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+        mPager.setCurrentItem(0);
+
+    }
+
+    private void InitWidth(View parentView) {
+        ivBottomLine = (ImageView) parentView.findViewById(R.id.iv_bottom_line);
+        bottomLineWidth = ivBottomLine.getLayoutParams().width;
+        Log.i("cc",bottomLineWidth+"");
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW = dm.widthPixels;
+        offset = (int) ((screenW / num - bottomLineWidth) / 2);
+        int avg = (int) (screenW / num);
+        position_one = avg + offset;
+    }
 
 
-//                        page=1;
-                        //prowhere=0代表同城
-//                        ((MainActivity)getActivity()).setProwhere(0);
-                        if (fragment1==null)
-                            fragment1=new SameCityFragment();
-                        newFragment=fragment1;
-                        break;
-                    case R.id.rb_schools:
-//                        ((MainActivity)getActivity()).setPage(1);
-                        //prowhere=1代表高校
-//                        ((MainActivity)getActivity()).setProwhere(1);
-                        if (fragment2==null)
-                            fragment2=new SchoolsFragment();
-                        newFragment=fragment2;
-                }
-                ((MainActivity)getActivity()).setPage(1);
-                ((MainActivity)getActivity()).setOrderFlag(0);
-                //点击事件完成给prowhere赋值后调用MainActivity中getData()方法
-//                ((MainActivity)getActivity()).getData();
+    public class MyOnClickListener implements View.OnClickListener {
+        private int index = 0;
 
-                switchFragment(newFragment);
+        public MyOnClickListener(int i) {
+            index = i;
+        }
 
+        @Override
+        public void onClick(View v) {
+            mPager.setCurrentItem(index);
+        }
+    };
+
+    public class MyOnPageChangeListener implements OnPageChangeListener {
+
+        @Override
+        public void onPageSelected(int arg0) {
+
+            curFragmentIndex=arg0;
+            Animation animation = null;
+            switch (arg0) {
+                case 0:
+                    if (currIndex == 1) {
+                        animation = new TranslateAnimation(position_one, offset, 0, 0);
+                        tvSchools.setTextColor(resources.getColor(R.color.white));
+                        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+                    }
+                    tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
+                    tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
+
+                    break;
+                case 1:
+                    if (currIndex == 0) {
+                        animation = new TranslateAnimation(offset, position_one, 0, 0);
+                        tvSameCity.setTextColor(resources.getColor(R.color.white));
+                        tvSameCity.setBackgroundColor(resources.getColor(R.color.lightwhite));
+                    }
+                    tvSchools.setTextColor(resources.getColor(R.color.lightwhite));
+                    tvSchools.setBackgroundColor(resources.getColor(R.color.white));
+                    break;
             }
-        });
-        super.onActivityCreated(savedInstanceState);
+            currIndex = arg0;
+            animation.setFillAfter(true);
+            animation.setDuration(300);
+            ivBottomLine.startAnimation(animation);
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+        }
     }
-
-//    public void initPopupWindow(View v){
-//        //content
-//        View view=LayoutInflater.from(getActivity()).inflate(R.layout.lv_zonghe_paixu,null);
-//        final PopupWindow popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,200);
-//
-//        //listview设置数据源
-//        ListView lv= (ListView) view.findViewById(R.id.lv_zonghe_paixu);
-//
-//        ArrayAdapter arrayAdapter=new ArrayAdapter(getActivity(),R.layout.lv_item_zonghe_paixu,popContents);
-//        lv.setAdapter(arrayAdapter);
-//
-//        //popupwiondow外面点击，popupwindow消失
-//        popupWindow.setOutsideTouchable(true);
-//        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-//
-//        //显示在v的下面
-//        popupWindow.showAsDropDown(v);
-//
-//        //listview的item点击事件
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //关闭popupwidow
-//                popupWindow.dismiss();
-//                //排序
-//                if(position==0){
-//                    orderFlag=1;
-//                }else if(position==1){
-//                    orderFlag=2;
-//                }else if(position==2){
-//                    orderFlag=3;
-//                }else if(position==3) {
-//                    orderFlag = 4;
-//                }else if(position==2) {
-//                    orderFlag = 4;
-//                }else if(position==2) {
-//                    orderFlag = 5;
-//                }else if(position==5) {
-//                    orderFlag = 6;
-//                }
-//
-//                //重新获取数据源，按价格排序
-//                ((MainActivity)getActivity()).setOrderFlag(orderFlag);
-//                ((MainActivity)getActivity()).getData();
-//
-//            }
-//        });
-//    }
-
-//    private void getData() {
-//        String url= HttpUrlUtils.HTTP_URL+"queryProductBean";
-//        RequestParams requestParams=new RequestParams(url);
-//        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-//        requestParams.addQueryStringParameter("prowhere","prowhere"+((MainActivity)getActivity()).getProwhere()+"");
-//        Log.i("SameCityFrangment",((MainActivity)getActivity()).getProwhere()+"");
-//        x.http().get(requestParams, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Gson gson=new Gson();
-//                Type type=new TypeToken<List<Product>>(){}.getType();
-//                List<Product.Products> newList=new ArrayList<Product.Products>();
-//                newList=gson.fromJson(result,type);
-//                products.clear();
-//                products.addAll(newList);
-//                Log.i("SameCityFrangment","products:"+products+"");
-//                ((MainActivity)getActivity()).setProductList(products);
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
-//    }
-
-    private void switchFragment(Fragment fragment) {
-        if (fragment==null) {
-            fragment1=fragment=new SameCityFragment();
-        }
-        FragmentManager fm=getChildFragmentManager();
-        FragmentTransaction ft= fm.beginTransaction();
-//        ft.replace(R.id.fl_eh_tab,fragment);
-
-        if(oldFragment!=null && !oldFragment.isHidden() && oldFragment.isAdded()){
-            ft.hide(oldFragment);
-        }
-        if(fragment!=null && fragment.isAdded() && fragment.isHidden()){
-            ft.show(fragment);
-        }else {
-            //fragment1
-            ft.add(R.id.fl_eh_tab,fragment);
-            ft.addToBackStack(null);
-        }
-        oldFragment = fragment;
-        ft.commit();
-    }
-
 
 }

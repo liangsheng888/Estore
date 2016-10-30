@@ -2,7 +2,7 @@ package com.estore.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -72,6 +72,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
         sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
 
 
+
         tv_myNickname = ((TextView) view.findViewById(R.id.tv_myNickname));
         //我的页面跳转
         iv_intercalate= ((ImageView)view.findViewById(R.id.iv_intercalate));
@@ -83,8 +84,9 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
         rb_mynotice = ((RadioButton) view.findViewById(R.id.rb_mynotice));
         rb_myorder = ((Button) view.findViewById(R.id.rb_myorder));
         iv_denglu = ((ImageView) view.findViewById(R.id.iv_denglu));
-        xUtilsImageUtils.display( iv_denglu,HttpUrlUtils.HTTP_URL +user.getUserPhoto(),true);
+        //  xUtilsImageUtils.display( iv_denglu,HttpUrlUtils.HTTP_URL +user.getUserPhoto(),true);
         tv_myNickname = ((TextView) view.findViewById(R.id.tv_myNickname));
+        getUserinfo();
 
         return  view;
 
@@ -127,6 +129,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onStart() {
+        getUserinfo();
 
         super.onStart();
     }
@@ -159,35 +162,33 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
         tv_myNickname.setOnClickListener(this);
         //头像
         iv_denglu.setOnClickListener(this);
-        getUserinfo();
 
+        //getUserinfo();
 
     }
 
     @Override
     public void onClick(View v) {
-        if(username==null){
-            AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-            final Dialog dialog=builder.create();
-            View view=View.inflate(getActivity(),R.layout.login_user,null);
-            ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
+        if (username == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final Dialog dialog = builder.create();
+            View view = View.inflate(getActivity(), R.layout.login_user, null);
+            ((TextView) view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //登录
                     getActivity().finish();
-                    Intent intent=new Intent(getActivity(), LoginActivity.class);
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-
-
 
 
                 }
             });
-            ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
+            ((TextView) view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // dialog.dismiss();
-                    Intent intent=new Intent(getActivity(),RegisterActivity.class);
+                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
                     startActivity(intent);
 
                     //注册
@@ -200,42 +201,66 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
             return;
         }
         GetUserIdByNet.getUserIdByNet(getActivity());
-        switch (v.getId()){
-            case R.id.rb_publish :
-                Intent intent=new Intent(getActivity(),PublishActivity.class);
-                startActivity(intent) ;
+        switch (v.getId()) {
+            case R.id.rb_publish:
+                Intent intent = new Intent(getActivity(), PublishActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.rb_auction :
+            case R.id.rb_auction:
 
-                Intent intent2=new Intent(getActivity(),MyAuctionActivity.class);
-                startActivity(intent2) ;
+                Intent intent2 = new Intent(getActivity(), MyAuctionActivity.class);
+                startActivity(intent2);
                 break;
-            case R.id.rb_myfriends :
-                Intent intent3=new Intent(getActivity(), MyFriendsActivity.class);
-                startActivity(intent3) ;
+            case R.id.rb_myfriends:
+                Intent intent3 = new Intent(getActivity(), MyFriendsActivity.class);
+                startActivity(intent3);
                 break;
-            case R.id.rb_mycare :
-                Intent intent4=new Intent(getActivity(), MyCareActivity.class);
-                startActivity(intent4) ;
+            case R.id.rb_mycare:
+                Intent intent4 = new Intent(getActivity(), MyCareActivity.class);
+                startActivity(intent4);
                 break;
-            case R.id.rb_mywallet :
-                Intent intent5=new Intent(getActivity(), MyWalletActivity.class);
-                startActivity(intent5) ;
+            case R.id.rb_mywallet:
+                Intent intent5 = new Intent(getActivity(), MyWalletActivity.class);
+                startActivity(intent5);
                 break;
-            case R.id.rb_mynotice :
-                Intent intent6=new Intent(getActivity(), SystemInformActivity.class);
-                startActivity(intent6) ;
+            case R.id.rb_mynotice:
+                Intent intent6 = new Intent(getActivity(), SystemInformActivity.class);
+                startActivity(intent6);
                 break;
-            case R.id.rb_myorder :
-                Intent intent7=new Intent(getActivity(), MyOrderActivity.class);
-                startActivity(intent7) ;
+            case R.id.rb_myorder:
+                Intent intent7 = new Intent(getActivity(), MyOrderActivity.class);
+                startActivity(intent7);
                 break;
-            case R.id.iv_intercalate :
-                Intent intent8=new Intent(getActivity(), MyIntercalateActivity.class);
-                startActivity(intent8) ;
+            case R.id.iv_intercalate:
+                Intent intent8 = new Intent(getActivity(), MyIntercalateActivity.class);
+                startActivity(intent8);
                 break;
+            case R.id.iv_denglu:
+                if (username == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    final Dialog dialog = builder.create();
+                    View view = View.inflate(getActivity(), R.layout.login_user, null);
+                    ((TextView) view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //登录
+                            getActivity().finish();
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    ((TextView) view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // dialog.dismiss();
+                            Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
 
         }
-
     }
+
 }

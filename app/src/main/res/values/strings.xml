@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">二货</string>
-
+    <string name="tab_1">同城</string>
+    <string name="tab_2">校园</string>
     <string name="strInputAccHint">输入帐号</string>
     <string name="strAccInputLabel">帐号</string>
     <string name="strPswInputLabel">密码</string>

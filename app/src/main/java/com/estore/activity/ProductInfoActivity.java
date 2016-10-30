@@ -16,32 +16,33 @@ import android.view.ViewGroup;
 
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.estore.activity.myappliction.MyApplication;
 
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
-import com.estore.httputils.SharedPreferencesUtils;
 import com.estore.httputils.ShowLoginDialogUtils;
+import com.estore.httputils.xUtilsImageUtils;
 import com.estore.pojo.Cart;
+import com.estore.pojo.Envalute;
 import com.estore.pojo.Product;
 import com.estore.pojo.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.Text;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ import java.util.Map;
 /***
  * 商品详情页
  */
-public class ProductInfoActivity extends AppCompatActivity {
+public class ProductInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private  static final String TAG="ProductInfoActivity" ;
     private ImageView iv_project_detail_back;
     private ViewPager vp_show_photo;
@@ -57,6 +58,9 @@ public class ProductInfoActivity extends AppCompatActivity {
     private TextView  tv_project_detail_price;
     private TextView prod_info_tv_des;//商品名称
     private TextView prod_info_tv_pnum;//商品数量
+    private TextView prod_info_tv_baoyou;
+    private TextView tv_youfei;//邮费
+
     private Button    btn_touch_seller;
 
     private TextView tv_product_detail_city;
@@ -73,7 +77,9 @@ public class ProductInfoActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
 
     Map<Product.Products,Integer> mapPro=new HashMap<>();//购买商品，及数量
+    private List<Envalute> envaLists=new ArrayList<>();
     private User user=new User();
+    private RemarkAdapter remarkAdapter;
 
 
     private int carNumber;//购物车商品数量
@@ -82,6 +88,10 @@ public class ProductInfoActivity extends AppCompatActivity {
     private int prePosition=0;
     private int[] id={R.id.iv_quan1,R.id.iv_quan2,R.id.iv_quan3};
     private SharedPreferences sp;
+    private ListView lv_user_remark;//评价
+    private TextView prod_info_tv_prod_comment;//更多
+    private int page=1;
+    private TextView prod_info_tv_prod_record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +108,12 @@ public class ProductInfoActivity extends AppCompatActivity {
     private void initData() {
 
         pp= getProDetailInfo();//
+        getEnvaluteInfoByNet(pp.user_id);
+
+        if(pp.youfei>0){
+            prod_info_tv_baoyou.setVisibility(View.GONE);
+            tv_youfei.setText("邮费￥"+pp.youfei);
+        }
         photourl=pp.imgurl.split("=");//
         Log.e(TAG,photourl[0]);
         tv_project_detail_price.setText("￥"+pp.estoreprice);
@@ -105,7 +121,8 @@ public class ProductInfoActivity extends AppCompatActivity {
 //        tv_product_detail.setText(pp.description);
         prod_info_tv_pnum.setText("库存:"+pp.pnum);
         tv_product_detail_city.setText(pp.proaddress);
-        tv_product_detail_schools.setText(pp.proaddress);
+        if(pp.schoolname!=null){
+            tv_product_detail_schools.setText(pp.schoolname);}
         //fanhui
         iv_project_detail_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +171,8 @@ public class ProductInfoActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+        //
+
         //加入购物车
         btn_addcart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,6 +278,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     private void initView() {
@@ -277,11 +297,22 @@ public class ProductInfoActivity extends AppCompatActivity {
         btn_buy_now=(Button) this.findViewById(R.id.btn_buy_now);
         prod_info_tv_des=(TextView)findViewById(R.id.prod_info_tv_des);
         title_bar_rl_cartview=(RelativeLayout)findViewById(R.id.title_bar_rl_cartview);
+        lv_user_remark=(ListView)findViewById(R.id.lv_user_remark);
+        prod_info_tv_prod_comment=(TextView)findViewById(R.id.prod_info_tv_prod_comment);
+        tv_youfei=(TextView)findViewById(R.id.tv_youfei);
+        prod_info_tv_baoyou=(TextView)findViewById(R.id.pro_info_tv_baoyou);
+        prod_info_tv_prod_record=(TextView)findViewById(R.id.prod_info_tv_prod_record);
 
         addbt=(Button)findViewById(R.id.addbt);
         subbt=(Button)findViewById(R.id.subbt);
+        addbt.setOnClickListener(this);
+        subbt.setOnClickListener(this);
+        prod_info_tv_prod_comment.setOnClickListener(this);
+
+
 
         showDialog();
+
 
     }
 
@@ -321,7 +352,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     public  void getDataCartNumber(){
         if(sp.getString("username",null)!=null){
             user.setUserName(sp.getString("username",null));
-           //获取网络数据，
+            //获取网络数据，
             //显示加入购物车的数量
             //queryCartServlet
             RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryCartServlet?userId="+sp.getInt("userId",0) );
@@ -377,5 +408,116 @@ public class ProductInfoActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.addbt://商品数加1
+                if(Integer.parseInt(edt.getText().toString().trim())<pp.pnum){
+                    edt.setText((Integer.parseInt(edt.getText().toString().trim())+1)+"");}
+                else {
+                    edt.setText(pp.pnum+"");
+                }
+                break;
+            case R.id.subbt://商品数减一
+                if(Integer.parseInt(edt.getText().toString().trim())>0){
+                    edt.setText((Integer.parseInt(edt.getText().toString().trim())-1)+"");
+                }else {
+                    edt.setText("0");
+                    btn_addcart.setEnabled(true);
+                    btn_buy_now.setEnabled(true);
+                }
+                break;
+            case R.id.prod_info_tv_prod_comment://更多评价
+                Intent intent=new Intent(ProductInfoActivity.this, EnvaluteStoreActivity.class);
+                intent.putExtra("userid",pp.user_id);
+                startActivity(intent);
+                break;
+
+        }
+
+    }
+    public class RemarkAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return envaLists.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+         View view= View.inflate(ProductInfoActivity.this,R.layout.pro_envalute_item,null);
+            ImageView ivuserphoto=(ImageView) view.findViewById(R.id.iv_evt_photo);
+            TextView tv_username=(TextView) view.findViewById(R.id.tv_evt_usernick);
+            TextView tv_evcontent=(TextView)view.findViewById(R.id.tv_evcontent);
+            TextView tv_evttime=(TextView) view.findViewById(R.id.tv_evttime);
+            ImageView  iv_evtimg=(ImageView) view.findViewById(R.id. iv_evtimg);
+
+            Envalute envalute=envaLists.get(position);
+            Log.e("ProductInfoActivity","评价"+envalute.toString());
+            xUtilsImageUtils.display(ivuserphoto,HttpUrlUtils.HTTP_URL+envalute.getUser().getImageUrl(),true);
+            xUtilsImageUtils.display(iv_evtimg,HttpUrlUtils.HTTP_URL+envalute.getEvt_imgurl());
+            tv_username.setText(envalute.getUser().getNick());
+            tv_evttime.setText(envalute.getEvt_time());
+            tv_evcontent.setText(envalute.getEvt_msg());
+            return view;
+        }
+    }
+    public List<Envalute> getEnvaluteInfoByNet(int userId){
+
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"queryEnvaluteServlet");
+        rp.addBodyParameter("page",page+"");
+        rp.addBodyParameter("userId",userId+"");
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                page++;
+                Gson gson=new Gson();
+
+                envaLists.clear();
+                envaLists= gson.fromJson(result,new TypeToken<List<Envalute>>(){}.getType());
+                prod_info_tv_prod_record.setText("宝贝评价（"+envaLists.size()+")");
+                if(remarkAdapter==null){
+                    remarkAdapter=new RemarkAdapter();
+                }else {
+                    remarkAdapter.notifyDataSetChanged();
+                }
+                lv_user_remark.setAdapter(remarkAdapter);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
+        return envaLists;
     }
 }

@@ -43,7 +43,7 @@
   	       <TextView
   	       	 android:id="@+id/title_bar_reddot"
 	        android:layout_width="30dp"
-	        android:layout_height="17dp"
+	        android:layout_height="15dp"
 	        android:layout_alignRight="@id/id_prod_list_iv_right"
 			android:background="@drawable/reddot"
 

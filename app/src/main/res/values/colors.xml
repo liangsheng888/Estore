@@ -14,4 +14,6 @@
     <color name="red">#f00</color>
     <color name="text_clo">#5E5E5E</color>
     <color name="black">#000</color>
+    <color name="lightwhite">#fff</color>
+    <color name="white">#f00</color>
 </resources>

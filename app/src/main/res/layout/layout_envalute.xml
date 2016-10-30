@@ -14,20 +14,26 @@
             android:layout_width="match_parent"
             android:hint="亲，请输入你对本次交易的评价"
             android:background="@null"
+            android:textColor="#000"
             android:gravity="top"
-            android:layout_height="140dp" />
-        <TextView
+            android:layout_height="100dp" />
+       <!-- <TextView
             android:id="@+id/tv_evt_photo"
             android:layout_below="@id/et_evlaute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/jia_qing"/>
-        <ImageView
+            android:drawableTop="@drawable/jia_qing"/>-->
+        <me.iwf.photopicker.widget.MultiPickResultView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/et_evlaute"
+            android:id="@+id/ev_recycler_view"/>
+        <!--<ImageView
             android:id="@+id/iv_evt_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tv_evt_photo"
-            android:layout_toEndOf="@+id/tv_evt_photo" />
+            android:layout_toEndOf="@+id/tv_evt_photo" />-->
 
     </RelativeLayout>
     <View

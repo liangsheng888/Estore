@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <LinearLayout
+        android:id="@+id/ll_tou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+    <ImageView
+       android:id="@+id/iv_evt_photo"
+       android:layout_width="40dp"
+       android:layout_height="40dp"
+       android:src="@drawable/emoji_81"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张三"
+            android:id="@+id/tv_evt_usernick"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_cont"
+        android:layout_width="match_parent"
+        android:layout_below="@id/ll_tou"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+     <ImageView
+         android:id="@+id/iv_evtimg"
+         android:layout_width="80dp"
+         android:layout_height="80dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:ellipsize="end"
+        android:lines="4"
+        android:text="很不错额，真的，意图为证你可以看图，很不错额，真的，意图为证你可以看图，很不错额，真的，意图为证你可以看图很不错额，真的，意图为证你可以看图"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_evcontent"/>
+    </LinearLayout>
+    <TextView
+        android:layout_below="@id/ll_cont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2012-6-10 10:20:30"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_evttime"/>
+
+</RelativeLayout>
