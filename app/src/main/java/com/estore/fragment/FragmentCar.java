@@ -39,6 +39,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +69,7 @@ public class FragmentCar extends Fragment {
     private CheckBox check_all;
     private SwipeMenuListView cartListView;
     private int number = 0;
+    private List<Integer> cartIdLists=new ArrayList<>();
 
     @Nullable
     @Override
@@ -195,6 +197,8 @@ public class FragmentCar extends Fragment {
                     if (stus) {
                         //获取选中商品的信息
                         Product.Products pro = cartlist.get(position).getProduct();
+                        cartIdLists.add(cartlist.get(position).getCartId());
+
                         Log.e("FragmentCar", "product" + pro.toString());
                         //选中购物车商品数量
                         int number = cartAdapter.getCar_numbers().get(position);
@@ -202,17 +206,18 @@ public class FragmentCar extends Fragment {
                     }
 
                 }
-                if(proInfo.size()>0){
-                Intent intent = new Intent(getActivity(), ProOrderActivity.class);
+                if (proInfo.size() > 0) {
+                    Intent intent = new Intent(getActivity(), ProOrderActivity.class);
 
-                MapSerializable OrderInfo = new MapSerializable();
-                OrderInfo.setPro(proInfo);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("OrderInfo", OrderInfo);
-                intent.putExtras(bundle);
-                startActivity(intent);}
-                else{
-                    Toast.makeText(getActivity(),"亲，请勾选你要结算的宝贝",Toast.LENGTH_LONG).show();
+                    MapSerializable OrderInfo = new MapSerializable();
+                    OrderInfo.setPro(proInfo);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("OrderInfo", OrderInfo);
+                    bundle.putSerializable("cartIdLists", (Serializable) cartIdLists);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "亲，请勾选你要结算的宝贝", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -454,5 +459,13 @@ public class FragmentCar extends Fragment {
     public int dp2px(float dipValue) {
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getData();
+        cart_buy_money.setText("");
+
     }
 }

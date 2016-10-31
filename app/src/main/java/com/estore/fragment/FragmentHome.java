@@ -309,7 +309,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     public void getProInfoByCategory(Integer orderFlag, Class<?> activityClass) {
          Intent intent=new Intent(getActivity(),activityClass);
          intent.putExtra("orderFlag",orderFlag);
-         startActivity(intent);
+         startActivityForResult(intent,3);
 
     }
 

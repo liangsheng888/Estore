@@ -187,7 +187,6 @@ public class WaitingDeliverFragment extends Fragment {
 
                         }
 
-
                         //根据订单状态，判断按钮是否显示，按钮的文本，按钮的点击事件
                         public void btnShow(int orderStateId,Button btnLeft,Button btnRight){
                             switch (orderStateId){

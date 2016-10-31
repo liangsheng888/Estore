@@ -208,6 +208,7 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
 
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
+                proList.clear();
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();
@@ -217,9 +218,6 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
                 lv_jingpin.setAdapter(adapter);
 
                 Log.i("cc",proList+"");
-
-
-
             }
 
             @Override

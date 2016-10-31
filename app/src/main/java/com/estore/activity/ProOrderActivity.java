@@ -22,6 +22,7 @@ import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
 import com.estore.pojo.Address;
+import com.estore.pojo.Cart;
 import com.estore.pojo.InsertOrderBean;
 import com.estore.pojo.Product;
 import com.estore.pojo.User;
@@ -58,6 +59,7 @@ public class ProOrderActivity extends AppCompatActivity {
 
     private Map<Product.Products, Integer> mapOrderInfo;
     private List<Product.Products> proLists=new ArrayList<>();
+    private List<Integer> cartIdLists = new ArrayList<>();//
     private List<Integer> num=new ArrayList<>();
     private int number=0;//订单商品数数量
     private Double totalprice=0.0;
@@ -80,6 +82,9 @@ public class ProOrderActivity extends AppCompatActivity {
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
         MapSerializable OrderInfo=(MapSerializable)bundle.getSerializable("OrderInfo");
+        cartIdLists =(List<Integer>) bundle.getSerializable("cartIdLists");
+
+
         Log.i("ProdOrderActivity", "OrderInfo: "+OrderInfo.toString());
         mapOrderInfo=OrderInfo.getPro();
         for (Map.Entry<Product.Products, Integer> mapinfo:
@@ -147,8 +152,10 @@ public class ProOrderActivity extends AppCompatActivity {
                         Log.i("ProdOrderActivity", "onSuccess: ");
                        /* AlertDialog.Builder builder=new AlertDialog.Builder(ProOrderActivity.this);
                         builder.setTitle("")*/
+                        deleteCart(cartIdLists);
                         Intent intent=new Intent(ProOrderActivity.this,MyOrderActivity.class);
                         startActivity(intent);//跳转到我的订单
+
 
                     }
 
@@ -175,6 +182,41 @@ public class ProOrderActivity extends AppCompatActivity {
 
 
             }
+
+    private void deleteCart(final List<Integer> cartIdLists) {
+
+        Log.i("@@@@@", "gggggggggg" + cartIdLists.size());
+        //Integer cartId = cartlist.get(position).getCartId();
+       // Log.i("@@@@@", "=============" + cartId + "");
+        String url = HttpUrlUtils.HTTP_URL + "deleteSelectCartServlet";
+        RequestParams requestParams = new RequestParams(url);
+        Gson gson=new Gson();
+        String cartLists=gson.toJson(cartIdLists);
+        requestParams.addQueryStringParameter("cartLists", cartLists + "");
+        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("@@@@@", "删除成功");
+                //Toast.makeText(ProOrderActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+             //   Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
 
 
 

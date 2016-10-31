@@ -211,6 +211,7 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
 
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
+                proList.clear();
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();

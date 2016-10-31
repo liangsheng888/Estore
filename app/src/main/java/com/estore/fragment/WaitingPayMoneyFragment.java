@@ -253,8 +253,10 @@ public class WaitingPayMoneyFragment extends Fragment {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
                                         case UNPAY:
                                             Log.i("WaitingPayMoneyFragment", "付款");
-                                            //付款
+
+                                            //付款 付款成功后该商品数量减1
                                             Log.i("WaitingPayMoneyFragment", "onClick: ");
+                                            subProduct(order.getOrderDetails().get(position).getProduct().id,order.getOrderDetails().get(position).getGoodsNum());
                                             break;
                                         case UNRECEIVE:
                                             //确认收货，
@@ -325,14 +327,7 @@ public class WaitingPayMoneyFragment extends Fragment {
 
 
                         }
-
-
-
-
-
-
-
-                    };
+              };
                     lv_unPay.setAdapter(orderApater);
                 }else{
                     orderApater.notifyDataSetChanged();
@@ -357,6 +352,40 @@ public class WaitingPayMoneyFragment extends Fragment {
             }
         });
     }
+
+    private void subProduct(int productId, int goodsNum) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"subProductServlet");
+        rp.addBodyParameter("productId",productId+"");
+        rp.addBodyParameter("goodsNum",goodsNum+"");
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("WaitingPayMoneyFragment", "更新商品数量成功 ");
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
+    }
+
     private void deleteOrder(Integer goodsOrderId) {
         RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"deleteOrderServlet");
         Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
