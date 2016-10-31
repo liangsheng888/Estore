@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.estore.activity.MainComputerActivity">
+    tools:context="com.estore.activity.PersonComputerActivity">
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:background="#f26522">
         <ImageView
-            android:id="@+id/iv_computer_fanhui"
+            android:id="@+id/iv_person_fanhui"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:clickable="true"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="3"
-            android:text="电脑专区"
+            android:text="笔记本专区"
             android:textColor="#fff"
             android:layout_centerInParent="true"
             android:textSize="20sp"

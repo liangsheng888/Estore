@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/iv_pro_photo"/>
+    <TextView
+        android:layout_toRightOf="@+id/iv_pro_photo"
+        android:id="@+id/tv_order_desc"
+        android:layout_marginTop="5dp"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:text="时代潮流时代潮流时代潮流时代潮流时代潮流时 代潮流时代潮流时代潮流时代潮流时代潮流代潮流时代潮流时代潮流时代潮流时代潮流"
+        android:lines="2"
+        android:ellipsize="end"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_order_price"
+        android:textColor="#f00"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tv_order_desc"
+        android:layout_toRightOf="@id/iv_pro_photo"
+        android:text="￥800"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_order_youfei"
+
+        android:textSize="16sp"
+        android:layout_toRightOf="@id/tv_order_price"
+        android:textColor="#f00"
+        android:layout_below="@id/tv_order_desc"
+        android:layout_alignBaseline="@id/tv_order_price"
+        android:layout_marginLeft="30dp"
+        android:text="邮费￥0.0"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2件"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/tv_order_price"
+        android:layout_toRightOf="@id/iv_pro_photo"
+        android:id="@+id/tv_order_number"/>
+
+
+
+</RelativeLayout>

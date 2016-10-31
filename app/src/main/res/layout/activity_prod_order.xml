@@ -6,11 +6,38 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
 
-
-
     >
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:background="#f26522">
+        <ImageView
+            android:id="@+id/iv_dingdan_fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/last_white"
+            />
+        <TextView
+            android:id="@+id/tv_pingjia"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="确认订单"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
-    <com.estore.view.TitleBar
+
+    </RelativeLayout>
+
+   <!-- <com.estore.view.TitleBar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,11 +46,11 @@
         shoping:titleBarColor="#fff"
         shoping:titleBarLeftImage="@drawable/nav_back">
 
-    </com.estore.view.TitleBar>
+    </com.estore.view.TitleBar>-->
 
     <View style="@style/bg_line"
         android:id="@+id/bg_line"
-        android:layout_below="@id/titlebar"
+        android:layout_below="@id/rl"
        />
     <RelativeLayout android:id="@+id/order_bottom"
         android:layout_width="match_parent"
@@ -211,7 +238,7 @@
                 android:divider="@null"
                 >
             </com.estore.view.NoScrollListview>
-            <RelativeLayout
+   <!--         <RelativeLayout
                 android:id="@+id/order_prod_yunfeitotal"
                 android:background="#ffffff"
                 android:paddingLeft="10dp"
@@ -240,7 +267,7 @@
                     android:padding="5dp"
                     android:text="￥0.00"
                     />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <View style="@style/bg_line"/>
             <RelativeLayout

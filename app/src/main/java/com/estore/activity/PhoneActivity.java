@@ -3,9 +3,9 @@ package com.estore.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +13,23 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.estore.activity.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
 import com.estore.view.LoadListView;
 import com.google.gson.Gson;
-import com.jude.rollviewpager.RollPagerView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by Administrator on 2016/9/19.
- */
-public class MainComputerActivity extends AppCompatActivity implements LoadListView.ILoadListener{
-
+public class PhoneActivity extends AppCompatActivity implements LoadListView.ILoadListener {
     private LoadListView lv_jingpin;
     private MyAdapter adapter=new MyAdapter();
     List<ImageView> images = null;
@@ -42,19 +38,20 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
     private int page=1;
     private int  orderFlag;
     private ArrayList<Product.Products> proList=new ArrayList<>();
-    private ImageView iv_computer_fanhui;
+    private ImageView iv_dingdan_fanhui;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_computer);
-        iv_computer_fanhui=(ImageView)findViewById(R.id.iv_computer_fanhui);
-        iv_computer_fanhui.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_phone);
+        iv_dingdan_fanhui=(ImageView)findViewById(R.id.iv_dingdan_fanhui);
+        iv_dingdan_fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
         Intent intent=getIntent();
         orderFlag= intent.getIntExtra("orderFlag",-1);
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
@@ -148,7 +145,7 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
             gv_jingpin.setEnabled(false);
 
             return view;*/
-            View view=View.inflate(MainComputerActivity.this,R.layout.eh_item,null);
+            View view=View.inflate(PhoneActivity.this,R.layout.eh_item,null);
             ImageView productPhoto = ((ImageView) view.findViewById(R.id.iv_project_photo));
             TextView productDetail = ((TextView) view.findViewById(R.id.tv_project_detail));
             TextView productKind = ((TextView) view.findViewById(R.id.tv_product_kind));
@@ -247,3 +244,4 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
 
 
 }
+

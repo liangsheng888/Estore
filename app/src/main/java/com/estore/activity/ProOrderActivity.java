@@ -7,16 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.GetUserIdByNet;
 
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
+import com.estore.pojo.Address;
 import com.estore.pojo.InsertOrderBean;
 import com.estore.pojo.Product;
 import com.estore.pojo.User;
@@ -27,6 +32,8 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,20 +42,27 @@ import java.util.Set;
  */
 
 public class ProOrderActivity extends AppCompatActivity {
+    private static final int ADDRESS_CHOICE =5 ;//选择地址
     private TextView order_count_total_money;//订单总价格
     private TextView order_pnum;//订单商品数数量
     private TextView order_dizhi_phonenum;//手机号
     private TextView order_dizhi_detaildizhi;//详细地址
-    private TextView order_prod_yunfei_money;//运费
+    private TextView order_prod_yunfei;//运费
     private TextView order_prod_fapiao_right;//发票
     private ListView order_scroll_listview;//订单中的商品列表
     private TextView order_total_money;//实际价格
     private RelativeLayout order_dizhi;//默认地址
     private Button order_goumai;//立即购买
+    private ImageView iv_dingdan_fanhui;
+    Address address=new Address();
+
     private Map<Product.Products, Integer> mapOrderInfo;
+    private List<Product.Products> proLists=new ArrayList<>();
+    private List<Integer> num=new ArrayList<>();
     private int number=0;//订单商品数数量
     private Double totalprice=0.0;
     private SharedPreferences sp;
+    Product.Products pp=new Product.Products();
     private User user=new User();
 
     @Override
@@ -56,7 +70,6 @@ public class ProOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prod_order);
         sp=getSharedPreferences("User",MODE_APPEND);
-        ;
         user.setUserId(sp.getInt("userId",0));
         getDataByIntent();
         initView();
@@ -71,9 +84,11 @@ public class ProOrderActivity extends AppCompatActivity {
         mapOrderInfo=OrderInfo.getPro();
         for (Map.Entry<Product.Products, Integer> mapinfo:
         mapOrderInfo.entrySet()) {
-            Product.Products pp=mapinfo.getKey();
+            pp=mapinfo.getKey();
             number=mapinfo.getValue();
             totalprice+=pp.estoreprice*number;
+            proLists.add(pp);
+            num.add(number);
 
         }
 
@@ -81,13 +96,39 @@ public class ProOrderActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //返回
+        iv_dingdan_fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        //默认地址
+        order_dizhi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(ProOrderActivity.this,AddessListActivity.class);
+                intent.putExtra("addressSign",3);
+                startActivityForResult(intent,ADDRESS_CHOICE);
+
+
+            }
+        });
+        order_dizhi_phonenum.setText(address.cantactPhone);//联系人电话
+        order_dizhi_detaildizhi.setText(address.detailed_address);//联系人地址
+       //  order_prod_yunfei.setText(pp.youfei+"");
         order_count_total_money.setText(totalprice+"");
         order_pnum.setText("共"+number+"件商品    合计:");
         order_total_money.setText("￥"+totalprice);
+        order_scroll_listview.setAdapter(new MyOrderAdapter());
         //立即购买
         order_goumai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(address==null||address.cantactPhone==null){
+                    Toast.makeText(ProOrderActivity.this,"请选择收货地址",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderInsertServlet");
                 InsertOrderBean insertOrderBean=new InsertOrderBean();
                 insertOrderBean.setUserId(user.getUserId());
@@ -143,10 +184,59 @@ public class ProOrderActivity extends AppCompatActivity {
         order_pnum=(TextView)findViewById(R.id.order_count_heji);
         order_dizhi_phonenum=(TextView)findViewById(R.id.order_dizhi_phonenum);
         order_dizhi_detaildizhi=(TextView)findViewById(R.id.order_dizhi_detaildizhi);
-        order_prod_yunfei_money=(TextView)findViewById(R.id.order_prod_yunfei_money);
+       // order_prod_yunfei_money=(TextView)findViewById(R.id.order_prod_yunfei_money);
         order_prod_fapiao_right=(TextView)findViewById(R.id.order_prod_fapiao_right);
         order_scroll_listview=(ListView) findViewById(R.id.order_scroll_listview);
         order_total_money=(TextView)findViewById(R.id.order_total_money);
         order_goumai=(Button)findViewById(R.id.order_goumai);
+        order_dizhi = ((RelativeLayout) findViewById(R.id.order_dizhi));
+       // order_prod_yunfei=(TextView)findViewById(R.id.order_prod_yunfei_money);
+        iv_dingdan_fanhui=(ImageView)findViewById(R.id.iv_dingdan_fanhui);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        address=(Address)data.getExtras().getSerializable("addressSign");
+        order_dizhi_phonenum.setText(address.cantactPhone);//联系人电话
+        order_dizhi_detaildizhi.setText(address.detailed_address);//联系人地址
+    }
+    public class  MyOrderAdapter extends BaseAdapter {
+
+
+        @Override
+        public int getCount() {
+            return proLists.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return proLists.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view =View.inflate(ProOrderActivity.this,R.layout.layout_order_pro_item,null);
+            ImageView iv_pro_photo=(ImageView) view.findViewById(R.id.iv_pro_photo);
+            TextView tv_order_desc=(TextView) view.findViewById(R.id.tv_order_desc);
+            TextView tv_order_price=(TextView) view.findViewById(R.id.tv_order_price);
+            TextView tv_order_youfei=(TextView) view.findViewById(R.id.tv_order_youfei);
+            TextView tv_order_number=(TextView) view.findViewById(R.id.tv_order_number);
+            Product.Products pp=proLists.get(position);
+
+            Log.i("ProdOrderActivity", "pp: "+pp.toString());
+            String[] imgs=pp.imgurl.split("=");
+            x.image().bind(iv_pro_photo,HttpUrlUtils.HTTP_URL+imgs[0]);
+            tv_order_desc.setText(pp.name+pp.description);
+            tv_order_price.setText("￥"+pp.estoreprice);
+            tv_order_youfei.setText("邮费￥"+pp.youfei);
+            tv_order_number.setText(num.get(position)+"件");
+            return view;
+        }
     }
 }
