@@ -109,8 +109,6 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                         public void convert(ViewHolder viewHolder, Order order, int position) {
                             order=orders.get(position);
                             Log.i("WaitingDeliverFragment", "order++++"+order.toString());
-
-
                             //设置item中控件的取值
                             //initItemView(viewHolder,order,position);
                             TextView frag_allorders_item_time=  viewHolder.getViewById(R.id.frag_allorders_item_time);//订单时间
@@ -207,7 +205,6 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                                     btnLeft.setVisibility(View.GONE);//左边按钮消失
                                     btnRight.setVisibility(View.VISIBLE);
                                     btnRight.setText("确认收货");
-
                                     break;
                                 case UNSEND:
                                     //待发货:
@@ -221,7 +218,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                                     btnLeft.setVisibility(View.GONE);
                                     btnRight.setVisibility(View.VISIBLE);
                                     btnLeft.setText("");
-                                    btnRight.setText("删除订单");
+                                    btnRight.setText("已收货");
                                     break;
                             }
 
@@ -256,7 +253,13 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                                         case UNRECEIVE:
                                             //确认收货，
                                             Log.i("WaitingDeliverFragment", "确认收货");
-                                            changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
+                                            //判断当前订单中的商品是自己发布的，还是买的，如过是自己得该按钮无法点击
+
+                                            if(order.getOrderDetails().get(position).getProduct().id==sp.getInt("userId",-1)){
+
+                                                return;
+                                            }
+                                            changeState(order.getGoodsOrderId(),UNREMARK,"已收货",position);
                                             break;
                                         case UNSEND:
                                             //发货，
