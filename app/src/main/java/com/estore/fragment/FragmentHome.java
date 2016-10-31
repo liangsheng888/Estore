@@ -22,8 +22,11 @@ import android.widget.Toast;
 import com.estore.activity.MainActivity;
 import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
+import com.estore.activity.PersonComputerActivity;
+import com.estore.activity.PhoneActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.R;
+import com.estore.activity.WatchActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.xUtilsImageUtils;
 import com.estore.pojo.Product;
@@ -283,62 +286,30 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 break;
             case R.id.rl_first_computer://电脑
                 orderFlag=1;
-                getProInfoByCategory(orderFlag);
+                getProInfoByCategory(orderFlag,MainComputerActivity.class);
 
                 break;
             case R.id.rl_first_computertext://笔记本
                 orderFlag=2;
-                getProInfoByCategory(orderFlag);
+                getProInfoByCategory(orderFlag, PersonComputerActivity.class);
                 break;
             case R.id.rl_first_phone://手机
                 orderFlag=3;
-                getProInfoByCategory(orderFlag);
+                getProInfoByCategory(orderFlag, PhoneActivity.class);
                 break;
             case R.id.rl_first_watch://手表
                 orderFlag=4;
-                getProInfoByCategory(orderFlag);
+                getProInfoByCategory(orderFlag, WatchActivity.class);
 
                 break;
         }
 
     }
 
-    private void getProInfoByCategory(Integer orderFlag) {
-        url=HttpUrlUtils.HTTP_URL+"getComputerServlet?page=1";
-        RequestParams requestParams2=new RequestParams(url);
-        requestParams2.addQueryStringParameter("orderFlag",orderFlag+"");
-        x.http().get(requestParams2, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-
-                Gson gson = new Gson();
-                Product pro = gson.fromJson(result, Product.class);
-                proList.addAll(pro.list);
-
-                Log.i("cc",list+"");
-                Intent intent1=new Intent(getActivity(),MainComputerActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("proList", (Serializable) proList);
-                intent1.putExtras(bundle);
-                startActivity(intent1);
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+    public void getProInfoByCategory(Integer orderFlag, Class<?> activityClass) {
+         Intent intent=new Intent(getActivity(),activityClass);
+         intent.putExtra("orderFlag",orderFlag);
+         startActivityForResult(intent,3);
 
     }
 

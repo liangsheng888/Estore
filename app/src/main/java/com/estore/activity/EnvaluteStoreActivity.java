@@ -29,7 +29,7 @@ public class EnvaluteStoreActivity extends AppCompatActivity implements LoadList
     private List<Envalute> envaluteList=new ArrayList<>();
     private LoadListView list;
     int page=1;
-    private RemarkAdapter remarkAdapter;
+    public RemarkAdapter remarkAdapter;
     private int userId;
     private ImageView iv_en_store_fanhui;
 
@@ -37,10 +37,13 @@ public class EnvaluteStoreActivity extends AppCompatActivity implements LoadList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_envalute_store);
+        remarkAdapter=new RemarkAdapter();
         iv_en_store_fanhui=(ImageView)findViewById(R.id.iv_en_store_fanhui);
         Intent intent=getIntent();
         userId= intent.getIntExtra("userid",-1);
+        Log.e("@@@@@","userId"+userId);
         list = ((LoadListView) findViewById(R.id.lv_envalute));
         list.setInterface(this);
         iv_en_store_fanhui.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +70,7 @@ public class EnvaluteStoreActivity extends AppCompatActivity implements LoadList
 //                //更新listview显示；
 //                showListView(apk_list);
 //                //通知listview加载完毕
-                envaluteList=getEnvaluteInfoByNet(userId);
+                getEnvaluteInfoByNet(userId);
                 list.loadComplete();
             }
         }, 2000);
@@ -101,10 +104,10 @@ public class EnvaluteStoreActivity extends AppCompatActivity implements LoadList
             ImageView  iv_evtimg=(ImageView) view.findViewById(R.id. iv_evtimg);
 
             Envalute envalute=envaluteList.get(position);
-            Log.e("ProductInfoActivity","评价"+envalute.toString());
-            xUtilsImageUtils.display(ivuserphoto, HttpUrlUtils.HTTP_URL+envalute.getUser().getImageUrl(),true);
+            Log.e("@@@@@","评价"+envalute.toString());
+            xUtilsImageUtils.display(ivuserphoto, HttpUrlUtils.HTTP_URL+envalute.getUser().getUserPhoto(),true);
             xUtilsImageUtils.display(iv_evtimg,HttpUrlUtils.HTTP_URL+envalute.getEvt_imgurl());
-            tv_username.setText(envalute.getUser().getNick());
+            tv_username.setText(envalute.getUser().getNickname());
             tv_evttime.setText(envalute.getEvt_time());
             tv_evcontent.setText(envalute.getEvt_msg());
             return view;
@@ -118,15 +121,22 @@ public class EnvaluteStoreActivity extends AppCompatActivity implements LoadList
         x.http().post(rp, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                Log.e("@@@@@","result"+result);
                 page++;
                 Gson gson=new Gson();
 
-                envaluteList.clear();
-                envaluteList= gson.fromJson(result,new TypeToken<List<Envalute>>(){}.getType());
+                //envaluteList.clear();
+                List<Envalute>  en= gson.fromJson(result,new TypeToken<List<Envalute>>(){}.getType());
+                Log.e("@@@@@","en"+en.toString());
+                envaluteList.addAll(en);
+                Log.e("@@@@@","envaluteList"+envaluteList.toString());
              
-                if(envaluteList==null){
+                if(envaluteList.size()==0){
+                    Log.e("@@@@@","envaluteList==null");
                     remarkAdapter=new RemarkAdapter();
+
                 }else {
+                    Log.e("@@@@@","envaluteList!=null");
                     remarkAdapter.notifyDataSetChanged();
                 }
                 list.setAdapter(remarkAdapter);

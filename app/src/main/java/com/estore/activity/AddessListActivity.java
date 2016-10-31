@@ -144,6 +144,16 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
 //                        startActivity(intent);
                         finish();
                         break;
+                    case 3://拍卖页面
+                        Intent intent3 = new Intent();
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putSerializable("addressSign", address);
+                        intent3.putExtras(bundle3);
+                        setResult(SIGNOK, intent3);
+//                        intent.setClass(getApplicationContext(), PaiMaiMain_bidding.class);
+//                        startActivity(intent);
+                        finish();
+                        break;
 
 
                 }

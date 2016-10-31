@@ -59,7 +59,10 @@
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/customTheme" />
         <activity android:name=".EnvaluteActivity" />
-        <activity android:name=".EnvaluteStoreActivity"></activity>
+        <activity android:name=".EnvaluteStoreActivity" />
+        <activity android:name=".PhoneActivity" />
+        <activity android:name=".PersonComputerActivity"></activity>
+        <activity android:name=".WatchActivity"></activity>
     </application>
 
 </manifest>

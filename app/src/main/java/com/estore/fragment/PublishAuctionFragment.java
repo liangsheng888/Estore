@@ -112,7 +112,7 @@ public class PublishAuctionFragment extends Fragment {
             x.image().bind(iv_pubauctionpic, HttpUrlUtils.HTTP_URL+pubimag.auct_imgurl);
             tv_pubauctionname.setText(pubimag.auct_name);
             tv_pubauctionprice.setText(pubimag.auct_minprice+"");
-            tv_pubauctiontime.setText(pubimag.auct_begin);
+            tv_pubauctiontime.setText(pubimag.auct_begin+"");
 
 //            btnDelete.setOnClickListener(new View.OnClickListener() {
 //                @Override
