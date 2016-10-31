@@ -257,6 +257,9 @@ public class WaitingPayMoneyFragment extends Fragment {
                                             //付款 付款成功后该商品数量减1
                                             Log.i("WaitingPayMoneyFragment", "onClick: ");
                                             subProduct(order.getOrderDetails().get(position).getProduct().id,order.getOrderDetails().get(position).getGoodsNum());
+                                            //更新订单状态，卖家显示已付款，卖家显示发货
+                                           // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
+
                                             break;
                                         case UNRECEIVE:
                                             //确认收货，
@@ -310,7 +313,6 @@ public class WaitingPayMoneyFragment extends Fragment {
                                 @Override
                                 public void onError(Throwable ex, boolean isOnCallback) {
                                     Log.i("WaitingPayMoneyFragment", "更新界面fail: ");
-
                                 }
 
                                 @Override

@@ -41,6 +41,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -250,10 +251,12 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
                 ms.setPro(mapPro);
                 Log.i("ProductInfoActivity", ms.toString());
+                List<Integer> cartIdLists=new ArrayList<Integer>();
                 Intent intent=new  Intent(ProductInfoActivity.this,ProOrderActivity.class);
                 Bundle bundle=new Bundle();
 
                 bundle.putSerializable("OrderInfo",ms);
+                bundle.putSerializable("cartIdLists",(Serializable) cartIdLists);
                 intent.putExtras(bundle);
                 startActivity(intent);
 

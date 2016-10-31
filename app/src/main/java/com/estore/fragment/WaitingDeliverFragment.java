@@ -210,7 +210,9 @@ public class WaitingDeliverFragment extends Fragment {
                                     //待收货:(确认收货)
                                     btnLeft.setVisibility(View.GONE);//左边按钮消失
                                     btnRight.setVisibility(View.VISIBLE);
-                                    btnRight.setText("确认收货");
+                                    btnRight.setText("已发货");
+                                    btnRight.setEnabled(false);
+
 
                                     break;
                                 case UNSEND:
