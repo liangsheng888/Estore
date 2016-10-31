@@ -42,6 +42,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         initView();
         initEven();
         ininData();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
         toolbar.setLogo(R.drawable.emoji_81);//设置app logo

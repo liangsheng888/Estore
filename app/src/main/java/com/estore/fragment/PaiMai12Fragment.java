@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.activity.PaimaiMain_infoActivity;
@@ -37,7 +38,14 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
     private String[] imgurls;
     private LoadListViewPaiMAI lv_list_paimai;
     int page=0;
+    String searchFlag = "0";//搜索条件标志位
     String bidTime = "12";//获取拍卖标志位
+    TextView tv_paimai_hande_search1;
+    TextView tv_paimai_hande_search2;
+    TextView tv_paimai_hande_search3;
+    TextView tv_paimai_hande_search4;
+    TextView tv_paimai_hande_search5;
+    private LinearLayout ll_pai_sousuo;
     @Nullable
     @Override
 
@@ -45,8 +53,53 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
         View view=inflater.inflate(R.layout.fragment_pai_mai_changci,null);
         lv_list_paimai = ((LoadListViewPaiMAI)view.findViewById(R.id.lv_list_paimai));
         lv_list_paimai.setInterface(this);
+        ininView(view);
         return view;
 
+    }
+
+    private void ininView(View view) {
+        tv_paimai_hande_search1 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search1));
+        tv_paimai_hande_search2 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search2));
+        tv_paimai_hande_search3 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search3));
+        tv_paimai_hande_search4 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search4));
+        tv_paimai_hande_search5 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search5));
+        tv_paimai_hande_search1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("获取全部");
+                searchFlag = "0";
+                getAuctList();
+            }
+        });
+        tv_paimai_hande_search2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFlag = "1";
+                getAuctList();
+            }
+        });
+        tv_paimai_hande_search3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFlag = "2";
+                getAuctList();
+            }
+        });
+        tv_paimai_hande_search4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFlag = "3";
+                getAuctList();
+            }
+        });
+        tv_paimai_hande_search5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFlag = "4";
+                getAuctList();
+            }
+        });
     }
 
     @Override
@@ -67,6 +120,8 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
 
     @Override
     public void onLoad() {
+        ll_pai_sousuo = ((LinearLayout) getActivity().findViewById(R.id.ll_pai_sousuo));
+        ll_pai_sousuo.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
 
@@ -89,13 +144,17 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
     }
 
     public void getLoadData() {
+
         getAuctList();
+
     }
     private void getAuctList() {
         final RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiProducts");
         params.addBodyParameter("page",page+1+"");
         System.out.println("进入getAuctList" + params);
         params.addBodyParameter("bidTime",bidTime+"");
+
+        params.addBodyParameter("searchFlag",searchFlag+"");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

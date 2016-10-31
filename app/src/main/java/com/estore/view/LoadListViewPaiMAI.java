@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.estore.activity.R;
@@ -13,12 +14,12 @@ import com.estore.activity.R;
 
 public class LoadListViewPaiMAI extends ListView implements OnScrollListener {
     View footer;// 底部布局；
-//
+    View header;//顶部布局
     int totalItemCount;// 总数量；
     int lastVisibleItem;// 最后一个可见的item；
     boolean isLoading;// 正在加载；
     ILoadListener iLoadListener;
-//    private LinearLayout ll_pai_sousuo;
+    private LinearLayout ll_pai_sousuo;
 
     public LoadListViewPaiMAI(Context context) {
         super(context);
@@ -50,9 +51,6 @@ public class LoadListViewPaiMAI extends ListView implements OnScrollListener {
         footer.findViewById(R.id.load_layout).setVisibility(View.GONE);
         this.addFooterView(footer);
         this.setOnScrollListener(this);
-//       View view= inflater.inflate(R.layout.fragment_pai_mai_changci,null);
-//        ll_pai_sousuo = ((LinearLayout) view.findViewById(R.id.ll_pai_sousuo));
-//        this.addHeaderView(ll_pai_sousuo);
 
     }
 
@@ -68,12 +66,17 @@ public class LoadListViewPaiMAI extends ListView implements OnScrollListener {
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         // TODO Auto-generated method stub
 //        ll_pai_sousuo.setVisibility(VISIBLE);
+        System.out.println("totalItemCount:"+totalItemCount);
+        System.out.println("lastVisibleItem:"+lastVisibleItem);
+        System.out.println("scrollState:"+scrollState);
+        System.out.println("isLoading:"+isLoading);
         if (totalItemCount == lastVisibleItem
                 && scrollState == SCROLL_STATE_IDLE) {
             if (!isLoading) {
                 isLoading = true;
                 footer.findViewById(R.id.load_layout).setVisibility(
                         View.VISIBLE);
+//                header.findViewById(R.id.ll_pai_sousuo).setVisibility(View.VISIBLE);
                 // 加载更多
                 iLoadListener.onLoad();
             }
