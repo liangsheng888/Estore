@@ -34,6 +34,7 @@ import java.util.List;
  */
 public class MainComputerActivity extends AppCompatActivity implements LoadListView.ILoadListener{
 
+    private static final int HOME =5 ;
     private LoadListView lv_jingpin;
     private MyAdapter adapter=new MyAdapter();
     List<ImageView> images = null;
@@ -52,6 +53,8 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
         iv_computer_fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=getIntent();
+                setResult(HOME,intent);
                 finish();
             }
         });

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneActivity extends AppCompatActivity implements LoadListView.ILoadListener {
+    private static final int HOME = 5;
     private LoadListView lv_jingpin;
     private MyAdapter adapter=new MyAdapter();
     List<ImageView> images = null;
@@ -48,6 +49,9 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
         iv_dingdan_fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent=getIntent();
+                setResult(HOME,intent);
                 finish();
             }
         });
@@ -208,7 +212,6 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
             @Override
             public void onSuccess(String result) {
                 page++;
-
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
                 proList.clear();

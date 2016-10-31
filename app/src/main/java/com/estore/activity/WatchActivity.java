@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class WatchActivity extends Activity implements LoadListView.ILoadListener {
 
-    private static final int HOME =6 ;
+    private static final int HOME =5 ;
     private LoadListView lv_jingpin;
     private MyAdapter adapter = new MyAdapter();
     List<ImageView> images = null;

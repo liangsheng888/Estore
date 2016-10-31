@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonComputerActivity extends AppCompatActivity implements LoadListView.ILoadListener {
+    private static final int HOME =5 ;
     private LoadListView lv_jingpin;
     private MyAdapter adapter=new MyAdapter();
     List<ImageView> images = null;
@@ -47,6 +48,9 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
         iv_person_fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent=getIntent();
+                setResult(HOME,intent);
                 finish();
             }
         });
