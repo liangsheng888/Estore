@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#12775b"
-        app:subtitleTextColor="#fff"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:subtitleTextColor="#fff">
 
         <!--自定义控件-->
         <TextView
@@ -22,111 +21,74 @@
             android:layout_height="wrap_content"
             android:text="Clock" />
     </android.support.v7.widget.Toolbar>
-    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_columnWeight="4"-->
-        <!--android:background="#f00"-->
-        <!--android:visibility="visible">-->
-        <!--<RelativeLayout-->
-            <!--android:paddingLeft="@dimen/padding_search_bar"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="3"-->
-            <!--android:paddingTop="7dp"-->
-            <!--android:paddingBottom="7dp"-->
-            <!--android:paddingRight="10dp"-->
 
-            <!--&gt;-->
-
-            <!--<EditText-->
-                <!--android:paddingTop="5dp"-->
-                <!--android:paddingBottom="5dp"-->
-                <!--android:id="@+id/query"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:background="@drawable/seabar_input"-->
-                <!--android:drawableLeft="@drawable/search_bar_icon_normal"-->
-                <!--android:hint="输入搜索内容"-->
-                <!--android:textSize="16sp"-->
-                <!--android:singleLine="true"-->
-                <!--/>-->
-
-            <!--&lt;!&ndash;  android:visibility="invisible" &ndash;&gt;-->
-            <!--<ImageButton-->
-                <!--android:id="@+id/search_clear"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginRight="3dp"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:padding="6dp"-->
-                <!--android:src="@drawable/ease_search_clear"-->
-                <!--/>-->
-        <!--</RelativeLayout>-->
-        <!--<TextView-->
-            <!--android:id="@+id/tv_search"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:text="搜索"-->
-            <!--android:textColor="#FFFFFF"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_marginRight="5dp"-->
-            <!--/>-->
-    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:background="#4f965c">
 
         <TextView
-            android:id="@+id/tv_type1"
-            android:layout_weight="1"
+            android:id="@+id/tv_paimai_hande1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="正在进行中"
-            android:background="#7fc9ac"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:text="8点场"
+            android:textColor="#fcd5d5"
+            android:textSize="14sp" />
+
         <TextView
-            android:id="@+id/tv_type2"
-            android:layout_weight="1"
+            android:id="@+id/tv_paimai_hande2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="未开始"
-            android:background="#7fc9ac"
-
+            android:layout_weight="1"
             android:gravity="center"
-            android:textSize="20sp" />
-        <!--<Spinner-->
-            <!--android:id="@+id/btn_auct_type"-->
-            <!--android:layout_width="80dp"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:layout_toRightOf="@+id/tv_type"-->
-            <!--android:entries="@array/auct_type"-->
-            <!--android:textSize="20sp"/>-->
+            android:text="12点场"
+            android:textColor="#fcd5d5"
+            android:textSize="14sp" />
 
-        <!--<CheckBox-->
-            <!--android:id="@+id/btn_price_sort"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:button="@null"-->
-            <!--android:drawableRight="@drawable/btn_sort_selector"-->
-            <!--android:text="价格"-->
-            <!--android:textSize="20sp"-->
-            <!--/>-->
+        <TextView
+            android:id="@+id/tv_paimai_hande3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="16点场"
+            android:textColor="#fcd5d5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_paimai_hande4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="20点场"
+            android:textColor="#fcd5d5"
+            android:textSize="14sp" />
+
+
     </LinearLayout>
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rl_sousuo"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--&gt;-->
+    <!--<include layout="@layout/paimai_hande_layout" />-->
+    <!--<View style="@style/bg_line"/>-->
+    <!--</RelativeLayout>-->
+    <!--<com.estore.view.LoadListView-->
+        <!--android:id="@+id/lv_list_paimai"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-    <com.estore.view.LoadListView
-        android:id="@+id/lv_list_paimai"
+    <!--</com.estore.view.LoadListView>-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/paimai_fragment_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.estore.view.LoadListView>
+        android:layout_height="match_parent"
+        >
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
 
