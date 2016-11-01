@@ -3,11 +3,16 @@ package com.estore.activity.myappliction;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 /**
  * Created by Administrator on 2016/9/13.
@@ -15,6 +20,7 @@ import io.rong.imkit.RongIM;
 public class MyApplication extends Application{
 
     private static Context content;
+    private Integer messageNum;
 
     @Override
     public void onCreate() {
@@ -43,6 +49,68 @@ public class MyApplication extends Application{
              */
             RongIM.init(this);
         }
+
+        //新消息处理
+        RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+            @Override
+            public boolean onReceived(final Message message, int i) {
+                //false 走融云默认方法  true走自己设置的方法
+
+                if ( message != null) {//app是否运行在后台 不在发消息推送广播
+
+                    //未读消息数量
+                    RongIMClient.getInstance().getTotalUnreadCount(new RongIMClient.ResultCallback<Integer>() {
+                        @Override
+                        public void onSuccess(Integer integer) {
+                            messageNum=integer;
+                            Log.i("cc","---IMMessageNum："+integer);
+
+                            //app后台运行 发送广播
+                            Intent intent = new Intent();
+                            intent.putExtra("SendId", message.getSenderUserId());//消息发送者
+                            intent.putExtra("MsgType", message.getConversationType() + "");
+                            intent.putExtra("MsgNum",messageNum+"");
+                            intent.setAction("com.yu.chatdemo.receiver.ChatBoardcaseReceiver");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            MyApplication.this.getApplicationContext().sendBroadcast(intent);
+
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+                            Log.d("cc","---IMMessageNumError："+errorCode);
+                        }
+                    });
+
+                }
+
+                return true;
+            }
+        });
+
+        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+        String token=sp1.getString("token","");
+        Log.i("cc", "onCreate: "+token);
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.i("cc", "——onSuccess—-" + s);
+
+//                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.i("cc","--onError--"+errorCode);
+
+            }
+        });
 
 
     }

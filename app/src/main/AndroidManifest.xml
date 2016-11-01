@@ -3,6 +3,8 @@
     package="com.estore">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -62,7 +64,7 @@
         <activity android:name=".activity.AuctionDetialItemActivity" />
         <activity android:name=".activity.MyAuctionActivity" />
         <activity android:name=".activity.PersonalSettingActivity" />
-        <activity android:name=".activity.MyFriendsActivity" />
+
         <activity android:name=".activity.MyOrderActivity" />
         <activity android:name=".activity.MyCareActivity" />
         <activity android:name=".activity.MyIntercalateActivity" />
@@ -132,12 +134,13 @@
             android:name="RONG_CLOUD_APP_KEY"
             android:value="8luwapkvu8zil" />
 
-        <activity android:name=".activity.ConversationActivity"
-
+        <activity
+            android:name=".activity.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
@@ -146,6 +149,30 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MyFriendsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.estore"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="com.yu.chatdemo.receiver.ChatBoardcaseReceiver">
+
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".activity.HuiHuaListActivity"></activity>
     </application>
 
 </manifest>
