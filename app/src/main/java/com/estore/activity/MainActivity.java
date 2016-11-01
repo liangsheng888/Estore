@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onAnimationFinished() {
         // Hide or remove your view/fragment/activity here
         //getSupportFragmentManager().beginTransaction().add(R.id.tiles_frame_layout, fragments[0]).commit();
-        changeFragment(newIndex);
+        //changeFragment(newIndex);
     }
 //
     private void initData() {
