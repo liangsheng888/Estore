@@ -9,6 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -62,6 +67,7 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
         orderFlag= intent.getIntExtra("orderFlag",-1);
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setLayoutAnimation(getAnimationController());
         getData();
 
 
@@ -81,7 +87,24 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
         });
 
     }
+    protected LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
 
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
+    }
     @Override
     public void onLoad() {
         Handler handler = new Handler();

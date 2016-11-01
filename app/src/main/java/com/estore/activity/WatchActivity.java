@@ -11,6 +11,12 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -46,6 +52,9 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
     private int orderFlag;
     private ArrayList<Product.Products> proList = new ArrayList<>();
     private ImageView iv_watch_fanhui;
+    private int duration=1000;
+    private Animation push_left_in,push_right_in;
+    private Animation slide_top_to_bottom,slide_bottom_to_top;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,7 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
         orderFlag = intent.getIntExtra("orderFlag", -1);
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setInterface(WatchActivity.this);
+        lv_jingpin.setLayoutAnimation(getAnimationController());
         getData();
 
 
@@ -85,7 +95,31 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
         });
 
     }
+    /*public ListViewAdapter(ArrayList<Product.Products> list) {
+        this.list = list;
+        push_left_in=AnimationUtils.loadAnimation(context, R.anim.push_left_in);
+        push_right_in=AnimationUtils.loadAnimation(context, R.anim.push_right_in);
+       *//* slide_top_to_bottom= AnimationUtils.loadAnimation(context, R.anim.slide_top_to_bottom);
+        slide_bottom_to_top=AnimationUtils.loadAnimation(context, R.anim.slide_bottom_to_top);*//*
+    }*/
+    protected LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
 
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
+    }
     @Override
     public void onLoad() {
         Handler handler = new Handler();
@@ -127,59 +161,38 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-       /* View view = View.inflate(getApplicationContext(), R.layout.list_item, null);
-        gv_jingpin = (GridView) view.findViewById(R.id.gv_jingpin);
-        TextView tv_name = (TextView) view.findViewById(R.id.tv_jin_proname);
-        TextView tv_jingpin_desc = (TextView) view.findViewById(R.id.tv_jingpin_desc);
-        TextView tv_username = (TextView) view.findViewById(R.id.tv_username);
-        TextView tv_estoreprice = (TextView) view.findViewById(R.id.tv_jingpin_price);
-        TextView tv_jingpin_address = (TextView) view.findViewById(R.id.tv_jingpin_address);
 
-        Product.Products pp = proList.get(position);//根据当前位置获得pp
-        ImageOptions.Builder io = new ImageOptions.Builder();
-        imgurls=pp.imgurl.split("=");//将拿到的图片路径分割成字符串数组
-        x.image().bind(iv, HttpUrlUtils.HTTP_URL + imgurls[0]);
-        // iv.setImageUrl(HttpUrlUtils.HTTP_URL+ pp.imgurl.trim(), R.drawable.sj, R.drawable.sj);
-        Log.e("MainActivity", HttpUrlUtils.HTTP_URL +imgurls[0]);
-        tv_name.setText(pp.name);
-        tv_estoreprice.setText("￥"+pp.estoreprice);
-        tv_jingpin_desc.setText(pp.description);
-        tv_jingpin_address.setText(pp.proaddress);
-
-        gv_jingpin.setBackground(new BitmapDrawable());//
-        // viewHolder.gv_jingpin.setLayoutParams(new LinearLayout.LayoutParams(200,400));
-        gv_jingpin.setAdapter(new Adapter(imgurls));
-        view.setBackgroundColor(Color.WHITE);
-
-        gv_jingpin.setClickable(false);
-        gv_jingpin.setPressed(false);
-        gv_jingpin.setEnabled(false);
-
-        return view;*/
             View view = View.inflate(WatchActivity.this, R.layout.eh_item, null);
-            ImageView productPhoto = ((ImageView) view.findViewById(R.id.iv_project_photo));
-            TextView productDetail = ((TextView) view.findViewById(R.id.tv_project_detail));
-            TextView productKind = ((TextView) view.findViewById(R.id.tv_product_kind));
-            TextView cityAddress = ((TextView) view.findViewById(R.id.tv_eh_cityaddress));
-            TextView schoolAddress = ((TextView) view.findViewById(R.id.tv_eh_schooladdress));
-            TextView productPrice = ((TextView) view.findViewById(R.id.tv_project_price));
-            TextView productNum = ((TextView) view.findViewById(R.id.tv_product_number));
-            Product.Products list = proList.get(position);
-            String[] imgurl = list.imgurl.split("=");
-            x.image().bind(productPhoto, HttpUrlUtils.HTTP_URL + imgurl[0]);
-            productDetail.setText(list.description);
-            productKind.setText(list.category);
-            cityAddress.setText(list.proaddress);
-            schoolAddress.setText(list.schoolname);
-            productPrice.setText(list.estoreprice + "");
-            productNum.setText("总共" + list.pnum + "件");
-            return view;
+          /*  if (position % 2 == 0) {
+                push_left_in.setDuration(duration);
+                convertView.setAnimation(push_left_in);
+            } else {
+                push_right_in.setDuration(duration);
+                convertView.setAnimation(push_right_in);
+            }*/
+                ImageView productPhoto = ((ImageView) view.findViewById(R.id.iv_project_photo));
+                TextView productDetail = ((TextView) view.findViewById(R.id.tv_project_detail));
+                TextView productKind = ((TextView) view.findViewById(R.id.tv_product_kind));
+                TextView cityAddress = ((TextView) view.findViewById(R.id.tv_eh_cityaddress));
+                TextView schoolAddress = ((TextView) view.findViewById(R.id.tv_eh_schooladdress));
+                TextView productPrice = ((TextView) view.findViewById(R.id.tv_project_price));
+                TextView productNum = ((TextView) view.findViewById(R.id.tv_product_number));
+                Product.Products list = proList.get(position);
+                String[] imgurl = list.imgurl.split("=");
+                x.image().bind(productPhoto, HttpUrlUtils.HTTP_URL + imgurl[0]);
+                productDetail.setText(list.description);
+                productKind.setText(list.category);
+                cityAddress.setText(list.proaddress);
+                schoolAddress.setText(list.schoolname);
+                productPrice.setText(list.estoreprice + "");
+                productNum.setText("总共" + list.pnum + "件");
+                return view;}
+
 
         }
-    }
 
 
-    public class Adapter extends BaseAdapter {
+    /*public class Adapter extends BaseAdapter {
         private String[] imgurls;
 
         public Adapter(String[] imgurls) {
@@ -212,7 +225,7 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
             return convertView;
         }
 
-    }
+    }*/
 
     public void getData() {
         String url = HttpUrlUtils.HTTP_URL + "getComputerServlet?page=" + page;
