@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 
 /**

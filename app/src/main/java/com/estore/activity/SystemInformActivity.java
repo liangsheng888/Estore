@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.estore.R;
+
 public class SystemInformActivity extends AppCompatActivity {
     private ImageView iv_informreturn;
     @Override

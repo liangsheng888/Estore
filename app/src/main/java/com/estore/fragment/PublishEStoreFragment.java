@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.estore.activity.ModifyMyAddProductActivity;
 import com.estore.activity.PublishEstoreDetialItemActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.MyPublishActivityBean;

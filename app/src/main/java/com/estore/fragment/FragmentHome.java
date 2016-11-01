@@ -27,7 +27,7 @@ import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.PersonComputerActivity;
 import com.estore.activity.PhoneActivity;
 import com.estore.activity.ProductInfoActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.activity.WatchActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.xUtilsImageUtils;

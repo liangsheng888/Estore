@@ -19,7 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.estore.activity.ProductInfoActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
 import com.estore.view.LoadListView;

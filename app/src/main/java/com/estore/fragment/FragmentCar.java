@@ -23,8 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.activity.ProOrderActivity;
-import com.estore.activity.R;
 import com.estore.httputils.CommonAdapter;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;

@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
@@ -87,7 +88,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
     private String[] photourl;
     private Product.Products pp;
     private int prePosition=0;
-    private int[] id={R.id.iv_quan1,R.id.iv_quan2,R.id.iv_quan3};
+    private int[] id={R.id.iv_quan1, R.id.iv_quan2,R.id.iv_quan3};
     private SharedPreferences sp;
     private ListView lv_user_remark;//评价
     private TextView prod_info_tv_prod_comment;//更多

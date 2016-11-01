@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.estore.activity.LoginOther;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.activity.RegisterActivity;
 
 /**

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.estore.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.Objects;
 public class ListViewActivity extends AppCompatActivity {
     private ListView lv_item;
     private String[] data={"张三","李四","赵武","张三","李四","赵武","张三","李四","赵武","666"};
-    private int[] id={R.id.iv_name,R.id.tv_name};
+    private int[] id={R.id.iv_name, R.id.tv_name};
     private int[] picture={R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
     private List<HashMap<String,Object>> map=new ArrayList<HashMap<String,Object>>();
 

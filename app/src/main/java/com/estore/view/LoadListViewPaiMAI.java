@@ -9,7 +9,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 
 public class LoadListViewPaiMAI extends ListView implements OnScrollListener {

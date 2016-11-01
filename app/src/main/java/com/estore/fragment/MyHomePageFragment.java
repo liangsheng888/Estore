@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.activity.LoginActivity;
 import com.estore.activity.LoginOther;
 import com.estore.activity.MyAuctionActivity;
@@ -27,7 +28,7 @@ import com.estore.activity.MyIntercalateActivity;
 import com.estore.activity.MyOrderActivity;
 import com.estore.activity.MyWalletActivity;
 import com.estore.activity.PublishActivity;
-import com.estore.activity.R;
+
 import com.estore.activity.RegisterActivity;
 import com.estore.activity.SystemInformActivity;
 import com.estore.activity.TakePhotosAndSelectActivity;

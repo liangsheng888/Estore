@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.activity.PaimaiMain_infoActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 import com.estore.view.LoadListViewPaiMAI;

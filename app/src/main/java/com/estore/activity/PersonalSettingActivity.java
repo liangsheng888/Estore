@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.httputils.GetUserIdByNet;

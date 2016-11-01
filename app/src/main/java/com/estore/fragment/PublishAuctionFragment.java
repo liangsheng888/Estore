@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.estore.activity.PublishAuctionDetialItemActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
 import com.estore.pojo.User;
