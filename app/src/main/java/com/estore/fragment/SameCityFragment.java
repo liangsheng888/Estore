@@ -10,6 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -52,6 +57,10 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
     private Button down;
     Integer time=0;
     List<String> popContents=new ArrayList<String>();
+    private int duration=1000;
+    private Animation push_left_in,push_right_in;
+    private Animation slide_top_to_bottom,slide_bottom_to_top;
+
 
     //    private ListView actualListView;
     @Override
@@ -67,10 +76,28 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         others = ((TextView) view.findViewById(R.id.tv_others));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         sameCity.setInterface(this);
+        sameCity.setLayoutAnimation(getAnimationController());
         getSameCityProductInfo();
         return view;
     }
+    protected LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
 
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
