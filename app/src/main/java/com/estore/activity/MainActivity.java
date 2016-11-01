@@ -11,11 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -39,6 +37,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,TilesFrameLayoutListener {
     private SharedPreferences sp;
@@ -97,6 +98,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sp=getSharedPreferences("User",MODE_APPEND);
       /*  mTilesFrameLayout = (TilesFrameLayout) findViewById(R.id.tiles_frame_layout);
         mTilesFrameLayout.setOnAnimationFinishedListener(this);*/
+
+
+        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+        String token=sp1.getString("token","");
+        Log.i("cc", "onCreate: "+token);
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.i("cc", "——onSuccess—-" + s);
+//                if(RongIM.getInstance()!=null){
+//                    RongIM.getInstance().startPrivateChat(MainActivity.this,"7","hhe");
+//                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.i("cc","--onError--"+errorCode);
+
+            }
+        });
 
 
         mapList = new ArrayList<Map<String, Object>>();

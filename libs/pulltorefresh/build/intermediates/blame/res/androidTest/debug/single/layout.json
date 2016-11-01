@@ -1,5 +1,13 @@
 [
     {
+        "merged": "E:\\project_process\\1101\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "E:\\project_process\\1101\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+    },
+    {
+        "merged": "E:\\project_process\\1101\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "E:\\project_process\\1101\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
         "merged": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
         "source": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     },

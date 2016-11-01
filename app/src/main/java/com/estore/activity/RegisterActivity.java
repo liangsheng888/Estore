@@ -1,7 +1,10 @@
 package com.estore.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -11,12 +14,12 @@ import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.HttpUtil;
 import com.estore.pojo.User;
 
+import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.xutils.x;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -27,8 +30,9 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText etPassword;
     private EditText etOncePassword;
     private TextView RegisterBtn;
+    private String userId;
     User user;
-//    List<User> users=new ArrayList<User>();
+    //    List<User> users=new ArrayList<User>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +50,47 @@ public class RegisterActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if((etPassword.getText().toString()).equals(etOncePassword.getText().toString())){
-                    RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"");
+                    RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"register");
                     String userName=etRegEmail.getText().toString();
-                    String nick=etNickName.getText().toString();
+                    final String nick=etNickName.getText().toString();
                     String userPwd=etPassword.getText().toString();
 //                    user=new User(userName,userPwd,nick);
 //                    users.add(user);
                     params.addQueryStringParameter("nickName",nick);
                     params.addQueryStringParameter("email",userName);
                     params.addQueryStringParameter("password",userPwd);
+
+
+
+                    x.http().get(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            userId=result;
+                            SharedPreferences sp=getSharedPreferences("User",MODE_APPEND);
+                            sp.edit().putInt("userId",Integer.parseInt(userId)).commit();
+                            Log.i("cc", "onSuccess: "+result);
+                            HttpUtil.getToken(getApplicationContext(),userId,nick);
+                            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+                            Toast.makeText(getApplicationContext(),"网络异常",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+
 
                 }else{
                     Toast.makeText(RegisterActivity.this,"两次密码不相同！请重新输入",Toast.LENGTH_SHORT).show();

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="G:\estore\Estore\libs\pulltorefresh\assets"/><source path="G:\estore\Estore\libs\pulltorefresh\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="G:\estore\Estore\libs\pulltorefresh\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\project_process\1101\Estore\libs\pulltorefresh\assets"/><source path="E:\project_process\1101\Estore\libs\pulltorefresh\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\project_process\1101\Estore\libs\pulltorefresh\src\debug\assets"/></dataSet></merger>
