@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -56,6 +58,9 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private static final int SAME_CITY = 3;
     private static final int HIGH_SCHOOL =4 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
+    private int duration=1000;
+    private Animation push_left_in,push_right_in;
+    private Animation slide_top_to_bottom,slide_bottom_to_top;
     private LoadListView lv_jingpin;
    // PullToRefreshGridView prg;
     GridViewWithHeaderAndFooter gridViewWithHeaderAndFooter;
@@ -90,6 +95,10 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
+        push_left_in= AnimationUtils.loadAnimation(getActivity(), R.anim.push_left_in);
+        push_right_in=AnimationUtils.loadAnimation(getActivity(), R.anim.push_right_in);
+        slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
+        slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
@@ -377,6 +386,21 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = View.inflate(getActivity(), R.layout.list_item, null);
+               /* if (position % 2 == 0) {
+                    push_left_in.setDuration(duration);
+                    convertView.setAnimation(push_left_in);
+                } else {
+                    push_right_in.setDuration(duration);
+                    convertView.setAnimation(push_right_in);
+                }*/
+                if(position==0){
+                    slide_bottom_to_top.setDuration(duration);
+                    convertView.setAnimation(slide_bottom_to_top);
+                }
+                else{
+                    slide_top_to_bottom.setDuration(duration);
+                    convertView.setAnimation(slide_top_to_bottom);
+                }
 
                 //viewHolder.vp_jingpin = (ViewPager) convertView.findViewById(R.id.vp_jingpin);
                 viewHolder.gv_jingpin = (GridView) convertView.findViewById(R.id.gv_jingpin);

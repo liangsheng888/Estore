@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.estore.Service.PaiMaiTiXingService;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
@@ -50,8 +49,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     AuctListActivityBean.Auct auct;
     private CheckBox btn_paimai_tixing;
 //        private MyBinder minder;
-PaiMaiTiXingService paiMaiTiXingService;
-    PaiMaiTiXingService.MyBinder myBinder;
+/*PaiMaiTiXingService paiMaiTiXingService;
+    PaiMaiTiXingService.MyBinder myBinder;*/
     MyConn myConn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +187,7 @@ PaiMaiTiXingService paiMaiTiXingService;
                 sendFlagForShoucang();
                 break;
             case R.id.btn_paimai_tixing:
-                if (btn_paimai_tixing.isChecked()) {
+            /*    if (btn_paimai_tixing.isChecked()) {
                     myConn=new MyConn();
                     intent = new Intent(this,PaiMaiTiXingService.class);
                     Bundle bundle=new Bundle();
@@ -201,7 +200,7 @@ PaiMaiTiXingService paiMaiTiXingService;
 
                 }
 
-                break;
+                break;*/
         }
     }
 
@@ -209,7 +208,7 @@ PaiMaiTiXingService paiMaiTiXingService;
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            myBinder= (PaiMaiTiXingService.MyBinder) service;
+           /* myBinder= (PaiMaiTiXingService.MyBinder) service;*/
         }
 
         @Override

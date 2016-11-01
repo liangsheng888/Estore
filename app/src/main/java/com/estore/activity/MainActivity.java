@@ -11,7 +11,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -182,7 +186,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Dialog dialog=builder.create();
         View view=View.inflate(this,R.layout.layout_add_item,null);
         dialog.show();
-        dialog.getWindow().setContentView(view);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);  //此处可以设置dialog显示的位置
+        window.setWindowAnimations(R.style.mystyle);  //添加动画
+        dialog.show();
+        window.setContentView(view);
         RadioGroup rg=(RadioGroup)view.findViewById(R.id.rg_addPro);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
