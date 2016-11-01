@@ -195,6 +195,29 @@ PaiMaiTiXingService paiMaiTiXingService;
                     bundle.putSerializable("PaiMaiService",auct.auct_begin);
                     intent.putExtras(bundle);
 //                    startService(intent);
+
+                    RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"tuisong");
+                    x.http().get(requestParams, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
                     bindService(intent,myConn,BIND_AUTO_CREATE);
 
                 } else {
