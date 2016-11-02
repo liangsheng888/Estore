@@ -96,7 +96,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
     //请求网络
     private void getUserinfo() {
         String url = HttpUrlUtils.HTTP_URL + "/findUserServlet?userId="+sp.getInt("userId",0);
-        Log.i("MyHomePageFageTragment","url"+user.getUserId());
+        //Log.i("MyHomePageFageTragment","url"+user.getUserId());
         RequestParams requestParams=new RequestParams(url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
