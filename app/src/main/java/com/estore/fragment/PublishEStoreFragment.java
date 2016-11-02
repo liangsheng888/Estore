@@ -8,10 +8,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -27,6 +33,7 @@ import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.MyPublishActivityBean;
 import com.estore.pojo.User;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -45,14 +52,15 @@ import swipetodismiss.SwipeMenuListView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PublishEStoreFragment extends Fragment {
+public class PublishEStoreFragment extends Fragment implements LoadListView.ILoadListener {
     //fragment生命周期
     MyPublishActivityBean.ProImag  pro;
     private TextView tv_btestore;
-    private SwipeMenuListView lv_publishest;
+    private LoadListView lv_publishest;
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
     private BaseAdapter  adapter;
     User user=new User();
+    Integer page=0;
     private SharedPreferences sp;
     @Override
     public void onAttach(Context context) {
@@ -71,7 +79,9 @@ public class PublishEStoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         getProduct();
         View view=inflater.inflate(R.layout.fragment_publish_estore,null);
-        lv_publishest= ((SwipeMenuListView) view.findViewById(R.id.lv_publishest));
+        lv_publishest= ((LoadListView) view.findViewById(R.id.lv_publishest));
+        lv_publishest.setInterface(this);
+        lv_publishest.setLayoutAnimation(getAnimationController());
         //跳到详细页
         lv_publishest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,6 +98,25 @@ public class PublishEStoreFragment extends Fragment {
         return view;
     }
 
+    private LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
+
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
+    }
+
     //显示
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -96,6 +125,22 @@ public class PublishEStoreFragment extends Fragment {
 
 
     }
+//上拉加载
+    @Override
+    public void onLoad() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                getProduct();
+                lv_publishest.loadComplete();
+            }
+        }, 1000);
+    }
+
+    
+
     //适配器
     public class myAdapter extends BaseAdapter{
         private ImageView iv_pubestorepic;
@@ -202,6 +247,7 @@ public class PublishEStoreFragment extends Fragment {
         Log.i("cc",user.getUserId()+"");
         Log.i("cc",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
+        requestParams.addQueryStringParameter("page",page+1+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -209,6 +255,7 @@ public class PublishEStoreFragment extends Fragment {
                 Gson gson=new Gson();
                 MyPublishActivityBean  probean=gson.fromJson(result,MyPublishActivityBean.class);
                 Log.i("cc","probean"+probean+"");
+                prolist.clear();
                 prolist.addAll(probean.list);
                 Log.e("PublishEStoreFragment",prolist.toString());
                 if(adapter==null){
