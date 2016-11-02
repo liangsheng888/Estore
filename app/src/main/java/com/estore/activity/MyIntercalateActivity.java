@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+
+import com.estore.R;
 /*
 我的设置页面
  */

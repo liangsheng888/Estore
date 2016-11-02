@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
@@ -24,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.MapSerializable;
@@ -40,12 +40,15 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /***
  * 商品详情页
@@ -86,7 +89,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
     private String[] photourl;
     private Product.Products pp;
     private int prePosition=0;
-    private int[] id={R.id.iv_quan1,R.id.iv_quan2,R.id.iv_quan3};
+    private int[] id={R.id.iv_quan1, R.id.iv_quan2,R.id.iv_quan3};
     private SharedPreferences sp;
     private ListView lv_user_remark;//评价
     private TextView prod_info_tv_prod_comment;//更多
@@ -250,10 +253,12 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 mapPro.put(pp,Integer.parseInt((edt.getText().toString())));
                 ms.setPro(mapPro);
                 Log.i("ProductInfoActivity", ms.toString());
+                List<Integer> cartIdLists=new ArrayList<Integer>();
                 Intent intent=new  Intent(ProductInfoActivity.this,ProOrderActivity.class);
                 Bundle bundle=new Bundle();
 
                 bundle.putSerializable("OrderInfo",ms);
+                bundle.putSerializable("cartIdLists",(Serializable) cartIdLists);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -307,6 +312,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
         subbt=(Button)findViewById(R.id.subbt);
         addbt.setOnClickListener(this);
         subbt.setOnClickListener(this);
+        btn_touch_seller.setOnClickListener(this);
         prod_info_tv_prod_comment.setOnClickListener(this);
 
 
@@ -435,6 +441,46 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent);
                 break;
 
+            case  R.id.btn_touch_seller:
+                String username=sp.getString("username",null);
+                if(username==null){
+                    ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);//登录
+                    return;
+                }
+                GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
+
+                SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+                String token=sp1.getString("token","");
+                Log.i("cc", "onCreate: "+token);
+                RongIM.connect(token, new RongIMClient.ConnectCallback() {
+                    @Override
+                    public void onTokenIncorrect() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.i("cc", "——onSuccess—-" + s);
+
+//                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        Log.i("cc","--onError--"+errorCode);
+
+                    }
+                });
+
+                Log.i("cc","==userId=="+pp.user_id);
+                Log.i("cc","==userNick=="+pp.userNick);
+                if(RongIM.getInstance()!=null){
+                    RongIM.getInstance().startPrivateChat(ProductInfoActivity.this,pp.user_id+"",pp.userNick);
+                }
+
+                break;
+
         }
 
     }
@@ -463,14 +509,15 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
             TextView tv_evcontent=(TextView)view.findViewById(R.id.tv_evcontent);
             TextView tv_evttime=(TextView) view.findViewById(R.id.tv_evttime);
             ImageView  iv_evtimg=(ImageView) view.findViewById(R.id. iv_evtimg);
-
-            Envalute envalute=envaLists.get(position);
-            Log.e("ProductInfoActivity","评价"+envalute.toString());
-            xUtilsImageUtils.display(ivuserphoto,HttpUrlUtils.HTTP_URL+envalute.getUser().getUserPhoto(),true);
-            xUtilsImageUtils.display(iv_evtimg,HttpUrlUtils.HTTP_URL+envalute.getEvt_imgurl());
-            tv_username.setText(envalute.getUser().getNickname());
-            tv_evttime.setText(envalute.getEvt_time());
-            tv_evcontent.setText(envalute.getEvt_msg());
+            if(envaLists.size()>0) {
+                Envalute envalute = envaLists.get(position);
+                Log.e("ProductInfoActivity", "评价" + envalute.toString());
+                xUtilsImageUtils.display(ivuserphoto, HttpUrlUtils.HTTP_URL + envalute.getUser().getUserPhoto(), true);
+                xUtilsImageUtils.display(iv_evtimg, HttpUrlUtils.HTTP_URL + envalute.getEvt_imgurl());
+                tv_username.setText(envalute.getUser().getNickname());
+                tv_evttime.setText(envalute.getEvt_time());
+                tv_evcontent.setText(envalute.getEvt_msg());
+            }
             return view;
         }
     }

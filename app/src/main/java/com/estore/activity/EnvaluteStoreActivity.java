@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.xUtilsImageUtils;
 import com.estore.pojo.Envalute;

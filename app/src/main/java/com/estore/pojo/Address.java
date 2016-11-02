@@ -7,6 +7,9 @@ public class Address implements Serializable {
 	public int userId;
 	public String cantactName;
 
+	public Address() {
+	}
+
 	public String cantactPhone;
 
 	public String contactAddress;

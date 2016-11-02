@@ -10,6 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -19,7 +24,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.estore.activity.ProductInfoActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Product;
 import com.estore.view.LoadListView;
@@ -48,6 +53,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     Integer orderFlag=0;
     private TextView all;
     List<String> popContents=new ArrayList<String>();
+    private Animation push_left_in,push_right_in;
+    private Animation slide_top_to_bottom,slide_bottom_to_top;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,12 +68,32 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         others = ((TextView) view.findViewById(R.id.tv_others));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         schools.setInterface(this);
+        schools.setLayoutAnimation(getAnimationController());
         getSchoolProductInfo();
 //        mAdapter=new MyAdapter();
 //        mAdapter.notifyDataSetChanged();
 //        sameCity.setAdapter(mAdapter);
 
         return view;
+    }
+    protected LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
+
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
     }
 
     @Override

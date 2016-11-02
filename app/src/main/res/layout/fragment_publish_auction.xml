@@ -5,10 +5,10 @@
     tools:context="com.estore.fragment.PublishAuctionFragment">
 
     <!-- TODO: Update blank fragment layout -->
-<ListView
+<com.estore.view.LoadListView
     android:id="@+id/lv_auctionlv"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-</ListView>
+</com.estore.view.LoadListView>
 
 </FrameLayout>

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Address;
 import com.google.gson.Gson;
@@ -140,6 +141,16 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                         bundle.putSerializable("addressSign", address);
                         intent.putExtras(bundle);
                         setResult(SIGNOK, intent);
+//                        intent.setClass(getApplicationContext(), PaiMaiMain_bidding.class);
+//                        startActivity(intent);
+                        finish();
+                        break;
+                    case 3://拍卖页面
+                        Intent intent3 = new Intent();
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putSerializable("addressSign", address);
+                        intent3.putExtras(bundle3);
+                        setResult(SIGNOK, intent3);
 //                        intent.setClass(getApplicationContext(), PaiMaiMain_bidding.class);
 //                        startActivity(intent);
                         finish();

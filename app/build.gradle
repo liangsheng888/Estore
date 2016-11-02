@@ -5,22 +5,11 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "com.estore.myapplication"
+        applicationId "com.estore"
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-        }
-//极光推送
-        manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "e258308bd0d78c6ecfc3aff1", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-        ]
     }
     buildTypes {
         release {
@@ -32,20 +21,21 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/gson-2.3.1.jar')
     compile files('libs/android-smart-image-view-1.0.0.jar')
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'org.xutils:xutils:3.3.36'
-    compile 'com.android.support:support-v4:24.2.0'
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
         compile project(':libs:pulltorefresh')
         compile 'com.android.support:support-v4:23.0.0'
         compile 'com.jude:rollviewpager:1.2.9'
         compile 'com.github.glassLake:PhotoPicker:1.0.2'
-        compile 'cn.jiguang:jpush:2.1.9'
+        compile 'com.yalantis:starwarstiles:0.1.0'
+
 
     }
-
+    testCompile 'junit:junit:4.12'
+    compile project(':IMKit')
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'org.xutils:xutils:3.3.36'
+    compile 'com.android.support:support-v4:24.2.0'
 }

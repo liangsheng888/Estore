@@ -16,8 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.fragment.MyHomePageFragment;
+import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.HttpUtil;
 import com.estore.httputils.SharedPreferencesUtils;
 
 import org.xutils.common.Callback;
@@ -94,7 +97,9 @@ public class LoginOther extends AppCompatActivity {
                                 SharedPreferencesUtils.saveUserInfo(LoginOther.this,username,psd);
                             }
                             SharedPreferencesUtils.saveUserInfoOther(LoginOther.this,username,psd);
-
+                            GetUserIdByNet.getUserIdByNet(LoginOther.this);
+                            int userId=getSharedPreferences("User",MODE_APPEND).getInt("userId",0);
+                            HttpUtil.getToken(getApplicationContext(),userId+"",username);
                             Toast.makeText(LoginOther.this, "登录成功", Toast.LENGTH_SHORT).show();
                             finish();
                         }

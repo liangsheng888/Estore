@@ -32,6 +32,17 @@ public class SharedPreferencesUtils {
         return true;
     }
 
+    public static boolean saveToken(Context context,String userId,String code,String token){
+        SharedPreferences sp=context.getSharedPreferences("User",Context.MODE_APPEND);
+        SharedPreferences.Editor ed=sp.edit();
+        ed.putString("userId",userId);
+        ed.putString("token",token);
+        ed.putString("code",code);
+        ed.commit();
+
+        return true;
+    }
+
     }
 
 

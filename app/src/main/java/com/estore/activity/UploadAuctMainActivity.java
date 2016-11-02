@@ -3,6 +3,7 @@ package com.estore.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 
 import org.xutils.common.Callback;
@@ -75,11 +77,15 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     String sdftimestr;
     String endTime;
     //    np_zuct_picker
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_upload_main);
+        sp=getSharedPreferences("User",MODE_APPEND);
+
+
         initview();
         initdata();
 
@@ -402,11 +408,12 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             params.addBodyParameter("proDescription", URLEncoder.encode(proDescription, "utf-8"));
             params.addBodyParameter("category", URLEncoder.encode(auct_type, "utf-8"));
             params.addBodyParameter("address", URLEncoder.encode(address, "utf-8"));
+            params.addBodyParameter("userId",sp.getInt("userId",-1)+"");
 
-                //params.setMultipart(true);
-                for (int i=0;i<imageFileLists.size();i++){
-                    params.addBodyParameter("file"+i,imageFileLists.get(i));
-                }
+            //params.setMultipart(true);
+            for (int i=0;i<imageFileLists.size();i++){
+                params.addBodyParameter("file"+i,imageFileLists.get(i));
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

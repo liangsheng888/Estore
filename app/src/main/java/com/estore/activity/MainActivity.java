@@ -11,7 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -19,6 +21,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 
+import com.estore.R;
 import com.estore.fragment.EhFragment;
 import com.estore.fragment.FragmentCar;
 import com.estore.fragment.FragmentHome;
@@ -26,6 +29,8 @@ import com.estore.fragment.MyHomePageFragment;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.pojo.Product;
+import com.yalantis.starwars.TilesFrameLayout;
+import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,10 +38,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,TilesFrameLayoutListener {
     private SharedPreferences sp;
     private ListView lv;
     private ImageButton rb_fabu;
+    private TilesFrameLayout mTilesFrameLayout;
 
     public LinkedList<Product.Products> getList() {
         return list;
@@ -87,6 +93,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sp=getSharedPreferences("User",MODE_APPEND);
+      /*  mTilesFrameLayout = (TilesFrameLayout) findViewById(R.id.tiles_frame_layout);
+        mTilesFrameLayout.setOnAnimationFinishedListener(this);*/
+
+//        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+//        String token=sp1.getString("token","");
+//        Log.i("cc", "onCreate: "+token);
+//        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+//            @Override
+//            public void onTokenIncorrect() {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(String s) {
+//                Log.i("cc", "——onSuccess—-" + s);
+//
+////                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+//
+//            }
+//
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//                Log.i("cc","--onError--"+errorCode);
+//
+//            }
+//        });
+
 
 
         mapList = new ArrayList<Map<String, Object>>();
@@ -115,14 +148,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fr_mine = new MyHomePageFragment();
 
         fragments=new Fragment[]{fr_home,fr_add,fr_car,fr_mine};
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_main, fragments[0]).commit();
+       getSupportFragmentManager().beginTransaction().add(R.id.fl_main, fragments[0]).commit();
 
+
+       // getSupportFragmentManager().beginTransaction().add(R.id.tiles_frame_layout, fragments[0]).commit();
+       /* mTilesFrameLayout.startAnimation();*/
         //初始时，按钮1选中
         buttons[0].setImageResource(drawable[0]);
 
 
 
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+       // mTilesFrameLayout.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+       // mTilesFrameLayout.onPause();
+    }
+    @Override
+    public void onAnimationFinished() {
+        // Hide or remove your view/fragment/activity here
+        //getSupportFragmentManager().beginTransaction().add(R.id.tiles_frame_layout, fragments[0]).commit();
+        //changeFragment(newIndex);
     }
 //
     private void initData() {
@@ -182,7 +235,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Dialog dialog=builder.create();
         View view=View.inflate(this,R.layout.layout_add_item,null);
         dialog.show();
-        dialog.getWindow().setContentView(view);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.CENTER);  //此处可以设置dialog显示的位置
+        window.setWindowAnimations(R.style.mystyle);  //添加动画
+        dialog.show();
+        window.setContentView(view);
         RadioGroup rg=(RadioGroup)view.findViewById(R.id.rg_addPro);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -221,7 +278,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //如果选中项没有加过，则添加
             if(!fragments[newIndex].isAdded()){
                 //添加fragment
-                transaction.add(R.id.fl_main,fragments[newIndex]);
+               // transaction.add(R.id.tiles_frame_layout,fragments[newIndex]);
+            transaction.add(R.id.fl_main,fragments[newIndex]);
             }
             //显示当前选择项
             transaction.show(fragments[newIndex]).commit();
@@ -321,6 +379,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        changeFragment(0);
+        buttons[0].setImageResource(drawable[0]);
 
     }
 }

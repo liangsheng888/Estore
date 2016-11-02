@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.fragment.MyHomePageFragment;
 import com.estore.httputils.GetUserIdByNet;
@@ -104,9 +105,14 @@ public class PersonalSettingActivity extends AppCompatActivity {
         rl_nickname = ((RelativeLayout) findViewById(R.id.rl_nicknamerl));
         rl_sexrl = ((RelativeLayout) findViewById(R.id.rl_sexrl));
         rl_phonenumrl = ((RelativeLayout) findViewById(R.id.rl_phonenumrl));
+        tv_phonenumber = ((TextView) findViewById(R.id.tv_phonenumber));//手机号
         rl_adressrl = ((RelativeLayout) findViewById(R.id.rl_adressrl));
+        tv_persexcontent = ((TextView) findViewById(R.id.tv_persexcontent));//性别
         rl_save = ((TextView) findViewById(R.id.rl_saverl));
         user_photo=(ImageView)findViewById(R.id.user_photo);
+        tv_deliveryadress = ((TextView) findViewById(R.id.tv_deliveryadress));
+        tv_nicknamecontent = ((TextView) findViewById(R.id.tv_nicknamecontent));
+
     }
 
     private void initEvent() {
@@ -203,12 +209,14 @@ public class PersonalSettingActivity extends AppCompatActivity {
         rl_phonenumrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final RelativeLayout modify_myphone = (RelativeLayout) getLayoutInflater().inflate(R.layout.activity_modify_my_telphone_activity, null);
-                new AlertDialog.Builder(PersonalSettingActivity.this).setView(modify_myphone).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                final View view2=  getLayoutInflater().inflate(R.layout.activity_modify_my_telphone_activity, null);
+                new AlertDialog.Builder(PersonalSettingActivity.this).setView(view2).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText et_edit_telnumber = ((EditText) modify_myphone.findViewById(R.id.et_edit_telnumber));
+                        EditText et_edit_telnumber = ((EditText) view2.findViewById(R.id.et_edit_telnumber));
                         String tel =et_edit_telnumber.getText().toString();
+                        Log.e("tel",tel+"");
+
                         tv_phonenumber.setText(tel);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -225,12 +233,13 @@ public class PersonalSettingActivity extends AppCompatActivity {
         rl_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"save", Toast.LENGTH_SHORT).show();
+
                 // String nickname, String userSex, String user_address,Integer userId,String userPhoto ,String user_phone
                 uploadImage();
                 String nickname=tv_nicknamecontent.getText().toString();
                 String  userSex= tv_persexcontent.getText().toString();
                 String  useraddress=tv_deliveryadress.getText().toString();
+
                 String userphoto="";
                 if(file!=null){
                     userphoto="upload/"+file.getName();//图片路径

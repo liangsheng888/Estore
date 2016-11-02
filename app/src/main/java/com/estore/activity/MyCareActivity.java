@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.estore.R;
+
 public class MyCareActivity extends AppCompatActivity {
     private ImageView iv_carereturn;
     @Override

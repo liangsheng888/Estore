@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PhoneActivity">
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:background="#f26522">
+        <ImageView
+            android:id="@+id/iv_dingdan_fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/last_white"
+            />
+        <TextView
+            android:id="@+id/tv_pingjia"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="手机专区"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+    <com.estore.view.LoadListView
+        android:id="@+id/lv_computer"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_below="@id/rl"
+        android:layout_alignParentBottom="true"
+        android:touchscreenBlocksFocus="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.estore.view.LoadListView>
+
+</RelativeLayout>

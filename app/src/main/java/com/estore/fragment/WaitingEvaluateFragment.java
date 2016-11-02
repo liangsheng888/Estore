@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.estore.activity.EnvaluteActivity;
 import com.estore.activity.MainActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
 

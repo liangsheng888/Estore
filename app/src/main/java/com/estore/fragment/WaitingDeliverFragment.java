@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.activity.myappliction.MyApplication;
 import com.estore.httputils.CommonAdapter;
 import com.estore.httputils.GetUserIdByNet;
@@ -187,7 +187,6 @@ public class WaitingDeliverFragment extends Fragment {
 
                         }
 
-
                         //根据订单状态，判断按钮是否显示，按钮的文本，按钮的点击事件
                         public void btnShow(int orderStateId,Button btnLeft,Button btnRight){
                             switch (orderStateId){
@@ -211,7 +210,9 @@ public class WaitingDeliverFragment extends Fragment {
                                     //待收货:(确认收货)
                                     btnLeft.setVisibility(View.GONE);//左边按钮消失
                                     btnRight.setVisibility(View.VISIBLE);
-                                    btnRight.setText("确认收货");
+                                    btnRight.setText("已发货");
+                                    btnRight.setEnabled(false);
+
 
                                     break;
                                 case UNSEND:

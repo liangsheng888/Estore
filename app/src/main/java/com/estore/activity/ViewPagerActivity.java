@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 
 import org.xutils.common.Callback;
@@ -35,7 +36,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private TextView btn_tiaozhuan;
 
     private List<Integer> pictureLists=new ArrayList<Integer>();
-    private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3,R.id.iv_flash4};
+    private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3, R.id.iv_flash4};
     private int prePosition=0;//向导页默认位置
     @Override
     protected void onCreate(Bundle savedInstanceState) {

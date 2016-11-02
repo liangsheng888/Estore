@@ -16,6 +16,7 @@ package com.estore.activity;
         import android.widget.RadioButton;
         import android.widget.RadioGroup;
 
+        import com.estore.R;
         import com.estore.fragment.AllOrdersFragment;
         import com.estore.fragment.WaitingDeliverFragment;
         import com.estore.fragment.WaitingEvaluateFragment;

@@ -35,6 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.User;
@@ -316,6 +317,31 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
         String address=proAddress;
         Log.e("AddProActivity",address);
         String schoolname=tv_school.getText().toString().trim();
+        if(TextUtils.isEmpty(proName)){
+            Toast.makeText(AddProActivity.this,"亲，宝贝名字不能忘额！",Toast.LENGTH_LONG).show();
+           return;
+        }
+        if(TextUtils.isEmpty(proNum)){
+            Toast.makeText(AddProActivity.this,"亲，宝贝数量不能忘额！",Toast.LENGTH_LONG).show();
+
+            return;
+        }
+        if(TextUtils.isEmpty(proPrice)){
+            Toast.makeText(AddProActivity.this,"亲，宝贝价格不能忘额！",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(proDescription)){
+            Toast.makeText(AddProActivity.this,"亲，宝贝描述不能忘额！",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(address)){
+            Toast.makeText(AddProActivity.this,"亲，宝贝地址不能忘额！",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(imageFileLists.size()<0){
+            Toast.makeText(AddProActivity.this,"亲，宝贝照不能忘额！",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL+"addProductsByCilent");
        /* try {
@@ -331,8 +357,8 @@ public class AddProActivity extends AppCompatActivity implements View.OnClickLis
                 Log.e("file",imageFileLists.get(i)+"size"+imageFileLists.size());
             }
 
-          params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
-          params.addBodyParameter("proNum",proNum);
+           params.addBodyParameter("proName",URLEncoder.encode(proName,"utf-8"));
+           params.addBodyParameter("proNum",proNum);
             params.addBodyParameter("youfei",youfei+"");
            params.addBodyParameter("proPrice",proPrice);
            params.addBodyParameter("category",URLEncoder.encode(tv_fenlei.getText().toString(),"utf-8"));
