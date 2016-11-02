@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.activity.PaimaiMain_infoActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 import com.estore.view.LoadListViewPaiMAI;
@@ -27,7 +27,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
-import static com.estore.activity.R.id.tv_auct_begin;
+import static com.estore.R.id.tv_auct_begin;
 
 
 public class PaiMai20Fragment extends Fragment implements LoadListViewPaiMAI.ILoadListener {

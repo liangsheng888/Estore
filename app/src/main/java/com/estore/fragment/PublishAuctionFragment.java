@@ -6,10 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -19,11 +25,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.estore.activity.PublishAuctionDetialItemActivity;
-import com.estore.activity.R;
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
 import com.estore.pojo.User;
 import com.estore.pojo.UserBean;
+import com.estore.view.LoadListView;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -34,12 +41,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PublishAuctionFragment extends Fragment {
+public class PublishAuctionFragment extends Fragment implements LoadListView.ILoadListener  {
     private static final String TAG = "fragmentlife";
-    private ListView lv_auctionlv;
+    private LoadListView lv_auctionlv;
     private TextView tv_btauction;
     private BaseAdapter adapter;
     User user=new User();
+    Integer page=0;
+    private LoadListView estore;
     private SharedPreferences sp;
     final List<ListMyAuctionActivityBean.ProImag> pubList=new ArrayList<ListMyAuctionActivityBean.ProImag>();
     @Override
@@ -59,7 +68,10 @@ public class PublishAuctionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_publish_auction,null);
-        lv_auctionlv = ((ListView) view.findViewById(R.id.lv_auctionlv));
+        lv_auctionlv = ((LoadListView) view.findViewById(R.id.lv_auctionlv));
+        lv_auctionlv.setInterface(this);
+        lv_auctionlv.setLayoutAnimation(getAnimationController());
+
         //跳到详细页
         lv_auctionlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,6 +86,40 @@ public class PublishAuctionFragment extends Fragment {
         });
         return view;
 
+    }
+
+    private LayoutAnimationController getAnimationController() {
+        int duration=300;
+        AnimationSet set = new AnimationSet(true);
+
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
+
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
+    }
+
+    //上拉加载
+    @Override
+    public void onLoad() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                getPublishAuction();
+                lv_auctionlv.loadComplete();
+            }
+        }, 1000);
     }
 
     //适配器
@@ -130,12 +176,14 @@ public class PublishAuctionFragment extends Fragment {
         String url =HttpUrlUtils.HTTP_URL+"/myPaiMaiServlet?user_id="+user.getUserId();//访问网络的url
         Log.i("getPublishAuction",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
+        requestParams.addQueryStringParameter("page",page+1+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("PublishhAuctionFragment",result);
                 Gson gson=new Gson();
                 ListMyAuctionActivityBean prolist=gson.fromJson(result, ListMyAuctionActivityBean.class);
+                pubList.clear();
                 pubList.addAll(prolist.list);
                 if(adapter==null){
                     adapter=new mypubAdapter();

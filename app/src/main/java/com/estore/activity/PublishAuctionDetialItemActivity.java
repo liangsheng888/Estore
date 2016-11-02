@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.ListMyAuctionActivityBean;
 import com.estore.pojo.MyPublishActivityBean;
@@ -34,7 +35,7 @@ public class PublishAuctionDetialItemActivity extends AppCompatActivity {
     private ImageView iv_pubauctdetial_return;
     //图片
     private String[] photourl;
-    private int[] id={R.id.iv_quan1,R.id.iv_quan2,R.id.iv_quan3};
+    private int[] id={R.id.iv_quan1, R.id.iv_quan2,R.id.iv_quan3};
     private int prePosition=0;
     public String imgurl;//图片
     private  static final String TAG="ProductInfoActivity" ;

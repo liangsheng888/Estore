@@ -2,7 +2,7 @@ package com.estore.httputils;
 
 import android.widget.ImageView;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;

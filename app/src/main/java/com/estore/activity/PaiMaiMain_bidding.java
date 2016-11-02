@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.pojo.Address;
 import com.estore.pojo.AuctListActivityBean;
 

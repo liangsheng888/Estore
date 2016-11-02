@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.MyPublishActivityBean;
@@ -411,7 +412,7 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
             public void onSuccess(String result) {
                 Intent intent=new Intent(ModifyMyAddProductActivity.this,PublishActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(),"修改成功",  Toast.LENGTH_SHORT).show();
+
 //                if(result.equals("true")){
 //                    Toast.makeText(ModifyMyAddProductActivity.this,"发布商品成功",Toast.LENGTH_SHORT).show();
 //                    AlertDialog.Builder builder=new  AlertDialog.Builder(ModifyMyAddProductActivity.this);

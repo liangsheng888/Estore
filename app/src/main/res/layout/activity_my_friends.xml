@@ -5,56 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.estore.activity.MyFriendsActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#f26522"
-        >
-        <ImageView
-            android:id="@+id/iv_friendsreturn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xiaoyu"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            />
-        <TextView
-            android:id="@+id/tv_treasure"
-            android:layout_width="wrap_content"
-            android:text="好友列表"
-            android:layout_centerInParent="true"
-            android:textSize="26sp"
-            android:textColor="#fff"
-            android:layout_height="wrap_content"
-            />
-        <!--<ImageView
-            android:id="@+id/iv_userphoto"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/userphoto"
-          android:layout_centerInParent="true"
-            />-->
-    </RelativeLayout>
-    <!-- 分割线 -->
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dad9d9"
-        />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <!-- 分割线 -->
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dad9d9"
-        />
-    <ListView
-        android:id="@+id/lv_friendsitem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
 </LinearLayout>

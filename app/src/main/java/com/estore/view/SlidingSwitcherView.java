@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.fragment.PaiMai12Fragment;
 import com.estore.fragment.PaiMai16Fragment;
 import com.estore.fragment.PaiMai20Fragment;
