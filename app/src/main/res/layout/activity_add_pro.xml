@@ -72,7 +72,7 @@
         android:layout_height="1dp"></View>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="140dp">
         <me.iwf.photopicker.widget.MultiPickResultView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
