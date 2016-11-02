@@ -33,9 +33,14 @@ import com.estore.pojo.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences sp;
@@ -90,7 +95,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        JPushInterface.setDebugMode(true);//如果时正式版就改成false
+        JPushInterface.init(this);
         sp=getSharedPreferences("User",MODE_APPEND);
+
+        Set<String> sets = new HashSet<>();
+        sets.add("sport");//运行第二个模拟器上时把这个注掉
+        sets.add("game");
+//        sets.add("music");//运行第二个模拟器上时把这个打开
+
+        JPushInterface.setTags(this, sets, new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                Log.d("alias", "set tag result is" + i);
+                System.out.println("set tag result is" + i);
+            }
+        });
+
 
 
         mapList = new ArrayList<Map<String, Object>>();

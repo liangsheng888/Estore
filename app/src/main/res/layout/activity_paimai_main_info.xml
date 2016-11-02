@@ -51,32 +51,33 @@
                 android:background="#eee"
                 android:padding="10dp">
                 <!--<corners android:radius="5dp" />-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                    android:src="@drawable/jieshutixing" />
+
                 <TextView
 
                     android:id="@+id/tv_auct_name"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="高端大气上档次的手机"
-                    android:textSize="20sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/jieshutixing" />
+                    android:text="高端大气上档次的手机"
+                    android:textSize="18sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="21dp" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dikang_bg"
-
-
                 android:padding="15dp">
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -285,7 +286,7 @@
                     android:id="@+id/btn_paimai_bidding"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#eb4f38"
+                    android:background="#e0ff0004"
                     android:button="@null"
                     android:drawableTop="@drawable/bidding_jiajia"
                     android:gravity="center"

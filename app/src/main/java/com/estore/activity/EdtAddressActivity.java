@@ -251,7 +251,7 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         }
 
         final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "modifyaddressservlet");
-        requestParams.addBodyParameter("addressId", String.valueOf(address.getUserId()));
+        requestParams.addBodyParameter("addressId", String.valueOf(address.getAddressId()));
         requestParams.addBodyParameter("userName", userName);
         requestParams.addBodyParameter("userId", address.getUserId()+"");
         requestParams.addBodyParameter("cantactPhone", userTel);

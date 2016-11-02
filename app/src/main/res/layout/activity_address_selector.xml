@@ -27,8 +27,6 @@
         android:id="@+id/spin_province"
         android:layout_width="match_parent"
         android:popupBackground="#ffffff"
-
-
         android:layout_height="60dp"
       />
 

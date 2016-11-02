@@ -86,7 +86,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp">
+                    android:layout_height="43dp"
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/tv_auct_bid_shouhuo"
@@ -169,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#f00"
-           android:lineSpacingMultiplier="1.5"
+            android:lineSpacingMultiplier="1.5"
             android:text="提交保证金" />
 
     </FrameLayout>

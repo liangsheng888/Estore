@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.pojo.Address;
+import com.estore.pojo.AuctListActivityBean;
 
 public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,7 +22,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
     public  final static int SIGN=4; //传值回调标志位
     private LinearLayout ll_auct_address;
     private Button btn_up_baozheng;
-
+    AuctListActivityBean.Auct auct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,9 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
         initView();
         initData();
         initEven();
+        Intent intent = getIntent();
+        auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        System.out.println("保证金页面的auct"+auct);
     }
 
     private void initView() {
@@ -59,7 +63,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
         address= (Address) data.getSerializableExtra("addressSign");
         System.out.println("获得地址信息"+address);
         ll_auct_address.setVisibility(View.VISIBLE);
-
+        System.out.println(address.cantactName);
         tv_auct_shouhuo.setText(address.cantactName+"");
         tv_usertel.setText(address.cantactPhone);
         tv_address_info.setText(address.detailed_address);
@@ -80,7 +84,11 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
                 startActivityForResult(intent,SIGN);
                 break;
             case R.id.btn_up_baozheng:
-                intent=new Intent(getApplicationContext(),PaiMaiMain_bidding.class);
+                intent=new Intent(getApplicationContext(),PaiMAIbidding_bidActivity.class);
+                 bundle=new Bundle();
+                bundle.putSerializable("auct_bid",auct);
+                System.out.println("向加价界面传值"+auct);
+                intent.putExtras(bundle);
                 startActivity(intent);
 
                 break;

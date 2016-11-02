@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/iv_auct_imgurl"
@@ -17,7 +18,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
+        android:paddingLeft="18dp"
         android:orientation="vertical">
 
 
@@ -25,8 +26,7 @@
             android:id="@+id/tv_auct_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-
+            android:layout_marginTop="3dp"
             android:ellipsize="marquee"
             android:text="挥泪大甩卖只要998"
             android:textColor="#aa000000"
@@ -36,17 +36,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/nowprice"
             android:text="￥999"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_auct_begin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
+
             android:text="倒计时：10：59:59" />
 
 <LinearLayout
