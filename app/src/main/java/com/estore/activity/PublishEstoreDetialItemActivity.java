@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.MyPublishActivityBean;
+import com.estore.view.LoadListView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PublishEstoreDetialItemActivity extends AppCompatActivity {
+public class PublishEstoreDetialItemActivity extends AppCompatActivity{
     private TextView tv_erdetial_probegintime;
     private TextView tv_erdetial_represent;
     private TextView tv_erdetial_proname;

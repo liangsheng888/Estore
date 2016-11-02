@@ -7,12 +7,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <swipetodismiss.SwipeMenuListView
+    <com.estore.view.LoadListView
         android:id="@+id/lv_publishest"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </swipetodismiss.SwipeMenuListView>
+    </com.estore.view.LoadListView>
 
 
 </FrameLayout>

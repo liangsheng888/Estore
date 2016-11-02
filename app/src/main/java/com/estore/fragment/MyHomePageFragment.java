@@ -53,11 +53,11 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
     private Button rb_publish;
     private Button rb_auction;
     private RadioButton rb_myfriends;
-    private RadioButton rb_mycare;
+    //private ImageView rb_mycare;
     private RadioButton rb_mywallet;
     private RadioButton rb_mynotice;
     private Button rb_myorder;
-    private ImageView iv_intercalate;
+    private RadioButton iv_intercalate;
     private SharedPreferences sp;
     private String username;
     private TextView tv_myNickname;
@@ -76,11 +76,11 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
 
         tv_myNickname = ((TextView) view.findViewById(R.id.tv_myNickname));
         //我的页面跳转
-        iv_intercalate= ((ImageView)view.findViewById(R.id.iv_intercalate));
+        iv_intercalate= ((RadioButton)view.findViewById(R.id.iv_intercalate));
         rb_publish = ((Button) view.findViewById(R.id.rb_publish));
         rb_auction = ((Button) view.findViewById(R.id.rb_auction));
         rb_myfriends = ((RadioButton) view.findViewById(R.id.rb_myfriends));
-        rb_mycare = ((RadioButton) view.findViewById(R.id.rb_mycare));
+        //rb_mycare = ((ImageView) view.findViewById(R.id.rb_mycare));
         rb_mywallet = ((RadioButton) view.findViewById(R.id.rb_mywallet));
         rb_mynotice = ((RadioButton) view.findViewById(R.id.rb_mynotice));
         rb_myorder = ((Button) view.findViewById(R.id.rb_myorder));
@@ -149,7 +149,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
         //我的好友
         rb_myfriends.setOnClickListener(this);
         //我的关注
-        rb_mycare.setOnClickListener(this);
+        //rb_mycare.setOnClickListener(this);
         //我的钱包
         rb_mywallet.setOnClickListener(this);
         //系统通知
@@ -216,10 +216,10 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
                 Intent intent3 = new Intent(getActivity(), MyFriendsActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.rb_mycare:
-                Intent intent4 = new Intent(getActivity(), MyCareActivity.class);
-                startActivity(intent4);
-                break;
+//            case R.id.rb_mycare:
+//                Intent intent4 = new Intent(getActivity(), MyCareActivity.class);
+//                startActivity(intent4);
+//                break;
             case R.id.rb_mywallet:
                 Intent intent5 = new Intent(getActivity(), MyWalletActivity.class);
                 startActivity(intent5);
