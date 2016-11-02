@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.estore.activity.PersonComputerActivity;
 import com.estore.activity.PhoneActivity;
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
+import com.estore.activity.SeekContentActivity;
 import com.estore.activity.WatchActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.xUtilsImageUtils;
@@ -46,7 +48,6 @@ import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private static final int HOME =2 ;
     private static final int SAME_CITY = 3;
     private static final int HIGH_SCHOOL =4 ;
+    private static final int SEEK =5 ;
     private LinkedList<Product.Products> list=new LinkedList<>();
     private int duration=1000;
     private Animation push_left_in,push_right_in;
@@ -199,6 +201,14 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String content=edt_seek.getText().toString().trim();
+                if(TextUtils.isEmpty(content)){
+                    Toast.makeText(getActivity(),"请输入搜索内容",Toast.LENGTH_LONG).show();
+                    return ;
+                }
+                Intent intent=new Intent(getActivity(),SeekContentActivity.class);
+                intent.putExtra("content",content);
+                startActivityForResult(intent,SEEK);
 
             }
         });

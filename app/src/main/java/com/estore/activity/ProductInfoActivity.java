@@ -442,6 +442,12 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case  R.id.btn_touch_seller:
+                String username=sp.getString("username",null);
+                if(username==null){
+                    ShowLoginDialogUtils.showDialogLogin(ProductInfoActivity.this);//登录
+                    return;
+                }
+                GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
 
                 SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
                 String token=sp1.getString("token","");
