@@ -5,7 +5,7 @@
   	    android:layout_height="48dp"
   	    android:orientation="horizontal"
   	    android:weightSum="5"
-	   android:background="#f26522">
+	   android:background="#302c2c">
   	    <ImageView 
   	        android:id="@+id/iv_project_detail_back"
   	        android:layout_weight="1"

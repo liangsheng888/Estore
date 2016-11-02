@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".EnvaluteStoreActivity">
+    >
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"
-        android:background="#f26522">
+        android:background="#f00">
         <ImageView
             android:id="@+id/iv_en_store_fanhui"
             android:layout_width="wrap_content"

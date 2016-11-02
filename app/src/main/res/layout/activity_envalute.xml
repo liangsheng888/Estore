@@ -221,6 +221,7 @@
         android:textSize="28sp"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:textColor="#fff"
         android:text="发表评价"
         android:layout_margin="10dp"
         android:id="@+id/tv_fabiao"/>

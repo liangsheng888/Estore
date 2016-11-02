@@ -7,15 +7,15 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#f26522"
+        android:layout_height="50dp"
+        android:background="#f00"
         >
         <ImageView
             android:id="@+id/iv_pubauctdetial_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/xiaoyu"
+            android:src="@drawable/last_white"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +37,6 @@
             android:layout_height="wrap_content">
             <android.support.v4.view.ViewPager
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
                 android:id="@+id/iv_pubauctdetial_propic"
                 android:scaleType="centerCrop"
                 android:layout_width="350dp"
