@@ -190,6 +190,9 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         getSameCityProductInfo();
     }
 
+
+    //上拉加载调用工具类
+
     @Override
     public void onLoad() {
         Handler handler = new Handler();
@@ -203,6 +206,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
             }
         }, 2000);
     }
+
 
     public class MyAdapter extends  BaseAdapter{
         private ImageView productPhoto;
