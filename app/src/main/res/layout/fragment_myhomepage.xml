@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/rl_login"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
+        android:gravity="center_vertical"
         android:background="#f00"
         >
 
@@ -18,7 +19,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/denglu"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
             />
         <TextView
             android:id="@+id/tv_myNickname"

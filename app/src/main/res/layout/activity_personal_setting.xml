@@ -115,7 +115,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_photorl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -170,7 +170,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_nicknamerl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -222,7 +222,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_sexrl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -276,7 +276,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_phonenumrl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentRight="true"
             android:background="#f2f2f2"
@@ -342,7 +342,7 @@
         android:id="@+id/rb_tuichu"
         android:layout_below="@id/tv_phonenumber"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:button="@null"
