@@ -1,4 +1,4 @@
-package com.estore;
+package com.estore.receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;

@@ -164,13 +164,16 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".MyReceiver">
+        <receiver android:name=".receiver.MyReceiver">
             <intent-filter>
                 <action android:name="com.yu.chatdemo.receiver.ChatBoardcaseReceiver">
 
                 </action>
             </intent-filter>
         </receiver>
+        <activity android:name=".activity.PersonComputerActivity"></activity>
+        <activity android:name=".activity.PhoneActivity"></activity>
+        <activity android:name=".activity.WatchActivity"></activity>
 
     </application>
 
