@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
-import com.estore.httputils.HttpUtil;
 import com.estore.pojo.User;
 
 import org.xutils.common.Callback;
@@ -69,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity{
                             SharedPreferences sp=getSharedPreferences("User",MODE_APPEND);
                             sp.edit().putInt("userId",Integer.parseInt(userId)).commit();
                             Log.i("cc", "onSuccess: "+result);
-                            HttpUtil.getToken(getApplicationContext(),userId,nick);
+//                            HttpUtil.getToken(getApplicationContext(),userId,nick);
                             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
 
                             startActivity(intent);

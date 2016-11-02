@@ -14,7 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -86,20 +88,25 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private String url;
     private RelativeLayout phone;
     private RelativeLayout watch;
-
-
-
+    private EditText edt_seek;
+    private ImageButton search_clear;
+    private TextView tv_search;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
+        edt_seek = ((EditText) view.findViewById(R.id.query));
+        search_clear = ((ImageButton) view.findViewById(R.id.search_clear));//
+        tv_search = ((TextView) view.findViewById(R.id.tv_search));
+        edt_seek.clearFocus();
         push_left_in= AnimationUtils.loadAnimation(getActivity(), R.anim.push_left_in);
         push_right_in=AnimationUtils.loadAnimation(getActivity(), R.anim.push_right_in);
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
         slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setSelection(0);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
       //  prg = (PullToRefreshGridView) view.findViewById(R.id.pull_refresh_grid);
@@ -143,18 +150,16 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
 
                 }
-                //list.clear();
+               // list.clear();
                 list.addAll(pro.list);
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
                     Log.e("MainActivity", "adapter==null");
                     adapter = new MyAdapter();
-                    lv_jingpin.setSelection(0);
                 }else {
 
                     Log.e("MainActivity", "adapter!=null");
                     adapter.notifyDataSetChanged();
-                    lv_jingpin.setSelection(list.size()-1);
                 }
                // gridView.setAdapter(adapter);
 
@@ -190,6 +195,21 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
+        //搜索
+        tv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //清空搜索
+        search_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_seek.setText("");
+
+            }
+        });
         //为GridView设置点击事件
         Log.e("home", "为GridView设置点击事件");
         lv_jingpin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
