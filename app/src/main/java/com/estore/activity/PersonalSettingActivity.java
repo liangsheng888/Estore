@@ -105,6 +105,7 @@ public class PersonalSettingActivity extends AppCompatActivity {
         rl_nickname = ((RelativeLayout) findViewById(R.id.rl_nicknamerl));
         rl_sexrl = ((RelativeLayout) findViewById(R.id.rl_sexrl));
         rl_phonenumrl = ((RelativeLayout) findViewById(R.id.rl_phonenumrl));
+        tv_phonenumber = ((TextView) findViewById(R.id.tv_phonenumber));//手机号
         rl_adressrl = ((RelativeLayout) findViewById(R.id.rl_adressrl));
         rl_save = ((TextView) findViewById(R.id.rl_saverl));
         user_photo=(ImageView)findViewById(R.id.user_photo);
@@ -204,12 +205,13 @@ public class PersonalSettingActivity extends AppCompatActivity {
         rl_phonenumrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final RelativeLayout modify_myphone = (RelativeLayout) getLayoutInflater().inflate(R.layout.activity_modify_my_telphone_activity, null);
-                new AlertDialog.Builder(PersonalSettingActivity.this).setView(modify_myphone).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                final View view2=  getLayoutInflater().inflate(R.layout.activity_modify_my_telphone_activity, null);
+                new AlertDialog.Builder(PersonalSettingActivity.this).setView(view2).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText et_edit_telnumber = ((EditText) modify_myphone.findViewById(R.id.et_edit_telnumber));
+                        EditText et_edit_telnumber = ((EditText) view2.findViewById(R.id.et_edit_telnumber));
                         String tel =et_edit_telnumber.getText().toString();
+
                         tv_phonenumber.setText(tel);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
