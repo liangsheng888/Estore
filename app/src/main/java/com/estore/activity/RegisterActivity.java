@@ -20,6 +20,9 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class RegisterActivity extends AppCompatActivity{
 
     private EditText etNickName;
@@ -51,17 +54,22 @@ public class RegisterActivity extends AppCompatActivity{
                 if((etPassword.getText().toString()).equals(etOncePassword.getText().toString())){
                     RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"register");
                     String userName=etRegEmail.getText().toString();
-                    final String nick=etNickName.getText().toString();
-                    String userPwd=etPassword.getText().toString();
-//                    user=new User(userName,userPwd,nick);
-//                    users.add(user);
-                    params.addQueryStringParameter("nickName",nick);
-                    params.addQueryStringParameter("email",userName);
-                    params.addQueryStringParameter("password",userPwd);
+                    String nick=null;
+                    String userPwd= etPassword.getText().toString();
+                    try {
+                        nick = URLEncoder.encode(etNickName.getText().toString(),"UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    params.addBodyParameter("nickName",nick);
+                    params.addBodyParameter("email",userName);
+                    params.addBodyParameter("password",userPwd);
 
 
 
-                    x.http().get(params, new Callback.CommonCallback<String>() {
+                    x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
                             userId=result;
