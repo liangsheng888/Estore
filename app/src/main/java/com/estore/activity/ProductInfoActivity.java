@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
@@ -40,7 +39,6 @@ import com.google.gson.reflect.TypeToken;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
-
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -443,6 +441,13 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case  R.id.btn_touch_seller:
+
+
+//                SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+//                String token=sp1.getString("token","");
+//                Log.i("cc", "onCreate: "+token);
+
+
                 Log.i("cc","==userId=="+pp.user_id);
                 Log.i("cc","==userNick=="+pp.userNick);
                 if(RongIM.getInstance()!=null){
