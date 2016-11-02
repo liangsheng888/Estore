@@ -49,6 +49,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+
 /***
  * 商品详情页
  */
@@ -311,6 +313,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
         subbt=(Button)findViewById(R.id.subbt);
         addbt.setOnClickListener(this);
         subbt.setOnClickListener(this);
+        btn_touch_seller.setOnClickListener(this);
         prod_info_tv_prod_comment.setOnClickListener(this);
 
 
@@ -439,6 +442,15 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent);
                 break;
 
+            case  R.id.btn_touch_seller:
+                Log.i("cc","==userId=="+pp.user_id);
+                Log.i("cc","==userNick=="+pp.userNick);
+                if(RongIM.getInstance()!=null){
+                    RongIM.getInstance().startPrivateChat(ProductInfoActivity.this,pp.user_id+"",pp.userNick);
+                }
+
+                break;
+
         }
 
     }
@@ -467,14 +479,15 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
             TextView tv_evcontent=(TextView)view.findViewById(R.id.tv_evcontent);
             TextView tv_evttime=(TextView) view.findViewById(R.id.tv_evttime);
             ImageView  iv_evtimg=(ImageView) view.findViewById(R.id. iv_evtimg);
-
-            Envalute envalute=envaLists.get(position);
-            Log.e("ProductInfoActivity","评价"+envalute.toString());
-            xUtilsImageUtils.display(ivuserphoto,HttpUrlUtils.HTTP_URL+envalute.getUser().getUserPhoto(),true);
-            xUtilsImageUtils.display(iv_evtimg,HttpUrlUtils.HTTP_URL+envalute.getEvt_imgurl());
-            tv_username.setText(envalute.getUser().getNickname());
-            tv_evttime.setText(envalute.getEvt_time());
-            tv_evcontent.setText(envalute.getEvt_msg());
+            if(envaLists.size()>0) {
+                Envalute envalute = envaLists.get(position);
+                Log.e("ProductInfoActivity", "评价" + envalute.toString());
+                xUtilsImageUtils.display(ivuserphoto, HttpUrlUtils.HTTP_URL + envalute.getUser().getUserPhoto(), true);
+                xUtilsImageUtils.display(iv_evtimg, HttpUrlUtils.HTTP_URL + envalute.getEvt_imgurl());
+                tv_username.setText(envalute.getUser().getNickname());
+                tv_evttime.setText(envalute.getEvt_time());
+                tv_evcontent.setText(envalute.getEvt_msg());
+            }
             return view;
         }
     }
