@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.estore.activity.PaiMAIbidding_bidActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    tools:context="com.estore.activity.PaiMAIbidding_bidActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,52 +21,154 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_auct_bidding"
+        android:id="@+id/vp_auct_bidding1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/toolbar"
         android:background="#e0edee">
 
     </android.support.v4.view.ViewPager>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:drawableLeft="@drawable/nowprice"
-      android:paddingLeft="20dp"
         android:gravity="center_vertical"
-        android:text="丨   ￥1000"
-        android:textSize="25sp"
-        android:textColor="#294e6b"/>
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="80dp">
+        android:paddingLeft="20dp"
+        android:text="   ￥1000"
+        android:textColor="#cc0d23"
+        android:textSize="25sp" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="剩余时间"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/txttime_HH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="3小时"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/txttime_MM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="59分钟"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/txttime_HH"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/txttime_ss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="秒数"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/txttime_MM"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_jiajia"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="8dp"
+        android:gravity="center_vertical">
+       <TextView
+           android:id="@+id/tv_jiajia1"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:text="选择加价"
+           android:textSize="20sp"
+           android:drawableRight="@drawable/cuizi_befor"
+           android:gravity="center"/>
+        <TextView
+            android:id="@+id/tv_jiajia2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="点击选择所加价"
+            android:textSize="18sp"
+            android:background="#ecdee0"
+            android:layout_toRightOf="@+id/tv_jiajia1"
+            android:gravity="center"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tv_yuanjia"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:text="原价"
+            android:textSize="20sp"
+            android:gravity="center"/>
+        <TextView
+
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:text="保证金：1000￥"
+            android:layout_toRightOf="@id/tv_yuanjia"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="#b36e0909"
+            android:layout_height="30dp"
+            android:text="加价"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView4" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/tv_bid_paimai"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="拍卖记录"
+            android:drawableLeft="@drawable/cuizi_befor"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:textSize="23sp"
-            android:drawableLeft="@drawable/cuizi_befor"
-            />
+            android:text="拍卖记录"
+            android:textSize="23sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_toRightOf="@+id/tv_bid_paimai"
-            android:gravity="center_vertical"
-            android:text="丨  10条"
-            android:paddingLeft="20dp"
-            android:textSize="23sp"
             android:drawableEnd="@drawable/ic_arrow_right2"
-            />
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="丨  10条"
+            android:textSize="23sp" />
     </RelativeLayout>
-
 
 
 </LinearLayout>

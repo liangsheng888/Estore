@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.R;
+import com.estore.Service.PaiMaiTiXingService;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
@@ -177,7 +178,10 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         switch (view.getId()) {
             case R.id.btn_paimai_bidding:
                 Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
-                startActivity(intent);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auct",auct);
+                intent.putExtras(bundle);
+               startActivity(intent);
                 break;
             case R.id.btn_paimai_shoucang:
                 if (btn_paimai_shoucang.isChecked()) {
@@ -188,13 +192,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 sendFlagForShoucang();
                 break;
             case R.id.btn_paimai_tixing:
-            /*    if (btn_paimai_tixing.isChecked()) {
+              if (btn_paimai_tixing.isChecked()) {
                     myConn=new MyConn();
                     intent = new Intent(this,PaiMaiTiXingService.class);
-                    Bundle bundle=new Bundle();
+                    bundle=new Bundle();
                     bundle.putSerializable("PaiMaiService",auct.auct_begin);
                     intent.putExtras(bundle);
-//                    startService(intent);
+//                    startService(intent);*/
 
                     RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"tuisong");
                     x.http().get(requestParams, new Callback.CommonCallback<String>() {
@@ -224,7 +228,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
                 }
 
-                break;*/
+                break;
         }
     }
 
@@ -316,12 +320,6 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
 
     private class MyPageAdapter extends PagerAdapter {
-
-//        List<Integer> imgsrc;
-//
-//        public MyPageAdapter(List<Integer> imgsrc) {
-//            this.imgsrc = imgsrc;
-//        }
 
         @Override
         public int getCount() {
