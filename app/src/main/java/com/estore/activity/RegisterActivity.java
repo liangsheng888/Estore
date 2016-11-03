@@ -68,15 +68,17 @@ public class RegisterActivity extends AppCompatActivity{
                     params.addBodyParameter("password",userPwd);
 
 
-
+                    final String finalNick = nick;
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
                             userId=result;
+                            Log.i("cc","register=========="+userId);
                             SharedPreferences sp=getSharedPreferences("User",MODE_APPEND);
                             sp.edit().putInt("userId",Integer.parseInt(userId)).commit();
+                            sp.edit().putString("nick",finalNick).commit();
                             Log.i("cc", "onSuccess: "+result);
-//                            HttpUtil.getToken(getApplicationContext(),userId,nick);
+//                            HttpUtil.getToken(getApplicationContext(),userId, finalNick);
                             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
 
                             startActivity(intent);

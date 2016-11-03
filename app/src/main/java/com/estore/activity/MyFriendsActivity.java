@@ -3,23 +3,19 @@ package com.estore.activity;
 我的好友页面
  */
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.estore.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 public class MyFriendsActivity extends AppCompatActivity {
@@ -36,29 +32,29 @@ public class MyFriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_friends);
 
 
-        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
-        String token=sp1.getString("token","");
-        Log.i("cc", "onCreate: "+token);
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Log.i("cc", "——onSuccess—-" + s);
-
-//                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
-
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.i("cc","--onError--"+errorCode);
-
-            }
-        });
+//        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+//        String token=sp1.getString("token","");
+//        Log.i("cc", "onCreate: "+token);
+//        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+//            @Override
+//            public void onTokenIncorrect() {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(String s) {
+//                Log.i("cc", "——onSuccess—-" + s);
+//
+////                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+//
+//            }
+//
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//                Log.i("cc","--onError--"+errorCode);
+//
+//            }
+//        });
 
 
         mConversationList=initConversationList();
