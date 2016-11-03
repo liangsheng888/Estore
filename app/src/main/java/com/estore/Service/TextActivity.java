@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 import cn.jpush.android.api.JPushInterface;
 
