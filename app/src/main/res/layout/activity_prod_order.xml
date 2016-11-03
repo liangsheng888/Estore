@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:layout_alignParentTop="true"
-        android:background="#f26522">
+        android:background="#f00">
         <ImageView
             android:id="@+id/iv_dingdan_fanhui"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             />
         <Button
             android:id="@+id/order_goumai"
-            android:background="#f26522"
+            android:background="#f00"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

@@ -7,8 +7,8 @@
     tools:context="com.estore.activity.MyOrderActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#000"
+        android:layout_height="50dp"
+        android:background="#494747"
 
         >
         <ImageView
@@ -17,7 +17,7 @@
             android:layout_height="30dp"
             android:src="@drawable/last_white"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             />
         <TextView
@@ -43,7 +43,7 @@
         android:orientation="horizontal"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#f7f6f6"
+        android:background="#fff"
         >
         <RadioButton
             android:id="@+id/rb_allorder"

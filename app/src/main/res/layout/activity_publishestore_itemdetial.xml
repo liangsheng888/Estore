@@ -3,33 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ededed"
+    android:background="#fff"
     >
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#efefef"
+        android:layout_height="50dp"
+        android:background="#f00"
         >
         <ImageView
             android:id="@+id/iv_pubEstitem_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/xiaoyu"
+            android:src="@drawable/last_white"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="二货详情"
-            android:textSize="22dp"
+            android:textSize="24dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         android:background="#ffffff"
         >
@@ -85,7 +86,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#f1efef"
+        android:background="#fff"
         >
         <ImageView
             android:id="@+id/iv_detiltop"
@@ -154,6 +155,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="#fff"
         android:layout_height="40dp">
         <TextView
             android:id="@+id/tv_erdetial_proname"
@@ -180,6 +182,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:background="#fff"
         android:layout_gravity="center">
         <TextView
             android:id="@+id/tv_erdetial_represent"

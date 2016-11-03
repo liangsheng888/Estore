@@ -82,7 +82,7 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
     private AlertDialog.Builder builder;
     private Dialog dialog = null;
     private String[] schoolData={"北京大学","清华大学","郑州大学","苏州大学","南阳师院","洛阳师院","周口师院"};
-    private String[] proNameData={"手机","电脑","笔记本","其它"};
+    private String[] proNameData={"手机","电脑","笔记本","手表","其它"};
     private int flag=0;//0代表同城，1代表城市
     private List<Bitmap> imageLists=new ArrayList<Bitmap>();
     private List<File> imageFileLists=new ArrayList<File>();

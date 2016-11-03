@@ -6,39 +6,61 @@
     android:orientation="vertical"
     android:background="#ffffff"
     tools:context="com.estore.activity.PersonalSettingActivity">
-
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="#f7f6f6"
-        >
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:background="#f00">
         <ImageView
             android:id="@+id/iv_perreturn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xiaoyu"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/last_white"
             />
-        <ImageView
-            android:id="@+id/user_photo"
+        <TextView
+            android:id="@+id/tv_pingjia"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/userphoto"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="个人资料"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/rl_saverl"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
             android:text="完成"
+            android:textSize="20sp"
+            android:textColor="#fff"
             android:gravity="center"
-            android:background="#eaeaea"
             />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#fff"
+        >
+
+        <ImageView
+            android:id="@+id/user_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/denglu"
+            android:layout_centerInParent="true"
+            />
+
     </RelativeLayout>
     <!-- 分割线 -->
 
@@ -48,35 +70,7 @@
         android:layout_height="1dp"
         android:background="#dad9d9"
         />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#ffffff"
-        />
-    <RelativeLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:background="#efeeee"
-        android:layout_height="40dp">
 
-        <TextView
-            android:id="@+id/tv_perdatum"
-            android:layout_width="wrap_content"
-            android:text="我的资料"
-            android:layout_centerInParent="true"
-            android:textSize="22sp"
-            android:layout_height="wrap_content"
-            />
-
-    </RelativeLayout>
-    <ImageView
-        android:layout_below="@id/tv_perdatum"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#ffffff"
-        />
     <!-- 分割线 -->
     <ImageView
         android:layout_width="match_parent"
@@ -121,7 +115,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_photorl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -176,7 +170,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_nicknamerl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -228,7 +222,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_sexrl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_alignParentRight="true"
             android:layout_height="1dp"
             android:background="#f2f2f2"
@@ -282,7 +276,7 @@
         <!-- 分割线 -->
         <ImageView
             android:layout_below="@id/rl_phonenumrl"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentRight="true"
             android:background="#f2f2f2"
@@ -348,15 +342,15 @@
         android:id="@+id/rb_tuichu"
         android:layout_below="@id/tv_phonenumber"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:button="@null"
         android:gravity="center"
         android:textSize="22dp"
         android:text="退出登录"
-        android:textColor="#f55454"
-        android:background="#dfe1e1"
+        android:textColor="#fff"
+        android:background="#f00"
         >
 
 
