@@ -3,11 +3,11 @@
     package="com.estore">
 
     <permission
-        android:name="com.estore.activity.permission.JPUSH_MESSAGE"
+        android:name="com.estore.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature"/>
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
-    <uses-permission android:name="com.estore.activity.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.estore.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -82,7 +82,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.estore.activity" />
+                <category android:name="com.estore" />
             </intent-filter>
         </activity>
         <!-- Required  SDK核心功能 -->
@@ -114,7 +114,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.estore.activity" />
+                <category android:name="com.estore" />
             </intent-filter>
         </service>
 
@@ -125,7 +125,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
-                <category android:name="com.estore.activity" />
+                <category android:name="com.estore" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -165,7 +165,7 @@
                 <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.estore.activity" />
+                <category android:name="com.estore" />
             </intent-filter>
         </receiver>
 
@@ -175,8 +175,8 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="fd05426510a86d3c51d07f1a" /> <!-- </>值来自开发者平台取得的AppKey -->
-        <activity android:name=".activity.MainActivity" />
+            android:value="9005ede6f70e739b34968ffb" /> <!-- </>值来自开发者平台取得的AppKey -->
+
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ListViewActivity" />
@@ -288,20 +288,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MyFriendsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.estore"
-                    android:pathPrefix="/conversationlist"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
 
         <receiver android:name=".receiver.MyReceiver">
             <intent-filter>
@@ -310,9 +297,7 @@
                 </action>
             </intent-filter>
         </receiver>
-        <activity android:name=".activity.PersonComputerActivity"></activity>
-        <activity android:name=".activity.PhoneActivity"></activity>
-        <activity android:name=".activity.WatchActivity"></activity>
+
         <activity android:name=".activity.SeekContentActivity"></activity>
 
     </application>
