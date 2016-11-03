@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f2f2f2">
+    android:background="#fff">
     <RelativeLayout
         android:id="@+id/rl_login"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#fcfcfc"
+        android:layout_height="250dp"
+        android:gravity="center_vertical"
+        android:background="#f00"
         >
 
 
         <ImageView
             android:id="@+id/iv_denglu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/denglu"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
             />
         <TextView
             android:id="@+id/tv_myNickname"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="请登录账号"
             android:textSize="18dp"
-            android:background="#d9d9d9"
+            android:textColor="#fff200"
             android:layout_below="@id/iv_denglu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
@@ -50,8 +50,7 @@
             android:drawableTop="@drawable/fabu"
             android:text="我的发布"
             android:textColor="#818080"
-            android:textSize="22dp"
-            android:padding="6dp"
+            android:textSize="18dp"
             />
         <Button
             android:id="@+id/rb_auction"
@@ -62,7 +61,7 @@
             android:drawableTop="@drawable/shoucang"
             android:text="我的收藏"
             android:background="#ffffff"
-            android:textSize="22dp"
+            android:textSize="18dp"
             android:padding="6dp"
             />
         <Button
@@ -74,7 +73,7 @@
             android:drawableTop="@drawable/jiaoyi"
             android:text="我的订单"
             android:textColor="#818080"
-            android:textSize="22dp"
+            android:textSize="18dp"
             android:padding="6dp"
             />
     </LinearLayout>
@@ -86,7 +85,6 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             >
             <RadioGroup
 
@@ -94,17 +92,22 @@
                 android:orientation="vertical"
                 android:layout_height="220dp"
                 >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f2f2f2"
+                    />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                <RadioButton
+
+                    <RadioButton
                     android:id="@+id/rb_myfriends"
                     style="@style/buttonvertical"
                     android:text="我的消息"
                     android:drawableLeft="@drawable/friends"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
                     android:background="#ffffff"
                     android:drawableRight="@drawable/dayu"
 
@@ -125,23 +128,9 @@
                         android:textColor="#ffffff" />
                 </RelativeLayout>
                 <!-- 分割线 -->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#f2f2f2"
-                    />
-                <RadioButton
 
-                    android:id="@+id/iv_intercalate"
-                    style="@style/buttonvertical"
-                    android:text="我的设置"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
-                    android:background="#ffffff"
-                    android:drawableLeft="@drawable/set"
-                    android:drawableRight="@drawable/dayu"
 
-                    />
+
                 <!-- 分割线 -->
                 <ImageView
                     android:layout_width="match_parent"
@@ -171,10 +160,27 @@
                     android:drawableLeft="@drawable/notice"
                     android:background="#ffffff"
                     android:drawableRight="@drawable/dayu"
-                    android:paddingLeft="25dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="8dp"
                     />
                 <!-- 分割线 -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#f2f2f2"
+                    />
+                <RadioButton
+
+                    android:id="@+id/iv_intercalate"
+                    style="@style/buttonvertical"
+                    android:text="我的设置"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:background="#ffffff"
+                    android:drawableLeft="@drawable/set"
+                    android:drawableRight="@drawable/dayu"
+
+                    />
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

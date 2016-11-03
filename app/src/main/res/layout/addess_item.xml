@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="180dp"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
-    >
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/rl_address"
@@ -19,25 +19,26 @@
             android:layout_height="80dp">
 
             <TextView
+
                 android:id="@+id/tv_auct_shouhuoren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  收 货 人:"
+                android:layout_centerVertical="true"
+                android:text="收 货 人:"
                 android:textColor="#4a3d4b"
-                android:layout_marginLeft="20dp"
-                android:textSize="18sp"
-                />
+
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:text="联系方式"
-                android:textColor="#4a3d4b"
-                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
 
+                android:text="联系方式"
+
+                android:textColor="#4a3d4b"
                 android:textSize="18sp" />
         </RelativeLayout>
 
@@ -46,69 +47,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            >
+            android:gravity="center">
 
-            <TextView
-                android:id="@+id/tv_auct_adress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="收货地址:"
-                android:layout_marginLeft="15dp"
-                android:textColor="#4a3d4b"
-                android:textSize="20sp" />
+            <!--<TextView-->
+            <!--android:id="@+id/tv_auct_adress"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="收货地址:"-->
+            <!---->
+            <!--android:textColor="#d11232"-->
+            <!--android:textSize="20sp" />-->
 
             <TextView
                 android:id="@+id/tv_bidding_addess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+
                 android:layout_toRightOf="@+id/tv_auct_adress"
                 android:lineSpacingMultiplier="1.5"
-                android:textColor="#4a3d4b"
                 android:text="江苏省苏州市姑苏区苏州工业园区独墅湖高教区仁爱路1号"
-               />
+                android:textColor="#4a3d4b" />
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
->
-
-            <CheckBox
-                android:id="@+id/cb_address_moren"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-               android:textColor="#000"
-                android:background="#fff"
-                android:focusable="false"
-                android:text="默认地址" />
+            >
 
             <Button
                 android:id="@+id/btn_address_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="40dp"
-                android:background="#fff"
-                android:textColor="#000"
+                android:background="@null"
                 android:drawableLeft="@drawable/delete"
+                android:focusable="false"
                 android:text="删除"
-                android:focusable="false"/>
+                android:textColor="#000" />
 
             <Button
                 android:id="@+id/btn_address_edt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="#fff"
+                android:layout_toStartOf="@+id/btn_address_delete"
+                android:background="@null"
                 android:drawableLeft="@drawable/edt"
+                android:focusable="false"
                 android:text="编辑"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/cb_address_moren"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:focusable="false"
+                android:text="默认地址"
                 android:textColor="#000"
-                android:focusable="false"/>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            />
     </LinearLayout>
 </LinearLayout>

@@ -8,8 +8,8 @@
         android:id="@+id/tv_gou"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#f26522"
-        android:textSize="26dp"
+        android:background="#f00"
+        android:textSize="24dp"
         android:textColor="#fff"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@
 
         <Button
             android:id="@+id/cart_jiesuan"
-            android:background="#f26522"
+            android:background="#f00"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"

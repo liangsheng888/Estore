@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="校园"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_sc2"
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="20sp"
+                android:textSize="18sp"
 
                 android:text="同城"/>
             <TextView
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="拍卖"/>
             <TextView
                 android:layout_width="wrap_content"
