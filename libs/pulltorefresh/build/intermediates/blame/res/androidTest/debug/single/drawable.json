@@ -1,18 +1,10 @@
 [
     {
-        "merged": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
-        "source": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
-    },
-    {
         "merged": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
         "source": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
     },
     {
         "merged": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_top.xml",
         "source": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_top.xml"
-    },
-    {
-        "merged": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\indicator_bg_bottom.xml",
-        "source": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable\\indicator_bg_bottom.xml"
     }
 ]

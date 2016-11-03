@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:gravity="center_vertical"
-        android:background="#f00"
+        android:background="@drawable/haha"
         >
 
 
@@ -64,6 +64,7 @@
             android:textSize="18dp"
             android:padding="6dp"
             />
+
         <Button
             android:id="@+id/rb_myorder"
             android:layout_width="0dp"
