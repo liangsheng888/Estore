@@ -97,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferencesUtils.saveUserInfoOther(LoginActivity.this,username,psd);
                             GetUserIdByNet.getUserIdByNet(LoginActivity.this);
                             int userId=getSharedPreferences("User",MODE_APPEND).getInt("userId",0);
-                            HttpUtil.getToken(getApplicationContext(),userId+"",username);
+                            String nick=getSharedPreferences("User",MODE_APPEND).getString("nick","");
+                            //获取token
+                            HttpUtil.getToken(getApplicationContext(),userId+"",nick);
                             Log.i("cc","=======userId------"+userId+"");
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);

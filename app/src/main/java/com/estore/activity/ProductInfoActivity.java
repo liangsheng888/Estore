@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 /***
  * 商品详情页
@@ -449,29 +448,29 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 }
                 GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
 
-                SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
-                String token=sp1.getString("token","");
-                Log.i("cc", "onCreate: "+token);
-                RongIM.connect(token, new RongIMClient.ConnectCallback() {
-                    @Override
-                    public void onTokenIncorrect() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(String s) {
-                        Log.i("cc", "——onSuccess—-" + s);
-
-//                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
-
-                    }
-
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
-                        Log.i("cc","--onError--"+errorCode);
-
-                    }
-                });
+//                SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+//                String token=sp1.getString("token","");
+//                Log.i("cc", "onCreate: "+token);
+//                RongIM.connect(token, new RongIMClient.ConnectCallback() {
+//                    @Override
+//                    public void onTokenIncorrect() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        Log.i("cc", "——onSuccess—-" + s);
+//
+////                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(RongIMClient.ErrorCode errorCode) {
+//                        Log.i("cc","--onError--"+errorCode);
+//
+//                    }
+//                });
 
                 Log.i("cc","==userId=="+pp.user_id);
                 Log.i("cc","==userNick=="+pp.userNick);
