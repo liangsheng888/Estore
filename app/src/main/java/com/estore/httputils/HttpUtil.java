@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.estore.activity.myappliction.MyApplication;
 import com.estore.pojo.EBmessage;
 import com.estore.pojo.TokenMod;
 import com.google.gson.Gson;
@@ -15,6 +16,8 @@ import org.xutils.x;
 import java.util.Random;
 
 import io.rong.eventbus.EventBus;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 
 public class HttpUtil {
@@ -41,6 +44,7 @@ public class HttpUtil {
 				"https://api.cn.ronghub.com/user/getToken.json");
 		addHeader(params);
 		params.addBodyParameter("userId", id);
+
 		params.addBodyParameter("name", username);
 		x.http().post(params, new CommonCallback<String>() {
 
@@ -67,6 +71,7 @@ public class HttpUtil {
 				SharedPreferences sp = context.getSharedPreferences("user", context.MODE_APPEND);
 				SharedPreferences.Editor editor = sp.edit();
 				editor.putString("userId", mod.getUserId());
+				Log.i("cc","userId================="+mod.getUserId());
 				editor.putString("code", mod.getCode());
 				editor.putString("token", mod.getToken());
 				editor.commit();
@@ -76,61 +81,64 @@ public class HttpUtil {
 				eb.setMessage(mod.getToken());
 				eb.setFrom("getToken");
 				EventBus.getDefault().post(eb);
+				String token=mod.getToken();
+				connect(token,context);
+
+
 			}
 		});
 	}
 
-//	/**
-//	 * 建立与融云服务器的连接
-//	 *
-//	 * @param token
-//	 */
-//	public static void connect(String token, Context context) {
-//
-//		if (context.getApplicationInfo().packageName.equals(MyApplication
-//				.getCurProcessName(context.getApplicationContext()))) {
-//
-//
-//			/**
-//			 * IMKit SDK调用第二步,建立与服务器的连接
-//			 */
-//			RongIM.connect(token, new RongIMClient.ConnectCallback() {
-//
-//				/**
-//				 * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的
-//				 * Token
-//				 */
-//				@Override
-//				public void onTokenIncorrect() {
-//					Log.d("LoginActivity", "--onTokenIncorrect");
-//				}
-//
-//				/**
-//				 * 连接融云成功
-//				 *
-//				 * @param userid
-//				 *            当前 token
-//				 */
-//				@Override
-//				public void onSuccess(String userid) {
-//					EBmessage eb = new EBmessage();
-//					eb.setStatus(true);
-//					eb.setMessage("success");
-//					eb.setFrom("connect");
-//					EventBus.getDefault().post(eb);
-//					Log.d("LoginActivity", "--onSuccess" + userid);
-//				}
-//
-//				/**
-//				 * 连接融云失败
-//				 *
-//				 * @param errorCode
-//				 *            错误码，可到官网 查看错误码对应的注释
-//				 */
-//				@Override
-//				public void onError(RongIMClient.ErrorCode errorCode) {
-//					Log.d("LoginActivity", "--onError" + errorCode);
-//				}
-//			});
-//		}
+	/**
+	 * 建立与融云服务器的连接
+	 *
+	 * @param token
+	 */
+	public static void connect(String token, Context context) {
+
+		if (context.getApplicationInfo().packageName.equals(MyApplication
+				.getCurProcessName(context.getApplicationContext()))) {
+
+
+			/**
+			 * IMKit SDK调用第二步,建立与服务器的连接
+			 */
+			RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+				/**
+				 * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的
+				 * Token
+				 */
+				@Override
+				public void onTokenIncorrect() {
+					Log.d("LoginActivity", "--onTokenIncorrect");
+				}
+
+				/**
+				 * 连接融云成功
+				 *
+				 * @param userid 当前 token
+				 */
+				@Override
+				public void onSuccess(String userid) {
+					EBmessage eb = new EBmessage();
+					eb.setStatus(true);
+					eb.setMessage("success");
+					eb.setFrom("connect");
+					EventBus.getDefault().post(eb);
+					Log.d("LoginActivity", "--onSuccess" + userid);
+				}
+
+				/**
+				 * 连接融云失败
+				 *
+				 * @param errorCode 错误码，可到官网 查看错误码对应的注释
+				 */
+				@Override
+				public void onError(RongIMClient.ErrorCode errorCode) {
+					Log.d("LoginActivity", "--onError" + errorCode);
+				}
+			});
+		}
 	}
+}

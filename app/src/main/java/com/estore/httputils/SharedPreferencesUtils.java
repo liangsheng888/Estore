@@ -43,6 +43,14 @@ public class SharedPreferencesUtils {
         return true;
     }
 
+    public static boolean saveUserNick(Context context,String nick){
+        SharedPreferences sp=context.getSharedPreferences("User",Context.MODE_APPEND);
+        SharedPreferences.Editor ed=sp.edit();
+        ed.putString("nick",nick);
+
+        ed.commit();
+        return true;
+    }
     }
 
 

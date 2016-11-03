@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.estore.pojo.User;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -34,7 +30,12 @@ public class GetUserIdByNet {
                 @Override
                 public void onSuccess(String result) {
                     Log.e("GetUserInfoByNet", "result" + result);
-                    SharedPreferencesUtils.saveUserId(context,Integer.parseInt(result));
+                    String[] user=result.split("=");
+                    int userId=Integer.parseInt(user[0]);
+                    String nick=user[1];
+                    SharedPreferencesUtils.saveUserId(context,userId);
+                    SharedPreferencesUtils.saveUserNick(context,nick);
+
                 }
 
                 @Override
