@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
