@@ -201,7 +201,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
 //                newlist.clear();
 //                newlist.addAll(bean.list);
 //                auctList.addAll(newlist);
-//                auctList.clear();
+                auctList.clear();
                 auctList.addAll(bean.list);
 
 //                if (auctList.size() > 0) {
