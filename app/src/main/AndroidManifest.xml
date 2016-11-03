@@ -275,6 +275,7 @@
 
         <activity
             android:name=".activity.ConversationActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -290,13 +291,24 @@
         </activity>
 
 
-        <receiver android:name=".receiver.MyReceiver">
-            <intent-filter>
-                <action android:name="com.yu.chatdemo.receiver.ChatBoardcaseReceiver">
+        <!--<receiver android:name=".receiver.MyReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.yu.chatdemo.receiver.ChatBoardcaseReceiver">-->
 
-                </action>
+                <!--</action>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <receiver
+            android:exported="true"
+            android:name=".receiver.MyReceiver">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
             </intent-filter>
         </receiver>
+
 
         <activity android:name=".activity.SeekContentActivity"></activity>
 
