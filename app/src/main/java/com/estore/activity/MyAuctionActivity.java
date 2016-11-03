@@ -1,6 +1,6 @@
 package com.estore.activity;
 /*
-我的拍卖--我拍到商品
+我的收藏--我收藏的商品
  */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
