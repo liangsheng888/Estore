@@ -3,6 +3,10 @@ package com.estore.fragment;
 /*
 我的订单---待付款页面
  */
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,15 +16,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
-import com.estore.activity.myappliction.MyApplication;
+import com.estore.activity.LoginOther;
+import com.estore.activity.PayActivity;
 import com.estore.httputils.CommonAdapter;
 
-import com.estore.httputils.GetUserIdByNet;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.httputils.ViewHolder;
 import com.estore.pojo.GoodsOrderState;
@@ -39,12 +46,22 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import c.b.BP;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WaitingPayMoneyFragment extends Fragment {
+public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnCheckedChangeListener  {
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
+    int PLUGINVERSION = 7;
+
+    EditText name, price, body, order;
+    Button go;
+    RadioGroup type;
+    TextView tv;
+
+    ProgressDialog dialog;
 
     CommonAdapter<Order> orderApater;//适配器
  /*	 1 待付款
@@ -65,6 +82,8 @@ public class WaitingPayMoneyFragment extends Fragment {
     private ListView lv_unPay;
     private SharedPreferences sp;
     private User user=new User();
+    private EditText orderInfo;
+    private RadioGroup payType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -253,9 +272,20 @@ public class WaitingPayMoneyFragment extends Fragment {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
                                         case UNPAY:
                                             Log.i("WaitingPayMoneyFragment", "付款");
-
                                             //付款 付款成功后该商品数量减1
                                             Log.i("WaitingPayMoneyFragment", "onClick: ");
+                                             Intent intent=new Intent(getActivity(),PayActivity.class);
+                                            String proName=order.getOrderDetails().get(position).getProduct().name;
+                                            String description=order.getOrderDetails().get(position).getProduct().description;
+                                            Double price=order.getGoodsTotalPrice();
+
+
+                                            intent.putExtra("proName",proName);
+                                            intent.putExtra("description",description);
+                                            intent.putExtra("price",price);
+
+                                            startActivity(intent);
+
                                             subProduct(order.getOrderDetails().get(position).getProduct().id,order.getOrderDetails().get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
                                            // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
@@ -355,6 +385,7 @@ public class WaitingPayMoneyFragment extends Fragment {
         });
     }
 
+
     private void subProduct(int productId, int goodsNum) {
         RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"subProductServlet");
         rp.addBodyParameter("productId",productId+"");
@@ -429,4 +460,10 @@ public class WaitingPayMoneyFragment extends Fragment {
         if(!hidden){
             getData();
         }
-}}
+}
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+    }
+}

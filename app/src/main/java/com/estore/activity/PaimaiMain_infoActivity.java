@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.R;
-import com.estore.Service.PaiMaiTiXingService;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
@@ -194,22 +193,22 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             case R.id.btn_paimai_tixing:
               if (btn_paimai_tixing.isChecked()) {
                     myConn=new MyConn();
-                    intent = new Intent(this,PaiMaiTiXingService.class);
-                    bundle=new Bundle();
-                    bundle.putSerializable("PaiMaiService",auct.auct_begin);
-                    intent.putExtras(bundle);
-//                    startService(intent);*/
+//                    intent = new Intent(this,PaiMaiTiXingService.class);
+//                    bundle=new Bundle();
+//                    bundle.putSerializable("PaiMaiService",auct.auct_begin);
+//                    intent.putExtras(bundle);
+////                    startService(intent);*/
 
                     RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"tuisong");
                     x.http().get(requestParams, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
-
+                            System.out.println("提醒成功"+result);
                         }
 
                         @Override
                         public void onError(Throwable ex, boolean isOnCallback) {
-
+                            System.out.println("提醒错误："+ex.getMessage());
                         }
 
                         @Override
@@ -222,7 +221,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
                         }
                     });
-                    bindService(intent,myConn,BIND_AUTO_CREATE);
+//                    bindService(intent,myConn,BIND_AUTO_CREATE);
 
                 } else {
 

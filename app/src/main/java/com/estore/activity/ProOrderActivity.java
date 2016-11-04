@@ -35,6 +35,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -58,7 +59,7 @@ public class ProOrderActivity extends AppCompatActivity {
     private ImageView iv_dingdan_fanhui;
     Address address = new Address();
 
-    private Map<Product.Products, Integer> mapOrderInfo;
+    private Map<Product.Products, Integer> mapOrderInfo=new HashMap<>();
     private List<Product.Products> proLists = new ArrayList<>();
     private List<Integer> cartIdLists = new ArrayList<>();//
     private List<Integer> num = new ArrayList<>();
@@ -84,8 +85,6 @@ public class ProOrderActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         MapSerializable OrderInfo = (MapSerializable) bundle.getSerializable("OrderInfo");
         cartIdLists = (List<Integer>) bundle.getSerializable("cartIdLists");
-
-
         Log.i("ProdOrderActivity", "OrderInfo: " + OrderInfo.toString());
         mapOrderInfo = OrderInfo.getPro();
         for (Map.Entry<Product.Products, Integer> mapinfo :
@@ -116,8 +115,6 @@ public class ProOrderActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProOrderActivity.this, AddessListActivity.class);
                 intent.putExtra("addressSign", 3);
                 startActivityForResult(intent, ADDRESS_CHOICE);
-
-
             }
         });
         order_dizhi_phonenum.setText(address.cantactPhone);//联系人电话

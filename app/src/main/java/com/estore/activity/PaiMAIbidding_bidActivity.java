@@ -14,11 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.concurrent.locks.Lock;
@@ -31,9 +34,10 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     Integer timeMM = 60;
     Integer timeHH = 3;
     Integer timess = 60;
+    Integer nowPrice=0;
     private String[] imgurls;
-    private String[] jiaArray = new String[]{"1￥", "2￥", "5￥", "10￥",
-            "20￥", "50￥", "100￥", "1000￥"};
+    private String[] jiaArray = new String[]{"1", "2", "5", "10",
+            "20", "50", "100", "1000"};
 
     private Lock lock = new ReentrantLock();
     AuctListActivityBean.Auct auct;
@@ -42,6 +46,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     private TextView jiajia;
     private ViewPager vp_auct_bidding1;
     private TextView textView4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +149,8 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
                 builder.setSingleChoiceItems(jiaArray, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
-                        jiajia.setText(jiaArray[position]);
+                        jiajia.setText(jiaArray[position]+"￥");
+                        nowPrice= Integer.valueOf(jiaArray[position])+Integer.valueOf(auct.auct_minprice);
                         dialog.dismiss();
                     }
                 });
@@ -157,6 +163,37 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     }
 
     private void sendData() {
+        String userId= String.valueOf(getSharedPreferences("User",MODE_APPEND).getInt("userId",-1));
+        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"insertBiddingData");
+        requestParams.addBodyParameter("auct_id",auct.auct_id);
+        System.out.println("auct_id"+auct.auct_id);
+        requestParams.addBodyParameter("userId",userId);
+        requestParams.addBodyParameter("nowPrice",nowPrice+"");
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(PaiMAIbidding_bidActivity.this, "加价成功", Toast.LENGTH_SHORT).show();
+               getBinddingData();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void getBinddingData() {//加价成功后刷新页面
 
     }
 
