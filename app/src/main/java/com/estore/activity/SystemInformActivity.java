@@ -4,13 +4,12 @@ package com.estore.activity;
  */
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.Message;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -26,59 +26,43 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * Created by mawuyang on 2016-10-28.
  */
 public class SystemInformActivity extends Activity {
-    private TextView tv_title;
-    private TextView tv_content;
+    private ImageView informReturn;
     private ListView lv;
    final List<Message> messagelist=new ArrayList<Message>();
-    private BaseAdapter myAdapter;
+    private BaseAdapter myAdapter=new Myaddapter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_inform);
-
-        tv_title = ((TextView) findViewById(R.id.tv_title));
-        tv_content = ((TextView) findViewById(R.id.tv_content));
-
-//        TextView tv = new TextView(this);
-//        tv.setText("用户自定义打开的Activity");
-        Intent intent = getIntent();
-        if (null != intent) {
-            Bundle bundle = getIntent().getExtras();
-            if(bundle!=null){
-            String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
-            String content = bundle.getString(JPushInterface.EXTRA_ALERT);
-            if(tv_title!=null){
-            tv_title.setText("Title : " + title);}
-            if(tv_content!=null){
-            tv_content.setText("Content : " + content);}}
-        }
-//        addContentView(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         initView();
-        initDate();
         initEvent();
+        myAdapter.notifyDataSetChanged();
         getMessageInfo();
     }
 
 
-    private void initDate() {
-    }
-
     private void initView() {
+        informReturn = ((ImageView) findViewById(R.id.iv_informreturn));
+        lv=((ListView) findViewById(R.id.lv));
 
     }
     private void initEvent() {
-
+        informReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     private class Myaddapter extends BaseAdapter {
-        private TextView tv_title;
-        private TextView tv_content;
-        private TextView tv_time;
+
+        private TextView title;
+        private TextView content;
+        private TextView time;
 
         @Override
         public int getCount() {
@@ -98,19 +82,22 @@ public class SystemInformActivity extends Activity {
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
             view=View.inflate(SystemInformActivity.this,R.layout.layout_inform_item,null);
-            tv_title = ((TextView) view.findViewById(R.id.tv_title));
-            tv_content = ((TextView) view.findViewById(R.id.tv_content));
-            tv_time = ((TextView) view.findViewById(R.id.tv_time));
-             Message  mList=  messagelist.get(position);
-            tv_title.setText(mList.getTitle());
-            tv_time.setText(mList.getTime());
-            tv_content.setText(mList.getContent());
+            title = ((TextView) view.findViewById(R.id.tv_title));
+            content = ((TextView) view.findViewById(R.id.tv_content));
+            time = ((TextView) view.findViewById(R.id.tv_time));
+            Message message=messagelist.get(position);
+
+            Log.i("cc","message======"+message);
+            title.setText(message.getTitle());
+            content.setText(message.getContent());
+            time.setText(message.getTime());
 
             return view;
         }
     }
     private void getMessageInfo() {
         final String url= HttpUrlUtils.HTTP_URL+"/findallmessageservlet";
+        Log.i("cc", "url: "+url);
         RequestParams request=new RequestParams(url);
         x.http().get(request, new Callback.CommonCallback<String>() {
 
@@ -119,13 +106,15 @@ public class SystemInformActivity extends Activity {
             public void onSuccess(String result) {
                 Log.i("SystemInform=======","result"+result);
                 Gson gson=new Gson();
-             Message mm=gson.fromJson(result,Message.class);
-                messagelist.addAll(mm.list);
+                List<Message> mm=gson.fromJson(result,new TypeToken<List<Message>>(){}.getType());
+                messagelist.addAll(mm);
+                Log.i("cc","messageList========"+messagelist);
                 if(myAdapter==null){
                     myAdapter=new Myaddapter();
                 }else {
-                    myAdapter.notifyDataSetChanged();
+                 myAdapter.notifyDataSetChanged();
                 }
+                lv.setAdapter(myAdapter);
 
             }
 
