@@ -7,6 +7,7 @@
         android:protectionLevel="signature"/>
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.estore.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -312,6 +313,7 @@
 
 
         <activity android:name=".activity.SeekContentActivity"></activity>
+        <activity android:name=".activity.PayActivity"></activity>
 
     </application>
 
