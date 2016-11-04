@@ -36,11 +36,21 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox rb_rememberPsd;
 
     private final static String TAG = "LoginActivity";
+    private TextView btnRrgister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+        btnRrgister = ((TextView) findViewById(R.id.btn_register));
+
+        btnRrgister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
         initView();
         initData();
 

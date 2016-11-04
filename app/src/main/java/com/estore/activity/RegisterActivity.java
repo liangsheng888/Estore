@@ -22,6 +22,8 @@ import org.xutils.x;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -33,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText etOncePassword;
     private TextView RegisterBtn;
     private String userId;
+    private String userName;
     User user;
     //    List<User> users=new ArrayList<User>();
     @Override
@@ -48,12 +51,29 @@ public class RegisterActivity extends AppCompatActivity{
         etPassword = ((EditText) findViewById(R.id.et_password));
         etOncePassword = ((EditText) findViewById(R.id.et_oncepassword));
         RegisterBtn = ((TextView) findViewById(R.id.register_button));
+
+        tvLoginRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivBackRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((etPassword.getText().toString()).equals(etOncePassword.getText().toString())){
+                userName=etRegEmail.getText().toString();
+                if((etPassword.getText().toString()).equals(etOncePassword.getText().toString()) && isEmail(userName)){
                     RequestParams params=new RequestParams(HttpUrlUtils.HTTP_URL+"register");
-                    String userName=etRegEmail.getText().toString();
                     String nick=null;
                     String userPwd= etPassword.getText().toString();
                     try {
@@ -101,14 +121,30 @@ public class RegisterActivity extends AppCompatActivity{
                     });
 
 
-                }else{
-                    Toast.makeText(RegisterActivity.this,"两次密码不相同！请重新输入",Toast.LENGTH_SHORT).show();
-                    etPassword.setText("");
-                    etOncePassword.setText("");
-                }
+                }else {
+                    if (!(etPassword.getText().toString()).equals(etOncePassword.getText().toString())) {
 
+                        Toast.makeText(RegisterActivity.this, "两次密码不相同！请重新输入", Toast.LENGTH_SHORT).show();
+                        etPassword.setText("");
+                        etOncePassword.setText("");
+                    }else if(!isEmail(userName)){
+                        Toast.makeText(RegisterActivity.this, "邮箱格式不正确，请重新输入", Toast.LENGTH_SHORT).show();
+                        etRegEmail.setText("");
+                    }
+                }
             }
         });
+    }
+
+    public static boolean isEmail(String strEmail) {
+        String strPattern = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        Pattern p = Pattern.compile(strPattern);
+        Matcher m = p.matcher(strEmail);
+        if (m.matches()) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.estore.activity.PaimaiMain_infoActivity;
 import com.estore.R;
+import com.estore.activity.PaimaiMain_infoActivity;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
 import com.estore.view.LoadListViewPaiMAI;
@@ -151,6 +151,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         TextView tv_auct_minprice;//
         TextView tv_endbidprice;
         TextView tv_auct_begin;
+
     }
 
     @Override
@@ -315,6 +316,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             viewHodle.tv_auct_name.setText(auct.auct_name);
 //                viewHodle.tv_username.setText(auct.user_id);
             viewHodle.tv_auct_begin.setText(auct.auct_begin);
+            viewHodle.tv_auct_minprice.setText(auct.now_bidding);
             viewHodle.tv_endbidprice.setText("￥" + auct.auct_minprice + "");
             imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
             x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + imgurls[0]);
