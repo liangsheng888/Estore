@@ -23,6 +23,8 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +124,11 @@ public class EnvaluteActivity extends AppCompatActivity {
         rp.addBodyParameter("user_id", sp.getInt("userId", 0) + "");
         rp.addBodyParameter("product_id", product_id + "");
         rp.addBodyParameter("order_id", goodsOrderId + "");
-        rp.addBodyParameter("evt_msg", et_pinglun.getText().toString());
+        try {
+            rp.addBodyParameter("evt_msg", URLEncoder.encode(et_pinglun.getText().toString(),"utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         rp.addBodyParameter("evt_honest", evt_honest + "");
         rp.addBodyParameter("store_id", store_id + "");
 
