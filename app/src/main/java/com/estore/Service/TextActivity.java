@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.estore.activity.R;
+import com.estore.R;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -19,7 +19,7 @@ public class TextActivity extends AppCompatActivity {
         tv.setText("用户自定义打开的Activity");
         Intent intent = getIntent();
         if (null != intent) {
-            Bundle bundle = getIntent().getExtras();
+            Bundle bundle = intent.getExtras();
             String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
             String content = bundle.getString(JPushInterface.EXTRA_ALERT);
 //            tv_title.setText(title);

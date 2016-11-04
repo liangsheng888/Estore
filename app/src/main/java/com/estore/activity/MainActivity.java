@@ -42,6 +42,8 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,TilesFrameLayoutListener {
     private SharedPreferences sp;
@@ -103,29 +105,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       /*  mTilesFrameLayout = (TilesFrameLayout) findViewById(R.id.tiles_frame_layout);
         mTilesFrameLayout.setOnAnimationFinishedListener(this);*/
 
-//        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
-//        String token=sp1.getString("token","");
-//        Log.i("cc", "onCreate: "+token);
-//        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-//            @Override
-//            public void onTokenIncorrect() {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(String s) {
-//                Log.i("cc", "——onSuccess—-" + s);
-//
-////                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
-//
-//            }
-//
-//            @Override
-//            public void onError(RongIMClient.ErrorCode errorCode) {
-//                Log.i("cc","--onError--"+errorCode);
-//
-//            }
-//        });
+        SharedPreferences sp1=getSharedPreferences("user",MODE_APPEND);
+        String token=sp1.getString("token","");
+        Log.i("cc", "onCreate: "+token);
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.i("cc", "——onSuccess—-" + s);
+
+//                startActivity(new Intent(ProductInfoActivity.this,MyFriendsActivity.class));
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.i("cc","--onError--"+errorCode);
+
+            }
+        });
 
 
         Set<String> sets = new HashSet<>();

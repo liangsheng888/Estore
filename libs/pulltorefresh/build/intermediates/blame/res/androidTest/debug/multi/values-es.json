@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-es\\values-es.xml",
+        "outputFile": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-es\\values-es.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 128
                 },
                 "from": {
-                    "file": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "file": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 199
                 },
                 "from": {
-                    "file": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "file": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 281
                 },
                 "from": {
-                    "file": "G:\\estore\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "file": "E:\\project_process\\1103\\Estore\\libs\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
