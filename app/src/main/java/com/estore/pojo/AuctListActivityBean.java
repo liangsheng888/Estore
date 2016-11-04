@@ -25,7 +25,25 @@ public class AuctListActivityBean implements Serializable{
         public String auct_time;
         public String  auct_description;
         public String  auct_imgurl;
+        public String  now_bidding;
 
+        @Override
+        public String toString() {
+            return "Auct{" +
+                    "auct_category='" + auct_category + '\'' +
+                    ", auct_end='" + auct_end + '\'' +
+                    ", auct_pnum='" + auct_pnum + '\'' +
+                    ", auct_name='" + auct_name + '\'' +
+                    ", auct_minprice='" + auct_minprice + '\'' +
+                    ", auct_id='" + auct_id + '\'' +
+                    ", auct_begin='" + auct_begin + '\'' +
+                    ", user_id='" + user_id + '\'' +
+                    ", auct_time='" + auct_time + '\'' +
+                    ", auct_description='" + auct_description + '\'' +
+                    ", auct_imgurl='" + auct_imgurl + '\'' +
+                    ", now_bidding='" + now_bidding + '\'' +
+                    '}';
+        }
 ///{
 //            "status": 2,
 //                    "list": [
@@ -45,22 +63,6 @@ public class AuctListActivityBean implements Serializable{
 //        }
 
 
-        @Override
-        public String toString() {
-            return "Auct{" +
-                    "auct_category='" + auct_category + '\'' +
-                    ", auct_end='" + auct_end + '\'' +
-                    ", auct_pnum='" + auct_pnum + '\'' +
-                    ", auct_name='" + auct_name + '\'' +
-                    ", auct_minprice='" + auct_minprice + '\'' +
-                    ", auct_id='" + auct_id + '\'' +
-                    ", auct_begin='" + auct_begin + '\'' +
-                    ", user_id='" + user_id + '\'' +
-                    ", auct_time='" + auct_time + '\'' +
-                    ", auct_description='" + auct_description + '\'' +
-                    ", auct_imgurl='" + auct_imgurl + '\'' +
-                    '}';
-        }
     }
 
     @Override
