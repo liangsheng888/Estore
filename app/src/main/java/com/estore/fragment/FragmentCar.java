@@ -61,7 +61,7 @@ public class FragmentCar extends Fragment {
     //    private ListView cartListView;
     private List<Cart> cartlist = new ArrayList<>();//
     private CartAapater cartAdapter;
-    private int totalPrice;
+    private Double totalPrice=0.0;
     private TextView cart_buy_money;//
     private TextView cart_jiesuan;
     private Button btn_jia;
@@ -103,11 +103,13 @@ public class FragmentCar extends Fragment {
                     }
                     cartAdapter.setNumberSeclected(cartAdapter.getCount());
                     Log.e("FragmentCar", "选中数" + cartAdapter.getNumberSeclected() + "");
-                    totalPrice = 0;
+
+                    totalPrice = 0.0;
                     //总价格显示
                     for (int i = 0; i < cartlist.size(); i++) {
                         double eachPrice = cartAdapter.getCar_numbers().get(i) * cartlist.get(i).getProduct().estoreprice;
                         totalPrice += eachPrice;
+                        Log.e("FragmentCar", "check all totalPrice:" + totalPrice);
                         //改变合计tv的值
                         cart_buy_money.setText("￥" + totalPrice);//有bug
                     }
@@ -115,9 +117,10 @@ public class FragmentCar extends Fragment {
                     buttonView.setChecked(false);
                     for (int i = 0; i < cartAdapter.getCount(); i++) {
                         cartAdapter.getCheckStatus().put(i, false);
-                        cartAdapter.notifyDataSetChanged();
                     }
+                    cart_buy_money.setText("￥" + "0.0");
                     cartAdapter.setNumberSeclected(0);
+                    cartAdapter.notifyDataSetChanged();
                     Log.e("FragmentCar", "选中数" + cartAdapter.getNumberSeclected() + "");
 
                     //总价格显示
@@ -352,6 +355,7 @@ public class FragmentCar extends Fragment {
                     if (checkstus.get((int) v.getTag())) {
                         Double eachPrice = finalCart.getProduct().estoreprice * number;
                         totalPrice += finalCart.getProduct().estoreprice;
+                        Log.e("ShopingCartFragment", "totalPrice jia" + totalPrice );
                         cart_buy_money.setText("￥" + totalPrice);
 
                     }
@@ -390,6 +394,7 @@ public class FragmentCar extends Fragment {
                             totalPrice -= finalCart1.getProduct().estoreprice;
                         }
                         //有bug
+                        Log.e("ShopingCartFragment", "totalPrice jian" + totalPrice );
                         cart_buy_money.setText("￥" + totalPrice);
                     }
                 }
@@ -405,11 +410,12 @@ public class FragmentCar extends Fragment {
                         Log.e("ShopingCartFragment", "checked");
                         checkstus.put((Integer) buttonView.getTag(), true);
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
+
                         totalPrice += eachPrice;
-                        cart_buy_money.setText(totalPrice + "￥");
+                        Log.e("ShopingCartFragment", "totalPrice"+totalPrice);
+                        cart_buy_money.setText( "￥"+totalPrice);
                         Log.e("ShopingCartFragment", "选中个数" + cartAdapter.getNumberSeclected());
                         if (numberSeclected == cartAdapter.getCount()) {//判端当前选中个数书否是总个数，是让全选按钮选中
-
                             check_all.setChecked(true);
                         }
                     } else if (!isChecked && position == (int) buttonView.getTag()) {
@@ -417,7 +423,8 @@ public class FragmentCar extends Fragment {
                         numberSeclected--;
                         checkstus.put((Integer) buttonView.getTag(), false);
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
-                        totalPrice -= eachPrice;
+                         totalPrice -= eachPrice;
+                        Log.e("ShopingCartFragment", "totalPrice2"+totalPrice);
                         cart_buy_money.setText("￥" + totalPrice);
                         if (check_all.isChecked()) {
                             check_all.setChecked(false);

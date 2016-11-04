@@ -426,10 +426,10 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.subbt://商品数减一
-                if(Integer.parseInt(edt.getText().toString().trim())>0){
+                if(Integer.parseInt(edt.getText().toString().trim())>1){
                     edt.setText((Integer.parseInt(edt.getText().toString().trim())-1)+"");
                 }else {
-                    edt.setText("0");
+                    edt.setText("1");
                     btn_addcart.setEnabled(true);
                     btn_buy_now.setEnabled(true);
                 }

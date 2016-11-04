@@ -6,15 +6,6 @@ import java.util.Map;
 
 public class InsertOrderBean {
 	Integer estoreId;
-
-	public Integer getEstoreId() {
-		return estoreId;
-	}
-
-	public void setEstoreId(Integer estoreId) {
-		this.estoreId = estoreId;
-	}
-
 	Integer userId;//�û�id
 	Integer addressId;//��ַid
 	double totalPrice;//�ܼ۸�
@@ -25,7 +16,15 @@ public class InsertOrderBean {
 
 	public  InsertOrderBean(){
 
+	}public Integer getEstoreId() {
+		return estoreId;
 	}
+
+	public void setEstoreId(Integer estoreId) {
+		this.estoreId = estoreId;
+	}
+
+
 
 	public InsertOrderBean(Integer userId, Integer addressId, double totalPrice, Map<Product.Products, Integer> details) {
 		super();

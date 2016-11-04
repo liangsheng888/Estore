@@ -35,7 +35,7 @@ public class SystemInformActivity extends Activity {
     private TextView tv_title;
     private TextView tv_content;
     private ListView lv;
-   final List<Message> messagelist=new ArrayList<Message>();
+    final List<Message> messagelist=new ArrayList<Message>();
     private BaseAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class SystemInformActivity extends Activity {
             tv_time = ((TextView) view.findViewById(R.id.tv_time));
              Message  mList=  messagelist.get(position);
             tv_title.setText(mList.getTitle());
-            tv_time.setText(mList.getTime());
+            //tv_time.setText(mList.getTime());
             tv_content.setText(mList.getContent());
 
             return view;
@@ -119,8 +119,8 @@ public class SystemInformActivity extends Activity {
             public void onSuccess(String result) {
                 Log.i("SystemInform=======","result"+result);
                 Gson gson=new Gson();
-             Message mm=gson.fromJson(result,Message.class);
-                messagelist.addAll(mm.list);
+               Message mm=gson.fromJson(result,Message.class);
+               // messagelist.addAll(mm.list);
                 if(myAdapter==null){
                     myAdapter=new Myaddapter();
                 }else {

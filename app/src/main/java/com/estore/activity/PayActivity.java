@@ -49,15 +49,19 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
         // 必须先初始化
         BP.init(this, APPID);
         Intent intent=getIntent();
-        String name=   intent.getStringExtra("proName");
-        String description=  intent.getStringExtra("description");
-        Double price= intent.getDoubleExtra("price",0.0);
+        String name_=   intent.getStringExtra("proName");
+        String description_=  intent.getStringExtra("description");
+        Double price_= intent.getDoubleExtra("price",0.0);
 
 
         // 初始化BmobPay对象,可以在支付时再初始化
-        ((TextView) findViewById(R.id.name)).setText(name);
-        ((TextView) findViewById(R.id.price)).setText("￥"+price);
-        ((TextView) findViewById(R.id.body)).setText(description);
+
+        name=(TextView) findViewById(R.id.name);
+        //name.setText(name_)
+
+        price=(TextView)findViewById(R.id.price);
+        price.setText("￥"+price_);
+        body= (TextView) findViewById(R.id.body);body.setText(description_);
         order = (EditText) findViewById(R.id.order);
         go = (Button) findViewById(R.id.go);
         type = (RadioGroup) findViewById(R.id.type);
@@ -196,18 +200,18 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
         switch (checkedId) {
             case R.id.alipay:
                 // 以下仅为控件操作，可以略过
-                name.setVisibility(View.VISIBLE);
-                price.setVisibility(View.VISIBLE);
-                body.setVisibility(View.VISIBLE);
-                order.setVisibility(View.GONE);
+                //((TextView) findViewById(R.id.name)).setVisibility(View.VISIBLE);
+               // ((TextView) findViewById(R.id.price)).setVisibility(View.VISIBLE);
+                //body.setVisibility(View.VISIBLE);
+               // order.setVisibility(View.GONE);
                 go.setText("支付宝支付");
                 break;
             case R.id.wxpay:
                 // 以下仅为控件操作，可以略过
-                name.setVisibility(View.VISIBLE);
-                price.setVisibility(View.VISIBLE);
-                body.setVisibility(View.VISIBLE);
-                order.setVisibility(View.GONE);
+               // name.setVisibility(View.VISIBLE);
+               // price.setVisibility(View.VISIBLE);
+              //  body.setVisibility(View.VISIBLE);
+              //  order.setVisibility(View.GONE);
                 go.setText("微信支付");
                 break;
             case R.id.query:
