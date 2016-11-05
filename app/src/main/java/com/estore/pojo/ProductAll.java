@@ -53,7 +53,7 @@ public class ProductAll implements Serializable{
 	private Date auct_begin;//竞拍开始时间
 	private Date auct_end;//结束时间
 	private String shcoolname;
-	
+
 	private String auct_name;//拍卖商品
 	private Double auct_bid_price;//每次最少加价价格
 

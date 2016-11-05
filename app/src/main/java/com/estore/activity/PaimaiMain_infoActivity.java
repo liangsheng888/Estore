@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,13 +27,20 @@ import android.widget.Toast;
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
 import com.estore.pojo.AuctListActivityBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import bean.Product;
 
 
 public class PaimaiMain_infoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,10 +57,14 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     Boolean shoucangFlag = false;
     AuctListActivityBean.Auct auct;
     private CheckBox btn_paimai_tixing;
+    List<Product> productlist = new ArrayList<Product>();
 //        private MyBinder minder;
 /*PaiMaiTiXingService paiMaiTiXingService;
     PaiMaiTiXingService.MyBinder myBinder;*/
     MyConn myConn;
+    private ListView lv_paimai_jilu;
+    private TextView tv_paimai_jilu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +75,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
-
+        getPaiMaiJuluData();
 //        String flag=intent.getIntExtra()
         getCollectData();
         System.out.println("(intent.getExtras()----------------------" + auct);
@@ -130,12 +142,12 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         tv_beginprice = ((TextView) findViewById(R.id.tv_beginprice));
         tv_auct_name = ((TextView) findViewById(R.id.tv_auct_name));
-        tv_auct_username = ((TextView) findViewById(R.id.tv_auct_username));
+//        tv_auct_username = ((TextView) findViewById(R.id.tv_auct_username));
         tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
         tv_beginprice.setText(auct.auct_minprice + "¥");
         tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name + "手机");
-        tv_auct_username.setText("拍卖人：" + auct.auct_id);
+//        tv_auct_username.setText("拍卖人：" + auct.auct_id);
         //判断拍卖时间
         String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 
@@ -164,12 +176,15 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         btn_paimai_bidding.setOnClickListener(this);
         btn_paimai_shoucang.setOnClickListener(this);
         btn_paimai_tixing.setOnClickListener(this);
+        tv_paimai_jilu.setOnClickListener(this);
     }
 
     private void initView() {
         btn_paimai_bidding = ((CheckBox) findViewById(R.id.btn_paimai_bidding));
         btn_paimai_shoucang = ((CheckBox) findViewById(R.id.btn_paimai_shoucang));
         btn_paimai_tixing = ((CheckBox) findViewById(R.id.btn_paimai_tixing));
+        lv_paimai_jilu = ((ListView) findViewById(R.id.lv_paimai_jilu));
+        tv_paimai_jilu = ((TextView) findViewById(R.id.tv_paimai_jilu));
     }
 
     @Override
@@ -181,6 +196,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 bundle.putSerializable("auct",auct);
                 intent.putExtras(bundle);
                startActivity(intent);
+                break;
+            case R.id.tv_paimai_jilu:
+                intent = new Intent(getApplicationContext(), PaiMaiJiluActivity.class);
+                bundle = new Bundle();
+                bundle.putSerializable("auctjilu", auct);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.btn_paimai_shoucang:
                 if (btn_paimai_shoucang.isChecked()) {
@@ -284,7 +306,89 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             }
         });
     }
+    private class ListAdapter extends BaseAdapter {
+        private TextView tv_auct_time;
+        private TextView tv_bidd_price;
+        private TextView tv_paimai_name;
+        private TextView tv_paimai_julu_order;
+//        private TextView tv_nowprice;
 
+        @Override
+        public int getCount() {
+
+            return productlist.size() >= 3 ? 3 : productlist.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = View.inflate(PaimaiMain_infoActivity.this,  R.layout.paimai_jillu_item, null);
+            tv_paimai_name = ((TextView) convertView.findViewById(R.id.tv_paimai_name));
+            tv_bidd_price = ((TextView) convertView.findViewById(R.id.tv_bidd_price));
+            tv_auct_time = ((TextView) convertView.findViewById(R.id.tv_bid_time));
+            tv_paimai_julu_order = ((TextView) convertView.findViewById(R.id.tv_paimai_julu_order));
+//             tv_nowprice = ((TextView) convertView.findViewById(R.id.tv_nowprice));
+            Product product = productlist.get(position);
+            System.out.println("product" + product + "======productlist" + productlist);
+            tv_paimai_name.setText(product.getAuct_name());
+            tv_bidd_price.setText(product.getAuct_bid_price() + "");
+            String bidTime=new SimpleDateFormat("yyyy-MM-dd HH:ss:mm").format(product.getAuct_end());
+            tv_auct_time.setText(bidTime+ "");
+
+            tv_paimai_julu_order.setText("第"+(position+1)+"名");
+
+            return convertView;
+        }
+    }
+    private void getPaiMaiJuluData() {
+        RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiJiLuDataServlet");
+        requestParams.addBodyParameter("auct_id", auct.auct_id);
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("拍卖记录数据" + result);
+                Gson gson = new Gson();
+
+                List<Product> newlist = new ArrayList<Product>();
+                Type type = new TypeToken<List<Product>>() {
+                }.getType();
+                newlist = gson.fromJson(result, type);
+                productlist.clear();
+                productlist.addAll(newlist);
+                System.out.println("获得传过来的数据productlist"+productlist);
+                System.out.println("productlist.size()" + productlist.size());
+                tv_paimai_jilu.setText(productlist.size() + "条");
+               ListAdapter listAdapter = new ListAdapter();
+                lv_paimai_jilu.setAdapter(listAdapter);
+                listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("拍卖记录错误" + ex.getMessage());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
     public void getCollectData() {
 
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getShouCangData");

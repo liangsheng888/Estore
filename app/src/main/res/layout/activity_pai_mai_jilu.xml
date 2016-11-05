@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_pai_mai_jilu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.estore.activity.PaiMaiJiluActivity">
+    <TextView
+        android:id="@+id/tv_paimai_jilu_hande"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#b5ff0000"
+        android:text="拍卖记录"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#dfd8d8"/>
+    <ListView
+        android:layout_below="@id/tv_paimai_jilu_hande"
+        android:id="@+id/lv_paimai_jilu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+</RelativeLayout>

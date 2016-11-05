@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -103,7 +102,7 @@ public class SystemInformActivity extends Activity {
             tv_time = ((TextView) view.findViewById(R.id.tv_time));
              Message  mList=  messagelist.get(position);
             tv_title.setText(mList.getTitle());
-            tv_time.setText(mList.getTime());
+//            tv_time.setText(mList.getTime());
             tv_content.setText(mList.getContent());
 
             return view;
@@ -120,7 +119,7 @@ public class SystemInformActivity extends Activity {
                 Log.i("SystemInform=======","result"+result);
                 Gson gson=new Gson();
              Message mm=gson.fromJson(result,Message.class);
-                messagelist.addAll(mm.list);
+//                messagelist.addAll(mm.list);
                 if(myAdapter==null){
                     myAdapter=new Myaddapter();
                 }else {
