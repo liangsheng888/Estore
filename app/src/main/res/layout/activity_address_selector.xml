@@ -65,6 +65,7 @@
     android:layout_height="50dp"
     android:background="#f00"
     android:text="确 定"
+    android:textColor="#fff"
     />
 
 </LinearLayout>

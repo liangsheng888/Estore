@@ -52,10 +52,17 @@ public class ViewPagerActivity extends AppCompatActivity {
         pictureLists.add(1,R.drawable.start_i2);
         pictureLists.add(2,R.drawable.start_i3);
         pictureLists.add(3,R.drawable.start_i4);
-        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
-
+        //  String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
+/*
         Log.e("ViewPagerActivity",HttpUrlUtils.HTTP_URL+"getAllProducts?page=1");
-         final  RequestParams  params = new RequestParams(url);
+         final  RequestParams  params = new RequestParams(url);*/
+        ((TextView) findViewById(R.id.tv_liji)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_tiaozhuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,12 +120,14 @@ public class ViewPagerActivity extends AppCompatActivity {
                 ((ImageView) findViewById(id[position])).setImageResource(R.drawable.point_red);
                 ((ImageView) findViewById(id[prePosition])).setImageResource(R.drawable.point_gray);
                 prePosition=position;
+                ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.VISIBLE);
                 if(position==id.length-1){
                     //如果是最后一页，将按钮设置显示
-                    ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.VISIBLE);
+
+                  ((TextView) findViewById(R.id.tv_liji)).setVisibility(View.VISIBLE);
                 }
                 else{
-                    ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.GONE);
+                    //((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.GONE);
                 }
             }
             @Override
@@ -131,7 +140,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private void initView(){
         vp = ((ViewPager) this.findViewById(R.id.vp));
         btn_tiaozhuan= ((TextView) findViewById(R.id.btn_tiaoguo));
-        pb_login=(ProgressBar)findViewById(R.id.pb_login);
+        //pb_login=(ProgressBar)findViewById(R.id.pb_login);
     }
 
     public class MyPagerAdapter extends PagerAdapter{

@@ -306,10 +306,11 @@
             android:id="@+id/btn_add_pro"
             android:background="#f00"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="确认发布"
             android:layout_margin="10dp"
             android:textSize="24dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
 

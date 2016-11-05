@@ -38,8 +38,10 @@
             android:textColor="#000"
             android:text="绝对的超值" />
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
             <TextView
             android:id="@+id/price"
                 android:layout_toRightOf="@id/tv_zhi"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
                 android:layout_marginLeft="10dp"
@@ -74,28 +76,35 @@
             android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginTop="15sp"
+
+            android:gravity="center">
 
             <RadioButton
+                android:gravity="center_vertical"
                 android:id="@+id/alipay"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
+                android:button="@null"
+                android:drawableTop="@drawable/alipay"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:checked="true"
                 android:text="支付宝" />
 
             <RadioButton
                 android:id="@+id/wxpay"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
+                android:button="@null"
+                android:layout_marginLeft="40dp"
+                android:drawableTop="@drawable/wechat"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="微信" />
 
             <RadioButton
                 android:id="@+id/query"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:visibility="gone"
                 android:text="查询" />
         </RadioGroup>
 
@@ -106,7 +115,8 @@
             android:background="#f00"
             android:textSize="24sp"
             android:textColor="#fff"
-            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"
             android:text="支付宝支付" />
 
         <Button

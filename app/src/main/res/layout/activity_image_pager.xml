@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".ViewPagerActivity">
+    android:background="#fff">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
@@ -63,16 +62,17 @@
             android:layout_marginRight="20dp"
             android:src="@drawable/point_gray" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/pb_login"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:visibility="gone"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal|bottom" />
-
+    
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/tv_liji"
+    android:gravity="center"
+    android:textSize="24sp"
+    android:textColor="#00f"
+    android:layout_marginBottom="20dp"
+    android:visibility="invisible"
+    android:layout_gravity="center_horizontal|bottom"
+    android:text="立即体验"/>
 
 </FrameLayout>

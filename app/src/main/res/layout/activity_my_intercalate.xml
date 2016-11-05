@@ -8,16 +8,16 @@
     tools:context="com.estore.activity.MyIntercalateActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#f26522"
+        android:layout_height="50dp"
+        android:background="#f00"
         >
         <ImageView
             android:id="@+id/iv_intercalatereturn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/xiaoyu"
+            android:layout_height="40dp"
+            android:src="@drawable/last_white"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             />
         <TextView
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="我的设置"
             android:textSize="22dp"
+            android:textColor="#fff"
             android:layout_centerInParent="true"
 
             />
@@ -38,14 +39,12 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/rl_perset"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:background="#f7f6f6"
+            android:background="#fff"
             android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_perdataset"
@@ -68,13 +67,11 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:background="#f7f6f6"
+            android:background="#fff"
             android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_treasure1"
@@ -95,13 +92,11 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:background="#f7f6f6"
+            android:background="#fff"
             android:layout_height="40dp">
             <TextView
                 android:id="@+id/tv_treasure2"
@@ -142,8 +137,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="25dp"
-                android:background="#d4d3d3"
+                android:background="#f00"
                 android:text="退出设置"
+                android:textColor="#fff"
                 android:gravity="center"
                 android:textSize="20dp"
                 />

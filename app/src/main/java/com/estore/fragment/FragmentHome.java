@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,8 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private LinearLayout ll_school;
     private LinearLayout ll_city;
     private LinearLayout ll_auct;
+    private ProgressBar progressBar;
+    private TextView tv_jiazai;
 
     Integer orderFlag;
     List<Product.Products> proList=new ArrayList<Product.Products>();
@@ -93,16 +96,20 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private EditText edt_seek;
     private ImageButton search_clear;
     private TextView tv_search;
+    private LinearLayout ll_seek;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
-       // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header);
+        ll_seek = ((LinearLayout) view.findViewById(R.id.ll_seek));
+        progressBar=(ProgressBar)view.findViewById(R.id.progressBar) ;
+        tv_jiazai=(TextView)view.findViewById(R.id.tv_jiazai);
+       // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header)
         edt_seek = ((EditText) view.findViewById(R.id.query));
         search_clear = ((ImageButton) view.findViewById(R.id.search_clear));//
         tv_search = ((TextView) view.findViewById(R.id.tv_search));
-        edt_seek.clearFocus();
+
         push_left_in= AnimationUtils.loadAnimation(getActivity(), R.anim.push_left_in);
         push_right_in=AnimationUtils.loadAnimation(getActivity(), R.anim.push_right_in);
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
@@ -139,6 +146,10 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
             @Override
             public void onSuccess(String result) {
+                progressBar.setVisibility(View.GONE);
+                tv_jiazai.setVisibility(View.GONE);
+                ll_seek.setVisibility(View.VISIBLE);
+
                 page++;
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
@@ -197,6 +208,9 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
+
+        edt_seek.clearFocus();
+
         //搜索
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override

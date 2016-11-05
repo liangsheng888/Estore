@@ -118,13 +118,12 @@ public class FragmentCar extends Fragment {
                     for (int i = 0; i < cartAdapter.getCount(); i++) {
                         cartAdapter.getCheckStatus().put(i, false);
                     }
-                    cart_buy_money.setText("￥" + "0.0");
+                    totalPrice = 0.0;
+                    cart_buy_money.setText("￥" + totalPrice);
                     cartAdapter.setNumberSeclected(0);
                     cartAdapter.notifyDataSetChanged();
                     Log.e("FragmentCar", "选中数" + cartAdapter.getNumberSeclected() + "");
-
                     //总价格显示
-
                     // cart_buy_money.setText("￥"+0);//有bug
                 }
 
@@ -285,7 +284,7 @@ public class FragmentCar extends Fragment {
             this.car_numbers = car_numbers;
         }
 
-        private int numberSeclected;//记录当前选中个数
+        private int numberSeclected=0;//记录当前选中个数
 
         public int getNumberSeclected() {
             return numberSeclected;
@@ -392,10 +391,11 @@ public class FragmentCar extends Fragment {
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
                         if (number > 0) {
                             totalPrice -= finalCart1.getProduct().estoreprice;
+                            cart_buy_money.setText("￥" + totalPrice);
                         }
                         //有bug
                         Log.e("ShopingCartFragment", "totalPrice jian" + totalPrice );
-                        cart_buy_money.setText("￥" + totalPrice);
+
                     }
                 }
             });
