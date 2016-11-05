@@ -35,20 +35,23 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager vp;
     private ProgressBar pb_login;
     private TextView btn_tiaozhuan;
-    SharedPreferences sp=sp=getSharedPreferences("User",MODE_APPEND);;
+    SharedPreferences sp;
 
     private List<Integer> pictureLists=new ArrayList<Integer>();
     private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3, R.id.iv_flash4};
     private int prePosition=0;//向导页默认位置
+    Boolean isFirst=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(sp.getInt("isFirst",0)!=0){
+        sp=getSharedPreferences("User",MODE_APPEND);
+        if(sp.getBoolean("isFirst",true)){
+            setContentView(R.layout.activity_image_pager);
+        }else {
             Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
             startActivity(intent);
-            return;
         }
-        setContentView(R.layout.activity_image_pager);
+
 
 
         initView();
@@ -68,7 +71,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tv_liji)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp.edit().putInt("isFirst",1).commit();
+                sp.edit().putBoolean("isFirst",false).commit();
                 Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -77,7 +80,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pb_login.setVisibility(View.VISIBLE);
-                sp.edit().putInt("isFirst",1).commit();
+                sp.edit().putBoolean("isFirst",false).commit();
                 Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
                 startActivity(intent);
                /* x.http().get(params, new Callback.CacheCallback<String>() {
