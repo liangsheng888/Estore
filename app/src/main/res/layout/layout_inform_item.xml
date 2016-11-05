@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
     <RelativeLayout
         android:id="@+id/rl_xiaoxixi"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
-<ImageView
-    android:id="@+id/xiaoxi"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/emoji_78"
-    android:padding="20dp"
-    />
-        <TextView
-            android:id="@+id/tv_title"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/tongzhi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标题"
-            android:textSize="20dp"
-            android:layout_toRightOf="@id/xiaoxi"
-            android:layout_marginTop="20dp"
-            />
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="内容......."
-            android:textSize="18dp"
-            android:layout_below="@id/tv_title"
-            android:layout_toRightOf="@id/xiaoxi"
+            android:src="@mipmap/erhuo"/>
 
-            />
-<TextView
-    android:id="@+id/tv_time"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="时间"
-    android:layout_alignParentRight="true"
-    android:padding="20dp"
-
-
-    />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标题"
+                android:textSize="20dp"
+                android:layout_alignTop="@+id/tongzhi"
+                android:layout_toRightOf="@+id/tongzhi"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tongzhi"
+                android:layout_marginLeft="15dp"
+                android:text="内容......."
+                android:textSize="18dp"
+                android:ellipsize="end"
+                android:lines="4"
+                android:layout_below="@id/tv_title" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                 />
 
 
     </RelativeLayout>

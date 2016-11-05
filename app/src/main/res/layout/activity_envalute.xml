@@ -49,7 +49,7 @@
             android:id="@+id/tv_xing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
 
             android:text="描述相符"/>
         <ImageView
@@ -132,7 +132,7 @@
             android:id="@+id/tv_mai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
 
             android:text="交易评分"/>
         <CheckBox
@@ -218,7 +218,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#f00"
-        android:textSize="28sp"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="#fff"

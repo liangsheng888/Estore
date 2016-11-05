@@ -54,6 +54,7 @@
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="60dp"
+             android:background="#f7f5f5"
              android:layout_alignParentBottom="true">
             <ImageButton
                 android:id="@+id/rb_home"

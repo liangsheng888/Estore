@@ -83,7 +83,6 @@ public class AllOrdersFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
-        ;
         user.setUserId(sp.getInt("userId",0));
         getData();
 

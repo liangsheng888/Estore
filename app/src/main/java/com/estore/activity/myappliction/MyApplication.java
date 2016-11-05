@@ -7,6 +7,7 @@ import android.content.Context;
 import org.xutils.BuildConfig;
 import org.xutils.x;
 
+import c.b.BP;
 import io.rong.imkit.RongIM;
 
 /**
@@ -16,6 +17,7 @@ public class MyApplication extends Application{
 
     private static Context content;
     private Integer messageNum;
+
 
     @Override
     public void onCreate() {
@@ -27,6 +29,7 @@ public class MyApplication extends Application{
         //初始化xutils
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
+
 
 
         /**

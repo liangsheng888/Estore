@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的订单"
-            android:textSize="24dp"
+            android:textSize="22dp"
             android:textColor="#fff"
             android:layout_centerInParent="true"
 
@@ -41,7 +41,7 @@
         android:id="@+id/rg_grouporder"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:background="#fff"
         >

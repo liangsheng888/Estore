@@ -2,6 +2,7 @@ package com.estore.activity;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,14 +35,25 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager vp;
     private ProgressBar pb_login;
     private TextView btn_tiaozhuan;
+    SharedPreferences sp;
 
     private List<Integer> pictureLists=new ArrayList<Integer>();
     private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3, R.id.iv_flash4};
     private int prePosition=0;//向导页默认位置
+    Boolean isFirst=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_pager);
+        sp=getSharedPreferences("User",MODE_APPEND);
+        if(sp.getBoolean("isFirst",true)){
+            setContentView(R.layout.activity_image_pager);
+        }else {
+            Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+
+
         initView();
         ininData();
     }
@@ -52,14 +64,23 @@ public class ViewPagerActivity extends AppCompatActivity {
         pictureLists.add(1,R.drawable.start_i2);
         pictureLists.add(2,R.drawable.start_i3);
         pictureLists.add(3,R.drawable.start_i4);
-        String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
-
+        //  String url = HttpUrlUtils.HTTP_URL+"getAllProducts?page=1";
+/*
         Log.e("ViewPagerActivity",HttpUrlUtils.HTTP_URL+"getAllProducts?page=1");
-         final  RequestParams  params = new RequestParams(url);
+         final  RequestParams  params = new RequestParams(url);*/
+        ((TextView) findViewById(R.id.tv_liji)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putBoolean("isFirst",false).commit();
+                Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_tiaozhuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //pb_login.setVisibility(View.VISIBLE);
+                sp.edit().putBoolean("isFirst",false).commit();
                 Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
                 startActivity(intent);
                /* x.http().get(params, new Callback.CacheCallback<String>() {
@@ -113,12 +134,14 @@ public class ViewPagerActivity extends AppCompatActivity {
                 ((ImageView) findViewById(id[position])).setImageResource(R.drawable.point_red);
                 ((ImageView) findViewById(id[prePosition])).setImageResource(R.drawable.point_gray);
                 prePosition=position;
+                ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.VISIBLE);
                 if(position==id.length-1){
                     //如果是最后一页，将按钮设置显示
-                    ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.VISIBLE);
+
+                  ((TextView) findViewById(R.id.tv_liji)).setVisibility(View.VISIBLE);
                 }
                 else{
-                    ((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.GONE);
+                    //((TextView) findViewById(R.id.btn_tiaoguo)).setVisibility(View.GONE);
                 }
             }
             @Override
@@ -131,7 +154,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private void initView(){
         vp = ((ViewPager) this.findViewById(R.id.vp));
         btn_tiaozhuan= ((TextView) findViewById(R.id.btn_tiaoguo));
-        pb_login=(ProgressBar)findViewById(R.id.pb_login);
+        //pb_login=(ProgressBar)findViewById(R.id.pb_login);
     }
 
     public class MyPagerAdapter extends PagerAdapter{

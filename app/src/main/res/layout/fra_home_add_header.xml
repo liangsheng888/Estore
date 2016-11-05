@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="校园"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_sc2"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="学弟学妹皆欢喜"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_school_GridView_home"
@@ -83,13 +83,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="18sp"
+                android:textSize="16sp"
 
                 android:text="同城"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textSize="14sp"
                 android:text="闲置物品充分用"/>
             <ImageView
                 android:layout_marginTop="5dp"
@@ -124,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="拍卖"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -192,12 +193,13 @@
                 android:layout_marginTop="10dp"
                 android:text="电脑"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView"
+                android:textSize="14sp"
                 android:text="性能高才得劲" />
 
             <ImageView
@@ -227,12 +229,13 @@
                 android:layout_marginTop="10dp"
                 android:text="笔记本"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView2"
+                android:textSize="14sp"
                 android:text="玩转低价潮流" />
 
             <ImageView
@@ -272,12 +275,13 @@
                 android:layout_marginTop="10dp"
                 android:text="手机"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView1"
+                android:textSize="14sp"
                 android:text="性价比高,更实惠" />
 
             <ImageView
@@ -315,12 +319,13 @@
                 android:layout_marginTop="10dp"
                 android:text="手表"
                 android:textColor="#000"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView3"
+                android:textSize="14sp"
                 android:text="精品商品,放心购" />
         </RelativeLayout>
     </LinearLayout>

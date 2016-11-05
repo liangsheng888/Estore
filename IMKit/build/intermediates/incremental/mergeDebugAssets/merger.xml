@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\project_process\1103\Estore\IMKit\src\main\assets"/><source path="E:\project_process\1103\Estore\IMKit\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\project_process\1103\Estore\IMKit\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\project_process\1105\Estore\IMKit\src\main\assets"/><source path="E:\project_process\1105\Estore\IMKit\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\project_process\1105\Estore\IMKit\src\debug\assets"/></dataSet></merger>

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical" >
     <RelativeLayout 
         android:id="@+id/frag_allorders_item_rl"
@@ -83,12 +84,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_item_right"
             android:layout_alignParentRight="true"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#f00"
             android:text="button right"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_item_left"
+            android:textColor="#fff"
+            android:background="#f00"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/btn_item_right"
             android:text="button left"/>
 
@@ -100,6 +108,6 @@
     <View
 
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:background="#EEEEEE"/>
 </LinearLayout>

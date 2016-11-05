@@ -36,6 +36,7 @@ import com.estore.pojo.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -94,6 +95,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
     private TextView prod_info_tv_prod_comment;//更多
     private int page=1;
     private TextView prod_info_tv_prod_record;
+    private TextView prod_info_tv_detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
 //        tv_product_detail.setText(pp.description);
         prod_info_tv_pnum.setText("库存:"+pp.pnum);
         tv_product_detail_city.setText(pp.proaddress);
+        prod_info_tv_detail.setText(pp.description);
         if(pp.schoolname!=null){
             tv_product_detail_schools.setText(pp.schoolname);}
         //fanhui
@@ -296,6 +299,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
         tv_product_detail_city =(TextView)findViewById(R.id.tv_product_detail_city);
         tv_product_detail_schools=(TextView)findViewById(R.id.tv_product_detail_schools);
         title_bar_reddot=(TextView)findViewById(R.id.title_bar_reddot);
+        prod_info_tv_detail = ((TextView) findViewById(R.id.prod_info_tv_detail));
 //        cb_guanzhu=(CheckBox) this.findViewById(R.id.cb_guanzhu);
         btn_addcart=(Button) this.findViewById(R.id.btn_addcart);
         btn_buy_now=(Button) this.findViewById(R.id.btn_buy_now);
@@ -426,10 +430,10 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case R.id.subbt://商品数减一
-                if(Integer.parseInt(edt.getText().toString().trim())>0){
+                if(Integer.parseInt(edt.getText().toString().trim())>1){
                     edt.setText((Integer.parseInt(edt.getText().toString().trim())-1)+"");
                 }else {
-                    edt.setText("0");
+                    edt.setText("1");
                     btn_addcart.setEnabled(true);
                     btn_buy_now.setEnabled(true);
                 }
