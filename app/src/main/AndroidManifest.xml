@@ -67,11 +67,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".activity.MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- Required SDK核心功能 -->
         <activity
@@ -183,11 +183,11 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ListViewActivity" />
         <activity android:name=".activity.ViewPagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.AddProActivity" />
         <activity android:name=".activity.ProductInfoActivity" />
@@ -215,7 +215,7 @@
         <activity android:name=".activity.EdtAddressActivity" />
         <activity android:name=".activity.ModifyMyAddProductActivity" />
         <activity android:name=".activity.MainComputerActivity" />
-
+<activity android:name=".activity.PaiMaiJiluActivity"></activity>
         <activity android:name=".activity.PaiMAIbidding_bidActivity" />
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
