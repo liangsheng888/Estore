@@ -9,11 +9,16 @@ public class Message implements Serializable{
     private  Integer userId;
     private  String title;
     private  String content;
+    private String time;
 
-    public Message(String content, String title, Integer userId) {
+
+    public Message(){}
+
+    public Message(String content, String title, Integer userId,String time) {
         this.content = content;
         this.title = title;
         this.userId = userId;
+        this.time=time;
     }
 
     public String getContent() {
@@ -38,5 +43,24 @@ public class Message implements Serializable{
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "userId=" + userId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", time='" + time + '\'' +
+                '}';
     }
 }
