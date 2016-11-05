@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff"
+    android:background="#fcf5f5"
     tools:context="com.estore.activity.RegisterActivity">
 
 
@@ -12,40 +12,33 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+       <!-- <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/iv_back_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/xiaoyu" />
+            android:src="@drawable/xiaoyu" />-->
         <TextView
             android:id="@+id/tv_login_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="登录"
             android:layout_marginRight="10dp"
-            android:textSize="24dp"
-            android:textColor="#c7c7c7"
+            android:textSize="20dp"
+            android:textColor="#000"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp"
             />
-
-
-
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        ></RelativeLayout>
-    <RelativeLayout
         android:id="@+id/rl_registerline"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_centerInParent="true"
+         android:layout_margin="10dp"
         >
         <EditText
             android:id="@+id/et_nickname"
@@ -124,27 +117,19 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        >
         <TextView
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_margin="10dp"
             android:id="@+id/register_button"
             android:layout_width="match_parent"
+            android:layout_below="@id/rl_registerline"
             android:layout_height="50dp"
             android:text="注   册"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:gravity="center"
             android:textColor="#fff"
             android:background="#ee0000"
             />
 
-    </RelativeLayout>
 
-
-
-</LinearLayout>
+</RelativeLayout>
 

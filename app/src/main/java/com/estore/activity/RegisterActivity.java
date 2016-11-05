@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         etNickName = ((EditText) findViewById(R.id.et_nickname));
         etRegEmail = ((EditText) findViewById(R.id.et_regemail));
-        ivBackRegister = ((ImageView) findViewById(R.id.iv_back_register));
+        //ivBackRegister = ((ImageView) findViewById(R.id.iv_back_register));
         tvLoginRegister = ((TextView) findViewById(R.id.tv_login_register));
         etPassword = ((EditText) findViewById(R.id.et_password));
         etOncePassword = ((EditText) findViewById(R.id.et_oncepassword));

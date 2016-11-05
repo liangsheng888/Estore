@@ -99,6 +99,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
     private ImageButton search_clear;
     private TextView tv_search;
     private LinearLayout ll_seek;
+    private LinearLayout jiazai;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         edt_seek = ((EditText) view.findViewById(R.id.query));
         search_clear = ((ImageButton) view.findViewById(R.id.search_clear));//
         tv_search = ((TextView) view.findViewById(R.id.tv_search));
-
+        jiazai = ((LinearLayout) view.findViewById(R.id.ll_jiazai));
         push_left_in= AnimationUtils.loadAnimation(getActivity(), R.anim.push_left_in);
         push_right_in=AnimationUtils.loadAnimation(getActivity(), R.anim.push_right_in);
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
@@ -148,8 +149,10 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
             @Override
             public void onSuccess(String result) {
+
                 progressBar.setVisibility(View.GONE);
                 tv_jiazai.setVisibility(View.GONE);
+                jiazai.setVisibility(View.GONE);
                 ll_seek.setVisibility(View.VISIBLE);
                 edt_seek.setCursorVisible(false);//
 
