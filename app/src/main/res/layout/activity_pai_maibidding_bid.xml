@@ -31,6 +31,7 @@
 
 
     <TextView
+        android:id="@+id/tv_nowprice"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:drawableLeft="@drawable/nowprice"
@@ -160,14 +161,22 @@
             android:textSize="23sp" />
 
         <TextView
+            android:id="@+id/tv_paimai_jilu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_toRightOf="@+id/tv_bid_paimai"
             android:drawableEnd="@drawable/ic_arrow_right2"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="丨  10条"
+            android:text="丨  0条"
             android:textSize="23sp" />
+        <ListView
+            android:id="@+id/lv_paimai_jilu"
+            android:layout_below="@id/tv_paimai_jilu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ListView>
     </RelativeLayout>
 
 

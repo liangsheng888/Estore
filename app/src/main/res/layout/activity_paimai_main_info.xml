@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".PaimaiMain_infoActivity">
+    tools:context=".activity.PaimaiMain_infoActivity">
 
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -146,17 +146,26 @@
                 android:id="@+id/rl_paimai_jilu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_bid_paimai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:drawableLeft="@drawable/cuizi_befor"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="拍卖记录"
+                    android:textSize="23sp" />
 
                 <TextView
                     android:id="@+id/tv_paimai_jilu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:drawableLeft="@drawable/cuizi_befor"
-                    android:gravity="center"
-                    android:padding="2dp"
-                    android:text="拍卖记录:"
-                    android:textColor="#0e101a"
-                    android:textSize="20sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_toRightOf="@+id/tv_bid_paimai"
+                    android:drawableEnd="@drawable/ic_arrow_right2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="丨  0条"
+                    android:textSize="23sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -167,65 +176,66 @@
                     android:text="0条"
                     android:textColor="#41434e"
                     android:textSize="20sp" />
+                <ListView
+                    android:id="@+id/lv_paimai_jilu"
+                    android:layout_below="@id/tv_paimai_jilu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="210dp">
+
+                </ListView>
 
             </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eee"
-                android:orientation="vertical">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#eee"-->
+                <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/tv_auct_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_auct_username"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="8dp"-->
+                    <!--android:text="拍卖人"-->
+                    <!--android:textSize="20sp" />-->
+                <!---->
+
+            <!--</RelativeLayout>-->
 
 
-                    android:drawableRight="@drawable/liaotian"
-                    android:padding="8dp"
-                    android:text="拍卖人"
-                    android:textSize="20sp" />
 
-            </RelativeLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_auct_name_liuyan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tv_auct_newprice"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:text="留言"-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!--android:textSize="20sp" />-->
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_auct_name_liuyan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_auct_newprice"
-                android:paddingLeft="10dp"
-                android:text="留言"
-
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/lv_auct_name_liuyan"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/dikang_bg"
-                android:divider="#000"
-                android:dividerHeight="1px"
-                android:padding="50dp"
+            <!--<TextView-->
+                <!--android:id="@+id/lv_auct_name_liuyan"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="250dp"-->
+                <!--android:background="@drawable/dikang_bg"-->
+                <!--android:divider="#000"-->
+                <!--android:dividerHeight="1px"-->
+                <!--android:padding="50dp"-->
 
                 >
 
-            </TextView>
+            <!--</TextView>-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp"
-                android:background="@drawable/corners_bg"
-                android:text="拍品推荐"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="52dp"-->
+                <!--android:background="@drawable/corners_bg"-->
+                <!--android:text="拍品推荐"-->
+                <!--android:textSize="20sp" />-->
         </LinearLayout>
     </ScrollView>
 
