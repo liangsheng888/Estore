@@ -1,5 +1,6 @@
 package com.estore.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -149,6 +151,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 progressBar.setVisibility(View.GONE);
                 tv_jiazai.setVisibility(View.GONE);
                 ll_seek.setVisibility(View.VISIBLE);
+                edt_seek.setCursorVisible(false);//
 
                 page++;
                 Gson gson = new Gson();
@@ -209,7 +212,17 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         Log.e("home", "onActivityCreated");
         getData();//网络拿数据
 
-        edt_seek.clearFocus();
+        edt_seek.setOnTouchListener(new View.OnTouchListener() {
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                    edt_seek.setCursorVisible(true);// 再次点击显示光标
+                }
+                return false;
+            }
+        });
 
         //搜索
         tv_search.setOnClickListener(new View.OnClickListener() {
