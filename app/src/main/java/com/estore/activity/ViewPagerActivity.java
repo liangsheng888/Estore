@@ -2,6 +2,7 @@ package com.estore.activity;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager vp;
     private ProgressBar pb_login;
     private TextView btn_tiaozhuan;
+    SharedPreferences sp=sp=getSharedPreferences("User",MODE_APPEND);;
 
     private List<Integer> pictureLists=new ArrayList<Integer>();
     private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3, R.id.iv_flash4};
@@ -41,7 +43,14 @@ public class ViewPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(sp.getInt("isFirst",0)!=0){
+            Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
+            startActivity(intent);
+            return;
+        }
         setContentView(R.layout.activity_image_pager);
+
+
         initView();
         ininData();
     }
@@ -59,6 +68,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tv_liji)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sp.edit().putInt("isFirst",1).commit();
                 Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -67,6 +77,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pb_login.setVisibility(View.VISIBLE);
+                sp.edit().putInt("isFirst",1).commit();
                 Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
                 startActivity(intent);
                /* x.http().get(params, new Callback.CacheCallback<String>() {
