@@ -36,6 +36,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ProgressBar pb_login;
     private TextView btn_tiaozhuan;
     SharedPreferences sp;
+    private TextView tv_liji;
 
     private List<Integer> pictureLists=new ArrayList<Integer>();
     private int[] id={R.id.iv_flash1,R.id.iv_flash2,R.id.iv_flash3, R.id.iv_flash4};
@@ -50,11 +51,9 @@ public class ViewPagerActivity extends AppCompatActivity {
         }else {
             Intent intent = new Intent(ViewPagerActivity.this, MainActivity.class);
             startActivity(intent);
+            return;
         }
-
-
-
-        initView();
+       initView();
         ininData();
     }
 
@@ -68,7 +67,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 /*
         Log.e("ViewPagerActivity",HttpUrlUtils.HTTP_URL+"getAllProducts?page=1");
          final  RequestParams  params = new RequestParams(url);*/
-        ((TextView) findViewById(R.id.tv_liji)).setOnClickListener(new View.OnClickListener() {
+        tv_liji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sp.edit().putBoolean("isFirst",false).commit();
@@ -153,6 +152,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     }
     private void initView(){
         vp = ((ViewPager) this.findViewById(R.id.vp));
+        tv_liji=(TextView) findViewById(R.id.tv_liji);
         btn_tiaozhuan= ((TextView) findViewById(R.id.btn_tiaoguo));
         //pb_login=(ProgressBar)findViewById(R.id.pb_login);
     }
