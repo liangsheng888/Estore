@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -70,11 +71,15 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 if(fragment1==null)
                     fragment1 = new PublishEStoreFragment();
                 newFragment = fragment1;
+                rb_estorepublish.setBackgroundColor(Color.RED);
+                rb_auctionpublish.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.rb_auctionpublish:
                 if(fragment2==null)
                     fragment2 = new PublishAuctionFragment();
                 newFragment = fragment2;
+                rb_auctionpublish.setBackgroundColor(Color.RED);
+                rb_estorepublish.setBackgroundColor(Color.WHITE);
 
                 break;
         }
@@ -87,6 +92,7 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
         // 设置一个默认值
         if(fragment == null){
             fragment1 = fragment = new PublishEStoreFragment();
+            rb_estorepublish.setBackgroundColor(Color.RED);
         }
         FragmentManager fm = this.getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

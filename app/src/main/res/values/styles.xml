@@ -83,8 +83,8 @@
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:textColor">#fafafa</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!-- 我的按钮横排 -->

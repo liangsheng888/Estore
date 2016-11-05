@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:text="上传拍卖信息"
                 android:textColor="#fff"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <LinearLayout

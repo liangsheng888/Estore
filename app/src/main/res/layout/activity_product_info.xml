@@ -155,6 +155,18 @@
                 android:text="商品名称"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/prod_info_tv_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#EEEEEE"
+                android:maxLines="2"
+                android:minLines="1"
+                android:padding="8dp"
+                android:text="商品描述"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
 
             <!--<ImageView
                 android:id="@+id/cb_guanzhu"

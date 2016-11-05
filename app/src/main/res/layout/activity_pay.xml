@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:gravity="center"
 
             android:background="#2e2a2a"
@@ -113,9 +113,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#f00"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:padding="5dp"
+           android:layout_margin="20dp"
             android:layout_marginTop="15dp"
             android:text="支付宝支付" />
 

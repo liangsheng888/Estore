@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/iv_audetial_return"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@drawable/last_white"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="宝贝详情"
-            android:textSize="26dp"
+            android:textSize="24dp"
             android:textColor="#fff"
             android:layout_centerInParent="true"
             />
