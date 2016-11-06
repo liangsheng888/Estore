@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.R;
@@ -45,11 +46,13 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
     private int  orderFlag;
     private ArrayList<Product.Products> proList=new ArrayList<>();
     private ImageView iv_person_fanhui;
+    private LinearLayout ll_jiazai_person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_computer);
+        ll_jiazai_person = ((LinearLayout) findViewById(R.id.ll_jiazai_person));
         iv_person_fanhui=(ImageView)findViewById(R.id.iv_person_fanhui);
         iv_person_fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +235,7 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
         x.http().get(requestParams2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_person.setVisibility(View.GONE);
                 page++;
 
                 Gson gson = new Gson();

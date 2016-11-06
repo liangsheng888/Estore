@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
     private int duration=1000;
     private Animation push_left_in,push_right_in;
     private Animation slide_top_to_bottom,slide_bottom_to_top;
+    private LinearLayout ll_jiazai_school;
 
 
     //    private ListView actualListView;
@@ -74,6 +76,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         computer = ((TextView) view.findViewById(R.id.tv_computer));
         computertext = ((TextView) view.findViewById(R.id.tv_computertext));
         others = ((TextView) view.findViewById(R.id.tv_others));
+        ll_jiazai_school = ((LinearLayout) view.findViewById(R.id.ll_jiazai_school));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         sameCity.setInterface(this);
         sameCity.setLayoutAnimation(getAnimationController());
@@ -133,6 +136,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
             @Override
             public void onSuccess(String result) {
                 Log.i("cc",result);
+                ll_jiazai_school.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
                 mListItems.clear();

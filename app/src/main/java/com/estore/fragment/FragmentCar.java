@@ -70,6 +70,7 @@ public class FragmentCar extends Fragment {
     private SwipeMenuListView cartListView;
     private int number = 0;
     private List<Integer> cartIdLists=new ArrayList<>();
+    private LinearLayout ll_jiazai_cart;
 
     @Nullable
     @Override
@@ -81,6 +82,7 @@ public class FragmentCar extends Fragment {
         cart_buy_money = (TextView) view.findViewById(R.id.cart_buy_money);
         check_all = (CheckBox) view.findViewById(R.id.checkall);
         cart_jiesuan = (TextView) view.findViewById(R.id.cart_jiesuan);
+        ll_jiazai_cart = ((LinearLayout) view.findViewById(R.id.ll_jiazai_cart));
         return view;
     }
 
@@ -236,6 +238,7 @@ public class FragmentCar extends Fragment {
 
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_cart.setVisibility(View.GONE);
                 Log.e("FragmentCar", "result" + result);
                 Gson gson = new Gson();
                 List<Cart> list = gson.fromJson(result, new TypeToken<List<Cart>>() {

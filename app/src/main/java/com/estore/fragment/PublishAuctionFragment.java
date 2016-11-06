@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
     private LoadListView estore;
     private SharedPreferences sp;
     final List<ListMyAuctionActivityBean.ProImag> pubList=new ArrayList<ListMyAuctionActivityBean.ProImag>();
+    private LinearLayout ll_jiazai_auct;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -69,6 +72,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_publish_auction,null);
         lv_auctionlv = ((LoadListView) view.findViewById(R.id.lv_auctionlv));
+        ll_jiazai_auct = ((LinearLayout) view.findViewById(R.id.ll_jiazai_auct));
         lv_auctionlv.setInterface(this);
         lv_auctionlv.setLayoutAnimation(getAnimationController());
 
@@ -181,6 +185,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
             @Override
             public void onSuccess(String result) {
                 Log.i("PublishhAuctionFragment",result);
+                ll_jiazai_auct.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 ListMyAuctionActivityBean prolist=gson.fromJson(result, ListMyAuctionActivityBean.class);
                 pubList.clear();

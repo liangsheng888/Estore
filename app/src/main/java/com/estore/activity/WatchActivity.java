@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.R;
@@ -55,11 +56,13 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
     private int duration=1000;
     private Animation push_left_in,push_right_in;
     private Animation slide_top_to_bottom,slide_bottom_to_top;
+    private LinearLayout ll_jiazai_watch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch);
+        ll_jiazai_watch = ((LinearLayout) findViewById(R.id.ll_jiazai_watch));
 
         iv_watch_fanhui = (ImageView) findViewById(R.id.iv_watch_fanhui);
         iv_watch_fanhui.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +237,7 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
         x.http().get(requestParams2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_watch.setVisibility(View.GONE);
                 page++;
 
                 Gson gson = new Gson();
