@@ -317,6 +317,8 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                     case 0:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"08"+"mmss").format(new Date());
                         endTime= new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
+                        dialogInterface.dismiss();
+
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -326,7 +328,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                     case 1:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
                         endTime= new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
-//
+  dialogInterface.dismiss();
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -336,7 +338,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                     case 2:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
                         endTime= new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
-//
+                        dialogInterface.dismiss();
 //
 // try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
@@ -347,7 +349,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                     case 3:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
                         endTime= new SimpleDateFormat("yyyyMMdd"+"24"+"mmss").format(new Date());
-//
+                        dialogInterface.dismiss();
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -379,7 +381,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 //                auct_type = tv_auct_type.getText().toString();
                 tv_auct_type.setText(typeStr);
                 auct_type = tv_auct_type.getText().toString();
-
+                dialogInterface.dismiss();
             }
         });
         builder.show();
