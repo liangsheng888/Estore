@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#f00"
+        android:background="#2e2929"
         >
         <ImageView
             android:id="@+id/iv_mypublish_return"

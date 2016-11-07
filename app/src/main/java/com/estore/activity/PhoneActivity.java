@@ -33,6 +33,7 @@ import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PhoneActivity extends AppCompatActivity implements LoadListView.ILoadListener {
@@ -44,7 +45,7 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
     private GridView gv_jingpin;
     private int page=1;
     private int  orderFlag;
-    private ArrayList<Product.Products> proList=new ArrayList<>();
+    private LinkedList<Product.Products> proList=new LinkedList<>();
     private ImageView iv_dingdan_fanhui;
     private LinearLayout ll_jiazai_phone;
 
@@ -241,7 +242,7 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
                 page++;
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
-                proList.clear();
+                //proList.clear();
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();
