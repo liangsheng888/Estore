@@ -182,7 +182,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         switch (view.getId()) {
             case R.id.tv_all:
                 orderFlag=0;
-                all.setBackgroundColor(Color.RED);
+//                all.setBackgroundColor(Color.RED);
+                all.setBackgroundResource(R.drawable.corners_bg2);
                 phone.setBackgroundColor(Color.WHITE);
                 computer.setBackgroundColor(Color.WHITE);
                 computertext.setBackgroundColor(Color.WHITE);
@@ -191,7 +192,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
             case R.id.tv_phone:
                 orderFlag=1;
                 all.setBackgroundColor(Color.WHITE);
-                phone.setBackgroundColor(Color.RED);
+//                phone.setBackgroundColor(Color.RED);
+                phone.setBackgroundResource(R.drawable.corners_bg2);
                 computer.setBackgroundColor(Color.WHITE);
                 computertext.setBackgroundColor(Color.WHITE);
                 others.setBackgroundColor(Color.WHITE);
@@ -201,7 +203,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
 
                 all.setBackgroundColor(Color.WHITE);
                 phone.setBackgroundColor(Color.WHITE);
-                computer.setBackgroundColor(Color.RED);
+//                computer.setBackgroundColor(Color.RED);
+                computer.setBackgroundResource(R.drawable.corners_bg2);
                 computertext.setBackgroundColor(Color.WHITE);
                 others.setBackgroundColor(Color.WHITE);
                 break;
@@ -210,7 +213,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                 all.setBackgroundColor(Color.WHITE);
                 phone.setBackgroundColor(Color.WHITE);
                 computer.setBackgroundColor(Color.WHITE);
-                computertext.setBackgroundColor(Color.RED);
+//                computertext.setBackgroundColor(Color.RED);
+                computertext.setBackgroundResource(R.drawable.corners_bg2);
                 others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_others:
@@ -219,7 +223,8 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                 phone.setBackgroundColor(Color.WHITE);
                 computer.setBackgroundColor(Color.WHITE);
                 computertext.setBackgroundColor(Color.WHITE);
-                others.setBackgroundColor(Color.RED);
+//                others.setBackgroundColor(Color.RED);
+                others.setBackgroundResource(R.drawable.corners_bg2);
                 break;
             case R.id.iv_sort:
                 initPopupWindow(prosort);

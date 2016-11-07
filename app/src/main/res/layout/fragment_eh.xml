@@ -32,7 +32,7 @@
                 android:text="@string/tab_1"
                 android:background="@drawable/corners_bg1"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/rb_schools"
@@ -43,7 +43,7 @@
                 android:text="@string/tab_2"
                 android:background="@drawable/corners_bg1"
                 android:textColor="@color/lightwhite"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
