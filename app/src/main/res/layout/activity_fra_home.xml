@@ -297,9 +297,10 @@
     <LinearLayout
         android:id="@+id/ll_seek"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="65dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_alignParentTop="true"
         android:layout_columnWeight="4"
 
         android:background="#f00">
@@ -356,6 +357,7 @@
         android:id="@+id/lv_jingpin"
         android:clickable="true"
         android:focusable="true"
+       android:layout_below="@id/ll_seek"
         android:dividerHeight="8dp"
         android:touchscreenBlocksFocus="true"
         android:layout_width="match_parent"

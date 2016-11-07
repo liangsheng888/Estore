@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
@@ -43,9 +45,9 @@ import java.util.List;
 public class SameCityFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
     private LoadListView sameCity;
-    private BaseAdapter mAdapter;
+    private BaseAdapter mAdapter=new MyAdapter();
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
-    Integer page=0;
+    Integer page=1;
     private TextView phone;
     private TextView computer;
     private TextView computertext;
@@ -79,6 +81,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         ll_jiazai_school = ((LinearLayout) view.findViewById(R.id.ll_jiazai_school));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         sameCity.setInterface(this);
+        sameCity.setAdapter(mAdapter);
         sameCity.setLayoutAnimation(getAnimationController());
         getSameCityProductInfo();
         return view;
@@ -113,6 +116,14 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         computertext.setOnClickListener(this);
         others.setOnClickListener(this);
         prosort.setOnClickListener(this);
+
+        all.setBackgroundColor(Color.WHITE);
+        phone.setBackgroundColor(Color.WHITE);
+        computer.setBackgroundColor(Color.WHITE);
+        computertext.setBackgroundColor(Color.WHITE);
+        others.setBackgroundColor(Color.WHITE);
+
+
         sameCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -130,23 +141,29 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         String url= HttpUrlUtils.HTTP_URL+"getSameCityProducts";
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         Log.i("cc",url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("cc",result);
+                page++;
                 ll_jiazai_school.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
-                mListItems.clear();
+
+                if(product.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
+                    sameCity.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
-                sameCity.setAdapter(mAdapter);
+
             }
 
             @Override
@@ -173,18 +190,49 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         switch (view.getId()) {
             case R.id.tv_all:
                 orderFlag=0;
+//                all.setBackgroundColor(Color.RED);
+                all.setBackgroundResource(R.drawable.corners_bg2);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_phone:
                 orderFlag=1;
+                all.setBackgroundColor(Color.WHITE);
+//                phone.setBackgroundColor(Color.RED);
+                phone.setBackgroundResource(R.drawable.corners_bg2);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computer:
                 orderFlag=2;
+
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+//                computer.setBackgroundColor(Color.RED);
+                computer.setBackgroundResource(R.drawable.corners_bg2);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computertext:
                 orderFlag=3;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+//                computertext.setBackgroundColor(Color.RED);
+                computertext.setBackgroundResource(R.drawable.corners_bg2);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_others:
                 orderFlag=4;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+//                others.setBackgroundColor(Color.RED);
+                others.setBackgroundResource(R.drawable.corners_bg2);
                 break;
             case R.id.iv_sort:
                 initPopupWindow(prosort);
@@ -279,7 +327,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                     orderFlag=6;
                 }
 
-                getSameCityProductInfo();
+                 getSameCityProductInfo();
             }
         });
     }

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -73,6 +74,7 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
         orderFlag= intent.getIntExtra("orderFlag",-1);
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setAdapter(adapter);
         lv_jingpin.setLayoutAnimation(getAnimationController());
         getData();
 
@@ -248,13 +250,18 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
                // proList.clear();
+                if(pro.list.size()<=0){
+                    Toast.makeText(MainComputerActivity.this,"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 }else{
                     adapter.notifyDataSetChanged();
                 }
-                lv_jingpin.setAdapter(adapter);
+
 
                 Log.i("cc",proList+"");
 

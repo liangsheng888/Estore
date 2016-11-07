@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
@@ -42,9 +44,9 @@ import java.util.List;
 public class SchoolsFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
     private LoadListView schools;
-    private BaseAdapter mAdapter;
+    private BaseAdapter mAdapter=new MyAdapter();
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
-    Integer page=0;
+    Integer page=1;
     //    private ListView actualListView;
     private TextView phone;
     private TextView computer;
@@ -72,6 +74,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         ll_jiazai_schools = ((LinearLayout) view.findViewById(R.id.ll_jiazai_schools));
         schools.setInterface(this);
+        schools.setAdapter(mAdapter);
         schools.setLayoutAnimation(getAnimationController());
         getSchoolProductInfo();
 //        mAdapter=new MyAdapter();
@@ -103,7 +106,11 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        all.setBackgroundColor(Color.WHITE);
+        phone.setBackgroundColor(Color.WHITE);
+        computer.setBackgroundColor(Color.WHITE);
+        computertext.setBackgroundColor(Color.WHITE);
+        others.setBackgroundColor(Color.WHITE);
         popContents.add("价格从高到低");
         popContents.add("价格从低到高");
         all.setOnClickListener(this);
@@ -129,24 +136,29 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         String url= HttpUrlUtils.HTTP_URL+"getSchoolProducts";
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         Log.i("cc",url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                page++;
                 ll_jiazai_schools.setVisibility(View.GONE);
                 Log.i("cc",result);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
-                mListItems.clear();
+                if(product.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
+                    schools.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
 
-                schools.setAdapter(mAdapter);
+
 
             }
 
@@ -174,18 +186,48 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         switch (view.getId()) {
             case R.id.tv_all:
                 orderFlag=0;
+//                all.setBackgroundColor(Color.RED);
+                all.setBackgroundResource(R.drawable.corners_bg2);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_phone:
                 orderFlag=1;
+                all.setBackgroundColor(Color.WHITE);
+//                phone.setBackgroundColor(Color.RED);
+                phone.setBackgroundResource(R.drawable.corners_bg2);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computer:
                 orderFlag=2;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+//                computer.setBackgroundColor(Color.RED);
+                computer.setBackgroundResource(R.drawable.corners_bg2);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computertext:
                 orderFlag=3;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+//                computertext.setBackgroundColor(Color.RED);
+                computertext.setBackgroundResource(R.drawable.corners_bg2);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_others:
                 orderFlag=4;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+//                others.setBackgroundColor(Color.RED);
+                others.setBackgroundResource(R.drawable.corners_bg2);
                 break;
             case R.id.iv_sort:
                 initPopupWindow(prosort);

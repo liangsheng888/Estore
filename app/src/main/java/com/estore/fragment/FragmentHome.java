@@ -106,10 +106,14 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
         ll_seek = ((LinearLayout) view.findViewById(R.id.ll_seek));
+
         progressBar=(ProgressBar)view.findViewById(R.id.progressBar) ;
         tv_jiazai=(TextView)view.findViewById(R.id.tv_jiazai);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header)
         edt_seek = ((EditText) view.findViewById(R.id.query));
+        edt_seek.setCursorVisible(false);
+        edt_seek.clearFocus();
+
         search_clear = ((ImageButton) view.findViewById(R.id.search_clear));//
         tv_search = ((TextView) view.findViewById(R.id.tv_search));
         jiazai = ((LinearLayout) view.findViewById(R.id.ll_jiazai));
@@ -118,6 +122,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
         slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setAdapter(adapter);
         lv_jingpin.setSelection(0);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
@@ -153,7 +158,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 progressBar.setVisibility(View.GONE);
                 tv_jiazai.setVisibility(View.GONE);
                 jiazai.setVisibility(View.GONE);
-                ll_seek.setVisibility(View.VISIBLE);
+               // ll_seek.setVisibility(View.VISIBLE);
                 edt_seek.setCursorVisible(false);//
 
                 page++;
@@ -163,11 +168,8 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 Log.e("MainActivity", "pro------"+pro.toString());
 
                 if(pro.list.size()<=0){
-                    View view=View.inflate(getActivity(),R.layout.footer_layout,null);
-                    ((LinearLayout)view.findViewById(R.id.load_layout)).setVisibility(View.GONE);
-                    ((LinearLayout)view.findViewById(R.id.load_nothing)).setVisibility(View.VISIBLE);
-
-
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
                 }
                // list.clear();
                 list.addAll(pro.list);
@@ -175,6 +177,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 if(adapter==null){
                     Log.e("MainActivity", "adapter==null");
                     adapter = new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 }else {
 
                     Log.e("MainActivity", "adapter!=null");
@@ -182,7 +185,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 }
                // gridView.setAdapter(adapter);
 
-                lv_jingpin.setAdapter(adapter);
+
 
             }
 

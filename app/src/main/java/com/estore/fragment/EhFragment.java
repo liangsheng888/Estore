@@ -67,8 +67,10 @@ public class EhFragment extends Fragment{
     private void InitTextView(View parentView) {
         tvSameCity = (TextView) parentView.findViewById(R.id.rb_samecity);
         tvSchools = (TextView) parentView.findViewById(R.id.rb_schools);
-        tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
-        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+//        tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
+//        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+        tvSameCity.setBackgroundResource(R.drawable.corners_bg2);
+        tvSchools.setBackgroundResource(R.drawable.corners_bg1);
         tvSameCity.setOnClickListener(new MyOnClickListener(0));
         tvSchools.setOnClickListener(new MyOnClickListener(1));
     }
@@ -127,20 +129,24 @@ public class EhFragment extends Fragment{
                     if (currIndex == 1) {
                         animation = new TranslateAnimation(position_one, offset, 0, 0);
                         tvSchools.setTextColor(resources.getColor(R.color.white));
-                        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+//                        tvSchools.setBackgroundColor(resources.getColor(R.color.lightwhite));
+                        tvSchools.setBackgroundResource(R.drawable.corners_bg1);
                     }
                     tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
-                    tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
+//                    tvSameCity.setBackgroundColor(resources.getColor(R.color.white));
+                    tvSameCity.setBackgroundResource(R.drawable.corners_bg2);
 
                     break;
                 case 1:
                     if (currIndex == 0) {
                         animation = new TranslateAnimation(offset, position_one, 0, 0);
                         tvSameCity.setTextColor(resources.getColor(R.color.white));
-                        tvSameCity.setBackgroundColor(resources.getColor(R.color.lightwhite));
+//                        tvSameCity.setBackgroundColor(resources.getColor(R.color.lightwhite));
+                        tvSameCity.setBackgroundResource(R.drawable.corners_bg1);
                     }
                     tvSchools.setTextColor(resources.getColor(R.color.lightwhite));
-                    tvSchools.setBackgroundColor(resources.getColor(R.color.white));
+//                    tvSchools.setBackgroundColor(resources.getColor(R.color.white));
+                    tvSchools.setBackgroundResource(R.drawable.corners_bg2);
                     break;
             }
             currIndex = arg0;

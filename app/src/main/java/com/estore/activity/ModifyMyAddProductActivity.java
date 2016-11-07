@@ -364,6 +364,8 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
             params.addBodyParameter("proDescription",URLEncoder.encode(proDescription,"utf-8"));
             params.addBodyParameter("address",URLEncoder.encode(address,"utf-8"));
             params.addBodyParameter("prowhere",flag+"");
+            params.addBodyParameter("id",list.getId()+"");
+
             params.addBodyParameter("schoolname",URLEncoder.encode(schoolname,"utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
