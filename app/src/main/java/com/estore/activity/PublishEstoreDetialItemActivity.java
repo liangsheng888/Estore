@@ -91,7 +91,7 @@ public class PublishEstoreDetialItemActivity extends AppCompatActivity{
         Log.e("estoreimage",bundlepro.toString());
         tv_erdetial_represent.setText(bundlepro.description);//描述
         tv_erdetial_proname.setText(bundlepro.name);//名字
-        tv_erdetial_pronumber.setText(bundlepro.pnum+"");
+        tv_erdetial_pronumber.setText("库存:"+bundlepro.pnum);
         tv_erdetial_proprice.setText(bundlepro.estoreprice+"");//价格
         Log.i("youfei", bundlepro.getYoufei()+"");
         if(bundlepro.getYoufei()==0){
