@@ -127,21 +127,50 @@
                     android:layout_alignParentBottom="true" />
 
             </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
             <TextView
                 android:id="@+id/tv_auct_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_beginprice"
-                android:layout_below="@+id/tv_beginprice"
-                android:background="@drawable/dikang_bg"
+                 android:background="@drawable/dikang_bg"
 
                 android:padding="20dp"
                 android:paddingTop="10dp"
                 android:text="剩余时间"
                 android:textColor="#aa0000ff"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"
+                android:visibility="visible"/>
+            <TextView
+                android:id="@+id/txttime_HH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="3小时"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/txttime_MM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="59分钟"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/txttime_HH"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/txttime_ss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="秒数"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/txttime_MM"
+                android:textSize="20sp"/>
+</RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_paimai_jilu"
                 android:layout_width="match_parent"

@@ -37,21 +37,21 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_upload_aucttitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="标题哦"
-                android:textColor="#000"
-                android:textSize="25sp" />
+            <!--<TextView-->
+            <!--android:id="@+id/tv_upload_aucttitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:text="标题哦"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="25sp" />-->
 
             <EditText
                 android:id="@+id/et_upload_aucttitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:textColor="#000"/>
+                android:hint="请输入标题"
+                android:textColor="#000" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +67,7 @@
                 android:drawableRight="@drawable/auct_upload_phtoe"
                 android:onClick="simpleDialog"
                 android:text="上传图片"
-                android:textColor="#000"
+                android:textColor="#a1000000"
                 android:textSize="20sp" />
 
             <!--<ImageView-->
@@ -101,7 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_gps_gray"
                 android:text="地址"
-                android:textColor="#000"
+                android:textColor="#ba000000"
                 android:textSize="20sp" />
 
             <Spinner
@@ -111,9 +111,9 @@
                 android:layout_alignTop="@+id/tv_auct_dizhi"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/tv_auct_dizhi"
-                android:textColor="#000"
                 android:entries="@array/city"
-                android:popupBackground="#73cac2">
+                android:popupBackground="#73cac2"
+                android:textColor="#000">
 
             </Spinner>
         </LinearLayout>
@@ -124,14 +124,14 @@
             android:background="#f6ffff"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_auct_miaoshu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品描述"
+            <!--<TextView-->
+            <!--android:id="@+id/tv_auct_miaoshu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="商品描述"-->
 
-                android:textColor="#000"
-                android:textSize="20sp" />
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp" />-->
 
 
             <EditText
@@ -143,6 +143,7 @@
                 android:background="@android:drawable/edit_text"
                 android:ellipsize="end"
                 android:gravity="top"
+                android:hint="商品描述："
                 android:textColor="#000" />
         </LinearLayout>
 
@@ -152,15 +153,15 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_auct_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/sp_city"
-                android:text="底价:￥"
-                android:textColor="#000"
-                android:textSize="20sp"
-                />
+            <!--<TextView-->
+            <!--android:id="@+id/tv_auct_price"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/sp_city"-->
+            <!--android:text="底价:￥"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp"-->
+            <!--/>-->
 
             <EditText
                 android:id="@+id/et_auct_price"
@@ -169,10 +170,9 @@
                 android:layout_below="@+id/sp_city"
                 android:layout_toRightOf="@+id/tv_auct_price"
                 android:background="#f5e9e9"
-
-                android:textColorHighlight="#000"
+                android:hint="请输入底价："
                 android:textColor="@color/black"
-                />
+                android:textColorHighlight="#000" />
         </LinearLayout>
 
         <LinearLayout
@@ -188,7 +188,7 @@
                 android:layout_below="@+id/et_auct_price"
                 android:layout_marginTop="15dp"
                 android:text="每次加价"
-                android:textColor="#000"
+                android:textColor="#c0000000"
                 android:textSize="20sp" />
 
             <NumberPicker
@@ -200,9 +200,9 @@
                 android:layout_toRightOf="@+id/tv_auct_meicijiajia"
                 android:background="#744a17"
                 android:focusable="true"
-                android:textColor="#f00"
                 android:focusableInTouchMode="true"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:textColor="#f00" />
         </LinearLayout>
 
         <RelativeLayout
@@ -229,7 +229,6 @@
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/ic_mail_install"
                 android:drawablePadding="3dp"
-                android:drawableRight="@android:drawable/checkbox_off_background"
                 android:padding="10dp"
                 android:text="全国包邮"
                 android:textColor="@android:color/background_dark"
@@ -253,7 +252,7 @@
 
                 android:layout_below="@+id/tv_auct_meicijiajia"
                 android:text="类型"
-                android:textColor="#000"
+                android:textColor="#a7000000"
                 android:textSize="20sp" />
 
 
@@ -267,7 +266,7 @@
                 android:gravity="center"
                 android:onClick="typeOnclick"
                 android:text="点击选择"
-                android:textColor="#000"
+                android:textColor="#b0000000"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -291,7 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="上传的拍次"
-                android:textColor="#000"
+                android:textColor="#a0000000"
                 android:textSize="20sp" />
 
             <TextView
@@ -300,11 +299,11 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_auct_time1"
                 android:drawableRight="@drawable/ic_arrow_right2"
-                android:popupBackground="#a8d1d2"
-                android:textSize="20sp"
-                android:textColor="#000"
                 android:gravity="center"
-                android:onClick="timeOnclick"/>
+                android:onClick="timeOnclick"
+                android:popupBackground="#a8d1d2"
+                android:textColor="#a8000000"
+                android:textSize="20sp" />
 
 
         </RelativeLayout>
