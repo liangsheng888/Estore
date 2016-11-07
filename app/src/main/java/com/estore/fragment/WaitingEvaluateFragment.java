@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,12 +96,14 @@ public class WaitingEvaluateFragment extends Fragment {
     private ListView lv_unEvaluate;
     private SharedPreferences sp;
     private User user = new User();
+    private LinearLayout ll_jiazai_evalute;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_waiting_evaluate, null);
+        ll_jiazai_evalute = ((LinearLayout) view.findViewById(R.id.ll_jiazai_evalute));
         lv_unEvaluate = ((ListView) view.findViewById(R.id.lv_unEvaluate));
         return view;
     }
@@ -130,6 +133,7 @@ public class WaitingEvaluateFragment extends Fragment {
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_evalute.setVisibility(View.GONE);
                 Log.i("WaitingDeliverFragment", "onSuccess: " + result);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Order>>() {

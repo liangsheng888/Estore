@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -69,11 +70,13 @@ public class AllOrdersFragment extends Fragment{
     public static final int REMARK=6;    //已评价
     public static final int UNREMARK=5;//待评价
     public static final int CANCEL=7;//取消订单
+    private LinearLayout ll_jiazai_all;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_all_orders,null);
+        ll_jiazai_all = ((LinearLayout) view.findViewById(R.id.ll_jiazai_all));
         frag_allorders_listview=(ListView) view.findViewById(R.id.frag_allorders_listview);
         return view;
 
@@ -102,6 +105,7 @@ public class AllOrdersFragment extends Fragment{
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_all.setVisibility(View.GONE);
                 Log.i("AllOrdersFragment", "onSuccess: "+result);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<Order>>(){}.getType();

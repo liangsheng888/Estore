@@ -44,12 +44,15 @@ public class PaiMai20Fragment extends Fragment implements LoadListViewPaiMAI.ILo
     TextView tv_paimai_hande_search4;
     TextView tv_paimai_hande_search5;
     private LinearLayout ll_pai_sousuo;
+    private LinearLayout ll_jiazai_8;
+
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pai_mai_changci, null);
         lv_list_paimai = ((LoadListViewPaiMAI) view.findViewById(R.id.lv_list_paimai));
+        ll_jiazai_8 = ((LinearLayout) view.findViewById(R.id.ll_jiazai_8));
         lv_list_paimai.setInterface(this);
        initView(view);
         return view;
@@ -156,6 +159,7 @@ public class PaiMai20Fragment extends Fragment implements LoadListViewPaiMAI.ILo
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_8.setVisibility(View.GONE);
                 System.out.println("========result========" + result + "-------------------------------------");
                 Gson gson = new Gson();
                 AuctListActivityBean bean = gson.fromJson(result, AuctListActivityBean.class);

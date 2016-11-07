@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estore.R;
@@ -35,6 +36,7 @@ import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -50,16 +52,18 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
     private GridView gv_jingpin;
     private int page = 1;
     private int orderFlag;
-    private ArrayList<Product.Products> proList = new ArrayList<>();
+    private LinkedList<Product.Products> proList = new LinkedList<>();
     private ImageView iv_watch_fanhui;
     private int duration=1000;
     private Animation push_left_in,push_right_in;
     private Animation slide_top_to_bottom,slide_bottom_to_top;
+    private LinearLayout ll_jiazai_watch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch);
+        ll_jiazai_watch = ((LinearLayout) findViewById(R.id.ll_jiazai_watch));
 
         iv_watch_fanhui = (ImageView) findViewById(R.id.iv_watch_fanhui);
         iv_watch_fanhui.setOnClickListener(new View.OnClickListener() {
@@ -234,11 +238,12 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
         x.http().get(requestParams2, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_watch.setVisibility(View.GONE);
                 page++;
 
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
-                proList.clear();
+                //proList.clear();
                 proList.addAll(pro.list);
                 if (adapter == null) {
                     adapter = new MyAdapter();

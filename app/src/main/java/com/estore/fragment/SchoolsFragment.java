@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -55,6 +56,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     List<String> popContents=new ArrayList<String>();
     private Animation push_left_in,push_right_in;
     private Animation slide_top_to_bottom,slide_bottom_to_top;
+    private LinearLayout ll_jiazai_schools;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         computertext = ((TextView) view.findViewById(R.id.tv_computertext));
         others = ((TextView) view.findViewById(R.id.tv_others));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
+        ll_jiazai_schools = ((LinearLayout) view.findViewById(R.id.ll_jiazai_schools));
         schools.setInterface(this);
         schools.setLayoutAnimation(getAnimationController());
         getSchoolProductInfo();
@@ -130,6 +134,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_schools.setVisibility(View.GONE);
                 Log.i("cc",result);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -84,12 +85,15 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
     private User user=new User();
     private EditText orderInfo;
     private RadioGroup payType;
+    List<OrderDetail> orderDetails=new ArrayList<>();//订单详情
+    private LinearLayout ll_jiazai_pay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_waiting_pay_money,null);
+        ll_jiazai_pay = ((LinearLayout) view.findViewById(R.id.ll_jiazai_pay));
         lv_unPay = ((ListView) view.findViewById(R.id.lv_unPay));
 
         return  view;
@@ -117,6 +121,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_pay.setVisibility(View.GONE);
                 Log.i("WaitingPayMoneyFragment", "onSuccess: "+result);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<Order>>(){}.getType();
@@ -183,8 +188,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
                             //详情的listview显示商品详情
 
                             //订单购买数量
-                            List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
-                            orderDetails =order.getOrderDetails();
+                            orderDetails.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("WaitingPayMoneyFragment", "orderDetails"+orderDetails.toString());
@@ -265,18 +269,20 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
 
                                 }
                             });
-
                             btnRight.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
                                         case UNPAY:
-                                            Log.i("WaitingPayMoneyFragment", "付款");
+                                             Log.i("WaitingPayMoneyFragment", "付款");
                                             //付款 付款成功后该商品数量减1
-                                            Log.i("WaitingPayMoneyFragment", "onClick: ");
+                                             Log.i("WaitingPayMoneyFragment", "onClick: ");
                                              Intent intent=new Intent(getActivity(),PayActivity.class);
-                                            String proName=order.getOrderDetails().get(position).getProduct().name;
-                                            String description=order.getOrderDetails().get(position).getProduct().description;
+                                            Log.i("WaitingPayMoneyFragment", "onClick: position "+position);
+
+                                           // String proName=order.getOrderDetails().get(position).getProduct().name;
+                                            String proName=orderDetails.get(position).getProduct().name;
+                                            String description=orderDetails.get(position).getProduct().description;
                                             Double price=order.getGoodsTotalPrice();
 
 
@@ -286,7 +292,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
 
                                             startActivity(intent);
 
-                                            subProduct(order.getOrderDetails().get(position).getProduct().id,order.getOrderDetails().get(position).getGoodsNum());
+                                            subProduct(orderDetails.get(position).getProduct().id,orderDetails.get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
                                            // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
 

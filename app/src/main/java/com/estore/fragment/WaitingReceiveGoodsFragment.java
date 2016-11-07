@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,7 +61,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
     public static final int UNREMARK=5;//待评价
     public static final int CANCEL=7;//取消订单
     private ListView lv_unReceive;
-
+    private LinearLayout ll_jiazai_receiver;
 
 
     @Override
@@ -68,6 +69,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_receive_goods,null);
+        ll_jiazai_receiver = ((LinearLayout) view.findViewById(R.id.ll_jiazai_receiver));
         lv_unReceive = ((ListView) view.findViewById(R.id.lv_unReceive));
 
     return view;
@@ -96,6 +98,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 Log.i("WaitingDeliverFragment", "onSuccess: "+result);
+                ll_jiazai_receiver.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<Order>>(){}.getType();
                 List<Order> newOrders=gson.fromJson(result,type);

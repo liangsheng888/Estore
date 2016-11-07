@@ -22,6 +22,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,8 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     User user=new User();
     Integer page=0;
     private SharedPreferences sp;
+    private LinearLayout ll_jiazai_fabu;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,8 +80,9 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getProduct();
+
         View view=inflater.inflate(R.layout.fragment_publish_estore,null);
+        ll_jiazai_fabu = ((LinearLayout) view.findViewById(R.id.ll_jiazai_fabu));
         lv_publishest= ((LoadListView) view.findViewById(R.id.lv_publishest));
         lv_publishest.setInterface(this);
         lv_publishest.setLayoutAnimation(getAnimationController());
@@ -120,6 +124,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     //显示
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getProduct();
         //adapter=new myAdapter();
 
 
@@ -251,6 +256,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_fabu.setVisibility(View.GONE);
                 Log.e("PublishEStoreFragment","result"+result);
                 Gson gson=new Gson();
                 MyPublishActivityBean  probean=gson.fromJson(result,MyPublishActivityBean.class);

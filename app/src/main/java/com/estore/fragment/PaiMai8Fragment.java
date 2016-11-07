@@ -46,6 +46,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
     TextView tv_paimai_hande_search5;
     View view;
     private LinearLayout ll_pai_sousuo;
+    private LinearLayout ll_jiazai_8;
 
     @Nullable
     @Override
@@ -53,6 +54,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pai_mai_changci, null);
         lv_list_paimai = ((LoadListViewPaiMAI) view.findViewById(R.id.lv_list_paimai));
+        ll_jiazai_8 = ((LinearLayout) view.findViewById(R.id.ll_jiazai_8));
         lv_list_paimai.setInterface(this);
         ininView(view);
         ininEven();
@@ -194,6 +196,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                ll_jiazai_8.setVisibility(View.GONE);
 
                 System.out.println("========result========" + result + "-------------------------------------");
                 Gson gson = new Gson();

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class WaitingDeliverFragment extends Fragment {
     private User user=new User();
 
     private ListView lv_unDeliver;
+    private LinearLayout ll_jiazai_deliver;
 
 
     @Override
@@ -73,6 +75,7 @@ public class WaitingDeliverFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_waiting_deliver, null);
+        ll_jiazai_deliver = ((LinearLayout) view.findViewById(R.id.ll_jiazai_deliver));
         lv_unDeliver = ((ListView) view.findViewById(R.id.lv_unDeliver));
         return view;
     }
@@ -101,6 +104,7 @@ public class WaitingDeliverFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 Log.i("WaitingDeliverFragment", "onSuccess: "+result);
+                ll_jiazai_deliver.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Type type=new TypeToken<List<Order>>(){}.getType();
                 List<Order> newOrders=gson.fromJson(result,type);
