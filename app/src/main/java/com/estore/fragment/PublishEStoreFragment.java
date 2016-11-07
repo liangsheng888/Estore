@@ -210,6 +210,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     @Override
     public void onStart() {
         super.onStart();
+        getProduct();
     }
     //重新开始
     @Override
@@ -300,6 +301,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
 
 
 }

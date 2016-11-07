@@ -3,6 +3,7 @@ package com.estore.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 
 import com.estore.R;
 
+import com.estore.activity.EnvaluteActivity;
+import com.estore.activity.PayActivity;
 import com.estore.httputils.CommonAdapter;
 
 import com.estore.httputils.GetUserIdByNet;
@@ -53,6 +56,7 @@ public class AllOrdersFragment extends Fragment{
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
     private SharedPreferences sp;
     private User user=new User();
+    List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
 
     CommonAdapter<Order> orderApater;//适配器
  /*	 1 待付款
@@ -172,7 +176,7 @@ public class AllOrdersFragment extends Fragment{
                             //详情的listview显示商品详情
 
                             //订单购买数量
-                            List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
+
                             orderDetails =order.getOrderDetails();
 
                             int totalNum=0;//订单中商品的总数量
@@ -260,9 +264,28 @@ public class AllOrdersFragment extends Fragment{
                                 public void onClick(View v) {
                                     switch (order.getGoodsOrderState().getGoodsOrderStateId()){
                                         case UNPAY:
-                                            Log.i("OrderAllFragment", "付款");
-                                            //付款
-                                            Log.i("OrderAllFragment", "onClick: ");
+                                            Log.i("WaitingPayMoneyFragment", "付款");
+                                            //付款 付款成功后该商品数量减1
+                                            Log.i("WaitingPayMoneyFragment", "onClick: ");
+                                            Intent intent=new Intent(getActivity(),PayActivity.class);
+                                            Log.i("WaitingPayMoneyFragment", "onClick: position "+position);
+
+                                            // String proName=order.getOrderDetails().get(position).getProduct().name;
+                                            String proName=orderDetails.get(position).getProduct().name;
+                                            String description=orderDetails.get(position).getProduct().description;
+                                            Double price=order.getGoodsTotalPrice();
+
+
+                                            intent.putExtra("proName",proName);
+                                            intent.putExtra("description",description);
+                                            intent.putExtra("price",price);
+
+                                            startActivity(intent);
+
+                                            subProduct(orderDetails.get(position).getProduct().id,orderDetails.get(position).getGoodsNum());
+                                            //更新订单状态，卖家显示已付款，卖家显示发货
+                                            // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
+
                                             break;
                                         case UNRECEIVE:
                                             //确认收货，
@@ -302,6 +325,18 @@ public class AllOrdersFragment extends Fragment{
 
                                             break;
                                         case REMARK://删除订单
+                                            Log.e("********","订单详情"+orderDetails.toString()+"");
+                                            Log.e("********","position"+ position+"");
+                                            Log.e("********",orderDetails.get(position).getProduct().toString());
+                                            Log.i("WaitingDeliverFragment", "评论");
+                                            Intent intent2 = new Intent(getActivity(), EnvaluteActivity.class);
+                                            intent2.putExtra("orderId", order.getGoodsOrderId());
+                                            intent2.putExtra("productId", orderDetails.get(position).getProduct().id);
+                                            intent2.putExtra("position",position);
+
+                                            intent2.putExtra("estore_id",orderDetails.get(position).getProduct().user_id);//商家Id
+                                            startActivity(intent2);
+                                            break;
                                         case CANCEL://交易关闭
                                             Log.i("OrderAllFragment", "删除订单");
                                             orders.remove(position);
@@ -455,5 +490,37 @@ public class AllOrdersFragment extends Fragment{
         if(!hidden){
             getData();
         }
+    }
+    private void subProduct(int productId, int goodsNum) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"subProductServlet");
+        rp.addBodyParameter("productId",productId+"");
+        rp.addBodyParameter("goodsNum",goodsNum+"");
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("WaitingPayMoneyFragment", "更新商品数量成功 ");
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
     }
 }

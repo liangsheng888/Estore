@@ -371,7 +371,7 @@ String nickname, String userSex, String user_address,  String user_phone, String
                 tv_nicknamecontent = ((TextView) findViewById(R.id.tv_nicknamecontent));//昵称
                 tv_nicknamecontent.setText(userinfo.getNickname());
                 tv_persexcontent = ((TextView) findViewById(R.id.tv_persexcontent));//性别
-                tv_persexcontent.setText(userinfo.getUserSex().equals(0) ? "男" : "女");
+                tv_persexcontent.setText(userinfo.getUserSex().equals("0") ? "男" : "女");
                 tv_deliveryadress = ((TextView) findViewById(R.id.tv_deliveryadress));//地址
                 tv_deliveryadress.setText(userinfo.getUser_address());
                 tv_phonenumber = ((TextView) findViewById(R.id.tv_phonenumber));//手机号
