@@ -297,9 +297,9 @@
     <LinearLayout
         android:id="@+id/ll_seek"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:gravity="center"
         android:layout_columnWeight="4"
 
         android:background="#f00">
@@ -316,6 +316,7 @@
             <EditText
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
