@@ -85,6 +85,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
         ll_jiazai_fabu = ((LinearLayout) view.findViewById(R.id.ll_jiazai_fabu));
         lv_publishest= ((LoadListView) view.findViewById(R.id.lv_publishest));
         lv_publishest.setInterface(this);
+        lv_publishest.setAdapter(adapter);
         lv_publishest.setLayoutAnimation(getAnimationController());
         //跳到详细页
         lv_publishest.setOnItemClickListener(new AdapterView.OnItemClickListener() {

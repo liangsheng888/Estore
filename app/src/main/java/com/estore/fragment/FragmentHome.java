@@ -106,11 +106,14 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
         ll_seek = ((LinearLayout) view.findViewById(R.id.ll_seek));
-        edt_seek.setCursorVisible(false);
+
         progressBar=(ProgressBar)view.findViewById(R.id.progressBar) ;
         tv_jiazai=(TextView)view.findViewById(R.id.tv_jiazai);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header)
         edt_seek = ((EditText) view.findViewById(R.id.query));
+        edt_seek.setCursorVisible(false);
+        edt_seek.clearFocus();
+
         search_clear = ((ImageButton) view.findViewById(R.id.search_clear));//
         tv_search = ((TextView) view.findViewById(R.id.tv_search));
         jiazai = ((LinearLayout) view.findViewById(R.id.ll_jiazai));

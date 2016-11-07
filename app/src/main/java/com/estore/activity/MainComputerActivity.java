@@ -73,6 +73,7 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
         orderFlag= intent.getIntExtra("orderFlag",-1);
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setAdapter(adapter);
         lv_jingpin.setLayoutAnimation(getAnimationController());
         getData();
 
@@ -251,10 +252,11 @@ public class MainComputerActivity extends AppCompatActivity implements LoadListV
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 }else{
                     adapter.notifyDataSetChanged();
                 }
-                lv_jingpin.setAdapter(adapter);
+
 
                 Log.i("cc",proList+"");
 

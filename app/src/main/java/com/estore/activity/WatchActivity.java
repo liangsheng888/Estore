@@ -81,6 +81,7 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setInterface(WatchActivity.this);
         lv_jingpin.setLayoutAnimation(getAnimationController());
+        lv_jingpin.setAdapter(adapter);
         getData();
 
 
@@ -244,13 +245,15 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
                 //proList.clear();
-                proList.addAll(pro.list);
+                // proList.addAll(pro.list);
+                proList.addAll(proList.size(),pro.list);
                 if (adapter == null) {
                     adapter = new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 } else {
                     adapter.notifyDataSetChanged();
                 }
-                lv_jingpin.setAdapter(adapter);
+
 
                 Log.i("cc", proList + "");
 

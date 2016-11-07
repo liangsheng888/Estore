@@ -80,6 +80,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         ll_jiazai_school = ((LinearLayout) view.findViewById(R.id.ll_jiazai_school));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         sameCity.setInterface(this);
+        sameCity.setAdapter(mAdapter);
         sameCity.setLayoutAnimation(getAnimationController());
         getSameCityProductInfo();
         return view;
@@ -152,10 +153,11 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
+                    sameCity.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
-                sameCity.setAdapter(mAdapter);
+
             }
 
             @Override

@@ -73,6 +73,7 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         ll_jiazai_schools = ((LinearLayout) view.findViewById(R.id.ll_jiazai_schools));
         schools.setInterface(this);
+        schools.setAdapter(mAdapter);
         schools.setLayoutAnimation(getAnimationController());
         getSchoolProductInfo();
 //        mAdapter=new MyAdapter();
@@ -147,11 +148,12 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
+                    schools.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
 
-                schools.setAdapter(mAdapter);
+
 
             }
 

@@ -74,6 +74,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
         lv_auctionlv = ((LoadListView) view.findViewById(R.id.lv_auctionlv));
         ll_jiazai_auct = ((LinearLayout) view.findViewById(R.id.ll_jiazai_auct));
         lv_auctionlv.setInterface(this);
+        lv_auctionlv.setAdapter(adapter);
         lv_auctionlv.setLayoutAnimation(getAnimationController());
 
         //跳到详细页
@@ -192,10 +193,11 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
                 pubList.addAll(prolist.list);
                 if(adapter==null){
                     adapter=new mypubAdapter();
+                    lv_auctionlv.setAdapter(adapter);
                 }else{
                     adapter.notifyDataSetChanged();
                 }
-                lv_auctionlv.setAdapter(adapter);
+
             }
 
             @Override

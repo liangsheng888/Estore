@@ -70,6 +70,7 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
         lv_jingpin = (LoadListView) findViewById(R.id.lv_computer);
         lv_jingpin.setLayoutAnimation(getAnimationController());
         lv_jingpin.setInterface(this);
+        lv_jingpin.setAdapter(adapter);
         getData();
 
 
@@ -245,10 +246,11 @@ public class PersonComputerActivity extends AppCompatActivity implements LoadLis
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 }else{
                     adapter.notifyDataSetChanged();
                 }
-                lv_jingpin.setAdapter(adapter);
+
 
                 Log.i("cc",proList+"");
             }
