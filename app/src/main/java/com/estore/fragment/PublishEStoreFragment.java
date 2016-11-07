@@ -243,6 +243,8 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     }
     @Override
     public void onHiddenChanged(boolean hidden) {
+        getProduct();
+
         super.onHiddenChanged(hidden);
     }
     //请求数据
@@ -298,5 +300,6 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
 
 }

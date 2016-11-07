@@ -334,37 +334,6 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
         SharedPreferences sp=getSharedPreferences("User",Context.MODE_APPEND);
         String username=sp.getString("username",null);
         int userId=sp.getInt("userId",0);
-//        if(TextUtils.isEmpty(username)){
-//            showDialog() ;
-            /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            final Dialog dialog=builder.create();
-            builder.setTitle("亲！你没有登录账号，请登录？");
-            View view=View.inflate(this,R.layout.login_user,null);
-            ((TextView)view.findViewById(R.id.tv_login)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //登录
-                    Intent intent=new Intent(AddProActivity.this,LoginOther.class);
-                    startActivity(intent);
-                    dialog.dismiss();
-
-
-                }
-            });
-            ((TextView)view.findViewById(R.id.tv_register)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //注册dialog.dismiss();
-                    Intent intent=new Intent(AddProActivity.this,RegisterActivity.class);
-                    startActivity(intent);
-
-
-                }
-            });
-            builder.setView(view);
-//            builder.show();*/
-//            return;
-//        }
 
 
         //数据上传服务器
@@ -381,13 +350,7 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
         String schoolname=tv_school.getText().toString().trim();
 
         RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL+"modifyProductByCilent");
-//        params.addQueryStringParameter("userId",userId+"");
-       /* try {
-            params = new RequestParams(HttpUrlUtils.HTTP_URL+"addProductsByCilent?file="+file+"&email=978188219@qq.com&proName="
-                    + URLEncoder.encode(proName,"utf-8")+"&proNum="+proNum+"&proPrice="+proPrice+"&proCategory="+URLEncoder.encode(proCategory,"utf-8")+"&proDescription="+URLEncoder.encode(proDescription,"utf-8")+"&address="+ URLEncoder.encode(address,"utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }*/
+
         try {
             //params.setMultipart(true);
             for (int i=0;i<imageFileLists.size();i++){
@@ -413,44 +376,6 @@ public class ModifyMyAddProductActivity extends AppCompatActivity implements Vie
                 Intent intent=new Intent(ModifyMyAddProductActivity.this,PublishActivity.class);
                 startActivity(intent);
 
-//                if(result.equals("true")){
-//                    Toast.makeText(ModifyMyAddProductActivity.this,"发布商品成功",Toast.LENGTH_SHORT).show();
-//                    AlertDialog.Builder builder=new  AlertDialog.Builder(ModifyMyAddProductActivity.this);
-//                    builder.setTitle("继续添加？");
-//                    builder.setPositiveButton("查看", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            //跳转到我的发布
-//                            Intent intent = new Intent(ModifyMyAddProductActivity.this, PublishActivity.class);
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    builder.setNegativeButton("继续", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            //清空数据
-//                            et_proName.setText("");
-//                            et_proPrice.setText("");
-//                            et_proNum.setText("");
-//                            cb_baoyou.setChecked(true);
-//                            ((RadioButton)findViewById(R.id.rb_city)).setChecked(true);
-//
-//
-//
-//                            imageLists.clear();
-//                            adapter.notifyDataSetChanged();
-//
-//
-//
-//
-//                        }
-//                    });
-//                    builder.show();
-//
-//
-//                }else{
-//                    Toast.makeText(ModifyMyAddProductActivity.this,"发布失败",Toast.LENGTH_SHORT).show();
-//                }
             }
 //
             @Override

@@ -52,6 +52,7 @@ public class PublishEstoreDetialItemActivity extends AppCompatActivity{
     MyPublishActivityBean.ProImag pp;
     private BaseAdapter adapter;
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
+    MyPublishActivityBean.ProImag  bundlepro=new MyPublishActivityBean.ProImag();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +86,12 @@ public class PublishEstoreDetialItemActivity extends AppCompatActivity{
     private void initDate() {
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        MyPublishActivityBean.ProImag  bundlepro=(MyPublishActivityBean.ProImag)bundle.getSerializable("estoreimage");
+         bundlepro=(MyPublishActivityBean.ProImag)bundle.getSerializable("estoreimage");
         Log.e("estoreimage",bundlepro.toString());
         Log.e("estoreimage",bundlepro.toString());
         tv_erdetial_represent.setText(bundlepro.description);//描述
         tv_erdetial_proname.setText(bundlepro.name);//名字
-        tv_erdetial_pronumber.setText(bundlepro.pnum+"");
+        tv_erdetial_pronumber.setText("库存:"+bundlepro.pnum);
         tv_erdetial_proprice.setText(bundlepro.estoreprice+"");//价格
         Log.i("youfei", bundlepro.getYoufei()+"");
         if(bundlepro.getYoufei()==0){
@@ -152,38 +153,39 @@ public class PublishEstoreDetialItemActivity extends AppCompatActivity{
         });
         //修改
         modify.setOnClickListener(new View.OnClickListener() {
-            private MyPublishActivityBean.ProImag list=new MyPublishActivityBean.ProImag();
+          //  private MyPublishActivityBean.ProImag list=new MyPublishActivityBean.ProImag();
             @Override
             public void onClick(View view) {
                 //MyPublishActivityBean.ProImag list=prolist.get(position);
-                Log.i("cc","list"+list);
+              //  Log.i("cc","list"+list);
                 Intent intent=new Intent(PublishEstoreDetialItemActivity.this, ModifyMyAddProductActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("list",list);
+                bundle.putSerializable("list",bundlepro);
+                Log.e("@@@@@",bundlepro.toString()+"");
                 intent.putExtras(bundle);
                 startActivity(intent);
-                Toast.makeText(PublishEstoreDetialItemActivity.this,"修改成功", Toast.LENGTH_SHORT).show();
             }
         });
 //删除
         deletepro.setOnClickListener(new View.OnClickListener() {
-            private MyPublishActivityBean.ProImag list=new MyPublishActivityBean.ProImag();
+            //private MyPublishActivityBean.ProImag list=new MyPublishActivityBean.ProImag();
             @Override
             public void onClick(View view) {
                 String url=HttpUrlUtils.HTTP_URL+"deleteMyAddProductServlet";
-                int productId=pp.getId();
+                int productId=bundlepro.id;
+                Log.e("@@@@@",productId+"");
                 RequestParams requestParams=new RequestParams(url);
                 requestParams.addQueryStringParameter("productId",productId+"");
                 x.http().get(requestParams, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
                         Toast.makeText(PublishEstoreDetialItemActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
-                        adapter.notifyDataSetChanged();
+                        finish();
                     }
 
                     @Override
                     public void onError(Throwable ex, boolean isOnCallback) {
-                        Toast.makeText(PublishEstoreDetialItemActivity.this,"删除失败",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(PublishEstoreDetialItemActivity.this,"删除失败",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
