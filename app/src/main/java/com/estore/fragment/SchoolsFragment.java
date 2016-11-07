@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -103,7 +104,11 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        all.setBackgroundColor(Color.WHITE);
+        phone.setBackgroundColor(Color.WHITE);
+        computer.setBackgroundColor(Color.WHITE);
+        computertext.setBackgroundColor(Color.WHITE);
+        others.setBackgroundColor(Color.WHITE);
         popContents.add("价格从高到低");
         popContents.add("价格从低到高");
         all.setOnClickListener(this);
@@ -174,18 +179,43 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         switch (view.getId()) {
             case R.id.tv_all:
                 orderFlag=0;
+                all.setBackgroundColor(Color.RED);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_phone:
                 orderFlag=1;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.RED);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computer:
                 orderFlag=2;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.RED);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_computertext:
                 orderFlag=3;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.RED);
+                others.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.tv_others:
                 orderFlag=4;
+                all.setBackgroundColor(Color.WHITE);
+                phone.setBackgroundColor(Color.WHITE);
+                computer.setBackgroundColor(Color.WHITE);
+                computertext.setBackgroundColor(Color.WHITE);
+                others.setBackgroundColor(Color.RED);
                 break;
             case R.id.iv_sort:
                 initPopupWindow(prosort);
