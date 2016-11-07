@@ -313,49 +313,27 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 tv_auct_time2.setText(aucttime[i]);
                 Long longtime;
-
                 switch (i) {
                     case 0:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd" + "08" + "mmss").format(new Date());
                         endTime = new SimpleDateFormat("yyyyMMdd" + "12" + "mmss").format(new Date());
                         dialogInterface.dismiss();
-
-//                      try {
-//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
-//                      } catch (ParseException e) {
-//                          e.printStackTrace();
-//                      }
                         break;
                     case 1:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd" + "12" + "mmss").format(new Date());
                         endTime = new SimpleDateFormat("yyyyMMdd" + "16" + "mmss").format(new Date());
                         dialogInterface.dismiss();
-//                      try {
-//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
-//                      } catch (ParseException e) {
-//                          e.printStackTrace();
-//                      }
+
                         break;
                     case 2:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd" + "16" + "mmss").format(new Date());
                         endTime = new SimpleDateFormat("yyyyMMdd" + "20" + "mmss").format(new Date());
                         dialogInterface.dismiss();
-//
-// try {
-//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
-//                      } catch (ParseException e) {
-//                          e.printStackTrace();
-//                      }
                         break;
                     case 3:
                         sdftimestr = new SimpleDateFormat("yyyyMMdd" + "20" + "mmss").format(new Date());
                         endTime = new SimpleDateFormat("yyyyMMdd" + "24" + "mmss").format(new Date());
                         dialogInterface.dismiss();
-//                      try {
-//                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
-//                      } catch (ParseException e) {
-//                          e.printStackTrace();
-//                      }
                         break;
                 }
 

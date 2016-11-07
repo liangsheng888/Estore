@@ -239,6 +239,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
 
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("auct", auct);
+
                         bundle.putInt("flag", 8);
 //                        intent.putExtra("flag",8);
                         intent.putExtras(bundle);

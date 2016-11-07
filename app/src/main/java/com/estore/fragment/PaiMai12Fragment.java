@@ -196,6 +196,7 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
 
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("auct", auct);
+                        bundle.putInt("flag", 12);
                         intent.putExtras(bundle);
 
 

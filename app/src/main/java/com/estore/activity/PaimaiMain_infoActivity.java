@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
@@ -35,10 +36,13 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import bean.Product;
 
@@ -58,12 +62,22 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     AuctListActivityBean.Auct auct;
     private CheckBox btn_paimai_tixing;
     List<Product> productlist = new ArrayList<Product>();
-//        private MyBinder minder;
+    //        private MyBinder minder;
 /*PaiMaiTiXingService paiMaiTiXingService;
     PaiMaiTiXingService.MyBinder myBinder;*/
     MyConn myConn;
     private ListView lv_paimai_jilu;
     private TextView tv_paimai_jilu;
+    Integer paiMaiChangCiFlag;
+    String sdftimestr;
+    private Lock lock = new ReentrantLock();
+    Long daojishi;
+    private TextView HH;
+    private TextView MM;
+    private TextView ss;
+    long timeMM = 60;
+    long timeHH = 3;
+    long timess = 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +89,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        paiMaiChangCiFlag = intent.getIntExtra("flag", 0);
+
         getPaiMaiJuluData();
 //        String flag=intent.getIntExtra()
         getCollectData();
@@ -149,28 +165,134 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name + "手机");
 //        tv_auct_username.setText("拍卖人：" + auct.auct_id);
         //判断拍卖时间
-        String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-
-        Long a = Long.parseLong(j);
-        System.out.println(j + "--------------时间--------------------" + a);
-        String yy = auct.auct_begin.substring(0, 4);
-        String month = auct.auct_begin.substring(5, 7);
-        String day = auct.auct_begin.substring(8, 10);
-        String hh = auct.auct_begin.substring(11, 13);
-        String ss = auct.auct_begin.substring(14, 16);
-        String mm = auct.auct_begin.substring(17, 19);
-        String b = yy + month + day + hh + ss + mm;
-        Long bb = Long.parseLong(b);
 
 
-        if (bb - a < 0) {
-            tv_auct_time.setText("未开始敬请期待");
+        if (paiMaiChangCiFlag == 8) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "08" + "0000").format(new Date());
+
+
+        } else if (paiMaiChangCiFlag == 12) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "12" + "0000").format(new Date());
+
+        } else if (paiMaiChangCiFlag == 16) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "16" + "0000").format(new Date());
+
+        } else if (paiMaiChangCiFlag == 20) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "20" + "0000").format(new Date());
+
+        }
+        Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+        Long beginTime = Long.parseLong(sdftimestr);
+        System.out.println("beginTime====" + beginTime + "nowtime==" + nowtime);
+        if (beginTime - nowtime < 0) {
+            tv_auct_time.setText("剩余时间");
+            Long a;
+            Long b;
+            try {
+                a= new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
+                b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
+                System.out.println(a-b+"---------a-b"+a+"---b===="+b);
+                daojishi = 4 * 60 * 60 * 1000 - (a-b);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            getTime();
         } else {
-//            tv_auct_time.setText(dd + ":" + hh + ":" + ":" + ss);
-            tv_auct_time.setText("正在进行中");
+            tv_auct_time.setText("尚未开始敬请期待");
+            ss.setVisibility(View.GONE);
+             MM.setVisibility(View.GONE);
+            HH.setVisibility(View.GONE);
+            btn_paimai_bidding.setClickable(false);
         }
 
     }
+    public void getTime() {
+        timeHH=daojishi/1000/60/60;
+        timeMM=daojishi/1000/60-timeHH*60;
+        timess=daojishi/1000-timeHH*60*60-timeMM*60;
+        ss.setText(":" + timess + "秒");
+        MM.setText(":" + timeMM + "分钟");
+        HH.setText("" + timeHH + "小时");
+        runnable.run();
+
+        System.out.println("倒计时"+daojishi+"timeHH   "+timeHH+"  timeMM  "+timeMM+"  timess  "+timess);
+    }
+    Handler handler = new Handler();
+//    timeHH=daojishi/1000/60/60;
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            lock.lock();
+            timess--;
+            System.out.println("");
+            ss.setText(":" + timess + "秒");
+            if (timess == 0) {
+                timess = 60;
+                lock.unlock();
+                System.out.println("分钟倒计时线程开始");
+                runnable1.run();
+            }
+            handler.postDelayed(this, 1000);
+        }
+    };
+    Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            lock.lock();
+            timeMM--;
+            MM.setText(":" + timeMM + "分钟");
+            if (timeMM == 0) {
+                timeMM = 60;
+                lock.unlock();
+                System.out.println("xiaoshi 倒计时线程开始");
+                runnable2.run();
+            }
+        }
+    };
+    Runnable runnable2 = new Runnable() {
+        @Override
+        public void run() {
+            lock.lock();
+//            timeHH=daojishi%=(1000/60/60);
+            if (timeHH!=0){
+                timeHH--;
+            }
+            HH.setText("" + timeHH + "小时");
+            lock.unlock();
+            System.out.println("maio 倒计时线程开始");
+            runnable1.run();
+            return;
+        }
+
+    };
+
+
+//        String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+//        Long a = Long.parseLong(j);
+
+//        String yy = auct.auct_begin.substring(0, 4);
+//        String month = auct.auct_begin.substring(5, 7);
+//        String day = auct.auct_begin.substring(8, 10);
+//        String hh = auct.auct_begin.substring(11, 13);
+//        String ss = auct.auct_begin.substring(14, 16);
+//        String mm = auct.auct_begin.substring(17, 19);
+//        System.out.println(auct.auct_begin + "==" + yy + "--" + month + "--" + day + "--" + hh + "--" + ss + "--" + mm);
+//        String b = yy + month + day + hh + ss + mm;
+//        Long bb = Long.parseLong(b);
+//        Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+//        Long nextTime = nowtime - bb;
+//        System.out.println("时间bb---" + bb + "----a---" + a);
+//        if (bb - a < 0) {
+//            tv_auct_time.setText("未开始敬请期待");
+//        } else {
+////            tv_auct_time.setText(dd + ":" + hh + ":" + ":" + ss);
+//            tv_auct_time.setText("正在进行中");
+//        }
+
 
     private void intEven() {
         btn_paimai_bidding.setOnClickListener(this);
@@ -185,6 +307,10 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         btn_paimai_tixing = ((CheckBox) findViewById(R.id.btn_paimai_tixing));
         lv_paimai_jilu = ((ListView) findViewById(R.id.lv_paimai_jilu));
         tv_paimai_jilu = ((TextView) findViewById(R.id.tv_paimai_jilu));
+        HH = ((TextView) findViewById(R.id.txttime_HH));
+        MM = ((TextView) findViewById(R.id.txttime_MM));
+        ss = ((TextView) findViewById(R.id.txttime_ss));
+
     }
 
     @Override
@@ -192,10 +318,10 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         switch (view.getId()) {
             case R.id.btn_paimai_bidding:
                 Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("auct",auct);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("auct", auct);
                 intent.putExtras(bundle);
-               startActivity(intent);
+                startActivity(intent);
                 break;
             case R.id.tv_paimai_jilu:
                 intent = new Intent(getApplicationContext(), PaiMaiJiluActivity.class);
@@ -213,24 +339,24 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 sendFlagForShoucang();
                 break;
             case R.id.btn_paimai_tixing:
-              if (btn_paimai_tixing.isChecked()) {
-                    myConn=new MyConn();
+                if (btn_paimai_tixing.isChecked()) {
+                    myConn = new MyConn();
 //                    intent = new Intent(this,PaiMaiTiXingService.class);
 //                    bundle=new Bundle();
 //                    bundle.putSerializable("PaiMaiService",auct.auct_begin);
 //                    intent.putExtras(bundle);
 ////                    startService(intent);*/
 
-                    RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"tuisong");
+                    RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "tuisong");
                     x.http().get(requestParams, new Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            System.out.println("提醒成功"+result);
+                            System.out.println("提醒成功" + result);
                         }
 
                         @Override
                         public void onError(Throwable ex, boolean isOnCallback) {
-                            System.out.println("提醒错误："+ex.getMessage());
+                            System.out.println("提醒错误：" + ex.getMessage());
                         }
 
                         @Override
@@ -253,7 +379,9 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         }
     }
 
-    public class  MyConn implements ServiceConnection{
+
+
+    public class MyConn implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -265,6 +393,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         }
     }
+
     public class sedPaiMaiBroadcastReceiver extends BroadcastReceiver {
 
         @Override
@@ -306,6 +435,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             }
         });
     }
+
     private class ListAdapter extends BaseAdapter {
         private TextView tv_auct_time;
         private TextView tv_bidd_price;
@@ -331,7 +461,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = View.inflate(PaimaiMain_infoActivity.this,  R.layout.paimai_jillu_item, null);
+            convertView = View.inflate(PaimaiMain_infoActivity.this, R.layout.paimai_jillu_item, null);
             tv_paimai_name = ((TextView) convertView.findViewById(R.id.tv_paimai_name));
             tv_bidd_price = ((TextView) convertView.findViewById(R.id.tv_bidd_price));
             tv_auct_time = ((TextView) convertView.findViewById(R.id.tv_bid_time));
@@ -341,14 +471,15 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             System.out.println("product" + product + "======productlist" + productlist);
             tv_paimai_name.setText(product.getAuct_name());
             tv_bidd_price.setText(product.getAuct_bid_price() + "");
-            String bidTime=new SimpleDateFormat("yyyy-MM-dd HH:ss:mm").format(product.getAuct_end());
-            tv_auct_time.setText(bidTime+ "");
+            String bidTime = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm").format(product.getAuct_end());
+            tv_auct_time.setText(bidTime + "");
 
-            tv_paimai_julu_order.setText("第"+(position+1)+"名");
+            tv_paimai_julu_order.setText("第" + (position + 1) + "名");
 
             return convertView;
         }
     }
+
     private void getPaiMaiJuluData() {
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiJiLuDataServlet");
         requestParams.addBodyParameter("auct_id", auct.auct_id);
@@ -364,10 +495,10 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 newlist = gson.fromJson(result, type);
                 productlist.clear();
                 productlist.addAll(newlist);
-                System.out.println("获得传过来的数据productlist"+productlist);
+                System.out.println("获得传过来的数据productlist" + productlist);
                 System.out.println("productlist.size()" + productlist.size());
                 tv_paimai_jilu.setText(productlist.size() + "条");
-               ListAdapter listAdapter = new ListAdapter();
+                ListAdapter listAdapter = new ListAdapter();
                 lv_paimai_jilu.setAdapter(listAdapter);
                 listAdapter.notifyDataSetChanged();
             }
@@ -389,6 +520,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         });
 
     }
+
     public void getCollectData() {
 
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getShouCangData");
