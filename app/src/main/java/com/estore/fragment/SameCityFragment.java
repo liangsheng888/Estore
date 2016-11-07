@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
@@ -44,9 +45,9 @@ import java.util.List;
 public class SameCityFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
     private LoadListView sameCity;
-    private BaseAdapter mAdapter;
+    private BaseAdapter mAdapter=new MyAdapter();
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
-    Integer page=0;
+    Integer page=1;
     private TextView phone;
     private TextView computer;
     private TextView computertext;
@@ -140,16 +141,21 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         String url= HttpUrlUtils.HTTP_URL+"getSameCityProducts";
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         Log.i("cc",url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("cc",result);
+                page++;
                 ll_jiazai_school.setVisibility(View.GONE);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
-                mListItems.clear();
+
+                if(product.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
@@ -321,7 +327,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                     orderFlag=6;
                 }
 
-                getSameCityProductInfo();
+                 getSameCityProductInfo();
             }
         });
     }

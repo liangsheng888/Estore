@@ -59,9 +59,9 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     private TextView tv_btestore;
     private LoadListView lv_publishest;
     final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
-    private BaseAdapter  adapter;
+    private BaseAdapter  adapter=new myAdapter() ;
     User user=new User();
-    Integer page=0;
+    Integer page=1;
     private SharedPreferences sp;
     private LinearLayout ll_jiazai_fabu;
 
@@ -256,16 +256,20 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
         Log.i("cc",user.getUserId()+"");
         Log.i("cc",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 ll_jiazai_fabu.setVisibility(View.GONE);
+                page++;
                 Log.e("PublishEStoreFragment","result"+result);
                 Gson gson=new Gson();
                 MyPublishActivityBean  probean=gson.fromJson(result,MyPublishActivityBean.class);
                 Log.i("cc","probean"+probean+"");
-                prolist.clear();
+                if(probean.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 prolist.addAll(probean.list);
                 Log.e("PublishEStoreFragment",prolist.toString());
                 if(adapter==null){

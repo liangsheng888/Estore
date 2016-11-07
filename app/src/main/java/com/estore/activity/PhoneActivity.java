@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -244,6 +245,10 @@ public class PhoneActivity extends AppCompatActivity implements LoadListView.ILo
                 Gson gson = new Gson();
                 Product pro = gson.fromJson(result, Product.class);
                 //proList.clear();
+                if(pro.list.size()<=0){
+                    Toast.makeText(PhoneActivity.this,"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 proList.addAll(pro.list);
                 if(adapter==null){
                     adapter=new MyAdapter();

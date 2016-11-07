@@ -122,6 +122,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
         slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
+        lv_jingpin.setAdapter(adapter);
         lv_jingpin.setSelection(0);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
@@ -167,11 +168,8 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 Log.e("MainActivity", "pro------"+pro.toString());
 
                 if(pro.list.size()<=0){
-                    View view=View.inflate(getActivity(),R.layout.footer_layout,null);
-                    ((LinearLayout)view.findViewById(R.id.load_layout)).setVisibility(View.GONE);
-                    ((LinearLayout)view.findViewById(R.id.load_nothing)).setVisibility(View.VISIBLE);
-
-
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
                 }
                // list.clear();
                 list.addAll(pro.list);
@@ -179,6 +177,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 if(adapter==null){
                     Log.e("MainActivity", "adapter==null");
                     adapter = new MyAdapter();
+                    lv_jingpin.setAdapter(adapter);
                 }else {
 
                     Log.e("MainActivity", "adapter!=null");
@@ -186,7 +185,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 }
                // gridView.setAdapter(adapter);
 
-                lv_jingpin.setAdapter(adapter);
+
 
             }
 

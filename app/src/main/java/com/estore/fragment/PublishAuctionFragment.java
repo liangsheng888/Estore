@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.PublishAuctionDetialItemActivity;
 import com.estore.R;
@@ -46,9 +47,10 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
     private static final String TAG = "fragmentlife";
     private LoadListView lv_auctionlv;
     private TextView tv_btauction;
-    private BaseAdapter adapter;
+    private BaseAdapter adapter=new mypubAdapter()
+            ;
     User user=new User();
-    Integer page=0;
+    Integer page=1;
     private LoadListView estore;
     private SharedPreferences sp;
     final List<ListMyAuctionActivityBean.ProImag> pubList=new ArrayList<ListMyAuctionActivityBean.ProImag>();
@@ -181,15 +183,19 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
         String url =HttpUrlUtils.HTTP_URL+"/myPaiMaiServlet?user_id="+user.getUserId();//访问网络的url
         Log.i("getPublishAuction",url);
         RequestParams requestParams = new RequestParams(url);//请求参数url
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("PublishhAuctionFragment",result);
                 ll_jiazai_auct.setVisibility(View.GONE);
+                page++;
                 Gson gson=new Gson();
                 ListMyAuctionActivityBean prolist=gson.fromJson(result, ListMyAuctionActivityBean.class);
-                pubList.clear();
+                if(prolist.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 pubList.addAll(prolist.list);
                 if(adapter==null){
                     adapter=new mypubAdapter();

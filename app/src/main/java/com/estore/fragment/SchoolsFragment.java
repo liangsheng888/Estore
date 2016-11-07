@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
@@ -43,9 +44,9 @@ import java.util.List;
 public class SchoolsFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
     private LoadListView schools;
-    private BaseAdapter mAdapter;
+    private BaseAdapter mAdapter=new MyAdapter();
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
-    Integer page=0;
+    Integer page=1;
     //    private ListView actualListView;
     private TextView phone;
     private TextView computer;
@@ -135,16 +136,20 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         String url= HttpUrlUtils.HTTP_URL+"getSchoolProducts";
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+1+"");
+        requestParams.addQueryStringParameter("page",page+"");
         Log.i("cc",url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                page++;
                 ll_jiazai_schools.setVisibility(View.GONE);
                 Log.i("cc",result);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
-                mListItems.clear();
+                if(product.list.size()<=0){
+                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
