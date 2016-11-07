@@ -29,8 +29,10 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -41,9 +43,10 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     private TextView HH;
     private TextView MM;
     private TextView ss;
-    Integer timeMM = 60;
-    Integer timeHH = 3;
-    Integer timess = 60;
+    long timeMM = 60;
+    long timeHH = 3;
+    Long daojishi;
+    long timess = 60;
     double nowPrice = 0;
     private String[] imgurls;
     private String[] jiaArray = new String[]{"1", "2", "5", "10",
@@ -58,6 +61,8 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     private TextView textView4;
     private TextView tv_paimai_jilu;
     private ListView lv_paimai_jilu;
+    Integer paiMaiChangCiFlag;
+    String sdftimestr;
     //    BaseAdapter listAdapter;
     int positionorder;
     List<Product> productlist = new ArrayList<Product>();
@@ -69,12 +74,14 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_pai_maibidding_bid);
         Intent intent = getIntent();
         auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct_bid");
+        paiMaiChangCiFlag = intent.getIntExtra("paiMaiChangCiFlag", 0);
         imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
         System.out.println("imgurls" + imgurls);
         ininView();
         ininDate();
         ininEven();
-        runnable.run();
+        runnableUpData.run();
+//        runnable.run();
 
         System.out.println("加价页面接受传值auct" + auct);
 
@@ -83,26 +90,122 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
 
 
     private void ininDate() {
+        System.out.println("paiMaiChangCiFlag"+paiMaiChangCiFlag);
+
+        if (paiMaiChangCiFlag == 8) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "08" + "0000").format(new Date());
+
+
+        } else if (paiMaiChangCiFlag == 12) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "12" + "0000").format(new Date());
+
+        } else if (paiMaiChangCiFlag == 16) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "16" + "0000").format(new Date());
+            System.out.println("场次时间"+sdftimestr);
+        } else if (paiMaiChangCiFlag == 20) {
+            sdftimestr = new SimpleDateFormat("yyyyMMdd" + "20" + "0000").format(new Date());
+
+        }
+        Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+        Long beginTime = Long.parseLong(sdftimestr);
+        System.out.println("beginTime====" + beginTime + "nowtime==" + nowtime);
+        if (beginTime - nowtime < 0) {
+//            tv_auct_time.setText("剩余时间");
+            Long a;
+            Long b;
+            try {
+                a= new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
+                b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
+                System.out.println(a-b+"---------a-b"+a+"---b===="+b);
+                daojishi = 4 * 60 * 60 * 1000 - (a-b);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            getTime();
+        } else {
+//            tv_auct_time.setText("尚未开始敬请期待");
+            ss.setVisibility(View.GONE);
+            MM.setVisibility(View.GONE);
+            HH.setVisibility(View.GONE);
+//            btn_paimai_bidding.setClickable(false);
+        }
         MyPageAdapter pageAdapter = new MyPageAdapter();
         vp_auct_bidding1.setAdapter(pageAdapter);
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                getPaiMaiJuluData();//获得竞拍数据
-                handler.postDelayed(this, 2000);
-
-            }
-        };
-
-
-//        listAdapter = new BaseAdapter() {
-//
-//        };
-
 
     }
+    Handler handlerUpData = new Handler();
+    Runnable  runnableUpData = new Runnable() {
+        @Override
+        public void run() {
+            getPaiMaiJuluData();//获得竞拍数据
+            handlerUpData.postDelayed(this, 2000);
 
+        }
+    };
+
+    public void getTime() {
+        timeHH=daojishi/1000/60/60;
+        timeMM=daojishi/1000/60-timeHH*60;
+        timess=daojishi/1000-timeHH*60*60-timeMM*60;
+        ss.setText(":" + timess + "秒");
+        MM.setText(":" + timeMM + "分钟");
+        HH.setText("" + timeHH + "小时");
+        runnable.run();
+
+        System.out.println("倒计时"+daojishi+"timeHH   "+timeHH+"  timeMM  "+timeMM+"  timess  "+timess);
+    }
+    Handler handler = new Handler();
+//    timeHH=daojishi/1000/60/60;
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            lock.lock();
+            timess--;
+            System.out.println("");
+            ss.setText(":" + timess + "秒");
+            if (timess == 0) {
+                timess = 60;
+                lock.unlock();
+                System.out.println("分钟倒计时线程开始");
+                runnable1.run();
+            }
+            handler.postDelayed(this, 1000);
+        }
+    };
+    Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            lock.lock();
+            timeMM--;
+            MM.setText(":" + timeMM + "分钟");
+            if (timeMM == 0) {
+                timeMM = 60;
+                lock.unlock();
+                System.out.println("xiaoshi 倒计时线程开始");
+                runnable2.run();
+            }
+        }
+    };
+    Runnable runnable2 = new Runnable() {
+        @Override
+        public void run() {
+            lock.lock();
+//            timeHH=daojishi%=(1000/60/60);
+            if (timeHH!=0){
+                timeHH--;
+            }
+            HH.setText("" + timeHH + "小时");
+            lock.unlock();
+            System.out.println("maio 倒计时线程开始");
+            runnable1.run();
+            return;
+        }
+
+    };
     private void getPaiMaiJuluData() {
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiJiLuDataServlet");
         requestParams.addBodyParameter("auct_id", auct.auct_id);
@@ -169,54 +272,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
 
     }
 
-    Handler handler = new Handler();
 
-    Runnable runnable = new Runnable() {
-
-        @Override
-        public void run() {
-
-            lock.lock();
-            timess--;
-            System.out.println("");
-            ss.setText(":" + timess + "秒");
-            if (timess == 0) {
-                timess = 60;
-                lock.unlock();
-                System.out.println("分钟倒计时线程开始");
-                runnable1.run();
-            }
-            handler.postDelayed(this, 1000);
-        }
-    };
-    Runnable runnable1 = new Runnable() {
-        @Override
-        public void run() {
-            lock.lock();
-            timeMM--;
-            MM.setText(":" + timeMM + "分钟");
-            if (timeMM == 0) {
-                timeMM = 60;
-                lock.unlock();
-                System.out.println("xiaoshi 倒计时线程开始");
-                runnable2.run();
-            }
-        }
-    };
-    Runnable runnable2 = new Runnable() {
-        @Override
-        public void run() {
-            lock.lock();
-            timeHH--;
-            HH.setText("" + timeHH + "小时");
-            lock.unlock();
-            System.out.println("maio 倒计时线程开始");
-            runnable1.run();
-            return;
-
-        }
-
-    };
 
     @Override
     public void onClick(View v) {
@@ -328,7 +384,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
             String bidTime=new SimpleDateFormat("yyyy-MM-dd HH:ss:mm").format(product.getAuct_end());
             tv_auct_time.setText(bidTime+ "");
 
-           tv_paimai_julu_order.setText("第"+position+1+"拍次");
+           tv_paimai_julu_order.setText("第"+(position+1)+"拍次");
             positionorder++;
             return convertView;
         }

@@ -13,8 +13,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -78,6 +76,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     long timeMM = 60;
     long timeHH = 3;
     long timess = 60;
+    private TextView tv_info_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,34 +96,34 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         System.out.println("(intent.getExtras()----------------------" + auct);
         imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
-        toolbar.setLogo(R.drawable.emoji_81);//设置app logo
-        toolbar.setTitle("拍卖");//设置主标题
-        toolbar.setSubtitle("正在拍卖物品");//设置子标题
-
-        toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-                if (menuItemId == R.id.action_item1) {
-                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_01", Toast.LENGTH_SHORT).show();
-
-                } else if (menuItemId == R.id.action_item2) {
-                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_02", Toast.LENGTH_SHORT).show();
-
-                } else if (menuItemId == R.id.action_item3) {
-                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_03", Toast.LENGTH_SHORT).show();
-
-                } else if (menuItemId == R.id.action_item4) {
-                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_04", Toast.LENGTH_SHORT).show();
-
-                }
-                return true;
-            }
-        });
+//        toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
+//        toolbar.setLogo(R.drawable.emoji_81);//设置app logo
+//        toolbar.setTitle("拍卖");//设置主标题
+//        toolbar.setSubtitle("正在拍卖物品");//设置子标题
+//
+//        toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                int menuItemId = item.getItemId();
+//                if (menuItemId == R.id.action_item1) {
+//                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_01", Toast.LENGTH_SHORT).show();
+//
+//                } else if (menuItemId == R.id.action_item2) {
+//                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_02", Toast.LENGTH_SHORT).show();
+//
+//                } else if (menuItemId == R.id.action_item3) {
+//                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_03", Toast.LENGTH_SHORT).show();
+//
+//                } else if (menuItemId == R.id.action_item4) {
+//                    Toast.makeText(PaimaiMain_infoActivity.this, "R.string.item_04", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                return true;
+//            }
+//        });
         vp_zuct_info_ad = ((ViewPager) findViewById(R.id.vp_zuct_info_ad));
 
 //        List<Integer> imgsrc = new ArrayList<Integer>();
@@ -184,23 +183,30 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         Long beginTime = Long.parseLong(sdftimestr);
         System.out.println("beginTime====" + beginTime + "nowtime==" + nowtime);
-        if (beginTime - nowtime < 0) {
-            tv_auct_time.setText("剩余时间");
-            Long a;
-            Long b;
-            try {
-                a= new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
-                b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
-                System.out.println(a-b+"---------a-b"+a+"---b===="+b);
-                daojishi = 4 * 60 * 60 * 1000 - (a-b);
+        Long a= null;
+        Long b = null;
+        try {
+            a= new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
+            b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
+            System.out.println(a-b+"---------a-b"+a+"---b===="+b);
+            daojishi = 4 * 60 * 60 * 1000 - (a-b);
 
-            } catch (ParseException e) {
-                e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if ( nowtime-beginTime > 0) {
+            if (a-b>1000*60*60*4){
+                tv_auct_time.setText("拍卖已结束");
+                ss.setVisibility(View.GONE);
+                MM.setVisibility(View.GONE);
+                HH.setVisibility(View.GONE);
+                btn_paimai_bidding.setClickable(false);
+                return;
             }
-
+            tv_auct_time.setText("剩余时间：");
             getTime();
         } else {
-            tv_auct_time.setText("尚未开始敬请期待");
+            tv_auct_time.setText("尚未开始敬请期待！");
             ss.setVisibility(View.GONE);
              MM.setVisibility(View.GONE);
             HH.setVisibility(View.GONE);
@@ -299,6 +305,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         btn_paimai_shoucang.setOnClickListener(this);
         btn_paimai_tixing.setOnClickListener(this);
         tv_paimai_jilu.setOnClickListener(this);
+        tv_info_back.setOnClickListener(this);
     }
 
     private void initView() {
@@ -310,6 +317,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         HH = ((TextView) findViewById(R.id.txttime_HH));
         MM = ((TextView) findViewById(R.id.txttime_MM));
         ss = ((TextView) findViewById(R.id.txttime_ss));
+        tv_info_back = ((TextView) findViewById(R.id.tv_info_back));
 
     }
 
@@ -320,6 +328,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("auct", auct);
+                bundle.putInt("paiMaiChangCiFlag",paiMaiChangCiFlag);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -329,6 +338,9 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 bundle.putSerializable("auctjilu", auct);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                break;
+            case R.id.tv_info_back:
+                PaimaiMain_infoActivity.this.finish();
                 break;
             case R.id.btn_paimai_shoucang:
                 if (btn_paimai_shoucang.isChecked()) {

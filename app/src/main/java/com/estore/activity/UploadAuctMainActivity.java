@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private EditText et_auct_miaoshu;
     private Spinner sp_city;
     private EditText et_auct_price;
-    private NumberPicker np_auct_bidprice;
+    //    private NumberPicker np_auct_bidprice;
     private TextView tv_auct_type;
     private GridView gv_img;
     Integer bidprice;
@@ -79,6 +80,53 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     //    np_zuct_picker
     SharedPreferences sp;
 
+//    @Override
+//    protected void onStart() {
+//        Long aa=null;
+//        Long b=null;
+//        sdftimestr = new SimpleDateFormat("yyyyMMdd" + "08" + "0000").format(new Date());
+//        Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+//
+//        try {
+//            b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
+//             aa=new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        if (aa-b>0){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("请选择类型");
+//        System.out.println("点击选择拍品类型");
+//        //builder.setMessage("你确定？");
+//        builder.setIcon(R.drawable.emoji_81);
+//        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                UploadAuctMainActivity.this.finish();
+//
+//            }
+//        });
+//        builder.show();
+//        }
+
+//        builder.setSingleChoiceItems(type, 0, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                System.out.println(type[i]);
+//                typeStr = type[i];
+////                tv_auct_type.setText(type[i]);
+////                auct_type = tv_auct_type.getText().toString();
+//                tv_auct_type.setText(typeStr);
+//                auct_type = tv_auct_type.getText().toString();
+//                dialogInterface.dismiss();
+//            }
+//        });
+//        builder.show();
+
+
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +142,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 
 
     private void initview() {
-        np_zuct_picker = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
+//        np_zuct_picker = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
         //iv_auct_modle_phote1 = ((ImageView) findViewById(R.id.iv_auct_modle_phote1));
         gv_img = ((GridView) findViewById(R.id.gv_img));
 
@@ -102,7 +150,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         et_auct_miaoshu = ((EditText) findViewById(R.id.et_auct_miaoshu));
         sp_city = ((Spinner) findViewById(R.id.sp_city));
         et_auct_price = ((EditText) findViewById(R.id.et_auct_price));
-        np_auct_bidprice = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
+//        np_auct_bidprice = ((NumberPicker) findViewById(R.id.np_auct_bidprice));
         tv_auct_type = ((TextView) findViewById(R.id.tv_auct_type2));
         tv_auct_time2 = ((TextView) findViewById(R.id.tv_auct_time2));//选择上架竞拍时间段
 
@@ -118,18 +166,18 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     }
 
     private void initdata() {
-        //设置numberpack的属性
-        np_zuct_picker.setMinValue(1 / 10);
-        np_zuct_picker.setMaxValue(10);
-//        np_zuct_picker.setDisplayedValues(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20", "50", "100"});
-        np_zuct_picker.setValue(minprice);
-        np_zuct_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                minprice = newVal;
-
-            }
-        });
+//        //设置numberpack的属性
+//        np_zuct_picker.setMinValue(1 / 10);
+//        np_zuct_picker.setMaxValue(10);
+////        np_zuct_picker.setDisplayedValues(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20", "50", "100"});
+//        np_zuct_picker.setValue(minprice);
+//        np_zuct_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+//            @Override
+//            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//                minprice = newVal;
+//
+//            }
+//        });
 
     }
 
@@ -300,6 +348,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     public void uploadauct(View view) {
         sendMsgandImg();//图片和其他输入信息
 
+
     }
 
     public void timeOnclick(View view) {
@@ -373,13 +422,19 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         address = sp_city.getSelectedItem().toString();
 
 //        auct_type=tv_auct_type.getSelectedItem().toString();
-        bidprice = np_auct_bidprice.getValue();
+//        bidprice = np_auct_bidprice.getValue();
 
 
         String proName = et_upload_aucttitle.getText().toString().trim();
         String proDescription = et_auct_miaoshu.getText().toString().trim();
         String price = et_auct_price.getText().toString().trim();
-
+//        TextUtils.isEmpty(proName);
+        if (TextUtils.isEmpty(proName)|| TextUtils.isEmpty(proDescription)||  TextUtils.isEmpty(auct_type)
+                ||  TextUtils.isEmpty(address)||  imageFileLists.size() < 0 ||  TextUtils.isEmpty(price)
+                ||  TextUtils.isEmpty(String.valueOf(sdftimestr))) {
+            Toast.makeText(this, "请填写拍品信息", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "addPaiMaiByCilent");//upload 是你要访问的servlet
 
@@ -401,7 +456,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 
         params.addBodyParameter("proPrice", price);
 //        params.addBodyParameter("category",auct_type);
-        params.addBodyParameter("bidprice", bidprice + "");
+//        params.addBodyParameter("bidprice", bidprice + "");
         params.addBodyParameter("auctTime", sdftimestr + "");//开拍时间段
         params.addBodyParameter("endTime", endTime + "");//默认时间段
 //        params.addBodyParameter("file", file);
@@ -411,13 +466,15 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                 + "/n" + "---------address-------" + address
                 + "/n" + "--------price---------" + price
                 + "/n" + "---------auct_type-------" + auct_type
-                + "/n" + "--------bidprice---------" + bidprice + "auctTime" + sdftimestr);
+                + "/n" + "--------bidprice---------" + "auctTime" + sdftimestr);
 
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 System.out.println("=--------result----------------" + result);
                 Toast.makeText(UploadAuctMainActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getApplicationContext(), PublishActivity.class);
+                startActivity(intent);
             }
 
             @Override

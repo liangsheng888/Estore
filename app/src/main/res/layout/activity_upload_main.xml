@@ -88,9 +88,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#b5eaffee"
+            android:background="#c1d6c176"
             android:padding="10dp">
 
             <TextView
@@ -98,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_auct_miaoshu"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/ic_gps_gray"
                 android:text="地址"
-                android:textColor="#ba000000"
+                android:textColor="#7e7e7e"
                 android:textSize="20sp" />
 
             <Spinner
@@ -113,6 +113,7 @@
                 android:layout_toRightOf="@+id/tv_auct_dizhi"
                 android:entries="@array/city"
                 android:popupBackground="#73cac2"
+
                 android:textColor="#000">
 
             </Spinner>
@@ -175,35 +176,35 @@
                 android:textColorHighlight="#000" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/dikang_bg"
-            android:padding="10dp">
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/dikang_bg"-->
+            <!--android:padding="10dp">-->
 
-            <TextView
-                android:id="@+id/tv_auct_meicijiajia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_auct_price"
-                android:layout_marginTop="15dp"
-                android:text="每次加价"
-                android:textColor="#c0000000"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_auct_meicijiajia"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/et_auct_price"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:text="每次加价"-->
+                <!--android:textColor="#c0000000"-->
+                <!--android:textSize="20sp" />-->
 
-            <NumberPicker
-                android:id="@+id/np_auct_bidprice"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignTop="@+id/tv_auct_meicijiajia"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/tv_auct_meicijiajia"
-                android:background="#744a17"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal"
-                android:textColor="#f00" />
-        </LinearLayout>
+            <!--<NumberPicker-->
+                <!--android:id="@+id/np_auct_bidprice"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_alignTop="@+id/tv_auct_meicijiajia"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_toRightOf="@+id/tv_auct_meicijiajia"-->
+                <!--android:background="#744a17"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:textColor="#f00" />-->
+        <!--</LinearLayout>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -315,6 +316,7 @@
             android:layout_gravity="center_horizontal"
             android:background="#f00"
             android:onClick="uploadauct"
+            android:textColor="#fff"
             android:text="确定上传" />
     </LinearLayout>
 </ScrollView>
