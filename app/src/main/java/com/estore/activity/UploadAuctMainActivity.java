@@ -52,7 +52,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     private static List<Bitmap> imglist = new ArrayList<>();
     //头像的存储完整路径
     private File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/" + getPhotoFileName());
-    private List<File> imageFileLists=new ArrayList<File>();
+    private List<File> imageFileLists = new ArrayList<File>();
 
     private static final int PHOTO_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
@@ -69,7 +69,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     String auct_type;
     String address;
     String[] type = {"手机", "电脑", "笔记本", "其他"};
-    String[] aucttime={"am08:00","am12:00","pm16:00","pm20:00"};
+    String[] aucttime = {"am08:00", "am12:00", "pm16:00", "pm20:00"};
     String typeStr;//选择拍品类型
     //    String auctTime;//拍品上架时间
     private TextView tv_auct_time2;
@@ -78,12 +78,13 @@ public class UploadAuctMainActivity extends AppCompatActivity {
     String endTime;
     //    np_zuct_picker
     SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_upload_main);
-        sp=getSharedPreferences("User",MODE_APPEND);
+        sp = getSharedPreferences("User", MODE_APPEND);
 
 
         initview();
@@ -131,7 +132,6 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     public class PhoteAdapter extends BaseAdapter {
@@ -301,6 +301,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
         sendMsgandImg();//图片和其他输入信息
 
     }
+
     public void timeOnclick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择类型");
@@ -313,10 +314,10 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                 tv_auct_time2.setText(aucttime[i]);
                 Long longtime;
 
-                switch (i){
+                switch (i) {
                     case 0:
-                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"08"+"mmss").format(new Date());
-                        endTime= new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd" + "08" + "mmss").format(new Date());
+                        endTime = new SimpleDateFormat("yyyyMMdd" + "12" + "mmss").format(new Date());
                         dialogInterface.dismiss();
 
 //                      try {
@@ -326,9 +327,9 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 //                      }
                         break;
                     case 1:
-                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"12"+"mmss").format(new Date());
-                        endTime= new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
-  dialogInterface.dismiss();
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd" + "12" + "mmss").format(new Date());
+                        endTime = new SimpleDateFormat("yyyyMMdd" + "16" + "mmss").format(new Date());
+                        dialogInterface.dismiss();
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
 //                      } catch (ParseException e) {
@@ -336,8 +337,8 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 //                      }
                         break;
                     case 2:
-                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"16"+"mmss").format(new Date());
-                        endTime= new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd" + "16" + "mmss").format(new Date());
+                        endTime = new SimpleDateFormat("yyyyMMdd" + "20" + "mmss").format(new Date());
                         dialogInterface.dismiss();
 //
 // try {
@@ -347,8 +348,8 @@ public class UploadAuctMainActivity extends AppCompatActivity {
 //                      }
                         break;
                     case 3:
-                        sdftimestr = new SimpleDateFormat("yyyyMMdd"+"20"+"mmss").format(new Date());
-                        endTime= new SimpleDateFormat("yyyyMMdd"+"24"+"mmss").format(new Date());
+                        sdftimestr = new SimpleDateFormat("yyyyMMdd" + "20" + "mmss").format(new Date());
+                        endTime = new SimpleDateFormat("yyyyMMdd" + "24" + "mmss").format(new Date());
                         dialogInterface.dismiss();
 //                      try {
 //                          sdftime=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr);
@@ -358,7 +359,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                         break;
                 }
 
-                System.out.println("sdftime"+sdftimestr+"====================="+sdftime);
+                System.out.println("sdftime" + sdftimestr + "=====================" + sdftime);
 //               auctTime= tv_auct_time2.getText().toString();
             }
         });
@@ -410,11 +411,11 @@ public class UploadAuctMainActivity extends AppCompatActivity {
             params.addBodyParameter("proDescription", URLEncoder.encode(proDescription, "utf-8"));
             params.addBodyParameter("category", URLEncoder.encode(auct_type, "utf-8"));
             params.addBodyParameter("address", URLEncoder.encode(address, "utf-8"));
-            params.addBodyParameter("userId",sp.getInt("userId",-1)+"");
+            params.addBodyParameter("userId", sp.getInt("userId", -1) + "");
 
             //params.setMultipart(true);
-            for (int i=0;i<imageFileLists.size();i++){
-                params.addBodyParameter("file"+i,imageFileLists.get(i));
+            for (int i = 0; i < imageFileLists.size(); i++) {
+                params.addBodyParameter("file" + i, imageFileLists.get(i));
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -432,7 +433,7 @@ public class UploadAuctMainActivity extends AppCompatActivity {
                 + "/n" + "---------address-------" + address
                 + "/n" + "--------price---------" + price
                 + "/n" + "---------auct_type-------" + auct_type
-                + "/n" + "--------bidprice---------" + bidprice+"auctTime"+sdftimestr);
+                + "/n" + "--------bidprice---------" + bidprice + "auctTime" + sdftimestr);
 
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
