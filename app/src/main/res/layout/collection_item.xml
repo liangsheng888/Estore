@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
+    android:background="#fff">
+
+
+    <ImageView
+        android:id="@+id/cart_item_prod_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bijiben"/>
+
+    <TextView
+        android:id="@+id/cart_item_prod_decription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cart_item_prod_img"
+        android:layout_alignTop="@id/cart_item_prod_img"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:lines="2"
+        android:ellipsize="end"
+        android:text="详情介绍"/>
+
+    <TextView
+        android:id="@+id/cart_item_prod_brgin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始时间"
+        android:layout_below="@id/cart_item_prod_decription"
+        android:layout_toRightOf="@id/cart_item_prod_img"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/cart_item_prod_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="结束时间"
+        android:layout_toRightOf="@id/cart_item_prod_img"
+        android:layout_below="@id/cart_item_prod_brgin"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
+
+    <TextView
+        android:id="@+id/cart_item_prod_minprice"
+        android:layout_toRightOf="@+id/cart_item_prod_img"
+        android:layout_alignBottom="@id/cart_item_prod_img"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="最低价格 ¥"/>
+
+
+    <TextView
+        android:id="@+id/cart_item_prod_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="历时2小时"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/cart_item_prod_img"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"/>
+
+
+
+    <View
+        style="@style/bg_line"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
