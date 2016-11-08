@@ -81,6 +81,7 @@
         android:fadingEdge="vertical"
         android:scrollbars="vertical"
         tools:context=".PaimaiMainActivity"
+        android:layout_marginBottom="52dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
@@ -159,7 +160,7 @@
                     android:layout_marginLeft="20dp"
 
                     android:text="高端大气上档次的手机"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="21dp" />
@@ -169,7 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dikang_bg"
-                android:padding="15dp">
+                android:padding="8dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,7 +180,7 @@
                     android:id="@+id/tv_beginprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#eee"
+
                     android:text="当前价格:"
                     android:textColor="#aaff0000"
                     android:textSize="25sp" />
@@ -230,8 +231,8 @@
                 android:layout_height="wrap_content"
                  android:background="@drawable/dikang_bg"
 
-                android:padding="20dp"
-                android:paddingTop="10dp"
+                android:padding="10dp"
+
                 android:text="剩余时间"
                 android:textColor="#aa0000ff"
                 android:textSize="20sp"
