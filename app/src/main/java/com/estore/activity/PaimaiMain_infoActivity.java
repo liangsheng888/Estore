@@ -183,19 +183,19 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         Long beginTime = Long.parseLong(sdftimestr);
         System.out.println("beginTime====" + beginTime + "nowtime==" + nowtime);
-        Long a= null;
+        Long a = null;
         Long b = null;
         try {
-            a= new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
-            b=new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
-            System.out.println(a-b+"---------a-b"+a+"---b===="+b);
-            daojishi = 4 * 60 * 60 * 1000 - (a-b);
+            a = new SimpleDateFormat("yyyyMMddHHmmss").parse(String.valueOf(nowtime)).getTime();
+            b = new SimpleDateFormat("yyyyMMddHHmmss").parse(sdftimestr).getTime();
+            System.out.println(a - b + "---------a-b" + a + "---b====" + b);
+            daojishi = 4 * 60 * 60 * 1000 - (a - b);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if ( nowtime-beginTime > 0) {
-            if (a-b>1000*60*60*4){
+        if (nowtime - beginTime > 0) {
+            if (a - b > 1000 * 60 * 60 * 4) {
                 tv_auct_time.setText("拍卖已结束");
                 ss.setVisibility(View.GONE);
                 MM.setVisibility(View.GONE);
@@ -208,23 +208,25 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         } else {
             tv_auct_time.setText("尚未开始敬请期待！");
             ss.setVisibility(View.GONE);
-             MM.setVisibility(View.GONE);
+            MM.setVisibility(View.GONE);
             HH.setVisibility(View.GONE);
             btn_paimai_bidding.setClickable(false);
         }
 
     }
+
     public void getTime() {
-        timeHH=daojishi/1000/60/60;
-        timeMM=daojishi/1000/60-timeHH*60;
-        timess=daojishi/1000-timeHH*60*60-timeMM*60;
+        timeHH = daojishi / 1000 / 60 / 60;
+        timeMM = daojishi / 1000 / 60 - timeHH * 60;
+        timess = daojishi / 1000 - timeHH * 60 * 60 - timeMM * 60;
         ss.setText(":" + timess + "秒");
         MM.setText(":" + timeMM + "分钟");
         HH.setText("" + timeHH + "小时");
         runnable.run();
 
-        System.out.println("倒计时"+daojishi+"timeHH   "+timeHH+"  timeMM  "+timeMM+"  timess  "+timess);
+        System.out.println("倒计时" + daojishi + "timeHH   " + timeHH + "  timeMM  " + timeMM + "  timess  " + timess);
     }
+
     Handler handler = new Handler();
 //    timeHH=daojishi/1000/60/60;
 
@@ -264,7 +266,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         public void run() {
             lock.lock();
 //            timeHH=daojishi%=(1000/60/60);
-            if (timeHH!=0){
+            if (timeHH != 0) {
                 timeHH--;
             }
             HH.setText("" + timeHH + "小时");
@@ -328,7 +330,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 Intent intent = new Intent(PaimaiMain_infoActivity.this, PaiMaiMain_bidding.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("auct", auct);
-                bundle.putInt("paiMaiChangCiFlag",paiMaiChangCiFlag);
+                bundle.putInt("paiMaiChangCiFlag", paiMaiChangCiFlag);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -340,7 +342,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 startActivity(intent);
                 break;
             case R.id.tv_info_back:
-                PaimaiMain_infoActivity.this.finish();
+                intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_paimai_shoucang:
                 if (btn_paimai_shoucang.isChecked()) {
@@ -390,7 +393,6 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 break;
         }
     }
-
 
 
     public class MyConn implements ServiceConnection {
@@ -532,6 +534,14 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         });
 
     }
+
+//    @Override
+//    protected void onStop() {
+//        super.onDestroy();
+//        PaimaiMain_infoActivity.this.finish();
+////      Intent  intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
+////        startActivity(intent);
+//    }
 
     public void getCollectData() {
 

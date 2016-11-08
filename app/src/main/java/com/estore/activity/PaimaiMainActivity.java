@@ -1,5 +1,6 @@
 package com.estore.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
     private TextView tv_paimai_hande2;
     private TextView tv_paimai_hande3;
     private TextView tv_paimai_hande4;
+    private TextView tv_main_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         tv_paimai_hande2.setOnClickListener(this);
         tv_paimai_hande3.setOnClickListener(this);
         tv_paimai_hande4.setOnClickListener(this);
+        tv_main_back.setOnClickListener(this);
     }
 
     private void ininData() {
@@ -170,6 +173,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         tv_paimai_hande3 = ((TextView) findViewById(R.id.tv_paimai_hande3));
         tv_paimai_hande4 = ((TextView) findViewById(R.id.tv_paimai_hande4));
         tv_paimai_hande1.setBackgroundColor(Color.RED);
+        tv_main_back = ((TextView) findViewById(R.id.tv_main_back));
 
     }
 
@@ -192,6 +196,10 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
                 tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
                 tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
                 tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                break;
+            case R.id.tv_main_back:
+                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_paimai_hande3:
                 paimai_fragment_viewpager.setCurrentItem(2);
