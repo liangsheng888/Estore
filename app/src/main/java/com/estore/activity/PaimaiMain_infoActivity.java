@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -198,6 +199,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 ss.setVisibility(View.GONE);
                 MM.setVisibility(View.GONE);
                 HH.setVisibility(View.GONE);
+                btn_paimai_tixing.setClickable(false);
+                btn_paimai_shoucang.setClickable(false);
                 btn_paimai_bidding.setClickable(false);
                 return;
             }
@@ -344,7 +347,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
     }
-
+    @Override
+    public void onBackPressed() {
+//        Log.d(TAG, "onBackPressed()");
+        super.onBackPressed();
+         Intent intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -443,10 +452,12 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     }
 
     private void sendFlagForShoucang() {
+        SharedPreferences sp=getSharedPreferences("User",MODE_APPEND);
+       int user_id=sp.getInt("userId",0);
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "paiMaishoucang");
         requestParams.addBodyParameter("shoucangFlag", String.valueOf(shoucangFlag));
         requestParams.addBodyParameter("auct_id", auct.auct_id);
-        requestParams.addBodyParameter("user_id", auct.user_id);
+        requestParams.addBodyParameter("user_id", user_id+"");
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

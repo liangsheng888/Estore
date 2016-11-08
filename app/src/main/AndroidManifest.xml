@@ -61,11 +61,13 @@
 
     <application
         android:name=".activity.myappliction.MyApplication"
-        android:windowSoftInputMode="adjustResize"
+
         android:allowBackup="true"
         android:icon="@mipmap/erhuo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize"
+
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".activity.MainActivity">
             <intent-filter>

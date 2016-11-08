@@ -2,6 +2,7 @@ package com.estore.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,7 @@ import com.estore.activity.ProductInfoActivity;
 import com.estore.activity.SeekContentActivity;
 import com.estore.activity.WatchActivity;
 import com.estore.httputils.HttpUrlUtils;
+import com.estore.httputils.ShowLoginDialogUtils;
 import com.estore.httputils.xUtilsImageUtils;
 import com.estore.pojo.Product;
 import com.estore.view.GridViewWithHeaderAndFooter;
@@ -123,7 +125,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
         slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
-        lv_jingpin.setAdapter(adapter);
+        //lv_jingpin.setAdapter(adapter);
         lv_jingpin.setSelection(0);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
@@ -172,7 +174,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 //                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
                     return;
                 }
-               // list.clear();
+                //list.clear();
                 list.addAll(pro.list);
                 Log.e("MainActivity", "list------"+list.toString());
                 if(adapter==null){
@@ -337,7 +339,13 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         switch (v.getId()) {
             case R.id.ll_auct:
                 //跳转到拍卖
-                Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
+                SharedPreferences sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+                if(sp.getString("username",null)==null){
+                    ShowLoginDialogUtils.showDialogLogin(getActivity());
+                    return;
+
+                }
+                //Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(),PaimaiMainActivity.class));
                 break;
             case R.id.ll_city:

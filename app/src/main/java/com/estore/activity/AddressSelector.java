@@ -3,6 +3,7 @@ package com.estore.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.httputils.HttpUrlUtils;
@@ -93,7 +95,12 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         Intent intent=getIntent();
         address= (Address) intent.getSerializableExtra("addressSign_add");
     }
-
+    public void onBackPressed() {
+//        Log.d(TAG, "onBackPressed()");
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), AddessListActivity.class);
+        startActivity(intent);
+    }
     private void getdata() {
         provincestr = provinceSpinner.getSelectedItem().toString();
         citystr = citySpinner.getSelectedItem().toString();
@@ -225,8 +232,20 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_address_ok:
-                sendmessg();
-
+//                provincestr
+//                        citystr = c
+//                countystr =
+//                        userName =
+//                                userTel = e
+//                addressInfo
+                if (TextUtils.isEmpty(provincestr)||TextUtils.isEmpty(citystr)
+                        ||TextUtils.isEmpty(countystr)||TextUtils.isEmpty(userName)||TextUtils.isEmpty(userTel)
+                        ||TextUtils.isEmpty(addressInfo)){
+                    Toast.makeText(this, "请填写信息", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    sendmessg();
+                }
 
         }
     }

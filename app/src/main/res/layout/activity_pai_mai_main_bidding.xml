@@ -5,11 +5,35 @@
     android:layout_height="match_parent"
 
     tools:context="com.estore.activity.PaiMaiMain_bidding">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:drawableLeft="@drawable/back"
 
+            android:background="#ff000d"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_toRightOf="@id/tv_info_back"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="拍品信息"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#f7d4d4"
+            android:background="#ff000d"
+            android:id="@+id/textView5" />
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="vertical"
+        android:layout_marginTop="40dp"
         android:scrollbars="vertical">
 
         <LinearLayout
@@ -94,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="4dp"
-                        android:text="  收 货 人:"
+
                         android:textSize="18sp" />
 
                     <TextView

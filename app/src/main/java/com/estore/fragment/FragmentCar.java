@@ -349,17 +349,22 @@ public class FragmentCar extends Fragment {
             btn_jia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    number = Integer.parseInt(tv_num.getText().toString()) + 1;
+                    if(number<=finalCart.getProduct().pnum){
+                    number = Integer.parseInt(tv_num.getText().toString()) + 1;}
+                    else{
+                        number=finalCart.getProduct().pnum;
+                    }
                     tv_num.setText(number + "");
                     tv_pronum.setText(number + "件");
                     //map 中的收藏数量发上改变
                     car_numbers.put((int) v.getTag(), number);
                     //获取该位置的checked的状态
                     if (checkstus.get((int) v.getTag())) {
+                        if(number<=finalCart.getProduct().pnum){
                         Double eachPrice = finalCart.getProduct().estoreprice * number;
                         totalPrice += finalCart.getProduct().estoreprice;
                         Log.e("ShopingCartFragment", "totalPrice jia" + totalPrice );
-                        cart_buy_money.setText("￥" + totalPrice);
+                        cart_buy_money.setText("￥" + totalPrice);}
 
                     }
                 }
@@ -393,7 +398,7 @@ public class FragmentCar extends Fragment {
                     car_numbers.put((int) v.getTag(), number);
                     if (checkstus.get((int) v.getTag())) {
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
-                        if (number > 0) {
+                        if (number >1) {
                             totalPrice -= finalCart1.getProduct().estoreprice;
                             cart_buy_money.setText("￥" + totalPrice);
                         }
@@ -409,7 +414,7 @@ public class FragmentCar extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.e("ShopingCartFragment", "oncheckedchanged" + position + "getTag:" + cb_check.getTag());
-                    if (isChecked && position == (int) buttonView.getTag() && !check_all.isChecked()) {
+                    if (isChecked && position == (int) cb_check.getTag() && !check_all.isChecked()) {
                         numberSeclected++;
                         Log.e("ShopingCartFragment", "checked");
                         checkstus.put((Integer) buttonView.getTag(), true);
@@ -422,12 +427,14 @@ public class FragmentCar extends Fragment {
                         if (numberSeclected == cartAdapter.getCount()) {//判端当前选中个数书否是总个数，是让全选按钮选中
                             check_all.setChecked(true);
                         }
-                    } else if (!isChecked && position == (int) buttonView.getTag()) {
+                    } else if (!isChecked && position == (int) cb_check.getTag()) {
                         Log.e("ShopingCartFragment", "notchecked");
                         numberSeclected--;
-                        checkstus.put((Integer) buttonView.getTag(), false);
+                        checkstus.put((Integer) cb_check.getTag(), false);
+                        if(number>1){
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
-                         totalPrice -= eachPrice;
+
+                         totalPrice -= eachPrice;}
                         Log.e("ShopingCartFragment", "totalPrice2"+totalPrice);
                         cart_buy_money.setText("￥" + totalPrice);
                         if (check_all.isChecked()) {
