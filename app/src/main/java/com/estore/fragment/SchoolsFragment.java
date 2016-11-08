@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.estore.activity.ProductInfoActivity;
 import com.estore.R;
@@ -44,9 +43,9 @@ import java.util.List;
 public class SchoolsFragment extends Fragment implements View.OnClickListener,LoadListView.ILoadListener {
 
     private LoadListView schools;
-    private BaseAdapter mAdapter=new MyAdapter();
+    private BaseAdapter mAdapter;
     private LinkedList<Product.Products> mListItems=new LinkedList<>();
-    Integer page=1;
+    Integer page=0;
     //    private ListView actualListView;
     private TextView phone;
     private TextView computer;
@@ -73,8 +72,9 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         others = ((TextView) view.findViewById(R.id.tv_others));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         ll_jiazai_schools = ((LinearLayout) view.findViewById(R.id.ll_jiazai_schools));
-
-
+        schools.setInterface(this);
+        schools.setLayoutAnimation(getAnimationController());
+        getSchoolProductInfo();
 //        mAdapter=new MyAdapter();
 //        mAdapter.notifyDataSetChanged();
 //        sameCity.setAdapter(mAdapter);
@@ -104,12 +104,6 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        schools.setAdapter(mAdapter);
-        schools.setInterface(this);
-        schools.setLayoutAnimation(getAnimationController());
-        getSchoolProductInfo();
-
-
         all.setBackgroundColor(Color.WHITE);
         phone.setBackgroundColor(Color.WHITE);
         computer.setBackgroundColor(Color.WHITE);
@@ -140,29 +134,24 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         String url= HttpUrlUtils.HTTP_URL+"getSchoolProducts";
         RequestParams requestParams=new RequestParams(url);
         requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+"");
+        requestParams.addQueryStringParameter("page",page+1+"");
         Log.i("cc",url);
         x.http().get(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                page++;
                 ll_jiazai_schools.setVisibility(View.GONE);
                 Log.i("cc",result);
                 Gson gson=new Gson();
                 Product product=gson.fromJson(result,Product.class);
-                if(product.list.size()<=0){
-                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
-                    return;
-                }
+                mListItems.clear();
                 mListItems.addAll(product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
-                    schools.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
 
-
+                schools.setAdapter(mAdapter);
 
             }
 
