@@ -74,17 +74,17 @@ public class MyCareActivity extends AppCompatActivity {
 
         @Override
         public Object getItem(int i) {
-            return null;
+            return careInfoList.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view=View.inflate(getApplicationContext(),R.layout.collection_item,null);
+             view=View.inflate(MyCareActivity.this,R.layout.collection_item,null);
             cart_item_prod_img = ((ImageView) view.findViewById(R.id.cart_item_prod_img));
             cart_item_prod_decription = ((TextView) view.findViewById(R.id.cart_item_prod_decription));
             cart_item_prod_brgin = ((TextView) view.findViewById(R.id.cart_item_prod_brgin));
@@ -92,14 +92,17 @@ public class MyCareActivity extends AppCompatActivity {
             cart_item_prod_minprice = ((TextView) view.findViewById(R.id.cart_item_prod_minprice));
             cart_item_prod_time = ((TextView) view.findViewById(R.id.cart_item_prod_time));
             CollectionInfo careInfo=careInfoList.get(i);
-
+            Log.i("cc","============================"+careInfo);
             String[] img=careInfo.getImgurl().split("=");
             x.image().bind(cart_item_prod_img,HttpUrlUtils.HTTP_URL+img[0]);
+            Log.i("cc","============================"+HttpUrlUtils.HTTP_URL+img[0]);
             cart_item_prod_decription.setText(careInfo.getDecription());
+            Log.i("cc","============================"+careInfo);
             cart_item_prod_brgin.setText("开始时间："+careInfo.getBeginTime());
             cart_item_prod_end.setText("结束时间："+careInfo.getEndTime());
             cart_item_prod_minprice.setText("最低价格："+careInfo.getMinPrice()+"¥");
             cart_item_prod_time.setText("历时"+careInfo.getTime()+"分钟");
+            Log.i("cc","============================"+careInfo);
             return view;
         }
     }

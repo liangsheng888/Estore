@@ -98,7 +98,7 @@ public class FragmentCar extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    buttonView.setChecked(true);
+                    check_all.setChecked(true);
                     for (int i = 0; i < cartAdapter.getCount(); i++) {
                         cartAdapter.getCheckStatus().put(i, true);
                         cartAdapter.notifyDataSetChanged();
@@ -116,7 +116,7 @@ public class FragmentCar extends Fragment {
                         cart_buy_money.setText("￥" + totalPrice);//有bug
                     }
                 } else {
-                    buttonView.setChecked(false);
+                    check_all.setChecked(false);
                     for (int i = 0; i < cartAdapter.getCount(); i++) {
                         cartAdapter.getCheckStatus().put(i, false);
                     }
@@ -211,7 +211,8 @@ public class FragmentCar extends Fragment {
 
                 }
                 if (proInfo.size() > 0) {
-                    Intent intent = new Intent(getActivity(), ProOrderActivity.class);
+                    Intent intent = new Intent(getActivity(), ProOrderActivity.class
+                    );
 
                     MapSerializable OrderInfo = new MapSerializable();
                     OrderInfo.setPro(proInfo);

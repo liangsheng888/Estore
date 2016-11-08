@@ -177,7 +177,7 @@ public class AllOrdersFragment extends Fragment{
 
                             //订单购买数量
 
-                            orderDetails =order.getOrderDetails();
+                            orderDetails.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("AllOrdersFragment", "orderDetails"+orderDetails.toString());

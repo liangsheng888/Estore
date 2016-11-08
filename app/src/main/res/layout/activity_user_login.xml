@@ -76,9 +76,9 @@
             android:layout_below="@id/et_psd"
             android:id="@+id/rl_butlogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:padding="10dp"
-            android:background="#93dada"
+            android:background="#ff5c5c"
             android:layout_marginTop="50dp"
             >
             <TextView

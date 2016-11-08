@@ -38,7 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价格:o.oo"
-                android:background="#f5d965"
                 android:textSize="16dp"
                 android:textColor="#f95151"
                 android:layout_below="@id/tv_pubauctionname"
