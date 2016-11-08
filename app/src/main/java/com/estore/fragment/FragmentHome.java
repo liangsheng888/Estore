@@ -491,6 +491,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             Product.Products pp = list.get(position);//根据当前位置获得pp
             ImageOptions.Builder io = new ImageOptions.Builder();
             imgurls=pp.imgurl.split("=");//将拿到的图片路径分割成字符串数组
+
             x.image().bind(viewHolder.iv, HttpUrlUtils.HTTP_URL + imgurls[0]);
             // iv.setImageUrl(HttpUrlUtils.HTTP_URL+ pp.imgurl.trim(), R.drawable.sj, R.drawable.sj);
             Log.e("MainActivity", HttpUrlUtils.HTTP_URL +imgurls[0]);
@@ -501,7 +502,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
             viewHolder.tv_time.setText("发布时间"+pp.time);
             viewHolder.tv_xingnum.setText(pp.xingCount+"");
             viewHolder.tv_username.setText(pp.userNick);
-            xUtilsImageUtils.display(viewHolder.iv_jing_userphoto,pp.userPhoto,true);
+            xUtilsImageUtils.display( viewHolder.iv_jing_userphoto,HttpUrlUtils.HTTP_URL+pp.userPhoto,true);
            // x.image().bind(viewHolder.iv_jing_userphoto,pp.userPhoto);
 
             //viewHolder.gv_jingpin.setBackground(new BitmapDrawable());//
