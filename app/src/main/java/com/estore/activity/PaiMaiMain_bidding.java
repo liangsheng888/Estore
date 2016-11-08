@@ -24,6 +24,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
     private LinearLayout ll_auct_address;
     private Button btn_up_baozheng;
     AuctListActivityBean.Auct auct;
+    Integer paiMaiChangCiFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
         initEven();
         Intent intent = getIntent();
         auct = (AuctListActivityBean.Auct) intent.getSerializableExtra("auct");
+        paiMaiChangCiFlag=intent.getIntExtra("paiMaiChangCiFlag",0);
         System.out.println("保证金页面的auct"+auct);
     }
 
@@ -89,6 +91,7 @@ public class PaiMaiMain_bidding extends AppCompatActivity implements View.OnClic
                  bundle=new Bundle();
                 bundle.putSerializable("auct_bid",auct);
                 System.out.println("向加价界面传值"+auct);
+                bundle.putInt("paiMaiChangCiFlag",paiMaiChangCiFlag);
                 intent.putExtras(bundle);
                 startActivity(intent);
 

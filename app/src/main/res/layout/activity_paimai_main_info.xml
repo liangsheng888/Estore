@@ -6,15 +6,83 @@
     tools:context=".activity.PaimaiMain_infoActivity">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <CheckBox
+                    android:id="@+id/btn_paimai_tixing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="#97c09c"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bidding_tixing"
+                    android:gravity="center"
+                    android:text="提醒"
+
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <CheckBox
+                    android:id="@+id/btn_paimai_shoucang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#97c09c"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bidding_shoucang"
+                    android:gravity="center"
+
+                    android:text="收藏"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <CheckBox
+                    android:id="@+id/btn_paimai_bidding"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#f5e72a23"
+                    android:button="@null"
+                    android:drawableTop="@drawable/bidding_jiajia"
+                    android:gravity="center"
+                    android:text="加价"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="52dp"
         android:background="#e0edee"
         android:fadingEdge="vertical"
         android:scrollbars="vertical"
-        tools:context=".PaimaiMainActivity">
+        tools:context=".PaimaiMainActivity"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -22,19 +90,43 @@
             android:orientation="vertical"
 
             tools:context="com.jin.app.myapplication.paimai.PaimaiMain_infoActivity">
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/tv_info_back"
+                   android:layout_width="wrap_content"
+                   android:layout_height="40dp"
+                   android:drawableLeft="@drawable/back"
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#12775b">
+                   android:background="#135139"
+                   android:textColor="#fff"
+                   android:textSize="18sp"
+                    />
+               <TextView
+                   android:layout_toRightOf="@id/tv_info_back"
+                   android:layout_width="match_parent"
+                   android:layout_height="40dp"
+                   android:text="拍品信息"
+                   android:textSize="20sp"
+                   android:gravity="center"
+                   android:textColor="#f7d4d4"
+                   android:background="#135139"
+                   android:id="@+id/textView5" />
+           </RelativeLayout>
 
-                <!--自定义控件-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Clock" />
-            </android.support.v7.widget.Toolbar>
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#12775b">-->
+
+                <!--&lt;!&ndash;自定义控件&ndash;&gt;-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Clock" />-->
+            <!--</android.support.v7.widget.Toolbar>-->
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_zuct_info_ad"
@@ -267,72 +359,4 @@
                 <!--android:textSize="20sp" />-->
         </LinearLayout>
     </ScrollView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_alignParentBottom="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <CheckBox
-                    android:id="@+id/btn_paimai_tixing"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="#97c09c"
-                    android:button="@null"
-                    android:drawableTop="@drawable/bidding_tixing"
-                    android:gravity="center"
-                    android:text="提醒"
-
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <CheckBox
-                    android:id="@+id/btn_paimai_shoucang"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#97c09c"
-                    android:button="@null"
-                    android:drawableTop="@drawable/bidding_shoucang"
-                    android:gravity="center"
-
-                    android:text="收藏"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <CheckBox
-                    android:id="@+id/btn_paimai_bidding"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#e0ff0004"
-                    android:button="@null"
-                    android:drawableTop="@drawable/bidding_jiajia"
-                    android:gravity="center"
-                    android:text="加价"
-                    android:textSize="20sp" />
-
-            </RelativeLayout>
-        </LinearLayout>
-    </FrameLayout>
 </RelativeLayout>

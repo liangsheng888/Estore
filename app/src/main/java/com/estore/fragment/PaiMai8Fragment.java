@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.activity.PaimaiMain_infoActivity;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoadListener, View.OnClickListener {
 
     MyAuctAdapter auctAdapter;
-    final ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
+    ArrayList<AuctListActivityBean.Auct> auctList = new ArrayList<AuctListActivityBean.Auct>();
     private String[] imgurls;
     private LoadListViewPaiMAI lv_list_paimai;
     int page = 1;
@@ -59,9 +60,19 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         ininView(view);
         ininEven();
         ininData();
-        getAuctList();
+
+//        getAuctList();
         return view;
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        searchFlag = "0";
+        page = 1;
+        auctList.clear();
+        getAuctList();
     }
 
     private void ininData() {
@@ -81,15 +92,31 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             public void onClick(View v) {
                 System.out.println("获取全部");
                 searchFlag = "0";
-                page=1;
-                getAuctList();
+                page = 1;
+//                auctList= new ArrayList<AuctListActivityBean.Auct>();
+                auctList.clear();
+
+//                final Handler handlerUpData = new Handler();
+//                Runnable  runnableUpData = new Runnable() {
+//                    @Override
+//                    public void run() {
+                        getAuctList();
+//                        handlerUpData.postDelayed(this, 2000);
+//
+//                    }
+//                };
+//                runnableUpData.run();
             }
         });
+
+
         tv_paimai_hande_search2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchFlag = "1";
-                page=1;
+                page = 1;
+//                auctList= new ArrayList<AuctListActivityBean.Auct>();
+                auctList.clear();
                 getAuctList();
             }
         });
@@ -97,7 +124,9 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             @Override
             public void onClick(View v) {
                 searchFlag = "2";
-                page=1;
+                page = 1;
+//                auctList= new ArrayList<AuctListActivityBean.Auct>();
+                auctList.clear();
                 getAuctList();
             }
         });
@@ -105,7 +134,9 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             @Override
             public void onClick(View v) {
                 searchFlag = "3";
-                page=1;
+                page = 1;
+//                auctList= new ArrayList<AuctListActivityBean.Auct>();
+                auctList.clear();
                 getAuctList();
             }
         });
@@ -113,7 +144,9 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             @Override
             public void onClick(View v) {
                 searchFlag = "4";
-                page=1;
+                page = 1;
+//                auctList= new ArrayList<AuctListActivityBean.Auct>();
+                auctList.clear();
                 getAuctList();
             }
         });
@@ -124,13 +157,6 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         ;
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        System.out.println("进入碎片");
-//        getAuctList();
-//    }
 
     @Override
     public void onClick(View v) {
@@ -168,11 +194,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             public void run() {
                 // TODO Auto-generated method stub
                 //获取更多数据
-                page++;
-                getLoadData();
+
+                getAuctList();
                 //adapter();
-                auctAdapter = new MyAuctAdapter();
-                lv_list_paimai.setAdapter(auctAdapter);
+//                auctAdapter = new MyAuctAdapter();
+//                lv_list_paimai.setAdapter(auctAdapter);
 
 //                //更新listview显示；
 //                showListView(apk_list);
@@ -182,10 +208,6 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         }, 2000);
     }
 
-    public void getLoadData() {
-
-        getAuctList();
-    }
 
     private void getAuctList() {
         final RequestParams params = new RequestParams(HttpUrlUtils.HTTP_URL + "getPaiMaiProducts");
@@ -196,69 +218,51 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                page++;
                 ll_jiazai_8.setVisibility(View.GONE);
 
                 System.out.println("========result========" + result + "-------------------------------------");
                 Gson gson = new Gson();
                 AuctListActivityBean bean = gson.fromJson(result, AuctListActivityBean.class);
-//               ArrayList<AuctListActivityBean.Auct> newlist = new ArrayList<AuctListActivityBean.Auct>();
-//                newlist.clear();
-//                newlist.addAll(bean.list);
-//                auctList.addAll(newlist);
-                auctList.clear();
                 auctList.addAll(bean.list);
-
-//                if (auctList.size() > 0) {
-
+                System.out.println("bean.list.size()"+bean.list.size());
+                if (bean.list.size() >0) {
                 if (auctAdapter == null) {
-                    System.out.println("----=-=-==-adapter==null==-=-==");
                     auctAdapter = new MyAuctAdapter();
+                    lv_list_paimai.setAdapter(auctAdapter);
                     //  adapter();
-                } else {
-                    System.out.println("----=-=-==-adapter!null==-=-==");
-                    auctAdapter.notifyDataSetChanged();
                 }
-                lv_list_paimai.setAdapter(auctAdapter);
-                System.out.println("----=-=-==-acutlist==-=-==" + auctList + "----=-=-==-acutlist==-=-==");
+                else {
+                    System.out.println("刷新界面前");
+                    lv_list_paimai.setAdapter(auctAdapter);
+                    auctAdapter.notifyDataSetChanged();
+                    System.out.println("刷新界面后");
+                }
 //获得listview的点击事件
-
                 lv_list_paimai.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //                        items = new ArrayList<>();
-//                        adapter = (BaseAdapter) parent.getAdapter();
-//                        for (int i = 0; i < adapter.getCount(); i++) {
-//
-//                            String data = (adapter.getItem(i))
-//                            items.add(data);
-//                        }
                         AuctListActivityBean.Auct auct = auctList.get(position);
                         System.out.println(auct + "---------------auct----------------------------");
-
                         Intent intent = new Intent();
-
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("auct", auct);
-
                         bundle.putInt("flag", 8);
-//                        intent.putExtra("flag",8);
                         intent.putExtras(bundle);
-
-
                         intent.setClass(getActivity(), PaimaiMain_infoActivity.class);
                         startActivity(intent);
-
                     }
                 });
-
-
-//                }
-//                else {
-//                    Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
-////                    return;
-//                }
+                    auctAdapter.notifyDataSetChanged();
+                    System.out.println("执行界面后");
+                }
+                else {
+                    Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
+                    auctAdapter.notifyDataSetChanged();
+                    return;
+                }
                 //通知listview更新界面
-                auctAdapter.notifyDataSetChanged();
+//                auctAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -320,7 +324,7 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             viewHodle.tv_auct_name.setText(auct.auct_name);
 //                viewHodle.tv_username.setText(auct.user_id);
             viewHodle.tv_auct_begin.setText(auct.auct_begin);
-            viewHodle.tv_auct_minprice.setText(auct.now_bidding);
+            viewHodle.tv_auct_minprice.setText("底价"+auct.now_bidding);
             viewHodle.tv_endbidprice.setText("￥" + auct.auct_minprice + "");
             imgurls = auct.auct_imgurl.split("=");//将拿到的图片路径分割成字符串数组
             x.image().bind(viewHodle.iv_auct_imgurl, HttpUrlUtils.HTTP_URL + imgurls[0]);

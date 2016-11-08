@@ -8,12 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.estore.R;
 import com.estore.fragment.PaiMai12Fragment;
@@ -44,32 +41,32 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         initEven();
         ininData();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
-        toolbar.setLogo(R.drawable.emoji_81);//设置app logo
-        toolbar.setTitle("拍卖");//设置主标题
-        toolbar.setSubtitle("正在拍卖物品");//设置子标题
-
-        toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-                if (menuItemId == R.id.action_item1) {
-                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_01", Toast.LENGTH_SHORT).show();
-
-                } else if (menuItemId == R.id.action_item2) {
-                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_02", Toast.LENGTH_SHORT).show();
-                } else if (menuItemId == R.id.action_item3) {
-                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_03", Toast.LENGTH_SHORT).show();
-
-                } else if (menuItemId == R.id.action_item4) {
-                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_04", Toast.LENGTH_SHORT).show();
-
-                }
-                return true;
-            }
-        });
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setNavigationIcon(R.drawable.back);//设置导航栏图标
+//        toolbar.setLogo(R.drawable.emoji_81);//设置app logo
+//        toolbar.setTitle("拍卖");//设置主标题
+//        toolbar.setSubtitle("正在拍卖物品");//设置子标题
+//
+//        toolbar.inflateMenu(R.menu.base_toolbar_menu);//设置右上角的填充菜单
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                int menuItemId = item.getItemId();
+//                if (menuItemId == R.id.action_item1) {
+//                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_01", Toast.LENGTH_SHORT).show();
+//
+//                } else if (menuItemId == R.id.action_item2) {
+//                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_02", Toast.LENGTH_SHORT).show();
+//                } else if (menuItemId == R.id.action_item3) {
+//                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_03", Toast.LENGTH_SHORT).show();
+//
+//                } else if (menuItemId == R.id.action_item4) {
+//                    Toast.makeText(PaimaiMainActivity.this, "R.string.item_04", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                return true;
+//            }
+//        });
     }
 
     private void initEven() {
