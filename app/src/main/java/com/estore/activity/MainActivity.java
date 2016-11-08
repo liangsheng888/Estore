@@ -320,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+
         Intent intentMine= getIntent();
         int direct= intentMine.getIntExtra("direct",0);
         if(direct==1){
@@ -360,8 +361,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buttons[3].setImageResource(drawable[3]);
             //((Button) findViewById(R.id.rb_mine)).setChecked(true);
             return;
+        }else {
+            changeFragment(0);
+            buttons[0].setImageResource(drawable[0]);
         }
-
 
     }
 
@@ -412,6 +415,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons[0].setImageResource(drawable[0]);
 
     }
+
 }
 
 
