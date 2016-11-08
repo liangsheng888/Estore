@@ -42,6 +42,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import swipetodismiss.SwipeMenu;
@@ -58,7 +59,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
     MyPublishActivityBean.ProImag  pro;
     private TextView tv_btestore;
     private LoadListView lv_publishest;
-    final List<MyPublishActivityBean.ProImag> prolist=new ArrayList<MyPublishActivityBean.ProImag>();
+    final LinkedList<MyPublishActivityBean.ProImag> prolist=new LinkedList<MyPublishActivityBean.ProImag>();
     private BaseAdapter  adapter=new myAdapter() ;
     User user=new User();
     Integer page=1;
@@ -270,6 +271,7 @@ public class PublishEStoreFragment extends Fragment implements LoadListView.ILoa
                     Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
                     return;
                 }
+                prolist.clear();
                 prolist.addAll(probean.list);
                 Log.e("PublishEStoreFragment",prolist.toString());
                 if(adapter==null){

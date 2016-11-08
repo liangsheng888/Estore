@@ -197,42 +197,6 @@ public class WatchActivity extends Activity implements LoadListView.ILoadListene
 
         }
 
-
-    /*public class Adapter extends BaseAdapter {
-        private String[] imgurls;
-
-        public Adapter(String[] imgurls) {
-            this.imgurls = imgurls;
-        }
-
-
-        @Override
-        public int getCount() {
-            return imgurls.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = View.inflate(getApplicationContext(), R.layout.layout_fra_pro_item, null);
-            }
-            ImageView iv = (ImageView) convertView.findViewById(R.id.iv_pro);
-            x.image().bind(iv, HttpUrlUtils.HTTP_URL + imgurls[position]);
-            return convertView;
-        }
-
-    }*/
-
     public void getData() {
         String url = HttpUrlUtils.HTTP_URL + "getComputerServlet?page=" + page;
         RequestParams requestParams2 = new RequestParams(url);

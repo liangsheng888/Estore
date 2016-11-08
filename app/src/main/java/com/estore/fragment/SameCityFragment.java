@@ -80,10 +80,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         others = ((TextView) view.findViewById(R.id.tv_others));
         ll_jiazai_school = ((LinearLayout) view.findViewById(R.id.ll_jiazai_school));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
-        sameCity.setInterface(this);
-        sameCity.setAdapter(mAdapter);
-        sameCity.setLayoutAnimation(getAnimationController());
-        getSameCityProductInfo();
+
         return view;
     }
     protected LayoutAnimationController getAnimationController() {
@@ -107,6 +104,10 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        sameCity.setInterface(this);
+        sameCity.setAdapter(mAdapter);
+        sameCity.setLayoutAnimation(getAnimationController());
+        getSameCityProductInfo();
 
         popContents.add("价格从高到低");
         popContents.add("价格从低到高");
@@ -140,10 +141,10 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
     public void getSameCityProductInfo() {
         String url= HttpUrlUtils.HTTP_URL+"getSameCityProducts";
         RequestParams requestParams=new RequestParams(url);
-        requestParams.addQueryStringParameter("orderFlag",orderFlag+"");
-        requestParams.addQueryStringParameter("page",page+"");
+        requestParams.addBodyParameter("orderFlag",orderFlag+"");
+        requestParams.addBodyParameter("page",page+"");
         Log.i("cc",url);
-        x.http().get(requestParams, new Callback.CommonCallback<String>() {
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.i("cc",result);
@@ -156,13 +157,14 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                     Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
                     return;
                 }
-                mListItems.addAll(product.list);
+                mListItems.clear();
+                mListItems.addAll(mListItems.size(),product.list);
                 if(mAdapter==null){
                     mAdapter=new MyAdapter();
-                    sameCity.setAdapter(mAdapter);
                 }else{
                     mAdapter.notifyDataSetChanged();
                 }
+                sameCity.setAdapter(mAdapter);
 
             }
 
@@ -190,6 +192,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
         switch (view.getId()) {
             case R.id.tv_all:
                 orderFlag=0;
+
 //                all.setBackgroundColor(Color.RED);
                 all.setBackgroundResource(R.drawable.corners_bg2);
                 phone.setBackgroundColor(Color.WHITE);
@@ -199,6 +202,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                 break;
             case R.id.tv_phone:
                 orderFlag=1;
+
                 all.setBackgroundColor(Color.WHITE);
 //                phone.setBackgroundColor(Color.RED);
                 phone.setBackgroundResource(R.drawable.corners_bg2);
@@ -218,6 +222,7 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
                 break;
             case R.id.tv_computertext:
                 orderFlag=3;
+
                 all.setBackgroundColor(Color.WHITE);
                 phone.setBackgroundColor(Color.WHITE);
                 computer.setBackgroundColor(Color.WHITE);
@@ -335,5 +340,11 @@ public class SameCityFragment extends Fragment implements View.OnClickListener,L
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         getSameCityProductInfo();
+    }
+
+    @Override
+    public void onStart() {
+        getSameCityProductInfo();
+        super.onStart();
     }
 }

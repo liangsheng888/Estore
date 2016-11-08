@@ -5,13 +5,7 @@
     android:orientation="vertical"
     android:background="#fff"
     >
-    <RelativeLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        >
         <RelativeLayout
             android:id="@+id/rl_lineeh"
             android:layout_width="match_parent"
@@ -21,11 +15,10 @@
             >
             <ImageView
                 android:id="@+id/iv_pubauctionpic"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/pro"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
                 android:layout_centerVertical="true"
                 />
             <TextView
@@ -89,6 +82,4 @@
 
         </RelativeLayout>
 
-
-    </RelativeLayout>
 </LinearLayout>

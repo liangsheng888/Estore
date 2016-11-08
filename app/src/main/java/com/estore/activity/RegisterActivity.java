@@ -60,13 +60,13 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        ivBackRegister.setOnClickListener(new View.OnClickListener() {
+      /*  ivBackRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
+*/
 
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override

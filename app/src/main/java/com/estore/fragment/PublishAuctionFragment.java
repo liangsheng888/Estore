@@ -40,6 +40,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -53,7 +54,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
     Integer page=1;
     private LoadListView estore;
     private SharedPreferences sp;
-    final List<ListMyAuctionActivityBean.ProImag> pubList=new ArrayList<ListMyAuctionActivityBean.ProImag>();
+    final LinkedList<ListMyAuctionActivityBean.ProImag> pubList=new LinkedList<ListMyAuctionActivityBean.ProImag>();
     private LinearLayout ll_jiazai_auct;
 
     @Override
@@ -75,22 +76,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
         View view=inflater.inflate(R.layout.fragment_publish_auction,null);
         lv_auctionlv = ((LoadListView) view.findViewById(R.id.lv_auctionlv));
         ll_jiazai_auct = ((LinearLayout) view.findViewById(R.id.ll_jiazai_auct));
-        lv_auctionlv.setInterface(this);
-        lv_auctionlv.setAdapter(adapter);
-        lv_auctionlv.setLayoutAnimation(getAnimationController());
 
-        //跳到详细页
-        lv_auctionlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListMyAuctionActivityBean.ProImag pubimag=pubList.get(position);
-                Intent intent=new Intent(getActivity(), PublishAuctionDetialItemActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("pubimag",pubimag);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
         return view;
 
     }
@@ -196,6 +182,7 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
                     Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
                     return;
                 }
+                pubList.clear();
                 pubList.addAll(prolist.list);
                 if(adapter==null){
                     adapter=new mypubAdapter();
@@ -229,6 +216,23 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        lv_auctionlv.setAdapter(adapter);
+        lv_auctionlv.setInterface(this);
+        lv_auctionlv.setLayoutAnimation(getAnimationController());
+
+        //跳到详细页
+        lv_auctionlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListMyAuctionActivityBean.ProImag pubimag=pubList.get(position);
+                Intent intent=new Intent(getActivity(), PublishAuctionDetialItemActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("pubimag",pubimag);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         getPublishAuction();
 
     }
