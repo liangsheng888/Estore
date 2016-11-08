@@ -147,8 +147,10 @@ public class PublishAuctionFragment extends Fragment implements LoadListView.ILo
             tv_pubauctionprice = ((TextView) view.findViewById(R.id.tv_pubauctionprice));
             tv_pubauctiontime = ((TextView) view.findViewById(R.id.tv_pubauctiontime));
 //            btnDelete = ((Button) view.findViewById(R.id.btn_pubauctiondelete));
+
             ListMyAuctionActivityBean.ProImag pubimag=pubList.get(position);
-            x.image().bind(iv_pubauctionpic, HttpUrlUtils.HTTP_URL+pubimag.auct_imgurl);
+            String[] str=pubimag.auct_imgurl.split("=");
+            x.image().bind(iv_pubauctionpic, HttpUrlUtils.HTTP_URL+str[0]);
             tv_pubauctionname.setText(pubimag.auct_name);
             tv_pubauctionprice.setText(pubimag.auct_minprice+"");
             tv_pubauctiontime.setText(pubimag.auct_begin+"");
