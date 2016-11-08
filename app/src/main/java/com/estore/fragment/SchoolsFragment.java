@@ -73,10 +73,8 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
         others = ((TextView) view.findViewById(R.id.tv_others));
         prosort = ((ImageView) view.findViewById(R.id.iv_sort));
         ll_jiazai_schools = ((LinearLayout) view.findViewById(R.id.ll_jiazai_schools));
-        schools.setInterface(this);
-        schools.setAdapter(mAdapter);
-        schools.setLayoutAnimation(getAnimationController());
-        getSchoolProductInfo();
+
+
 //        mAdapter=new MyAdapter();
 //        mAdapter.notifyDataSetChanged();
 //        sameCity.setAdapter(mAdapter);
@@ -106,6 +104,12 @@ public class SchoolsFragment extends Fragment implements View.OnClickListener,Lo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        schools.setAdapter(mAdapter);
+        schools.setInterface(this);
+        schools.setLayoutAnimation(getAnimationController());
+        getSchoolProductInfo();
+
+
         all.setBackgroundColor(Color.WHITE);
         phone.setBackgroundColor(Color.WHITE);
         computer.setBackgroundColor(Color.WHITE);

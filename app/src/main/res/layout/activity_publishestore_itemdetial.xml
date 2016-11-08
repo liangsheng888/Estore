@@ -44,13 +44,12 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <android.support.v4.view.ViewPager
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
                 android:id="@+id/iv_erdetial_propic"
                 android:scaleType="centerCrop"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="350dp">
             </android.support.v4.view.ViewPager>
             <LinearLayout
@@ -124,16 +123,13 @@
         android:textColor="#ff4848"
         android:layout_marginLeft="10dp"
        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#fff"
-        >
 
         <LinearLayout
             android:id="@+id/ll_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             >
             <ImageView
@@ -186,7 +182,6 @@
             android:layout_height="1dp"
             android:background="#cecccc"
             />
-    </RelativeLayout>
 
 
 
@@ -203,16 +198,6 @@
             android:orientation="horizontal"
             >
 
-            <Button
-                android:id="@+id/btn_touch_seller"
-                android:background="@drawable/shape_yellow"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-
-                android:text=""/>
 
             <Button
                 android:id="@+id/btn_modifypro"
