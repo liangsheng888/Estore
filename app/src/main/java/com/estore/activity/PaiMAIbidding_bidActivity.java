@@ -67,6 +67,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
     int positionorder;
     List<Product> productlist = new ArrayList<Product>();
     private TextView tv_nowprice;
+    private TextView tv_info_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,6 +257,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
         rl_jiajia.setOnClickListener(this);
         textView4.setOnClickListener(this);
         tv_paimai_jilu.setOnClickListener(this);
+        tv_info_back.setOnClickListener(this);
     }
 
     private void ininView() {
@@ -269,6 +271,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
         jiajia = ((TextView) findViewById(R.id.tv_jiajia2));
         rl_jiajia = ((RelativeLayout) findViewById(R.id.rl_jiajia));
         vp_auct_bidding1 = ((ViewPager) findViewById(R.id.vp_auct_bidding1));
+        tv_info_back = ((TextView) findViewById(R.id.tv_info_back));
 
     }
 
@@ -294,6 +297,10 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
                 });
                 builder.show();
                 break;
+            case R.id.tv_info_back:
+                Intent intent =new Intent(getApplicationContext(), PaimaiMain_infoActivity.class);
+                startActivity(intent);
+                break;
             case R.id.textView4:
                 if (nowPrice == 0) {
                     Toast.makeText(this, "请选择加价", Toast.LENGTH_SHORT).show();
@@ -302,7 +309,7 @@ public class PaiMAIbidding_bidActivity extends AppCompatActivity implements View
                 sendData();
                 break;
             case R.id.tv_paimai_jilu:
-                Intent intent = new Intent(getApplicationContext(), PaiMaiJiluActivity.class);
+                intent = new Intent(getApplicationContext(), PaiMaiJiluActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("auctjilu", auct);
                 intent.putExtras(bundle);
