@@ -345,7 +345,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                     return;
 
                 }
-                Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "PaimaiMainActivity", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(),PaimaiMainActivity.class));
                 break;
             case R.id.ll_city:
