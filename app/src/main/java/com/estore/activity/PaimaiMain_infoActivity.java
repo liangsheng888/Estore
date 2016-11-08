@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -451,10 +452,12 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     }
 
     private void sendFlagForShoucang() {
+        SharedPreferences sp=getSharedPreferences("User",MODE_APPEND);
+       int user_id=sp.getInt("userId",0);
         RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "paiMaishoucang");
         requestParams.addBodyParameter("shoucangFlag", String.valueOf(shoucangFlag));
         requestParams.addBodyParameter("auct_id", auct.auct_id);
-        requestParams.addBodyParameter("user_id", auct.user_id);
+        requestParams.addBodyParameter("user_id", user_id+"");
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
