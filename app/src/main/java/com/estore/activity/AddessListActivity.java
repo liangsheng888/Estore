@@ -56,6 +56,12 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         addressSign = intent.getIntExtra("addressSign", addressSign);
     }
+    public void onBackPressed() {
+//        Log.d(TAG, "onBackPressed()");
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), PaiMaiMain_bidding.class);
+        startActivity(intent);
+    }
 
     private void initView() {
         btn_new_address = ((Button) findViewById(R.id.btn_new_address));
@@ -214,8 +220,8 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                 bundle.putSerializable("addressSign_add", address);
 //                intent.putExtra("addressedt", ADDRESSEDT);//传到添加页面的标志位
                 intent.putExtras(bundle);
-                Toast.makeText(AddessListActivity.this, "跳转到选择新地址界面", Toast.LENGTH_SHORT).show();
-                System.out.println("跳转到选择新地址界面");
+//                Toast.makeText(AddessListActivity.this, "跳转到选择新地址界面", Toast.LENGTH_SHORT).show();
+//                System.out.println("跳转到选择新地址界面");
                 startActivityForResult(intent, ADDRESSINFO);
                 break;
             case R.id.btn_address_edt:

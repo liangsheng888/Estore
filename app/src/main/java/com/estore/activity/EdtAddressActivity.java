@@ -102,7 +102,12 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         et_address_info.setText(address.detailed_address);
     }
 
-
+    public void onBackPressed() {
+//        Log.d(TAG, "onBackPressed()");
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), AddessListActivity.class);
+        startActivity(intent);
+    }
 
 
     private void getdata() {

@@ -198,6 +198,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 ss.setVisibility(View.GONE);
                 MM.setVisibility(View.GONE);
                 HH.setVisibility(View.GONE);
+                btn_paimai_tixing.setChecked(false);
+                btn_paimai_shoucang.setChecked(false);
                 btn_paimai_bidding.setClickable(false);
                 return;
             }
@@ -344,7 +346,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
     }
-
+    @Override
+    public void onBackPressed() {
+//        Log.d(TAG, "onBackPressed()");
+        super.onBackPressed();
+         Intent intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
