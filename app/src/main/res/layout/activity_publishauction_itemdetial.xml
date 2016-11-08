@@ -7,7 +7,7 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#f00"
         >
         <ImageView
@@ -29,18 +29,20 @@
     <RelativeLayout
         android:id="@+id/rl_sell_detial"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         >
         <FrameLayout
             android:id="@+id/fl_tupian"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            >
             <android.support.v4.view.ViewPager
                 android:layout_gravity="center"
                 android:id="@+id/iv_pubauctdetial_propic"
                 android:scaleType="centerCrop"
-                android:layout_width="350dp"
-                android:layout_height="250dp">
+                android:layout_width="match_parent"
+                android:layout_height="350dp">
             </android.support.v4.view.ViewPager>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,8 +90,8 @@
         <TextView
             android:id="@+id/tv_pubauctdetial_represent"
             android:text="商品描述:"
-            android:textSize="22sp"
-            android:textColor="#222222"
+            android:textSize="20dp"
+            android:textColor="#646464"
             android:background="#e9e6e6"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
@@ -102,9 +104,9 @@
             android:id="@+id/tv_pubauctdetial_proname"
             android:text="商品名字:"
             android:layout_below="@id/tv_pubauctdetial_represent"
-            android:textSize="22sp"
-            android:textColor="#222222"
-            android:layout_marginLeft="20dp"
+            android:textSize="18dp"
+            android:textColor="#a19e9e"
+            android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -113,7 +115,7 @@
         <TextView
             android:id="@+id/tv_pubauctdetial_proprice"
             android:text="0.00:"
-            android:textSize="24sp"
+            android:textSize="18dp"
             android:textColor="#fc3636"
             android:background="#cecdca"
             android:layout_width="wrap_content"
@@ -126,8 +128,8 @@
             android:id="@+id/tv_pubauctdetial_pronumber"
             android:text="商品个数:"
             android:layout_below="@id/tv_pubauctdetial_proname"
-            android:textSize="22sp"
-            android:textColor="#222222"
+            android:textSize="18dp"
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -139,8 +141,8 @@
 
             android:text="发布时间:"
             android:layout_below="@id/tv_pubauctdetial_proprice"
-            android:textSize="20sp"
-            android:textColor="#222222"
+            android:textSize="18dp"
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -152,7 +154,7 @@
             android:text="结束时间"
             android:layout_below="@id/tv_pubauctdetial_proprice"
             android:textSize="20sp"
-            android:textColor="#222222"
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
