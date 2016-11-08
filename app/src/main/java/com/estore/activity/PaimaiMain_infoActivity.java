@@ -535,12 +535,13 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-      Intent  intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
-        startActivity(intent);
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onDestroy();
+//        PaimaiMain_infoActivity.this.finish();
+////      Intent  intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
+////        startActivity(intent);
+//    }
 
     public void getCollectData() {
 
