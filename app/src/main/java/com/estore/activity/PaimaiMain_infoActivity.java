@@ -198,8 +198,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 ss.setVisibility(View.GONE);
                 MM.setVisibility(View.GONE);
                 HH.setVisibility(View.GONE);
-                btn_paimai_tixing.setChecked(false);
-                btn_paimai_shoucang.setChecked(false);
+                btn_paimai_tixing.setClickable(false);
+                btn_paimai_shoucang.setClickable(false);
                 btn_paimai_bidding.setClickable(false);
                 return;
             }
