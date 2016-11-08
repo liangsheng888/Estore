@@ -277,6 +277,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ll_jiazai"
+        android:background="#fff"
         android:layout_centerInParent="true"
         android:orientation="vertical">
     <ProgressBar
@@ -360,8 +361,8 @@
        android:layout_below="@id/ll_seek"
         android:dividerHeight="8dp"
         android:touchscreenBlocksFocus="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     </com.estore.view.LoadListView>
       </RelativeLayout>
 
