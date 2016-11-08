@@ -77,13 +77,14 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
     long timeHH = 3;
     long timess = 60;
     private TextView tv_info_back;
-
+//    private Map<com.estore.pojo.Product.Products, Integer> mapOrderInfo=new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
         setContentView(R.layout.activity_paimai_main_info);
         initView();
+//        getPaiMaiJuluData();
         intEven();
 
         Intent intent = getIntent();
@@ -155,10 +156,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
 
         //获得从拍卖listview得到的数据
 
-        tv_beginprice = ((TextView) findViewById(R.id.tv_beginprice));
-        tv_auct_name = ((TextView) findViewById(R.id.tv_auct_name));
-//        tv_auct_username = ((TextView) findViewById(R.id.tv_auct_username));
-        tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
+
 
         tv_beginprice.setText(auct.auct_minprice + "¥");
         tv_auct_name.setText("标题：炫酷高端大气奢华有内涵的装逼神器" + auct.auct_name + "手机");
@@ -241,6 +239,8 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             if (timess == 0) {
                 timess = 60;
                 lock.unlock();
+
+//                insertPaiMaiData();
                 System.out.println("分钟倒计时线程开始");
                 runnable1.run();
             }
@@ -273,33 +273,49 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
             lock.unlock();
             System.out.println("maio 倒计时线程开始");
             runnable1.run();
+            if(timeHH==0&&timeMM==0&&timess==0){
+               //判断当前有没有加价才生成订单
+                if (productlist.size()==0){
+                    //推送消息拍卖没有人加价，流拍！
+                }else {//
+                insertPaiMaiData();
+                }
             return;
+            }
         }
 
     };
 
+    private void insertPaiMaiData() {
+        RequestParams requestParams =new RequestParams(HttpUrlUtils.HTTP_URL+"insertPaiMaiOrder");
+        requestParams.addBodyParameter("userId",productlist.get(0).getUser_id()+"");
+        requestParams.addBodyParameter("orderState",1+"");
+        requestParams.addBodyParameter("total_price",productlist.get(0).getAuct_bid_price()+"");
+        requestParams.addBodyParameter("addressId",1+"");
+        requestParams.addBodyParameter("auctId",auct.auct_id+"");
 
-//        String j = (new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-//        Long a = Long.parseLong(j);
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                //生成订单成功后推送消息
+            }
 
-//        String yy = auct.auct_begin.substring(0, 4);
-//        String month = auct.auct_begin.substring(5, 7);
-//        String day = auct.auct_begin.substring(8, 10);
-//        String hh = auct.auct_begin.substring(11, 13);
-//        String ss = auct.auct_begin.substring(14, 16);
-//        String mm = auct.auct_begin.substring(17, 19);
-//        System.out.println(auct.auct_begin + "==" + yy + "--" + month + "--" + day + "--" + hh + "--" + ss + "--" + mm);
-//        String b = yy + month + day + hh + ss + mm;
-//        Long bb = Long.parseLong(b);
-//        Long nowtime = Long.valueOf(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-//        Long nextTime = nowtime - bb;
-//        System.out.println("时间bb---" + bb + "----a---" + a);
-//        if (bb - a < 0) {
-//            tv_auct_time.setText("未开始敬请期待");
-//        } else {
-////            tv_auct_time.setText(dd + ":" + hh + ":" + ":" + ss);
-//            tv_auct_time.setText("正在进行中");
-//        }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
 
     private void intEven() {
@@ -308,6 +324,7 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         btn_paimai_tixing.setOnClickListener(this);
         tv_paimai_jilu.setOnClickListener(this);
         tv_info_back.setOnClickListener(this);
+//        tv_auct_name.setOnClickListener(this);
     }
 
     private void initView() {
@@ -320,6 +337,11 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
         MM = ((TextView) findViewById(R.id.txttime_MM));
         ss = ((TextView) findViewById(R.id.txttime_ss));
         tv_info_back = ((TextView) findViewById(R.id.tv_info_back));
+        tv_auct_name = ((TextView) findViewById(R.id.tv_auct_name));
+        tv_beginprice = ((TextView) findViewById(R.id.tv_beginprice));
+
+//        tv_auct_username = ((TextView) findViewById(R.id.tv_auct_username));
+        tv_auct_time = ((TextView) findViewById(R.id.tv_auct_time));
 
     }
 
@@ -341,6 +363,10 @@ public class PaimaiMain_infoActivity extends AppCompatActivity implements View.O
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+//            case R.id.tv_auct_name:
+//                Toast.makeText(this, "生成订单", Toast.LENGTH_SHORT).show();
+//                insertPaiMaiData();
+//                break;
             case R.id.tv_info_back:
                 intent = new Intent(getApplicationContext(),  PaimaiMainActivity.class);
                 startActivity(intent);
