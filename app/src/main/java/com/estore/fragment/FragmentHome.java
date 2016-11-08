@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -27,13 +28,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estore.R;
 import com.estore.activity.MainActivity;
 import com.estore.activity.MainComputerActivity;
 import com.estore.activity.PaimaiMainActivity;
 import com.estore.activity.PersonComputerActivity;
 import com.estore.activity.PhoneActivity;
 import com.estore.activity.ProductInfoActivity;
-import com.estore.R;
 import com.estore.activity.SeekContentActivity;
 import com.estore.activity.WatchActivity;
 import com.estore.httputils.HttpUrlUtils;
@@ -106,7 +107,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         View view = inflater.inflate(R.layout.activity_fra_home, null);
         lv_jingpin = (LoadListView) view.findViewById(R.id.lv_jingpin);
         ll_seek = ((LinearLayout) view.findViewById(R.id.ll_seek));
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         progressBar=(ProgressBar)view.findViewById(R.id.progressBar) ;
         tv_jiazai=(TextView)view.findViewById(R.id.tv_jiazai);
        // rl_header= (RelativeLayout) view.findViewById(R.id.rl_header)
