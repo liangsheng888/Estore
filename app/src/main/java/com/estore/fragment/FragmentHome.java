@@ -168,7 +168,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 Log.e("MainActivity", "pro------"+pro.toString());
 
                 if(pro.list.size()<=0){
-                    Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(),"亲！没有更多数据了",Toast.LENGTH_LONG).show();
                     return;
                 }
                // list.clear();
@@ -571,7 +571,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
         @Override
         public int getCount() {
-            return imgurls.length;
+            return 3;
         }
 
         @Override
