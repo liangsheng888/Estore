@@ -12,7 +12,7 @@
         android:layout_toRightOf="@+id/iv_pro_photo"
         android:id="@+id/tv_order_desc"
         android:layout_marginTop="5dp"
-        android:textColor="#000"
+        android:textColor="#807b7b"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:text="时代潮流时代潮流时代潮流时代潮流时代潮流时 代潮流时代潮流时代潮流时代潮流时代潮流代潮流时代潮流时代潮流时代潮流时代潮流"

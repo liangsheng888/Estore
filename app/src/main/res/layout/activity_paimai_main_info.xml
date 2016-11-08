@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="#97c09c"
+                    android:background="#f1f1f1"
                     android:button="@null"
                     android:drawableTop="@drawable/bidding_tixing"
                     android:gravity="center"
@@ -45,7 +45,7 @@
                     android:id="@+id/btn_paimai_shoucang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#97c09c"
+                    android:background="#f1f1f1"
                     android:button="@null"
                     android:drawableTop="@drawable/bidding_shoucang"
                     android:gravity="center"
@@ -63,7 +63,7 @@
                     android:id="@+id/btn_paimai_bidding"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#f5e72a23"
+                    android:background="#f00"
                     android:button="@null"
                     android:drawableTop="@drawable/bidding_jiajia"
                     android:gravity="center"
@@ -77,7 +77,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#e0edee"
+        android:background="#fdfdfd"
         android:fadingEdge="vertical"
         android:scrollbars="vertical"
         tools:context=".PaimaiMainActivity"
@@ -98,10 +98,10 @@
                    android:id="@+id/tv_info_back"
                    android:layout_width="wrap_content"
                    android:layout_height="40dp"
-                   android:drawableLeft="@drawable/back"
+                   android:drawableLeft="@drawable/last_white"
 
-                   android:background="#135139"
-                   android:textColor="#fff"
+                   android:background="#f52230"
+                   android:textColor="#f00"
                    android:textSize="18sp"
                     />
                <TextView
@@ -112,7 +112,7 @@
                    android:textSize="20sp"
                    android:gravity="center"
                    android:textColor="#f7d4d4"
-                   android:background="#135139"
+                   android:background="#f00"
                    android:id="@+id/textView5" />
            </RelativeLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/toolbar"
-                android:background="#e0edee">
+                android:background="#ffffff">
 
             </android.support.v4.view.ViewPager>
 
@@ -183,9 +183,14 @@
 
                     android:text="当前价格:"
                     android:textColor="#aaff0000"
-                    android:textSize="25sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
 
+                android:background="#f7f7f7"
+                />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -220,6 +225,12 @@
                     android:layout_alignParentBottom="true" />
 
             </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="#f7f7f7"
+                />
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -234,8 +245,8 @@
                 android:padding="10dp"
 
                 android:text="剩余时间"
-                android:textColor="#aa0000ff"
-                android:textSize="20sp"
+                android:textColor="#aaff0000"
+                android:textSize="18dp"
                 android:visibility="visible"/>
             <TextView
                 android:id="@+id/txttime_HH"
@@ -244,7 +255,7 @@
                 android:gravity="center"
                 android:layout_centerInParent="true"
                 android:text="3小时"
-                android:textSize="20sp"/>
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/txttime_MM"
                 android:layout_width="wrap_content"
@@ -253,7 +264,7 @@
                 android:text="59分钟"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/txttime_HH"
-                android:textSize="20sp"/>
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/txttime_ss"
                 android:layout_width="wrap_content"
@@ -262,8 +273,9 @@
                 android:text="秒数"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/txttime_MM"
-                android:textSize="20sp"/>
+                android:textSize="16dp"/>
 </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_paimai_jilu"
                 android:layout_width="match_parent"
@@ -276,7 +288,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="拍卖记录"
-                    android:textSize="23sp" />
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/tv_paimai_jilu"
@@ -285,9 +297,9 @@
                     android:layout_toRightOf="@+id/tv_bid_paimai"
                     android:drawableEnd="@drawable/ic_arrow_right2"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="18dp"
                     android:text="丨  0条"
-                    android:textSize="23sp" />
+                    android:textSize="18dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -298,6 +310,7 @@
                     android:text="0条"
                     android:textColor="#41434e"
                     android:textSize="20sp" />
+
                 <ListView
                     android:id="@+id/lv_paimai_jilu"
                     android:layout_below="@id/tv_paimai_jilu"

@@ -8,7 +8,7 @@
    <EditText
        android:id="@+id/et_address_name"
        android:layout_width="match_parent"
-       android:layout_height="60dp"
+       android:layout_height="40dp"
        android:hint="请输入用户名"
        android:textSize="18sp"
        android:paddingLeft="10dp"
@@ -16,7 +16,7 @@
     <EditText
         android:id="@+id/et_address_tel"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:hint="请输入手机号码"
         android:paddingLeft="10dp"
         android:textSize="18sp"
@@ -27,14 +27,14 @@
         android:id="@+id/spin_province"
         android:layout_width="match_parent"
         android:popupBackground="#ffffff"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
       />
 
     <Spinner
         android:id="@+id/spin_city"
         android:layout_width="match_parent"
         android:popupBackground="#ffffff"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
 
 
       />
@@ -43,7 +43,7 @@
         android:id="@+id/spin_county"
         android:layout_width="match_parent"
         android:popupBackground="#ffffff"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
 
 
       />
@@ -57,13 +57,14 @@
  <CheckBox
      android:id="@+id/rb_address"
      android:layout_width="match_parent"
-     android:layout_height="50dp"
+     android:layout_height="40dp"
      android:text="是否设置为默认地址"/>
 <Button
     android:id="@+id/btn_address_ok"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="40dp"
     android:background="#f00"
+    android:textSize="20dp"
     android:text="确 定"
     android:textColor="#fff"
     />

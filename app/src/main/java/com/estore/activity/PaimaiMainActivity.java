@@ -114,31 +114,31 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        tv_paimai_hande1.setBackgroundColor(Color.RED);
-                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                        tv_paimai_hande1.setBackgroundColor(Color.WHITE);
+                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
 
                         break;
                     case 1:
-                        tv_paimai_hande2.setBackgroundColor(Color.RED);
-                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                        tv_paimai_hande2.setBackgroundColor(Color.WHITE);
+                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
 
                         break;
                     case 2:
-                        tv_paimai_hande3.setBackgroundColor(Color.RED);
-                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                        tv_paimai_hande3.setBackgroundColor(Color.WHITE);
+                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
 
                         break;
                     case 3:
-                        tv_paimai_hande4.setBackgroundColor(Color.RED);
-                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
+                        tv_paimai_hande4.setBackgroundColor(Color.WHITE);
+                        tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                        tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
 
                         break;
 
@@ -172,7 +172,7 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         tv_paimai_hande2 = ((TextView) findViewById(R.id.tv_paimai_hande2));
         tv_paimai_hande3 = ((TextView) findViewById(R.id.tv_paimai_hande3));
         tv_paimai_hande4 = ((TextView) findViewById(R.id.tv_paimai_hande4));
-        tv_paimai_hande1.setBackgroundColor(Color.RED);
+        tv_paimai_hande1.setBackgroundColor(Color.WHITE);
         tv_main_back = ((TextView) findViewById(R.id.tv_main_back));
 
     }
@@ -183,19 +183,19 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.tv_paimai_hande1:
                 paimai_fragment_viewpager.setCurrentItem(0);
-                tv_paimai_hande1.setBackgroundColor(Color.RED);
-                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                tv_paimai_hande1.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
 
 
                 break;
             case R.id.tv_paimai_hande2:
                 paimai_fragment_viewpager.setCurrentItem(1);
-                tv_paimai_hande2.setBackgroundColor(Color.RED);
-                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                tv_paimai_hande2.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
                 break;
             case R.id.tv_main_back:
                 Intent intent=new Intent(getApplicationContext(), MainActivity.class);
@@ -203,17 +203,17 @@ public class PaimaiMainActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.tv_paimai_hande3:
                 paimai_fragment_viewpager.setCurrentItem(2);
-                tv_paimai_hande3.setBackgroundColor(Color.RED);
-                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#4f965c"));
+                tv_paimai_hande3.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande4.setBackgroundColor(Color.parseColor("#edecec"));
                 break;
             case R.id.tv_paimai_hande4:
                 paimai_fragment_viewpager.setCurrentItem(3);
-                tv_paimai_hande4.setBackgroundColor(Color.RED);
-                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#4f965c"));
-                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#4f965c"));
+                tv_paimai_hande4.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande1.setBackgroundColor(Color.parseColor("#edecec"));
                 break;
         }
     }

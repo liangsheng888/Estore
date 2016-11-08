@@ -7,7 +7,7 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#f00"
         >
         <ImageView
@@ -57,7 +57,7 @@
             android:text="商品描述:"
 
             android:layout_below="@id/bg"
-            android:textSize="22sp"
+            android:textSize="20dp"
             android:textColor="#222222"
 
             android:layout_marginLeft="20dp"
@@ -71,7 +71,7 @@
             android:id="@+id/tv_audetial_proname"
             android:text="商品名字:"
             android:layout_below="@id/tv_audetial_represent"
-            android:textSize="22sp"
+            android:textSize="20dp"
             android:textColor="#222222"
             android:background="#e9e6e6"
             android:layout_marginLeft="20dp"
@@ -83,7 +83,7 @@
         <TextView
             android:id="@+id/tv_audetial_proprice"
             android:text="0.00:"
-            android:textSize="24sp"
+            android:textSize="20dp"
             android:textColor="#fc3636"
             android:background="#fff23d"
             android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:id="@+id/tv_audetial_pronumber"
             android:text="商品个数:"
             android:layout_below="@id/tv_audetial_proname"
-            android:textSize="22sp"
+            android:textSize="20dp"
             android:textColor="#222222"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
