@@ -23,7 +23,7 @@
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:background="#f00"
                 android:gravity="center"
                 android:text="上传拍卖信息"

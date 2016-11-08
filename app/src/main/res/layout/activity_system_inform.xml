@@ -7,7 +7,7 @@
     tools:context="com.estore.activity.SystemInformActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#f00"
         >
         <ImageView
@@ -18,11 +18,14 @@
             android:layout_alignParentLeft="true"
           android:layout_centerVertical="true"
             />
-        <ImageView
+        <TextView
             android:id="@+id/iv_inform"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:src="@drawable/tongzhi"
+            android:gravity="center"
+            android:textColor="#ffffff"
+           android:text="系统通知"
+            android:textSize="20dp"
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
