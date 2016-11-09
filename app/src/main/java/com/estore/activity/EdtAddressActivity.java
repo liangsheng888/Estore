@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -79,7 +78,7 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
     private EditText et_address_tel;
     private EditText et_address_name;
     private EditText et_address_info;
-    private CheckBox rb_address;
+//    private CheckBox rb_address;
   int  ADDRESSEDT;//编辑传过来的标志位
 
     @Override
@@ -125,7 +124,7 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         et_address_name = ((EditText) findViewById(R.id.et_address_name));
         et_address_tel = ((EditText) findViewById(R.id.et_address_tel));
         et_address_info = ((EditText) findViewById(R.id.et_address_info));
-        rb_address = ((CheckBox) findViewById(R.id.rb_address));
+//        rb_address = ((CheckBox) findViewById(rb_address));
     }
 
     private void initEven() {
@@ -251,10 +250,10 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         String userName = et_address_name.getText().toString().trim();
         String userTel = et_address_tel.getText().toString().trim();
         String detailedaddress = et_address_info.getText().toString().trim();
-        Boolean ismoren = rb_address.isChecked();
-        if (ismoren) {
-            moren = 1;
-        }
+//        Boolean ismoren = rb_address.isChecked();
+//        if (ismoren) {
+//            moren = 1;
+//        }
 
         final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "modifyaddressservlet");
         requestParams.addBodyParameter("addressId", String.valueOf(address.getAddressId()));
@@ -262,7 +261,7 @@ public class EdtAddressActivity extends AppCompatActivity implements View.OnClic
         requestParams.addBodyParameter("userId", address.getUserId()+"");
         requestParams.addBodyParameter("cantactPhone", userTel);
         requestParams.addBodyParameter("contactAddress", province + city + county);
-        requestParams.addBodyParameter("isDefault", String.valueOf(moren));
+//        requestParams.addBodyParameter("isDefault", String.valueOf(moren));
         requestParams.addBodyParameter("detailed_address", detailedaddress);
 
         x.http().post(requestParams, new Callback.CommonCallback<String>() {

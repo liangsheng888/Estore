@@ -167,7 +167,7 @@
             android:id="@+id/tv_yuanjia"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:text="原价"
+
             android:textSize="18sp"
             android:gravity="center"/>
         <TextView
