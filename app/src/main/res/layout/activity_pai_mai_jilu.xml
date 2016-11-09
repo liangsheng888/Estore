@@ -10,7 +10,7 @@
         android:id="@+id/tv_paimai_jilu_hande"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#b5ff0000"
+        android:background="#f00"
         android:text="拍卖记录"
         android:gravity="center"
         android:textSize="20sp"

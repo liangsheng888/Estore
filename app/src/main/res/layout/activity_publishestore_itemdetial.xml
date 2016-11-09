@@ -20,7 +20,8 @@
         <ImageView
             android:id="@+id/iv_pubEstitem_return"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
+           android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
             android:src="@drawable/last_white"
             />

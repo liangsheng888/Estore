@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="请登录账号"
             android:textSize="18dp"
-            android:textColor="#fff200"
+            android:textColor="#797977"
             android:layout_below="@id/iv_denglu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"

@@ -92,21 +92,22 @@
 
             tools:context="com.jin.app.myapplication.paimai.PaimaiMain_infoActivity">
            <RelativeLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content">
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="#f00"
+               >
                <TextView
                    android:id="@+id/tv_info_back"
                    android:layout_width="wrap_content"
                    android:layout_height="40dp"
                    android:drawableLeft="@drawable/last_white"
-
-                   android:background="#f52230"
+                   android:background="#f00"
                    android:textColor="#f00"
-                   android:textSize="18sp"
+                   android:textSize="18dp"
                     />
                <TextView
                    android:layout_toRightOf="@id/tv_info_back"
-                   android:layout_width="match_parent"
+                   android:layout_width="wrap_content"
                    android:layout_height="40dp"
                    android:text="拍品信息"
                    android:textSize="20sp"

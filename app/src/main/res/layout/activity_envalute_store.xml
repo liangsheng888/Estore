@@ -14,15 +14,16 @@
         <ImageView
             android:id="@+id/iv_en_store_fanhui"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:clickable="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/last_white"
             />
         <TextView
             android:id="@+id/tv_pingjia"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="3"
             android:text="宝贝评价"
