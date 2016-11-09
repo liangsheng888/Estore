@@ -10,7 +10,7 @@
     <color name="common_botton_bar_blue">#2ea7e0</color>
     <color name="top_bar_normal_bg">#00acff</color>
     <!-- #ccc -->
-    <color name="border_clo">#ccc</color>
+    <color name="border_clo">#ededed</color>
     <color name="red">#f00</color>
     <color name="text_clo">#5E5E5E</color>
     <color name="black">#000</color>

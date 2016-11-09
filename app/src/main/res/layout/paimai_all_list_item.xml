@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#54a97c">
+        android:background="#f00">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,11 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="#0b542e"
+        android:background="#f00"
         android:padding="5dp"
         android:text="998次收藏"
         android:textColor="#fff"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -56,6 +56,6 @@
         android:gravity="center"
         android:text="今天限时热销描述"
         android:textSize="20sp"
-        android:background="#cad4f9"/>
+        android:background="#e7e8e9"/>
 
 </LinearLayout>

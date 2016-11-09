@@ -7,14 +7,14 @@
     tools:context="com.estore.activity.MyOrderActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#494747"
+        android:layout_height="40dp"
+        android:background="#f00"
 
         >
         <ImageView
             android:id="@+id/iv_orderreturn"
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:src="@drawable/last_white"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的订单"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textColor="#fff"
             android:layout_centerInParent="true"
 

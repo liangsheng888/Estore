@@ -347,7 +347,7 @@
         android:id="@+id/rb_tuichu"
         android:layout_below="@id/tv_phonenumber"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:button="@null"

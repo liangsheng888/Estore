@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
+        android:textColor="#ffffff"
         android:text="收货地址"
         android:textSize="20sp"
         android:lineSpacingMultiplier="1.8"
@@ -30,9 +31,11 @@
     <Button
         android:id="@+id/btn_new_address"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:text="添加新地址"
-        android:background="#f3ff0000"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:background="#f00"
         />
 </FrameLayout>
 </RelativeLayout>

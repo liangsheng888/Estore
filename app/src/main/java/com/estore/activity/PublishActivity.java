@@ -71,14 +71,14 @@ public class PublishActivity extends AppCompatActivity implements View.OnClickLi
                 if(fragment1==null)
                     fragment1 = new PublishEStoreFragment();
                 newFragment = fragment1;
-                rb_estorepublish.setBackgroundColor(Color.RED);
+                rb_estorepublish.setBackgroundColor(Color.rgb(239,239,239));
                 rb_auctionpublish.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.rb_auctionpublish:
                 if(fragment2==null)
                     fragment2 = new PublishAuctionFragment();
                 newFragment = fragment2;
-                rb_auctionpublish.setBackgroundColor(Color.RED);
+                rb_auctionpublish.setBackgroundColor(Color.rgb(239,239,239));
                 rb_estorepublish.setBackgroundColor(Color.WHITE);
 
                 break;

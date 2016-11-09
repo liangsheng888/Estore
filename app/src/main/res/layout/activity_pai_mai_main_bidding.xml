@@ -75,7 +75,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="#a9b7b7"
+                    android:background="#e2e2e2"
                     android:gravity="center"
                     android:text="      为保证竞拍成功后拍品顺利到达，请填写你的详细地址"
                     android:textSize="15sp" />
@@ -192,10 +192,11 @@
         <Button
             android:id="@+id/btn_up_baozheng"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:background="#f00"
             android:lineSpacingMultiplier="1.5"
             android:textColor="#fff"
+            android:textSize="20dp"
             android:text="提交保证金" />
 
     </FrameLayout>

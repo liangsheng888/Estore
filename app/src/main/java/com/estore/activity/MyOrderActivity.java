@@ -136,7 +136,7 @@ public class MyOrderActivity extends AppCompatActivity {
                 //当前选择项，按钮被选中
                 buttons[newIndex].setSelected(true);
                 buttons[oldIndex].setBackgroundColor(Color.WHITE);
-                buttons[newIndex].setBackgroundColor(Color.RED);
+                buttons[newIndex].setBackgroundColor(Color.rgb(239,239,239));
 
 
 

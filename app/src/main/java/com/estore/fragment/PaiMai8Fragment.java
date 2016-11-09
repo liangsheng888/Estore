@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -76,6 +77,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
     }
 
     private void ininData() {
+        tv_paimai_hande_search1.setBackgroundColor(Color.WHITE);
+        tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
 
 
     }
@@ -95,17 +101,12 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
                 page = 1;
 //                auctList= new ArrayList<AuctListActivityBean.Auct>();
                 auctList.clear();
+                tv_paimai_hande_search1.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
 
-//                final Handler handlerUpData = new Handler();
-//                Runnable  runnableUpData = new Runnable() {
-//                    @Override
-//                    public void run() {
-                        getAuctList();
-//                        handlerUpData.postDelayed(this, 2000);
-//
-//                    }
-//                };
-//                runnableUpData.run();
             }
         });
 
@@ -117,6 +118,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
                 page = 1;
 //                auctList= new ArrayList<AuctListActivityBean.Auct>();
                 auctList.clear();
+                tv_paimai_hande_search2.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
                 getAuctList();
             }
         });
@@ -125,6 +131,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             public void onClick(View v) {
                 searchFlag = "2";
                 page = 1;
+                tv_paimai_hande_search3.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
 //                auctList= new ArrayList<AuctListActivityBean.Auct>();
                 auctList.clear();
                 getAuctList();
@@ -135,6 +146,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             public void onClick(View v) {
                 searchFlag = "3";
                 page = 1;
+                tv_paimai_hande_search4.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
 //                auctList= new ArrayList<AuctListActivityBean.Auct>();
                 auctList.clear();
                 getAuctList();
@@ -145,6 +161,11 @@ public class PaiMai8Fragment extends Fragment implements LoadListViewPaiMAI.ILoa
             public void onClick(View v) {
                 searchFlag = "4";
                 page = 1;
+                tv_paimai_hande_search5.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
 //                auctList= new ArrayList<AuctListActivityBean.Auct>();
                 auctList.clear();
                 getAuctList();

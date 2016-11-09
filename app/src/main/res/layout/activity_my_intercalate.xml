@@ -8,13 +8,13 @@
     tools:context="com.estore.activity.MyIntercalateActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="#f00"
         >
         <ImageView
             android:id="@+id/iv_intercalatereturn"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:src="@drawable/last_white"
             android:layout_alignParentLeft="true"
            android:layout_centerVertical="true"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的设置"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textColor="#fff"
             android:layout_centerInParent="true"
 
@@ -35,17 +35,21 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dad9d9"
+        android:background="#f1f1f1"
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#ecebeb"
+        >
         <RelativeLayout
             android:id="@+id/rl_perset"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#fff"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            >
             <TextView
                 android:id="@+id/tv_perdataset"
                 android:layout_width="wrap_content"
@@ -63,16 +67,20 @@
         android:id="@+id/line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dad9d9"
+        android:background="#e2e2e2"
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#ecebeb"
+        >
         <RelativeLayout
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#fff"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            >
             <TextView
                 android:id="@+id/tv_treasure1"
                 android:layout_width="wrap_content"
@@ -88,16 +96,20 @@
         android:id="@+id/line5"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dad9d9"
+        android:background="#e2e2e2"
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#ecebeb"
+        >
         <RelativeLayout
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:background="#fff"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            >
             <TextView
                 android:id="@+id/tv_treasure2"
                 android:layout_width="wrap_content"
@@ -113,7 +125,7 @@
         android:id="@+id/line4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#dad9d9"
+        android:background="#e2e2e2"
         />
     <RadioGroup
         android:layout_width="match_parent"
@@ -127,7 +139,7 @@
             />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             >
             <Button
                 android:id="@+id/rb_tuichuset"
@@ -141,6 +153,7 @@
                 android:text="退出设置"
                 android:textColor="#fff"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:textSize="20dp"
                 />
         </RelativeLayout>

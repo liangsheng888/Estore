@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -82,7 +81,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
     private EditText et_address_tel;
     private EditText et_address_name;
     private EditText et_address_info;
-    private CheckBox rb_address;
+//    private CheckBox rb_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +101,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
     private void getdata() {
-        provincestr = provinceSpinner.getSelectedItem().toString();
-        citystr = citySpinner.getSelectedItem().toString();
-        countystr = countySpinner.getSelectedItem().toString();
-        userName = et_address_name.getText().toString();
-        userTel = et_address_tel.getText().toString();
-        addressInfo = et_address_info.getText().toString();
+
 //       addressList.add()
     }
 
@@ -116,7 +110,7 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         et_address_name = ((EditText) findViewById(R.id.et_address_name));
         et_address_tel = ((EditText) findViewById(R.id.et_address_tel));
         et_address_info = ((EditText) findViewById(R.id.et_address_info));
-        rb_address = ((CheckBox) findViewById(R.id.rb_address));
+//        rb_address = ((CheckBox) findViewById(R.id.rb_address));
     }
 
     private void initEven() {
@@ -232,25 +226,23 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_address_ok:
-//                provincestr
-//                        citystr = c
-//                countystr =
-//                        userName =
-//                                userTel = e
-//                addressInfo
-                if (TextUtils.isEmpty(provincestr)||TextUtils.isEmpty(citystr)
-                        ||TextUtils.isEmpty(countystr)||TextUtils.isEmpty(userName)||TextUtils.isEmpty(userTel)
-                        ||TextUtils.isEmpty(addressInfo)){
-                    Toast.makeText(this, "请填写信息", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
                     sendmessg();
-                }
-
         }
     }
 
     private void sendmessg() {
+        provincestr = provinceSpinner.getSelectedItem().toString();
+        citystr = citySpinner.getSelectedItem().toString();
+        countystr = countySpinner.getSelectedItem().toString();
+        userName = et_address_name.getText().toString();
+        userTel = et_address_tel.getText().toString();
+        addressInfo = et_address_info.getText().toString();
+        if (
+                TextUtils.isEmpty(userName)||TextUtils.isEmpty(userTel)
+                        ||TextUtils.isEmpty(addressInfo)){
+            Toast.makeText(this, "请填写信息", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Integer moren = 0;
         String province = provinceSpinner.getSelectedItem().toString();
         String city = citySpinner.getSelectedItem().toString();
@@ -259,17 +251,17 @@ public class AddressSelector extends AppCompatActivity implements View.OnClickLi
         String userName = et_address_name.getText().toString().trim();
         String userTel = et_address_tel.getText().toString().trim();
         String detailedaddress = et_address_info.getText().toString().trim();
-        Boolean ismoren = rb_address.isChecked();
-        if (ismoren) {
-            moren = 1;
-        }
+//        Boolean ismoren = rb_address.isChecked();
+//        if (ismoren) {
+//            moren = 1;
+//        }
         System.out.println("address----------"+address);
         final RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "insertaddressservlet");
         requestParams.addBodyParameter("userName", userName);
         requestParams.addBodyParameter("userId",address.getUserId()+"");
         requestParams.addBodyParameter("cantactPhone", userTel);
         requestParams.addBodyParameter("contactAddress", province + city + county);
-        requestParams.addBodyParameter("isDefault", String.valueOf(moren));
+//        requestParams.addBodyParameter("isDefault", String.valueOf(moren));
         requestParams.addBodyParameter("detailed_address", detailedaddress);
 
         x.http().post(requestParams, new Callback.CommonCallback<String>() {

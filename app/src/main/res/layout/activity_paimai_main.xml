@@ -12,9 +12,9 @@
             android:id="@+id/tv_main_back"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:drawableLeft="@drawable/back"
+            android:drawableLeft="@drawable/last_white"
 
-            android:background="#135139"
+            android:background="#f00"
             android:textColor="#fff"
             android:textSize="18sp"
             />
@@ -26,7 +26,7 @@
             android:textSize="20sp"
             android:gravity="center"
             android:textColor="#f7d4d4"
-            android:background="#135139"
+            android:background="#f00"
             android:id="@+id/textView5" />
     </RelativeLayout>
 <!--<TextView-->
@@ -57,7 +57,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#4f965c">
+        android:background="#eff1f0">
 
         <TextView
             android:id="@+id/tv_paimai_hande1"
@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="8点场"
-            android:textColor="#fcd5d5"
+            android:textColor="#7b7b7b"
             android:textSize="14sp" />
 
         <TextView
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="12点场"
-            android:textColor="#fcd5d5"
+            android:textColor="#7b7b7b"
             android:textSize="14sp" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="16点场"
-            android:textColor="#fcd5d5"
+            android:textColor="#7b7b7b"
             android:textSize="14sp" />
 
         <TextView
@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="20点场"
-            android:textColor="#fcd5d5"
+            android:textColor="#7b7b7b"
             android:textSize="14sp" />
 
 

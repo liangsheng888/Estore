@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   	    android:id="@+id/id_prod_list_title"
   	    android:layout_width="match_parent"
-  	    android:layout_height="48dp"
+  	    android:layout_height="40dp"
   	    android:orientation="horizontal"
   	    android:weightSum="5"
-	   android:background="#302c2c">
+	   android:background="#636262">
   	    <ImageView 
   	        android:id="@+id/iv_project_detail_back"
   	        android:layout_weight="1"
   	        android:layout_width="0dp"
-  	        android:layout_height="30dp"
+  	        android:layout_height="22dp"
   	        android:layout_gravity="center"
   	        android:clickable="true"
+			android:layout_marginLeft="-20dp"
   	        android:src="@drawable/last_white"
   	        />
   	    <TextView 
@@ -23,7 +24,7 @@
   	       	android:layout_weight="3"
   	        android:text="商品详情"
   	        android:textColor="#fff"
-  	        android:textSize="20sp"
+  	        android:textSize="20dp"
   	        android:textStyle="bold"/>
   	    <RelativeLayout 
   	        android:id="@+id/title_bar_rl_cartview"

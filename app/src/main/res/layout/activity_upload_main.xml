@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:text="上传拍卖信息"
                 android:textColor="#fff"
-                android:textSize="20sp" />
+                android:textSize="20dp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入标题"
+                android:textSize="18dp"
                 android:textColor="#000" />
         </LinearLayout>
 
@@ -68,7 +69,7 @@
                 android:onClick="simpleDialog"
                 android:text="上传图片"
                 android:textColor="#a1000000"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
 
             <!--<ImageView-->
             <!--android:id="@+id/iv_auct_modle_phote1"-->
@@ -90,7 +91,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c1d6c176"
+            android:background="#ffffff"
             android:padding="10dp">
 
             <TextView
@@ -102,7 +103,7 @@
                 android:drawableLeft="@drawable/ic_gps_gray"
                 android:text="地址"
                 android:textColor="#7e7e7e"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
 
             <Spinner
                 android:id="@+id/sp_city"
@@ -118,11 +119,15 @@
 
             </Spinner>
         </LinearLayout>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#efeeee"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f6ffff"
+            android:background="#ffffff"
             android:padding="10dp">
 
             <!--<TextView-->
@@ -148,7 +153,11 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dcdcdc"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -170,12 +179,16 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/sp_city"
                 android:layout_toRightOf="@+id/tv_auct_price"
-                android:background="#f5e9e9"
+                android:background="#ffffff"
                 android:hint="请输入底价："
                 android:textColor="@color/black"
                 android:textColorHighlight="#000" />
         </LinearLayout>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#efeeee"
+            />
         <!--<LinearLayout-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="match_parent"-->
@@ -240,7 +253,11 @@
                 android:layout_alignParentBottom="true" />
 
         </RelativeLayout>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dcdcdc"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -254,7 +271,7 @@
                 android:layout_below="@+id/tv_auct_meicijiajia"
                 android:text="类型"
                 android:textColor="#a7000000"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
 
 
             <TextView
@@ -268,10 +285,14 @@
                 android:onClick="typeOnclick"
                 android:text="点击选择"
                 android:textColor="#b0000000"
-                android:textSize="20sp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dcdcdc"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -292,7 +313,7 @@
                 android:layout_height="wrap_content"
                 android:text="上传的拍次"
                 android:textColor="#a0000000"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_auct_time2"
@@ -312,11 +333,12 @@
         <Button
             android:id="@+id/btn_auct_quedingshangchuan"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="#f00"
             android:onClick="uploadauct"
             android:textColor="#fff"
+            android:textSize="20dp"
             android:text="确定上传" />
     </LinearLayout>
 </ScrollView>

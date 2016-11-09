@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="标题"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="50dp"
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="标题"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="450dp"
 
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="二货不二"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="50dp"
         android:layout_below="@id/tv_title1"

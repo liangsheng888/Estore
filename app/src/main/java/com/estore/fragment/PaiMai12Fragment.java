@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -75,12 +76,24 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
         tv_paimai_hande_search3 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search3));
         tv_paimai_hande_search4 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search4));
         tv_paimai_hande_search5 = ((TextView) view.findViewById(R.id.tv_paimai_hande_search5));
+        tv_paimai_hande_search1.setBackgroundColor(Color.WHITE);
+        tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+        tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
+
         tv_paimai_hande_search1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("获取全部");
                 searchFlag = "0";
                 page = 1;
+                tv_paimai_hande_search1.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
+
                 auctList.clear();
                 getAuctList();
             }
@@ -91,6 +104,12 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
                 searchFlag = "1";
                 auctList.clear();
                 page = 1;
+                tv_paimai_hande_search2.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
+
                 getAuctList();
             }
         });
@@ -100,6 +119,12 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
                 searchFlag = "2";
                 auctList.clear();
                 page = 1;
+                tv_paimai_hande_search3.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
+
                 getAuctList();
             }
         });
@@ -109,6 +134,12 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
                 searchFlag = "3";
                 auctList.clear();
                 page = 1;
+                tv_paimai_hande_search4.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search5.setBackgroundColor(Color.parseColor("#edecec"));
+
                 getAuctList();
             }
         });
@@ -118,6 +149,12 @@ public class PaiMai12Fragment extends Fragment implements LoadListViewPaiMAI.ILo
                 searchFlag = "4";
                 auctList.clear();
                 page = 1;
+                tv_paimai_hande_search5.setBackgroundColor(Color.WHITE);
+                tv_paimai_hande_search2.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search3.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search4.setBackgroundColor(Color.parseColor("#edecec"));
+                tv_paimai_hande_search1.setBackgroundColor(Color.parseColor("#edecec"));
+
                 getAuctList();
             }
         });
