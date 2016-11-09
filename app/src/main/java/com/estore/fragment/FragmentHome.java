@@ -125,7 +125,7 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
         slide_top_to_bottom=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_top_to_bottom);
         slide_bottom_to_top=AnimationUtils.loadAnimation(getActivity(), R.anim.slide_bottom_to_top);
         lv_jingpin.setInterface(this);
-        //lv_jingpin.setAdapter(adapter);
+        lv_jingpin.setAdapter(adapter);
         lv_jingpin.setSelection(0);
 
         //gridViewWithHeaderAndFooter = (GridViewWithHeaderAndFooter) view.findViewById(R.id.gridViewWithHeaderAndFooter);
@@ -157,9 +157,6 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
             @Override
             public void onSuccess(String result) {
-
-                progressBar.setVisibility(View.GONE);
-                tv_jiazai.setVisibility(View.GONE);
                 jiazai.setVisibility(View.GONE);
                // ll_seek.setVisibility(View.VISIBLE);
                 edt_seek.setCursorVisible(false);//
