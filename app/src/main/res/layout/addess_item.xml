@@ -100,16 +100,16 @@
                 android:text="编辑"
                 android:textColor="#000" />
 
-            <CheckBox
-                android:id="@+id/cb_address_moren"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:focusable="false"
-                android:text="默认地址"
-                android:textColor="#000"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/cb_address_moren"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@null"-->
+                <!--android:focusable="false"-->
+                <!--android:text="默认地址"-->
+                <!--android:textColor="#000"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentStart="true" />-->
         </RelativeLayout>
         <TextView
             android:layout_width="match_parent"

@@ -414,10 +414,10 @@ public class FragmentCar extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.e("ShopingCartFragment", "oncheckedchanged" + position + "getTag:" + cb_check.getTag());
-                    if (isChecked && position == (int) cb_check.getTag() && !check_all.isChecked()) {
+                    if (isChecked && position == (int) cb_check.getTag() ) {
                         numberSeclected++;
                         Log.e("ShopingCartFragment", "checked");
-                        checkstus.put((Integer) buttonView.getTag(), true);
+                        checkstus.put((Integer) cb_check.getTag(), true);
                         Double eachPrice = finalCart1.getProduct().estoreprice * number;
 
                         totalPrice += eachPrice;

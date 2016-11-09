@@ -157,9 +157,6 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
 
             @Override
             public void onSuccess(String result) {
-
-                progressBar.setVisibility(View.GONE);
-                tv_jiazai.setVisibility(View.GONE);
                 jiazai.setVisibility(View.GONE);
                // ll_seek.setVisibility(View.VISIBLE);
                 edt_seek.setCursorVisible(false);//

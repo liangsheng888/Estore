@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +38,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
     Integer ADDRESSINFO = 1;
     int addressSign = 0;//传输adress标记，1：竞价界面 2：购买页面 3：个人中心
     public final static int SIGNOK = 3; //传值回调标志位
-    private CheckBox cb_address_moren;
+//    private CheckBox cb_address_moren;
     private Button btn_address_delete;
     private Button btn_address_edt;
     Address address;
@@ -56,12 +55,12 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         addressSign = intent.getIntExtra("addressSign", addressSign);
     }
-    public void onBackPressed() {
-//        Log.d(TAG, "onBackPressed()");
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), PaiMaiMain_bidding.class);
-        startActivity(intent);
-    }
+//    public void onBackPressed() {
+////        Log.d(TAG, "onBackPressed()");
+//        super.onBackPressed();
+//        Intent intent = new Intent(getApplicationContext(), PaiMaiMain_bidding.class);
+//        startActivity(intent);
+//    }
 
     private void initView() {
         btn_new_address = ((Button) findViewById(R.id.btn_new_address));
@@ -92,7 +91,7 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
                 TextView tv_tel = ((TextView) view1.findViewById(R.id.tv_tel));
                 TextView tv_bidding_addess = ((TextView) view1.findViewById(R.id.tv_bidding_addess));
                 //下面三个控件是item上得按钮
-                cb_address_moren = ((CheckBox) findViewById(R.id.cb_address_moren));//是否设置默认
+//                cb_address_moren = ((CheckBox) findViewById(R.id.cb_address_moren));//是否设置默认
                 btn_address_delete = ((Button)view1.findViewById(R.id.btn_address_delete));//删除
                 btn_address_edt = ((Button) view1.findViewById(R.id.btn_address_edt));//编辑
 

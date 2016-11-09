@@ -97,6 +97,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
     private int page = 1;
     private TextView prod_info_tv_prod_record;
     private TextView prod_info_tv_detail;
+     private TextView prod_info_tv_buynum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,10 +294,13 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
         edt = (TextView) findViewById(R.id.edt);
+        edt.setText("0");
         iv_project_detail_back = (ImageView) this.findViewById(R.id.iv_project_detail_back);
         vp_show_photo = (ViewPager) this.findViewById(R.id.vp_show_photo);
         //tv_product_detail=(TextView) this.findViewById(R.id.tv_product_detail);
         prod_info_tv_pnum = (TextView) findViewById(R.id.prod_info_tv_pnum);
+        prod_info_tv_buynum=(TextView)findViewById(R.id.prod_info_tv_buynum);
+       // prod_info_tv_buynum.setText("0");
         tv_project_detail_price = (TextView) this.findViewById(R.id.tv_project_detail_price);
         btn_touch_seller = (Button) this.findViewById(R.id.btn_touch_seller);
         tv_product_detail_city = (TextView) findViewById(R.id.tv_product_detail_city);
@@ -437,10 +441,12 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
             case R.id.subbt://商品数减一
                 if (Integer.parseInt(edt.getText().toString().trim()) > 1) {
                     edt.setText((Integer.parseInt(edt.getText().toString().trim()) - 1) + "");
-                } else {
-                    edt.setText("1");
                     btn_addcart.setEnabled(true);
                     btn_buy_now.setEnabled(true);
+                } else {
+                    edt.setText(0+"");
+                    btn_addcart.setEnabled(false);
+                    btn_buy_now.setEnabled(false);
                 }
                 break;
             case R.id.prod_info_tv_prod_comment://更多评价

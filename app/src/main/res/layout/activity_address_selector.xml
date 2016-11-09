@@ -54,11 +54,11 @@
         android:hint="请输入详细地址"
         android:layout_gravity="top"
         android:background="@drawable/slidetab_bg_press"/>
- <CheckBox
-     android:id="@+id/rb_address"
-     android:layout_width="match_parent"
-     android:layout_height="40dp"
-     android:text="是否设置为默认地址"/>
+ <!--<CheckBox-->
+     <!--android:id="@+id/rb_address"-->
+     <!--android:layout_width="match_parent"-->
+     <!--android:layout_height="40dp"-->
+     <!--android:text="是否设置为默认地址"/>-->
 <Button
     android:id="@+id/btn_address_ok"
     android:layout_width="match_parent"
