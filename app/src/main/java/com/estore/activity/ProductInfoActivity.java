@@ -294,7 +294,7 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
         edt = (TextView) findViewById(R.id.edt);
-        edt.setText("0");
+        edt.setText("1");
         iv_project_detail_back = (ImageView) this.findViewById(R.id.iv_project_detail_back);
         vp_show_photo = (ViewPager) this.findViewById(R.id.vp_show_photo);
         //tv_product_detail=(TextView) this.findViewById(R.id.tv_product_detail);

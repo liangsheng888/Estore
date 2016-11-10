@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView lv;
     private ImageButton rb_fabu;
     private TilesFrameLayout mTilesFrameLayout;
+    private Boolean flag=true;
+
+    public Boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
+    }
 
     public LinkedList<Product.Products> getList() {
         return list;
@@ -239,9 +248,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ShowLoginDialogUtils.showDialogLogin(this);
             return;
         }
-
-
-
 //        PopupWindow pop=new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT,true);
 //        pop.setTouchable(true);//设置可点击
 //        pop.setTouchInterceptor(new View.OnTouchListener() {
@@ -325,7 +331,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int direct= intentMine.getIntExtra("direct",0);
         if(direct==1){
             Log.i("MainActivity","direct"+direct);
-
             changeFragment(0);
             buttons[0].setImageResource(drawable[0]);
             //((Button) findViewById(R.id.rb_home)).setChecked(true);
@@ -343,14 +348,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.i("MainActivity","direct"+direct);
 
             changeFragment(1);
+            setFlag(false);//city
             buttons[1].setImageResource(drawable[1]);
            // ((Button) findViewById(R.id.rb_old)).setChecked(true);
             return;
 
         }else if(direct==4){
             Log.i("MainActivity","direct"+direct);
-
+            setFlag(true);//school
             changeFragment(1);
+
             buttons[1].setImageResource(drawable[1]);
 
            // ((Button) findViewById(R.id.rb_old)).setChecked(true);
@@ -373,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.rb_home:
                 newIndex=0;
-                changeFragment( newIndex);
+                changeFragment(newIndex);
                 break;
             case R.id.rb_fabu:
                 showAdd();
@@ -386,18 +393,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 GetUserIdByNet.getUserIdByNet(MainActivity.this);
-
                 newIndex=2;
                 changeFragment( newIndex);
-
                 break;
             case R.id.rb_old:
                 page=1;
                 newIndex=1;
                 orderFlag=0;
                 changeFragment( newIndex);
-
-
                 break;
             case R.id.rb_mine:
                 newIndex=3;

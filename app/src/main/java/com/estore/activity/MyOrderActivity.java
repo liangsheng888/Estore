@@ -71,7 +71,7 @@ public class MyOrderActivity extends AppCompatActivity {
 
         //初始时，按钮1选中
         buttons[0].setSelected(true);
-        buttons[0].setBackgroundColor(Color.RED);
+        buttons[newIndex].setBackgroundColor(Color.rgb(239,239,239));
 
         //返回我的订单
         iv_orderreturn = ((ImageView) findViewById(R.id.iv_orderreturn));

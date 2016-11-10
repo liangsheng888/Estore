@@ -188,6 +188,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
                             //详情的listview显示商品详情
 
                             //订单购买数量
+                            orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量

@@ -48,6 +48,7 @@ public class WaitingDeliverFragment extends Fragment {
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
 
     CommonAdapter<Order> orderApater;//适配器
+    List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
  /*	 1 待付款
                                 2	已付款
                                 3	待发货
@@ -170,10 +171,12 @@ public class WaitingDeliverFragment extends Fragment {
                             //详情的listview显示商品详情
 
                             //订单购买数量
-                            List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
-                            orderDetails =order.getOrderDetails();
+                            orderDetails.clear();
+                            orderDetails.addAll(order.getOrderDetails());
+
 
                             int totalNum=0;//订单中商品的总数量
+
                             Log.i("WaitingDeliverFragment", "orderDetails"+orderDetails.toString());
                             for(OrderDetail orderDetail:orderDetails){
                                 totalNum+= orderDetail.getGoodsNum();//便利每个详情中商品的数量

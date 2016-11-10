@@ -176,7 +176,7 @@ public class AllOrdersFragment extends Fragment{
                             //详情的listview显示商品详情
 
                             //订单购买数量
-
+                            orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
@@ -232,11 +232,11 @@ public class AllOrdersFragment extends Fragment{
 
                                     break;
 
-                                default:
+                                case UNREMARK:
                                     btnLeft.setVisibility(View.GONE);
                                     btnRight.setVisibility(View.VISIBLE);
                                     btnLeft.setText("");
-                                    btnRight.setText("删除订单");
+                                    btnRight.setText("评论");
                                     break;
                             }
 
@@ -522,5 +522,11 @@ public class AllOrdersFragment extends Fragment{
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        getData();
+        super.onStart();
     }
 }

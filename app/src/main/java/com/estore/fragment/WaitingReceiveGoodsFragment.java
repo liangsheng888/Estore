@@ -62,6 +62,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
     public static final int CANCEL=7;//取消订单
     private ListView lv_unReceive;
     private LinearLayout ll_jiazai_receiver;
+    List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
 
 
     @Override
@@ -162,8 +163,9 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                             //详情的listview显示商品详情
 
                             //订单购买数量
-                            List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
-                            orderDetails =order.getOrderDetails();
+
+                            orderDetails.clear();
+                            orderDetails.addAll(order.getOrderDetails()) ;
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("WaitingDeliverFragment", "orderDetails"+orderDetails.toString());

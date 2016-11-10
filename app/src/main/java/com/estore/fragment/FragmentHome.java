@@ -349,7 +349,6 @@ public class FragmentHome extends Fragment implements LoadListView.ILoadListener
                 //跳转到同城
                 Intent intent= new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("direct",SAME_CITY);
-
                 startActivity(intent);
 
                 break;

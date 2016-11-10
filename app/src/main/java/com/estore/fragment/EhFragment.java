@@ -1,6 +1,7 @@
 package com.estore.fragment;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.estore.R;
+import com.estore.activity.MainActivity;
 import com.estore.httputils.MyFragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class EhFragment extends Fragment{
     GridView gridView;
 
     private int curFragmentIndex = 0;
+    Boolean  flag=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,8 +57,7 @@ public class EhFragment extends Fragment{
         InitTextView(view);
         InitViewPager(view);
         TranslateAnimation animation = new TranslateAnimation(position_one, offset, 0, 0);
-        tvSchools.setTextColor(resources.getColor(R.color.white));
-        tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
+
         animation.setFillAfter(true);
         animation.setDuration(300);
         ivBottomLine.startAnimation(animation);
@@ -87,7 +89,20 @@ public class EhFragment extends Fragment{
 
         mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), fragmentsList));
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
-        mPager.setCurrentItem(0);
+        flag= ((MainActivity)getActivity()).getFlag();
+        if(flag){
+            //true
+            Log.e("flag",flag+"");
+            mPager.setCurrentItem(1);
+            tvSchools.setTextColor(Color.WHITE);
+            tvSameCity.setTextColor(Color.RED);
+        }else {
+            Log.e("flag",flag+"");
+            mPager.setCurrentItem(0);
+            tvSchools.setTextColor(resources.getColor(R.color.white));
+            tvSameCity.setTextColor(resources.getColor(R.color.lightwhite));
+        }
+
 
     }
 
@@ -123,6 +138,8 @@ public class EhFragment extends Fragment{
         public void onPageSelected(int arg0) {
 
             curFragmentIndex=arg0;
+
+
             Animation animation = null;
             switch (arg0) {
                 case 0:
