@@ -13,9 +13,9 @@
         android:gravity="center"
         android:textColor="#ffffff"
         android:text="收货地址"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:lineSpacingMultiplier="1.8"
-        android:background="#a9fa0000"/>
+        android:background="#f00"/>
 <ListView
     android:id="@+id/lv_address"
     android:layout_below="@+id/tv_bid_hand"

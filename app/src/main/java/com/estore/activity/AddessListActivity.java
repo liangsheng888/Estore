@@ -55,12 +55,12 @@ public class AddessListActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         addressSign = intent.getIntExtra("addressSign", addressSign);
     }
-    public void onBackPressed() {
-//        Log.d(TAG, "onBackPressed()");
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), PaiMaiMain_bidding.class);
-        startActivity(intent);
-    }
+//    public void onBackPressed() {
+////        Log.d(TAG, "onBackPressed()");
+//        super.onBackPressed();
+//        Intent intent = new Intent(getApplicationContext(), PaiMaiMain_bidding.class);
+//        startActivity(intent);
+//    }
 
     private void initView() {
         btn_new_address = ((Button) findViewById(R.id.btn_new_address));

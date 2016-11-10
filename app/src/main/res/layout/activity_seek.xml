@@ -23,8 +23,9 @@
             />
         <ImageView
             android:id="@+id/iv_seek_last"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/last_white"
             android:layout_centerVertical="true"
             />

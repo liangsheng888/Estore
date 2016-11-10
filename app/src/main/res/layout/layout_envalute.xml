@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:hint="亲，请输入你对本次交易的评价"
             android:background="@null"
-            android:textColor="#000"
+            android:textColor="#817f7f"
+            android:textSize="16dp"
             android:gravity="top"
             android:layout_height="100dp" />
        <!-- <TextView
@@ -222,6 +223,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="发表评价"
+        android:textColor="#fff"
         android:layout_margin="10dp"
         android:id="@+id/tv_fabiao"/>
 

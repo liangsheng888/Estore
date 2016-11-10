@@ -5,12 +5,12 @@
   	    android:layout_height="40dp"
   	    android:orientation="horizontal"
   	    android:weightSum="5"
-	   android:background="#636262">
+	   android:background="#f00">
   	    <ImageView 
   	        android:id="@+id/iv_project_detail_back"
   	        android:layout_weight="1"
   	        android:layout_width="0dp"
-  	        android:layout_height="22dp"
+  	        android:layout_height="wrap_content"
   	        android:layout_gravity="center"
   	        android:clickable="true"
 			android:layout_marginLeft="-20dp"
@@ -51,7 +51,7 @@
 	        android:gravity="center"
 	        android:text="0"
 	        android:textSize="12sp"
-	        android:textColor="#ffffff" />
+	        android:textColor="#484747" />
   	    </RelativeLayout>
   	    
   	  

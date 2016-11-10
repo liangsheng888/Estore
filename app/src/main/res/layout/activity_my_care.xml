@@ -15,7 +15,8 @@
         <ImageView
             android:id="@+id/iv_carereturn"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/last_white"
           android:layout_centerVertical="true"
 
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的收藏"
-            android:textSize="26dp"
+            android:textSize="20dp"
             android:textColor="#fff"
             android:layout_centerInParent="true"
 

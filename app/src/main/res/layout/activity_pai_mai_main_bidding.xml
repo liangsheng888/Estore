@@ -6,27 +6,27 @@
 
     tools:context="com.estore.activity.PaiMaiMain_bidding">
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f00"
+        >
         <TextView
             android:id="@+id/tv_info_back"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:drawableLeft="@drawable/back"
-
-            android:background="#ff000d"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/last_white"
+             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:textColor="#fff"
             android:textSize="18sp"
             />
         <TextView
-            android:layout_toRightOf="@id/tv_info_back"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="拍品信息"
-            android:textSize="20sp"
-            android:gravity="center"
+            android:textSize="20dp"
             android:textColor="#f7d4d4"
-            android:background="#ff000d"
+            android:layout_centerInParent="true"
             android:id="@+id/textView5" />
     </RelativeLayout>
     <ScrollView
@@ -89,12 +89,12 @@
                 <TextView
                     android:id="@+id/tv_bidding_addess"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:drawableRight="@drawable/ic_arrow_right2"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
                     android:text="选择收货地址"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:visibility="visible" />
 
             </RelativeLayout>
@@ -169,7 +169,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:text="竞拍需要同意竞拍协议"
-                    android:textSize="20sp" />
+                    android:textSize="18dp" />
             </RelativeLayout>
 
             <TextView
