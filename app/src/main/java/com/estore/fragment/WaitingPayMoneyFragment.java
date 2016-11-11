@@ -86,6 +86,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
     private EditText orderInfo;
     private RadioGroup payType;
     List<OrderDetail> orderDetails=new ArrayList<>();//订单详情
+    List<OrderDetail> orderInfos=new ArrayList<OrderDetail>();
     private LinearLayout ll_jiazai_pay;
 
     @Override
@@ -190,6 +191,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
                             //订单购买数量
                             orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
+                            orderInfos.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("WaitingPayMoneyFragment", "orderDetails"+orderDetails.toString());
@@ -282,8 +284,8 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
                                             Log.i("WaitingPayMoneyFragment", "onClick: position "+position);
 
                                            // String proName=order.getOrderDetails().get(position).getProduct().name;
-                                            String proName=orderDetails.get(position).getProduct().name;
-                                            String description=orderDetails.get(position).getProduct().description;
+                                            String proName=orderInfos.get(position).getProduct().name;
+                                            String description=orderInfos.get(position).getProduct().description;
                                             Double price=order.getGoodsTotalPrice();
 
 
@@ -293,7 +295,7 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
 
                                             startActivity(intent);
 
-                                            subProduct(orderDetails.get(position).getProduct().id,orderDetails.get(position).getGoodsNum());
+                                            subProduct(orderInfos.get(position).getProduct().id,orderInfos.get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
                                            // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
 

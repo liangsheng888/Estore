@@ -57,6 +57,7 @@ public class AllOrdersFragment extends Fragment{
     private SharedPreferences sp;
     private User user=new User();
     List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
+    List<OrderDetail> orderInfo=new ArrayList<OrderDetail>();
 
     CommonAdapter<Order> orderApater;//适配器
  /*	 1 待付款
@@ -116,6 +117,7 @@ public class AllOrdersFragment extends Fragment{
                 List<Order> newOrders=gson.fromJson(result,type);
                 orders.clear();
                 orders.addAll(newOrders);
+
                 //设置listview的adapter
                 Log.i("OrderAllFragment", "orders++++"+orders.size());
                 if(orderApater==null){
@@ -178,6 +180,7 @@ public class AllOrdersFragment extends Fragment{
                             //订单购买数量
                             orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
+                            orderInfo.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("AllOrdersFragment", "orderDetails"+orderDetails.toString());
@@ -271,8 +274,8 @@ public class AllOrdersFragment extends Fragment{
                                             Log.i("WaitingPayMoneyFragment", "onClick: position "+position);
 
                                             // String proName=order.getOrderDetails().get(position).getProduct().name;
-                                            String proName=orderDetails.get(position).getProduct().name;
-                                            String description=orderDetails.get(position).getProduct().description;
+                                            String proName=orderInfo.get(position).getProduct().name;
+                                            String description=orderInfo.get(position).getProduct().description;
                                             Double price=order.getGoodsTotalPrice();
 
 
@@ -282,7 +285,7 @@ public class AllOrdersFragment extends Fragment{
 
                                             startActivity(intent);
 
-                                            subProduct(orderDetails.get(position).getProduct().id,orderDetails.get(position).getGoodsNum());
+                                            subProduct(orderInfo.get(position).getProduct().id,orderInfo.get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
                                             // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
 
@@ -325,16 +328,16 @@ public class AllOrdersFragment extends Fragment{
 
                                             break;
                                         case REMARK://删除订单
-                                            Log.e("********","订单详情"+orderDetails.toString()+"");
+                                            Log.e("********","订单详情"+orderInfo.toString()+"");
                                             Log.e("********","position"+ position+"");
-                                            Log.e("********",orderDetails.get(position).getProduct().toString());
+                                            Log.e("********",orderInfo.get(position).getProduct().toString());
                                             Log.i("WaitingDeliverFragment", "评论");
                                             Intent intent2 = new Intent(getActivity(), EnvaluteActivity.class);
                                             intent2.putExtra("orderId", order.getGoodsOrderId());
-                                            intent2.putExtra("productId", orderDetails.get(position).getProduct().id);
+                                            intent2.putExtra("productId", orderInfo.get(position).getProduct().id);
                                             intent2.putExtra("position",position);
 
-                                            intent2.putExtra("estore_id",orderDetails.get(position).getProduct().user_id);//商家Id
+                                            intent2.putExtra("estore_id",orderInfo.get(position).getProduct().user_id);//商家Id
                                             startActivity(intent2);
                                             break;
                                         case CANCEL://交易关闭

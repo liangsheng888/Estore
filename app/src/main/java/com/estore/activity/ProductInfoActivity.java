@@ -194,7 +194,9 @@ public class ProductInfoActivity extends AppCompatActivity implements View.OnCli
                     return;
                 }
                 GetUserIdByNet.getUserIdByNet(ProductInfoActivity.this);
-
+                if(carNumber>=pp.pnum){
+                    return;
+                }
                 carNumber += Integer.parseInt(edt.getText().toString().trim());
                 title_bar_reddot.setVisibility(View.VISIBLE);
                 title_bar_reddot.setText(carNumber + "");

@@ -46,6 +46,7 @@ import java.util.List;
  */
 public class WaitingDeliverFragment extends Fragment {
     List<Order> orders=new ArrayList<>();//从服务器获取的订单信息
+    List<OrderDetail> orderInfo=new ArrayList<OrderDetail>();
 
     CommonAdapter<Order> orderApater;//适配器
     List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
@@ -153,7 +154,6 @@ public class WaitingDeliverFragment extends Fragment {
                                         x.image().bind(proPhoto,HttpUrlUtils.HTTP_URL + imgurl[0]);
                                         order_item_info_buynum.setText(orderDetail.getGoodsNum()+"");
                                         order_item_info_price.setText(orderDetail.getGoodsPrice()+"");
-
                                         tvName.setText(orderDetail.getProduct().name);
                                     }
                                 };
@@ -173,6 +173,7 @@ public class WaitingDeliverFragment extends Fragment {
                             //订单购买数量
                             orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
+                            orderInfo.addAll(order.getOrderDetails());
 
 
                             int totalNum=0;//订单中商品的总数量

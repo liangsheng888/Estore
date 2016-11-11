@@ -6,6 +6,16 @@ import java.util.Map;
 
 public class InsertOrderBean {
 	Integer estoreId;
+	String estoreid;
+
+	public String getEstoreid() {
+		return estoreid;
+	}
+
+	public void setEstoreid(String estoreid) {
+		this.estoreid = estoreid;
+	}
+
 	Integer userId;//�û�id
 	Integer addressId;//��ַid
 	double totalPrice;//�ܼ۸�

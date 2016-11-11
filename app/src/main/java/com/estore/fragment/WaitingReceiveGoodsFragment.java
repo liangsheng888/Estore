@@ -63,6 +63,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
     private ListView lv_unReceive;
     private LinearLayout ll_jiazai_receiver;
     List<OrderDetail> orderDetails=new ArrayList<OrderDetail>();
+    List<OrderDetail> orderInfo=new ArrayList<OrderDetail>();
 
 
     @Override
@@ -166,6 +167,7 @@ public class WaitingReceiveGoodsFragment extends Fragment {
 
                             orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails()) ;
+                            orderInfo.addAll(order.getOrderDetails());
 
                             int totalNum=0;//订单中商品的总数量
                             Log.i("WaitingDeliverFragment", "orderDetails"+orderDetails.toString());
@@ -260,10 +262,10 @@ public class WaitingReceiveGoodsFragment extends Fragment {
                                             Log.i("WaitingDeliverFragment", "确认收货");
                                             //判断当前订单中的商品是自己发布的，还是买的，如过是自己得该按钮无法点击
 
-                                            if(order.getOrderDetails().get(position).getProduct().id==sp.getInt("userId",-1)){
+                                           /* if(order.getOrderDetails().get(position).getProduct().id==sp.getInt("userId",-1)){
 
                                                 return;
-                                            }
+                                            }*/
                                             changeState(order.getGoodsOrderId(),UNREMARK,"已收货",position);
                                             break;
                                         case UNSEND:

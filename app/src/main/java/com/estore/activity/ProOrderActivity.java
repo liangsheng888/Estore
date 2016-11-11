@@ -63,6 +63,8 @@ public class ProOrderActivity extends AppCompatActivity {
     private List<Product.Products> proLists = new ArrayList<>();
     private List<Integer> cartIdLists = new ArrayList<>();//
     private List<Integer> num = new ArrayList<>();
+    private List<Integer> estoreId = new ArrayList<>();
+
     private int number = 0;//订单商品数数量
     private Double totalprice = 0.0;
     private SharedPreferences sp;
@@ -94,6 +96,7 @@ public class ProOrderActivity extends AppCompatActivity {
             totalprice += pp.estoreprice * number;
             proLists.add(pp);
             num.add(number);
+            estoreId.add(pp.user_id);
 
         }
 
@@ -138,6 +141,11 @@ public class ProOrderActivity extends AppCompatActivity {
                 insertOrderBean.setAddressId(1);//默认地址
                 insertOrderBean.setDetails(mapOrderInfo);//所有的商品：添加的是key-value的
                 insertOrderBean.setTotalPrice(totalprice);
+                String estoreid=null;
+                for (int i=0;i<estoreId.size();i++){
+                    estoreid+=(estoreId.get(i)+"=");
+                }
+                insertOrderBean.setEstoreid(estoreid);
                 //对象转换成json数据
                 Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
                         .create();

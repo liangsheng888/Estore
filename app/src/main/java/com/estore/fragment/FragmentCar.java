@@ -61,7 +61,7 @@ public class FragmentCar extends Fragment {
     //    private ListView cartListView;
     private List<Cart> cartlist = new ArrayList<>();//
     private CartAapater cartAdapter;
-    private Double totalPrice=0.0;
+    private static Double totalPrice=0.0;
     private TextView cart_buy_money;//
     private TextView cart_jiesuan;
     private Button btn_jia;
@@ -117,7 +117,7 @@ public class FragmentCar extends Fragment {
                         totalPrice += eachPrice;
                         Log.e("FragmentCar", "check all totalPrice:" + totalPrice);
                         //改变合计tv的值
-                        cart_buy_money.setText("￥" + totalPrice);//有bug
+                        cart_buy_money.setText(totalPrice+"");//有bug
                     }
                 }
                 else {
@@ -132,7 +132,7 @@ public class FragmentCar extends Fragment {
                     cartAdapter.setNumberSeclected(0);
 
                     cartAdapter.notifyDataSetChanged();
-                    cart_buy_money.setText("￥" + "0");
+                    cart_buy_money.setText( "0");
                     cartListView.setAdapter(cartAdapter);
 
                     Log.e("FragmentCar", "选中数" + cartAdapter.getNumberSeclected() + "");
@@ -167,7 +167,7 @@ public class FragmentCar extends Fragment {
                         totalPrice += eachPrice;
                         Log.e("FragmentCar", "check all totalPrice:" + totalPrice);
                         //改变合计tv的值
-                        cart_buy_money.setText("￥" + totalPrice);//有bug
+                        cart_buy_money.setText( totalPrice+"");//有bug
                     }
                 }
                 /*else {
@@ -480,7 +480,7 @@ public class FragmentCar extends Fragment {
 
                         totalPrice += eachPrice;
                         Log.e("ShopingCartFragment", "totalPrice"+totalPrice);
-                        cart_buy_money.setText( "￥"+totalPrice);
+                        cart_buy_money.setText( totalPrice+"");
                         Log.e("ShopingCartFragment", "选中个数:" + cartAdapter.getNumberSeclected()+"cartlist.size()++"+cartlist.size());
                         if (numberSeclected == cartlist.size()) {//判端当前选中个数书否是总个数，是让全选按钮选中
                             check_all.setChecked(true);
@@ -490,11 +490,16 @@ public class FragmentCar extends Fragment {
                         numberSeclected--;
                         checkstus.put((Integer) cb_check.getTag(), false);
                         Double eachPrice = cartlist.get((Integer) cb_check.getTag()).getProduct().estoreprice * number;
-
-                         totalPrice -= eachPrice;
+                        Log.e("ShopingCartFragment", "eachPrice"+eachPrice);
+                        totalPrice=Double.parseDouble(cart_buy_money.getText().toString());
+                        Log.e("ShopingCartFragment", "totalPrice"+totalPrice);
+                        totalPrice -= eachPrice;
+                        if(totalPrice<0){
+                            totalPrice=0.0;
+                        }
                         Log.e("ShopingCartFragment", "number"+number);
                         Log.e("ShopingCartFragment", "totalPrice2"+totalPrice);
-                        cart_buy_money.setText("￥" + totalPrice);
+                        cart_buy_money.setText(totalPrice+"");
                         if (check_all.isChecked()) {
                             check_all.setChecked(false);
                         }

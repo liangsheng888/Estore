@@ -62,6 +62,7 @@ import me.iwf.photopicker.widget.MultiPickResultView;
 public class WaitingEvaluateFragment extends Fragment {
     List<Order> orders = new ArrayList<>();//从服务器获取的订单信息
     private List<File> imageFileLists = new ArrayList<File>();
+    List<OrderDetail> orderInfo=new ArrayList<OrderDetail>();
     private EditText et_pinglun;//评价内容
     private CheckBox cb_xing1;
     private CheckBox cb_xing2;
@@ -203,6 +204,7 @@ public class WaitingEvaluateFragment extends Fragment {
                             //订单购买数量
                             orderDetails.clear();
                             orderDetails.addAll(order.getOrderDetails());
+                            orderInfo.addAll(order.getOrderDetails());
 
                             int totalNum = 0;//订单中商品的总数量
                             Log.i("WaitingDeliverFragment", "orderDetails" + orderDetails.toString());
@@ -301,14 +303,14 @@ public class WaitingEvaluateFragment extends Fragment {
 
                                             Log.e("********","订单详情"+orderDetails.toString()+"");
                                             Log.e("********","position"+ position+"");
-                                            Log.e("********",orderDetails.get(position).getProduct().toString());
+                                            Log.e("********",orderInfo.get(position).getProduct().toString());
                                             Log.i("WaitingDeliverFragment", "评论");
                                             Intent intent = new Intent(getActivity(), EnvaluteActivity.class);
                                             intent.putExtra("orderId", order.getGoodsOrderId());
-                                            intent.putExtra("productId", orderDetails.get(position).getProduct().id);
+                                            intent.putExtra("productId", orderInfo.get(position).getProduct().id);
                                             intent.putExtra("position",position);
 
-                                            intent.putExtra("estore_id",orderDetails.get(position).getProduct().user_id);//商家Id
+                                            intent.putExtra("estore_id",orderInfo.get(position).getProduct().user_id);//商家Id
                                             startActivity(intent);
                                             //评论，
 
