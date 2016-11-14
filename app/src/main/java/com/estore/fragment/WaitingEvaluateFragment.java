@@ -312,63 +312,6 @@ public class WaitingEvaluateFragment extends Fragment {
 
                                             intent.putExtra("estore_id",orderInfo.get(position).getProduct().user_id);//商家Id
                                             startActivity(intent);
-                                            //评论，
-
-
-                                           /* AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                            final Dialog dialog = builder.create();
-                                            View view = View.inflate(getActivity(), R.layout.layout_envalute, null);
-                                            dialog.show();
-                                            dialog.getWindow().setContentView(view);
-                                            et_pinglun = (EditText) view.findViewById(R.id.et_evlaute);
-                                            ev_recycler_view = (MultiPickResultView) view.findViewById(R.id.ev_recycler_view);
-                                            ev_recycler_view.init(getActivity(), MultiPickResultView.ACTION_SELECT, null);
-                                            // TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
-                                            TextView fabiao = (TextView) view.findViewById(R.id.tv_fabiao);
-                                            cb_xing1 = ((CheckBox) view.findViewById(R.id.xing_gray));
-                                            cb_xing2 = ((CheckBox) view.findViewById(R.id.xing_gray2));
-                                            cb_xing3 = ((CheckBox) view.findViewById(R.id.xing_gray3));
-                                            cb_xing4 = ((CheckBox) view.findViewById(R.id.xing_gray4));
-                                            cb_xing5 = ((CheckBox) view.findViewById(R.id.xing_gray5));
-                                            cb_xing6 = ((CheckBox) view.findViewById(R.id.xing_gray6));
-                                            cb_xing7 = ((CheckBox) view.findViewById(R.id.xing_gray7));
-                                            cb_xing8 = ((CheckBox) view.findViewById(R.id.xing_gray8));
-                                            fabiao.setOnClickListener(new View.OnClickListener() {
-
-                                                @Override
-                                                public void onClick(View v) {
-                                                    if (cb_xing1.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing2.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing3.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing4.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing5.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing6.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing7.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-                                                    if (cb_xing8.isChecked()) {
-                                                        evt_honest++;
-                                                    }
-
-                                                    //上传评论
-                                                    uploadEnvalue(order.getGoodsOrderId(), order.getOrderDetails().get(position).getProduct().id, dialog);
-*//*
-                                                }
-                                            });
-                                            //*/
-                                           // changeState(order.getGoodsOrderId(), REMARK, "已评论", position);
                                             break;
                                         case REMARK://删除订单
                                             Log.i("OrderAllFragment", "删除订单");

@@ -287,17 +287,19 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
                                             String proName=orderInfos.get(position).getProduct().name;
                                             String description=orderInfos.get(position).getProduct().description;
                                             Double price=order.getGoodsTotalPrice();
-
-
                                             intent.putExtra("proName",proName);
                                             intent.putExtra("description",description);
                                             intent.putExtra("price",price);
+                                            intent.putExtra("product_id",orderInfos.get(position).getProduct().id);
+                                            intent.putExtra("pronum",orderInfos.get(position).getGoodsNum());
+                                            intent.putExtra("orderId",order.getGoodsOrderId());
+                                            intent.putExtra("position",position);
 
                                             startActivity(intent);
 
-                                            subProduct(orderInfos.get(position).getProduct().id,orderInfos.get(position).getGoodsNum());
+                                            /*subProduct(orderInfos.get(position).getProduct().id,orderInfos.get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
-                                           // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
+                                           // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);*/
 
                                             break;
                                         case UNRECEIVE:
@@ -474,5 +476,10 @@ public class WaitingPayMoneyFragment extends Fragment implements  RadioGroup.OnC
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
+    }
+    @Override
+    public void onStart() {
+        getData();
+        super.onStart();
     }
 }

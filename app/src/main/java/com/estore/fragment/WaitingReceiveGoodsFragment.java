@@ -362,4 +362,9 @@ public class WaitingReceiveGoodsFragment extends Fragment {
         if(!hidden){
             getData();
         }}
+    @Override
+    public void onStart() {
+        getData();
+        super.onStart();
+    }
 }

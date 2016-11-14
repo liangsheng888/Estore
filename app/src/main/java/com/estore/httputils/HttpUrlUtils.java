@@ -5,5 +5,4 @@ package com.estore.httputils;
  */
 public class HttpUrlUtils {
     public  static  final  String HTTP_URL="http://10.40.5.21:8080/EStore/";
-
 }

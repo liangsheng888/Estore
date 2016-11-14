@@ -360,6 +360,10 @@ public class WaitingDeliverFragment extends Fragment {
             }
         });
     }
-
+    @Override
+    public void onStart() {
+        getData();
+        super.onStart();
+    }
 
 }

@@ -241,6 +241,18 @@ public class AllOrdersFragment extends Fragment{
                                     btnLeft.setText("");
                                     btnRight.setText("评论");
                                     break;
+                                case REMARK:
+                                    btnLeft.setVisibility(View.GONE);
+                                    btnRight.setVisibility(View.VISIBLE);
+                                    btnLeft.setText("");
+                                    btnRight.setText("删除订单");
+                                    break;
+                                case CANCEL:
+                                    btnLeft.setVisibility(View.GONE);
+                                    btnRight.setVisibility(View.VISIBLE);
+                                    btnLeft.setText("");
+                                    btnRight.setText("删除订单");
+                                    break;
                             }
 
                         }
@@ -282,12 +294,16 @@ public class AllOrdersFragment extends Fragment{
                                             intent.putExtra("proName",proName);
                                             intent.putExtra("description",description);
                                             intent.putExtra("price",price);
+                                            intent.putExtra("product_id",orderInfo.get(position).getProduct().id);
+                                            intent.putExtra("pronum",orderInfo.get(position).getGoodsNum());
+                                            intent.putExtra("orderId",order.getGoodsOrderId());
+                                            intent.putExtra("position",position);
 
                                             startActivity(intent);
 
-                                            subProduct(orderInfo.get(position).getProduct().id,orderInfo.get(position).getGoodsNum());
+                                            /*subProduct(orderInfo.get(position).getProduct().id,orderInfo.get(position).getGoodsNum());
                                             //更新订单状态，卖家显示已付款，卖家显示发货
-                                            // changeState(order.getGoodsOrderId(),UNREMARK,"待评价",position);
+                                             changeState(order.getGoodsOrderId(),UNRECEIVE,"待收货",position);*/
 
                                             break;
                                         case UNRECEIVE:
@@ -303,32 +319,7 @@ public class AllOrdersFragment extends Fragment{
                                         case UNREMARK:
                                             //评论，
                                             Log.i("OrderAllFragment", "评论");
-
-                                            AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                                            final Dialog dialog=builder.create();
-                                            View view=View.inflate(getActivity(),R.layout.layout_envalute,null);
-                                            dialog.show();
-                                            dialog.getWindow().setContentView(view);
-                                            builder.setTitle("评论");
-                                            EditText et_pinglun=(EditText)view.findViewById(R.id.et_evlaute);
-                                            //TextView tv_evt_photo=(TextView)view.findViewById(R.id.tv_evt_photo);
-                                            TextView fabiao=(TextView)view.findViewById(R.id.tv_fabiao);
-                                            fabiao.setOnClickListener(new View.OnClickListener() {
-
-                                                @Override
-                                                public void onClick(View v) {
-                                                    dialog.dismiss();
-                                                    //上传评论
-                                                    uploadEnvalue();
-                                                    return;
-                                                }
-                                            });
-                                            changeState(order.getGoodsOrderId(),REMARK,"已评论",position);
-                                            //
-
-                                            break;
-                                        case REMARK://删除订单
-                                            Log.e("********","订单详情"+orderInfo.toString()+"");
+                                            Log.e("********","订单详情"+orderDetails.toString()+"");
                                             Log.e("********","position"+ position+"");
                                             Log.e("********",orderInfo.get(position).getProduct().toString());
                                             Log.i("WaitingDeliverFragment", "评论");
@@ -339,6 +330,14 @@ public class AllOrdersFragment extends Fragment{
 
                                             intent2.putExtra("estore_id",orderInfo.get(position).getProduct().user_id);//商家Id
                                             startActivity(intent2);
+                                            //评论，
+                                            break;
+                                        case REMARK://删除订单
+                                            Log.i("OrderAllFragment", "删除订单");
+                                            orders.remove(position);
+
+                                            deleteOrder(order.getGoodsOrderId());
+                                            orderApater.notifyDataSetChanged();
                                             break;
                                         case CANCEL://交易关闭
                                             Log.i("OrderAllFragment", "删除订单");
@@ -423,45 +422,6 @@ public class AllOrdersFragment extends Fragment{
             @Override
             public void onSuccess(String result) {
 
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-
-            @Override
-            public boolean onCache(String result) {
-                return false;
-            }
-        });
-    }
-
-    private void uploadEnvalue() {
-        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"envaluteServlet");
-        //Log.i("WaitingDeliverFragment", "删除订单orderId: "+goodsOrderId);
-        /*rp.addBodyParameter("user_id",user_id);
-        rp.addBodyParameter("product_id",user_id);
-        rp.addBodyParameter("order_id",user_id);
-        rp.addBodyParameter("file",user_id);
-*/
-
-        x.http().post(rp, new Callback.CacheCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-
-                orderApater.notifyDataSetChanged();//更新界面
 
             }
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estore.R;
+import com.estore.httputils.HttpUrlUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +33,7 @@ import c.b.QListener;
  * Created by Administrator on 2016/11/3.
  */
 public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
+    private static final int UNRECEIVE =4 ;
     // 此为测试Appid,请将Appid改成你自己的Bmob AppId
     String APPID = "74f36a266148fe0cd8c772bc37b0c329";
     // 此为支付插件的官方最新版本号,请在更新时留意更新说明
@@ -42,6 +49,11 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
     String name_="";
     String description="";
     Double price_=0.01;
+    int product_id=0;
+    int pronum=0;
+    private int orderId=0;
+    int position=-1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +64,10 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
         String name_=   intent.getStringExtra("proName");
         String description_=  intent.getStringExtra("description");
         Double price_= intent.getDoubleExtra("price",0.0);
+        product_id=intent.getIntExtra("product_id",0);
+        pronum=intent.getIntExtra("pronum",0);
+        orderId=intent.getIntExtra("orderId",0);
+        position=intent.getIntExtra("position",-1);
 
 
         // 初始化BmobPay对象,可以在支付时再初始化
@@ -134,7 +150,10 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
             public void succeed() {
                 Toast.makeText(PayActivity.this, "支付成功!", Toast.LENGTH_SHORT).show();
                 tv.append(name + "'s pay status is success\n\n");
+                subProduct(product_id,pronum);
+                changeState(orderId,UNRECEIVE,"待收货",position);
                 hideDialog();
+                finish();
             }
 
             // 无论成功与否,返回订单号
@@ -182,6 +201,7 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
                         Toast.LENGTH_SHORT).show();
                 tv.append("pay status of" + orderId + " is " + status + "\n\n");
                 hideDialog();
+
             }
 
             @Override
@@ -280,5 +300,70 @@ public class PayActivity extends Activity implements RadioGroup.OnCheckedChangeL
             e.printStackTrace();
         }
     }
+    private void subProduct(int productId, int goodsNum) {
+        RequestParams rp=new RequestParams(HttpUrlUtils.HTTP_URL+"subProductServlet");
+        rp.addBodyParameter("productId",productId+"");
+        rp.addBodyParameter("goodsNum",goodsNum+"");
+        x.http().post(rp, new Callback.CacheCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("WaitingPayMoneyFragment", "更新商品数量成功 ");
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+            @Override
+            public boolean onCache(String result) {
+                return false;
+            }
+        });
+
+    }
+    //更新订单状态，更新界面
+    public void changeState(int orderId, final int newStateId, final String newStateName, final int position) {
+
+        RequestParams requestParams = new RequestParams(HttpUrlUtils.HTTP_URL + "orderUpdateServlet");
+        requestParams.addBodyParameter("orderId", orderId + "");
+        requestParams.addBodyParameter("newStateId", newStateId + "");
+
+
+        //更新订单，更新界面
+        x.http().post(requestParams, new Callback.CommonCallback<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                Log.i("WaitingDeliverFragment", "更新界面onSuccess: " + result);
+                //更新界面
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Log.i("WaitingDeliverFragment", "更新界面fail: ");
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }
