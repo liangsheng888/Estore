@@ -10,10 +10,20 @@ public class Order implements Serializable {
 	private Integer goodsOrderId;
 	private Integer userId;
 	private Address address;
+	private String estoreid;
+
+	public String getEstoreid() {
+		return estoreid;
+	}
+
+	public void setEstoreid(String estoreid) {
+		this.estoreid = estoreid;
+	}
 
 	@Override
 	public String toString() {
 		return "Order{" +
+
 				"goodsOrderId=" + goodsOrderId +
 				", userId=" + userId +
 				", address=" + address +

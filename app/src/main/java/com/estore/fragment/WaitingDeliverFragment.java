@@ -95,7 +95,7 @@ public class WaitingDeliverFragment extends Fragment {
         Log.i("WaitingDeliverFragment", "getOrderData: ");
       //  String userId= GetUserIdByNet.getUserIdByNet(getActivity())+"";
         //
-        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryServlet?userId="+user.getUserId()+"&orderStatusId=3");
+        RequestParams requestParams=new RequestParams(HttpUrlUtils.HTTP_URL+"orderQueryDeliverServlet?userId="+user.getUserId()+"&orderStatusId=3");
         //传参数：user_id,order_id
      /*   requestParams.addQueryStringParameter("userId",((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
         Log.i("OrderAllFragment", "userId: "+((MyApplication)getActivity().getApplication()).getUser().getUserId()+"");
