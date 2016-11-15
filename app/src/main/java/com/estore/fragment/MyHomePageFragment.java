@@ -64,6 +64,7 @@ public class MyHomePageFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_myhomepage,null);
         sp=getActivity().getSharedPreferences("User",getActivity().MODE_APPEND);
+        username=(sp.getString("username",null));
 
 
 
